@@ -4,11 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ApproveController {
+public class ApprovController {
 
-	@RequestMapping("/approve/approveWrite.do")
+	@RequestMapping("/approval/approvalWrite.do")
 	public String approveMain() {
-		return "approve/approveWrite";
+		return "approval/approvalWrite";
 	}
 	
 	@RequestMapping("/error.do")
