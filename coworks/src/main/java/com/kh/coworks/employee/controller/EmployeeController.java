@@ -15,5 +15,10 @@ public class EmployeeController {
 	public String editMypageView() {
 		return "mypage/editMypage";
 	}
+	
+	@RequestMapping("mypage/updateEmpInfo.do")
+	public String updateEmployee() {
+		return "redirect:/mypage/mypage.do";
+	}
 
 }
