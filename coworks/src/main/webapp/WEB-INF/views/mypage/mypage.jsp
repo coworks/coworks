@@ -17,7 +17,6 @@
 			<div class="container-fluid">
 				<div class="card">
 					<div class="card-body">
-						<form class="form-horizontal" role="form">
 							<div class="form-body mb-5">
 								<h3 class="box-title">회원정보</h3>
 								<hr class="mt-0 mb-5">
@@ -94,15 +93,14 @@
 									<div class="col-md-6">
 										<div class="row">
 											<div class="col-md-offset-3 col-md-9 " align="right">
-												<button type="submit" class="btn btn-info ">
-													<i class="fa fa-pencil"></i> 수정하기
-												</button>
+												<a class="btn btn-info " href="editMypage.do">
+													<i class="fa fa-pencil"></i>수정하기
+												</a>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</form>
 					</div>
 				</div>
 			</div>

@@ -11,7 +11,7 @@ public class EmployeeController {
 		return "mypage/mypage";
 	}
 	
-	@RequestMapping("myPage/editMypage.do")
+	@RequestMapping("mypage/editMypage.do")
 	public String editMypageView() {
 		return "mypage/editMypage";
 	}
