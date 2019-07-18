@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : Insert title here</title>
+<title>CO-WORKS : 회원정보 수정</title>
 <c:import url="../common/header.jsp" />
 </head>
 <body class="fix-header fix-sidebar card-no-border">

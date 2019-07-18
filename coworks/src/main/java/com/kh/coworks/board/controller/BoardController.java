@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BoardController {
-	// 자료실 - 사규***
+	// 자료실 - 사규11
 	@RequestMapping("/board/companyrulesdata.do")
 	public String companyrules() {
 		return "board/companyrules";
