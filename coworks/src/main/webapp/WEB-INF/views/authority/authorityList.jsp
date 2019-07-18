@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../common/header.jsp" />
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -456,6 +458,6 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/templates/js/jsgrid-init.js"></script>
+		src="${pageContext.request.contextPath}/resources/templates/resources/js/jsgrid-init.js"></script>
 </body>
 </html>
