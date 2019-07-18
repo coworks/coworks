@@ -66,7 +66,9 @@
 				<li><a href="#" aria-expanded="false"><i
 						class="mdi mdi-account-key"></i><span class="hide-menu">권한
 							관리</span></a></li>
-
+				<li><a href="${pageContext.request.contextPath}/mypage/attendanceview.do" aria-expanded="false"><i
+						class="mdi mdi-calendar-clock"></i><span class="hide-menu">근태 관리</span></a>
+				</li>
 			</ul>
 		</nav>
 		<!-- End Sidebar navigation -->
