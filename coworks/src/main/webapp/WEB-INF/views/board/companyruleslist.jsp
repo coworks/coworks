@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>COWORKS : 자료실</title>
 <c:import url="../common/header.jsp" />
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">

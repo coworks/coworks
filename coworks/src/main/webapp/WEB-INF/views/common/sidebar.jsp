@@ -32,18 +32,18 @@
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-package-variant-closed"></i><span class="hide-menu">자료실</span></a>
 					<ul aria-expanded="false" class="collapse">
+						<li><a href="${pageContext.request.contextPath}/board/companyrulesdatalist.do">사규</a></li>
 						<li><a href="#" class="has-arrow">통합자료실</a>
 							<ul aria-expanded="false" class="collapse">
-								<li><a href="#">자료실1</a></li>
-								<li><a href="#">자료실2</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/businessdocdatalist.do">업무문서</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/empedudocdatalist.do">교육문서</a></li>
 							</ul>
-						<li><a href="#">부서별 자료실</a></li>
+						<li><a href="${pageContext.request.contextPath}/board/deptdocdatalist.do">부서별 자료실</a></li>
 					</ul></li>
-				<li><a class="has-arrow " href="#" aria-expanded="false"><i
-						class="mdi mdi-bulletin-board"></i><span class="hide-menu">게시판</span></a>
+				<li><a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu">게시판</span></a>
 					<ul aria-expanded="false" class="collapse">
 						<li><a href="#">공지사항</a></li>
-						<li><a href="#">인사</a></li>
+						<li><a href="#">조직개편 및 인사발령</a></li>
 						<li><a href="#">경조사</a></li>
 						<li><a href="#">NEWS</a></li>
 						<li><a href="#">자유게시판</a></li>
