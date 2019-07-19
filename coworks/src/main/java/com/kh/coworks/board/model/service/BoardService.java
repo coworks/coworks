@@ -1,10 +1,5 @@
 package com.kh.coworks.board.model.service;
 
-public interface BoardService {
-
-}
-package com.kh.coworks.board.model.service;
-
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +7,7 @@ import com.kh.coworks.board.model.vo.Attach;
 import com.kh.coworks.board.model.vo.Board;
 
 public interface BoardService {
-
+/*
 	static final int BOARD_SRV_ERROR = 0;
 	static final int BOARD_SRV_COMP = 1;
 	
@@ -39,5 +34,5 @@ public interface BoardService {
 	
 	// 파일 한 개 삭제
 	int deleteFile(int attNo);
-	
+*/
 }

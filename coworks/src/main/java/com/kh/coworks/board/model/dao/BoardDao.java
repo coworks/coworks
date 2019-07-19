@@ -1,10 +1,5 @@
 package com.kh.coworks.board.model.dao;
 
-public interface BoardDao {
-
-}
-package com.kh.coworks.board.model.dao;
-
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +7,7 @@ import com.kh.coworks.board.model.vo.Attach;
 import com.kh.coworks.board.model.vo.Board;
 
 public interface BoardDao {
-
+/*
 	List<Map<String, String>> selectBoardList(int cPage, int limit);
 	
 	int selectBoardTotalContents();
@@ -34,6 +29,7 @@ public interface BoardDao {
 	int deleteAttachment(int boardNo);
 	
 	int deleteFile(int attNo);
+	*/
 	
 	
 }
