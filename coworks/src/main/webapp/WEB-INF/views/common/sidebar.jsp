@@ -10,7 +10,7 @@
 			<ul id="sidebarnav">
 				<li><a href="${pageContext.request.contextPath}" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">메인</span></a></li>
 				<li><a href="#" aria-expanded="false"><i class="mdi mdi-phone"></i><span class="hide-menu">연락처</span></a>
-				<li><a href="${pageContext.request.contextPath}/mail/mailList.do" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">메일</span></a></li>
+				<li><a href="${pageContext.request.contextPath}/mail/app-email.do" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">메일</span></a></li>
 				<li><a href="${pageContext.request.contextPath}/calendar/calendarview.do" aria-expanded="false"><i class="mdi mdi-calendar-multiple"></i><span class="hide-menu">일정</span></a></li>
 				<li><a href="#" aria-expanded="false"><i class="mdi mdi-message-text-outline"></i><span class="hide-menu">메신저</span></a></li>
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-pen"></i><span class="hide-menu">결재</span></a>
