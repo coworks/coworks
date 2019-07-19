@@ -7,23 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:import url="views/common/header.jsp" />
+
 <title>CO-WORKS</title>
 <!-- Calendar CSS -->
-<link
-	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css"
-	rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" />
+<c:import url="views/common/header.jsp" />
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
-	<!-- ============================================================== -->
-	<!-- Preloader - style you can find in spinners.css -->
-	<!-- ============================================================== -->
-	<div class="preloader">
-		<svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none"
-				stroke-width="2" stroke-miterlimit="10" /> </svg>
-	</div>
 	<!-- ============================================================== -->
 	<!-- Main wrapper - style you can find in pages.scss -->
 	<!-- ============================================================== -->
@@ -57,8 +48,7 @@
 										출근 시간 : 09 : 10 AM</br>IP :
 									</p>
 									<br />
-									<button type="button"
-										class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
+									<button type="button" class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
 								</div>
 							</div>
 						</div>
@@ -74,9 +64,7 @@
 										YES!!<span class="float-right">85%</span>
 									</h5>
 									<div class="progress ">
-										<div
-											class="progress-bar bg-success wow animated progress-animated"
-											style="width: 85%; height: 6px;" role="progressbar">
+										<div class="progress-bar bg-success wow animated progress-animated" style="width: 85%; height: 6px;" role="progressbar">
 											<span class="sr-only">60% Complete</span>
 										</div>
 									</div>
@@ -84,9 +72,7 @@
 										No :(<span class="float-right">15%</span>
 									</h5>
 									<div class="progress ">
-										<div
-											class="progress-bar bg-danger wow animated progress-animated"
-											style="width: 15%; height: 6px;" role="progressbar">
+										<div class="progress-bar bg-danger wow animated progress-animated" style="width: 15%; height: 6px;" role="progressbar">
 											<span class="sr-only">60% Complete</span>
 										</div>
 									</div>
@@ -106,19 +92,13 @@
 												<h4 class="modal-title">
 													<strong>Add Event</strong>
 												</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body"></div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-white waves-effect"
-													data-dismiss="modal">Close</button>
-												<button type="button"
-													class="btn btn-success save-event waves-effect waves-light">Create
-													event</button>
-												<button type="button"
-													class="btn btn-danger delete-event waves-effect waves-light"
-													data-dismiss="modal">Delete</button>
+												<button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
+												<button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
 											</div>
 										</div>
 									</div>
@@ -131,22 +111,17 @@
 												<h4 class="modal-title">
 													<strong>Add</strong> a category
 												</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body">
 												<form>
 													<div class="row">
 														<div class="col-md-6">
-															<label class="control-label">Category Name</label> <input
-																class="form-control form-white" placeholder="Enter name"
-																type="text" name="category-name" />
+															<label class="control-label">Category Name</label> <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
 														</div>
 														<div class="col-md-6">
-															<label class="control-label">Choose Category
-																Color</label> <select class="form-control form-white"
-																data-placeholder="Choose a color..."
-																name="category-color">
+															<label class="control-label">Choose Category Color</label>
+															<select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
 																<option value="success">Success</option>
 																<option value="danger">Danger</option>
 																<option value="info">Info</option>
@@ -159,11 +134,8 @@
 												</form>
 											</div>
 											<div class="modal-footer">
-												<button type="button"
-													class="btn btn-danger waves-effect waves-light save-category"
-													data-dismiss="modal">Save</button>
-												<button type="button" class="btn btn-white waves-effect"
-													data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+												<button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
@@ -200,14 +172,10 @@
 	<!-- ============================================================== -->
 	<c:import url="views/common/bottomJquery.jsp" />
 	<!-- Calendar JavaScript -->
-	<script
-		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
-	<script
-		src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/cal-init.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
+	<script src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/cal-init.js"></script>
 </body>
 
 </html>

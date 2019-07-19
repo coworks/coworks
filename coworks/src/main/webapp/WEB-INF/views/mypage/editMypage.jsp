@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>CO-WORKS : 회원정보 수정</title>
 <c:import url="../common/header.jsp" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/templates/assets/plugins/dropify/dist/css/dropify.min.css">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -42,26 +43,33 @@
 												<label>주소</label>
 											</div>
 											<div class="row">
-												<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control col-md-9 col-12 mb-2">
+												<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control col-md-9 col-12 mb-2" onclick="sample6_execDaumPostcode()">
 												<div class="col-md-3 col-5 ">
 													<span class="btn btn-warning" onclick="sample6_execDaumPostcode()"> 우편번호 찾기</span>
 												</div>
 											</div>
 										</div>
-										<input type="text" id="sample6_address" placeholder="주소" class="form-control mb-2"> <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> <input type="hidden" id="sample6_extraAddress" class="form-control mb-2" placeholder="참고항목">
+										<input type="text" id="sample6_address" placeholder="주소" class="form-control mb-2"> <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> <input
+											type="hidden" id="sample6_extraAddress" class="form-control mb-2" placeholder="참고항목"
+										>
 									</div>
 									<div class="form-group">
 										<label>개인서명</label>
-										<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+										<!-- 										<div class="fileinput fileinput-new input-group" data-provides="fileinput">
 											<div class="form-control" data-trigger="fileinput">
 												<i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
 											</div>
 											<span class="input-group-addon btn btn-secondary btn-file"> <span class="fileinput-new">선택하기</span> <span class="fileinput-exists">바꾸기</span> <input type="file" name="...">
 											</span> <a href="#" class="input-group-addon btn btn-danger fileinput-exists ml-1" data-dismiss="fileinput">삭제</a>
-										</div>
+										</div> -->
+										<input type="file" id="input-file-now-custom-1" class="dropify" data-default-file="${pageContext.request.contextPath }/resources/images/empSign/stamp.png" />
+
 									</div>
+
 									<div align="center">
-										<input type="submit" value="수정하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" /> <input type="button" value="취소" class="btn btn-secondary" onclick="javascript:history.back();" />
+										<input type="submit" value="수정하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" /> <input type="button" value="취소" class="btn btn-secondary"
+											onclick="javascript:history.back();"
+										/> <input type="button" value="dd" onclick="agg()" />
 									</div>
 								</form>
 							</div>
@@ -76,7 +84,44 @@
 	<c:import url="../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/jasny-bootstrap.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/dropify/dist/js/dropify.min.js"></script>
 	<script>
+		function agg() {
+			console.log($('input:file'));
+		}
+		$(document).ready(
+				function() {
+					// Basic
+					$('.dropify').dropify();
+
+					// Used events
+					var drEvent = $('#input-file-events').dropify();
+
+					drEvent.on('dropify.beforeClear', function(event, element) {
+						return confirm("Do you really want to delete \""
+								+ element.file.name + "\" ?");
+					});
+
+					drEvent.on('dropify.afterClear', function(event, element) {
+						alert('File deleted');
+					});
+
+					drEvent.on('dropify.errors', function(event, element) {
+						console.log('Has Errors');
+					});
+
+					var drDestroy = $('#input-file-to-destroy').dropify();
+					drDestroy = drDestroy.data('dropify')
+					$('#toggleDropify').on('click', function(e) {
+						e.preventDefault();
+						if (drDestroy.isDropified()) {
+							drDestroy.destroy();
+						} else {
+							drDestroy.init();
+						}
+					})
+				});
+
 		$(function() {
 			$(".phone-inputmask").inputmask("999-9999-9999");
 		})
