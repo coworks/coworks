@@ -9,8 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>일정 관리</title>
-    <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Calendar CSS -->
+   <!-- Calendar CSS -->
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" />
     
      

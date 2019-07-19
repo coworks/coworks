@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.net.InetAddress, com.kh.coworks.attendance.model.vo.Attendance"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%
+	/* IP주소 불러오기 */
+	InetAddress inet = InetAddress.getLocalHost();
+	String svrIP = inet.getHostAddress(); 
+ 
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,10 +52,12 @@
 									<h4 class="card-title">
 										<c:out value="${today}" />
 									</h4>
-									<p class="card-text">
-										출근 시간 : 09 : 10 AM</br>IP :
-									</p>
-									<br />
+									<p class="card-text" id="time">
+										출근 시간 : 09 : 10 AM 	</br>
+										IP : <%=svrIP %>				
+										
+									<input type="hidden" id="ip" value=<%=svrIP %>	/>
+									 </p>
 									<button type="button" class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
 								</div>
 							</div>
