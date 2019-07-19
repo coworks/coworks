@@ -10,8 +10,8 @@
 	<properties>
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.1.8.RELEASE</org.springframework-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<org.aspectj-version>1.8.13</org.aspectj-version>
+		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
 
 	<repositories>
@@ -22,7 +22,8 @@
 			<url>http://www.datanucleus.org/downloads/maven2/</url>
 		</repository>
 	</repositories>
-
+	
+	
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -43,7 +44,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- AspectJ Runtime lib -->
+		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -54,14 +55,14 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.8.13</version>
+			<version>${org.aspectj-version}</version>
 		</dependency>
 
-		<!-- cglib for spring proxy AOP -->
+		<!-- 프록시 지원을 위한 CGLIB 라이브러리 추가하기 -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
-			<version>2.2</version>
+			<version>3.2.9</version>
 		</dependency>
 
 		<!-- Logging -->
@@ -225,7 +226,7 @@
 			<artifactId>log4jdbc-remix</artifactId>
 			<version>0.2.7</version>
 		</dependency>
-		
+
 		<!-- file upload lib -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -238,6 +239,8 @@
 			<version>2.6</version>
 		</dependency>
 	</dependencies>
+
+
 	<build>
 		<plugins>
 			<plugin>
