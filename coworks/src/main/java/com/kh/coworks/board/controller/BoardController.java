@@ -10,7 +10,8 @@ import com.kh.coworks.board.model.service.BoardService;
 public class BoardController {
 	//js, css, scss로 시작하는거는 ${pageContext.request.contextPath}/resources/templates/resources/ 붙여주면 됩니당!
 	
-	@Autowired
+	// BoardServiceImpl 아직 생성 안돼서  @Autowired가 불가능해서 페이지 실행이 안되서 일단 주석처리 했어요
+	//@Autowired 
 	BoardService boardService;
 	
 	// 자료실 - 사규(게시판 보기)
