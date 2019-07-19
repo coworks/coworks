@@ -212,7 +212,8 @@
 					<div class="dropdown-menu dropdown-menu-right animated flipInY">
 						<ul class="dropdown-user">
 						
-							<li><a href="${pageContext.request.contextPath}/mypage/attendanceview.do"><i class="ti-user"></i> 마이 페이지</a></li>
+							<li><a href="${pageContext.request.contextPath}/mypage/mypage.do"><i class="ti-user"></i> 마이 페이지</a></li>
+							<li><a href="${pageContext.request.contextPath}/mypage/attendanceview.do"><i class="mdi mdi-calendar-clock"></i> 근태</a></li>
 							<li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
 						</ul>
 					</div></li>

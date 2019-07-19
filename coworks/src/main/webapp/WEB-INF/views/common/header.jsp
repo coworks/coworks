@@ -9,7 +9,7 @@
 <!-- Bootstrap Core CSS -->
 <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom CSS -->
-<link href="${pageContext.request.contextPath}/resources/templates/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/templates/resources/css/style.css" rel="stylesheet">
 <!-- You can change the theme colors from here -->
-<link href="${pageContext.request.contextPath}/resources/templates/css/colors/custom.css" id="theme" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/templates/resources/css/colors/custom.css" id="theme" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery/jquery.min.js"></script>
