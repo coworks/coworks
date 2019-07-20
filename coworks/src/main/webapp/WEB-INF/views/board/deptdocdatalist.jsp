@@ -97,7 +97,7 @@
                                         <div class="card b-all shadow-none">
                                             <div class="inbox-center b-all table-responsive">
                                                 <table class="table table-hover no-wrap">
-                                                    <tbody>
+                                                    <tbody> 
                                                         <tr class="unread">
                                                             <td style="width:40px">
                                                                 <div class="checkbox">
