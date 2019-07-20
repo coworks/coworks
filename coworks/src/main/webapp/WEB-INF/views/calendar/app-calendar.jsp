@@ -8,16 +8,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-    <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Calendar CSS -->
+<title>일정 관리</title>
+   <!-- Calendar CSS -->
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" />
     
-    <!-- Custom CSS -->
-    <link href="${pageContext.request.contextPath}/resources/template/css/style.css" rel="stylesheet">
-    <!-- You can change the theme colors from here -->
-    <link href="${pageContext.request.contextPath}/resources/template/css/colors/blue.css" id="theme" rel="stylesheet">
-    
+     
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
     <!-- Color picker plugins css -->
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/css/asColorPicker.css" rel="stylesheet">
@@ -78,21 +73,66 @@
                                             <div class="calendar-events" data-class="bg-success"><i class="fa fa-circle mb-3 text-success"></i> My Event Two</div>
                                             <div class="calendar-events" data-class="bg-danger"><i class="fa fa-circle mb-3 text-danger"></i> My Event Three</div>
                                             <div class="calendar-events" data-class="bg-warning"><i class="fa fa-circle mb-3 text-warning"></i> My Event Four</div>
-                                        </div>
-                                        <!-- checkbox -->
-                                        <div class="checkbox mb-3">
+                                        </div> 
+                                        <!-- <div class="checkbox mb-3">
                                             <input id="drop-remove" type="checkbox">
                                             <label for="drop-remove">
                                                 Remove after drop
                                             </label>
-                                        </div>
+                                        </div> -->
                                         <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
                                             <i class="ti-plus"></i> Add New Event
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>  
+                         <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">일정 추가</h4>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class='col-md-12'>
+	                 						<div class='form-group'>
+	                 							<label class='control-label'>일정 명</label>
+	                 							<input class='form-control' placeholder='Insert Event Name' type='text' name='title'/>
+	                 						</div>
+	                 					</div> 
+	                 						
+						                 <div class='col-md-12'>
+						                 	<div class='form-group'>
+						                 		<label class='control-label'>색상</label>
+						                 		<select class='form-control' name='category'>
+						                 			 <option value='bg-danger'>빨강</option> 
+									                 <option value='bg-success'>초록</option> 
+									                 <option value='bg-purple'>보라</option>  
+									                 <option value='bg-info'>파랑</option> 
+									                 <option value='bg-warning'>노랑</option>
+						                 		</select>
+						                 	</div>
+						                 </div>
+										 
+										
+	                 					<div class='input-group mb-3'>
+	                 						<input type='text' class='form-control datetime' />
+			                 					<div class='input-group-append'>
+				                 					<span class='input-group-text'>
+				                 						<span class='ti-calendar'></span>
+				                 					</span>
+			                 					</div>
+	                 					</div> 
+		       					          
+	                
+                                        
+                                        <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
+                                            <i class="ti-plus"></i> 추가
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                       
+                     
+                		</div>
                     </div>
                     <div class="col-md-12 col-lg-9">
                         <div class="card">
@@ -101,7 +141,14 @@
                             </div>
                         </div>
                     </div>
+                    <!-- *********** ---- -->
+                    
+                      
+                       
+                    
+                    
                 </div>
+                
                 <!-- BEGIN MODAL -->
                 <div class="modal none-border" id="my-event">
                     <div class="modal-dialog">
@@ -238,18 +285,11 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/jquery-ui.min.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/jquery-ui.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="${pageContext.request.contextPath}/resources/template/js/jquery.slimscroll.js"></script>
-    <!--Wave Effects -->
-    <script src="${pageContext.request.contextPath}/resources/template/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="${pageContext.request.contextPath}/resources/template/js/sidebarmenu.js"></script>
-    <!--stickey kit -->
+      <!--stickey kit -->
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/template/js/custom.min.js"></script>
@@ -514,6 +554,14 @@
 	    $.CalendarApp.init()
 	}(window.jQuery);
 	
+	
+	 $('.datetime').daterangepicker({
+         timePicker: true,
+         timePickerIncrement: 30,
+         locale: {
+             format: 'MM/DD/YYYY h:mm A'
+         }
+     });
 	
 	</script>	
 			</div>
