@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MailController {
 
 	@RequestMapping("/mail/app-email.do")
-	public String mailList() {
-		
+	public String selectMail() {
 		return "mail/app-email";
+	}
+	
+	@RequestMapping("/mail/app-compose.do")
+	public String writeMail() {
+		return "mail/app-compose";
 	}
 }
