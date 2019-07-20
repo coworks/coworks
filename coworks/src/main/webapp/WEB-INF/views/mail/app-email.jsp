@@ -38,55 +38,9 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="row">
-                                <div class="col-xlg-2 col-lg-4 col-md-4">
-                                    <div class="card-body inbox-panel"><a href="app-compose.do" class="btn btn-danger mb-3 p-2 btn-block waves-effect waves-light">메일쓰기</a>
-                                        <ul class="list-group list-group-full">
-                                            <li class="list-group-item active"> <a href="javascript:void(0)"><i class="mdi mdi-gmail"></i> 메일함 </a><span class="badge badge-success ml-auto"> 읽지 않은 메일 수</span></li>
-                                            <li class="list-group-item">
-                                                <a href="javascript:void(0)"> <i class="mdi mdi-star"></i> 즐겨찾기 </a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a href="javascript:void(0)"> <i class="mdi mdi-send"></i> 임시저장 </a><span class="badge badge-danger ml-auto">3</span></li>
-                                            <li class="list-group-item ">
-                                                <a href="javascript:void(0)"> <i class="mdi mdi-file-document-box"></i> 보낸 메일함 </a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a href="javascript:void(0)"> <i class="mdi mdi-delete"></i> 휴지통 </a>
-                                            </li>
-                                        </ul>
-                                        <h3 class="card-title mt-5">분류</h3>
-                                        <div class="list-group b-0 mail-list"> 
-                                        	<a href="#" class="list-group-item"><span class="fa fa-circle text-info mr-2"></span>분류1</a> 
-                                        	<a href="#" class="list-group-item"><span class="fa fa-circle text-warning mr-2"></span>분류2</a> 
-                                        	<a href="#" class="list-group-item"><span class="fa fa-circle text-purple mr-2"></span>분류3</a> 
-                                       	 	<a href="#" class="list-group-item"><span class="fa fa-circle text-danger mr-2"></span>분류4</a> 
-                                       	 	<a href="#" class="list-group-item"><span class="fa fa-circle text-success mr-2"></span>분류5</a> 
-                                        </div>
-                                    </div>
-                                </div>
+                                <c:import url="mail-common.jsp"/>
                                 <div class="col-xlg-10 col-lg-8 col-md-8">
-                                    <div class="card-body">
-                                        <div class="btn-group mb-2 mr-2" role="group" aria-label="Button group with nested dropdown">
-                                            <button type="button" class="btn btn-secondary font-18 text-dark"><i class="mdi mdi-inbox-arrow-down"></i></button>
-                                            <button type="button" class="btn btn-secondary font-18 text-dark"><i class="mdi mdi-alert-octagon"></i></button>
-                                            <button type="button" class="btn btn-secondary font-18 text-dark"><i class="mdi mdi-delete"></i></button>
-                                        </div>
-                                        <div class="btn-group mb-2 mr-2" role="group" aria-label="Button group with nested dropdown">
-                                            <div class="btn-group" role="group">
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary text-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-folder font-18 "></i> </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="#">Dropdown link</a> <a class="dropdown-item" href="#">Dropdown link</a> </div>
-                                            </div>
-                                            <div class="btn-group" role="group">
-                                                <button id="btnGroupDrop1" type="button" class="btn text-dark btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-label font-18"></i> </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="#">Dropdown link</a> <a class="dropdown-item" href="#">Dropdown link</a> </div>
-                                            </div>
-                                        </div>
-                                        <button type="button " class="btn btn-secondary mr-2 mb-2 text-dark"><i class="mdi mdi-reload font-18"></i></button>
-                                        <div class="btn-group mb-2" role="group">
-                                            <button id="btnGroupDrop1" type="button" class="btn mb-2 text-dark btn-secondary p-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="#">Mark as all read</a> <a class="dropdown-item" href="#">Dropdown link</a> </div>
-                                        </div>
-                                    </div>
+                                   <c:import url="mail-topbar.jsp"/>
                                     <!-- 
                                     <td class="max-texts"><a href="app-email-detail.html"><span class="label label-info mr-2">Work</span> Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
                                     <span class="label label-info mr-2">내용 jstl 로 추가</span> 

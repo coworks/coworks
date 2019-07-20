@@ -14,24 +14,18 @@
 	<div id="main-wrapper">
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
-		<div class="page-wrapper"><!-- ============================================================== -->
+		<div class="page-wrapper">
+		 <div class="container-fluid">
+                <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor mb-0 mt-0">Email App</h3>
+                        <h3 class="text-themecolor mb-0 mt-0">메일함</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Email App</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">메인페이지</a></li>
+                            <li class="breadcrumb-item active">메일함</li>
                         </ol>
-                    </div>
-                    <div class="col-md-6 col-4 align-self-center">
-                        <button class="right-side-toggle waves-effect waves-light btn-info btn-circle btn-sm float-right ml-2"><i class="ti-settings text-white"></i></button>
-                        <button class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i> Create</button>
-                        <div class="dropdown float-right mr-2 hidden-sm-down">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> January 2019 </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="#">February 2019</a> <a class="dropdown-item" href="#">March 2019</a> <a class="dropdown-item" href="#">April 2019</a> </div>
-                        </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -40,50 +34,31 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row">
+          	  	<div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="row">
-                                <div class="col-xlg-2 col-lg-4 col-md-5">
-                                    <div class="card-body inbox-panel"><a href="app-compose.html" class="btn btn-danger mb-3 p-2 btn-block waves-effect waves-light">Compose</a>
-                                        <ul class="list-group list-group-full">
-                                            <li class="list-group-item active"> <a href="javascript:void(0)"><i class="mdi mdi-gmail"></i> Inbox </a><span class="badge badge-success ml-auto">6</span></li>
-                                            <li class="list-group-item">
-                                                <a href="javascript:void(0)"> <i class="mdi mdi-star"></i> Starred </a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a href="javascript:void(0)"> <i class="mdi mdi-send"></i> Draft </a><span class="badge badge-danger ml-auto">3</span></li>
-                                            <li class="list-group-item ">
-                                                <a href="javascript:void(0)"> <i class="mdi mdi-file-document-box"></i> Sent Mail </a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <a href="javascript:void(0)"> <i class="mdi mdi-delete"></i> Trash </a>
-                                            </li>
-                                        </ul>
-                                        <h3 class="card-title mt-5">Labels</h3>
-                                        <div class="list-group b-0 mail-list"> <a href="#" class="list-group-item"><span class="fa fa-circle text-info mr-2"></span>Work</a> <a href="#" class="list-group-item"><span class="fa fa-circle text-warning mr-2"></span>Family</a> <a href="#" class="list-group-item"><span class="fa fa-circle text-purple mr-2"></span>Private</a> <a href="#" class="list-group-item"><span class="fa fa-circle text-danger mr-2"></span>Friends</a> <a href="#" class="list-group-item"><span class="fa fa-circle text-success mr-2"></span>Corporate</a> </div>
-                                    </div>
-                                </div>
+                                <c:import url="mail-common.jsp"/>
                                 <div class="col-xlg-10 col-lg-8 col-md-7">
                                     <div class="card-body">
-                                        <h3 class="card-title">Compose New Message</h3>
+                                        <h3 class="card-title">메일 작석하기</h3>
                                         <div class="form-group">
-                                            <input class="form-control" placeholder="To:">
+                                            <input class="form-control" placeholder="받는 사람 :">
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" placeholder="Subject:">
+                                            <input class="form-control" placeholder="제목 : ">
                                         </div>
                                         <div class="form-group">
-                                            <textarea class="textarea_editor form-control" rows="15" placeholder="Enter text ..."></textarea>
+                                            <textarea class="textarea_editor form-control" rows="15" placeholder=""></textarea>
                                         </div>
-                                        <h4><i class="ti-link"></i> Attachment</h4>
+                                        <h4><i class="ti-link"></i>첨부파일</h4>
                                         <form action="#" class="dropzone">
                                             <div class="fallback">
                                                 <input name="file" type="file" multiple />
                                             </div>
                                         </form>
-                                        <button type="submit" class="btn btn-success mt-3"><i class="fa fa-envelope-o"></i> Send</button>
-                                        <button class="btn btn-inverse mt-3"><i class="fa fa-times"></i> Discard</button>
+                                        <button type="submit" class="btn btn-success mt-3"><i class="fa fa-envelope-o"></i> 전송 </button>
+                                        <button class="btn btn-inverse mt-3"><i class="fa fa-times"></i> 취소 </button>
                                     </div>
                                 </div>
                             </div>
