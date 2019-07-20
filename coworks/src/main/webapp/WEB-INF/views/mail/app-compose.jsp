@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>CO-WORKS : Insert title here</title>
+<!-- wysihtml5 CSS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/bootstrap-wysihtml5.css" />
+<!-- Dropzone css -->
+<link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    
 <c:import url="../common/header.jsp" />
 </head>
 <body class="fix-header fix-sidebar card-no-border">
@@ -19,15 +24,7 @@
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <div class="row page-titles">
-                    <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor mb-0 mt-0">메일함</h3>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">메인페이지</a></li>
-                            <li class="breadcrumb-item active">메일함</li>
-                        </ol>
-                    </div>
-                </div>
+                <c:import url ="mail-location.jsp"/>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -41,7 +38,7 @@
                                 <c:import url="mail-common.jsp"/>
                                 <div class="col-xlg-10 col-lg-8 col-md-7">
                                     <div class="card-body">
-                                        <h3 class="card-title">메일 작석하기</h3>
+                                        <h3 class="card-title">메일 작성하기</h3>
                                         <div class="form-group">
                                             <input class="form-control" placeholder="받는 사람 :">
                                         </div>
@@ -52,7 +49,8 @@
                                             <textarea class="textarea_editor form-control" rows="15" placeholder=""></textarea>
                                         </div>
                                         <h4><i class="ti-link"></i>첨부파일</h4>
-                                        <form action="#" class="dropzone">
+                                        <!-- ${pageContext.request.contextPath }/resources/images/mailAttachment -->
+                                        <form action="#" class="dropzone" id="dropZoneMy">
                                             <div class="fallback">
                                                 <input name="file" type="file" multiple />
                                             </div>
@@ -133,5 +131,15 @@
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/bootstrap-wysihtml5.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/dropzone-master/dist/dropzone.js"></script>
+	  <script>
+    $(document).ready(function() {
+        $('.textarea_editor').wysihtml5();
+    });
+    
+    </script>
+   
 </body>
 </html>

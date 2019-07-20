@@ -15,4 +15,10 @@ public class MailController {
 	public String writeMail() {
 		return "mail/app-compose";
 	}
+	
+	@RequestMapping("/mail/app-email-detail.do")
+	public String selectOneMail() {
+		
+		return "mail/app-email-detail";
+	}
 }

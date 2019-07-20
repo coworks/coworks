@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <meta charset="UTF-8">
 <div class="card-body">
 	<div class="btn-group mb-2 mr-2" role="group"
@@ -40,12 +40,12 @@
 			</div>
 		</div>
 	</div>
-	<button type="button " class="btn btn-secondary mr-2 mb-2 text-dark">
+	<button type="button" onclick="location.reload();" class="btn btn-secondary mr-2 mb-2 text-dark">
 		<i class="mdi mdi-reload font-18"></i>
 	</button>
 	<div class="btn-group mb-2" role="group">
 		<button id="btnGroupDrop1" type="button"
-			class="btn mb-2 text-dark btn-secondary p-2 dropdown-toggle"
+			class="btn text-dark btn-secondary p-2 dropdown-toggle"
 			data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			More</button>
 		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">

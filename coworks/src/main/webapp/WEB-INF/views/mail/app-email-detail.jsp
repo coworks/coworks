@@ -15,10 +15,12 @@
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
 		<div class="page-wrapper">   
-		<div class="container-fluid">
+		<div class="container-fluid">    
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
                 <c:import url ="mail-location.jsp"/>
+                <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
@@ -30,40 +32,48 @@
                             <div class="row">
                                 <c:import url="mail-common.jsp"/>
                                 <div class="col-xlg-10 col-lg-8 col-md-8">
-                                   <c:import url="mail-topbar.jsp"/>
-                                    <!-- 
-                                    <td class="max-texts"><a href="app-email-detail.html"><span class="label label-info mr-2">Work</span> Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
-                                    <span class="label label-info mr-2">내용 jstl 로 추가</span> 
-                                    <span class="label label-warning">내용 jstl 로 추가</span>
-                                    <span class="label label-purple">내용 jstl 로 추가</span>
-                                    <span class="label label-danger">내용 jstl 로 추가</span>
-                                    <span class="label label-success">내용 jstl 로 추가</span>  얘가 라벨 
-                                    
-                                     <td style="width:40px" class="hidden-xs-down"><i class="fa fa-star-o"></i></td>
-                                    <i class="fa fa-star text-warning"></i> 얘가 별
-                                    -->
+                                    <c:import url="mail-topbar.jsp"/>
                                     <div class="card-body pt-0">
                                         <div class="card b-all shadow-none">
-                                            <div class="inbox-center b-all table-responsive">
-                                                <table class="table table-hover no-wrap">
-                                                    <tbody>
-                                                        <tr class="unread">
-                                                            <td style="width:40px">
-                                                                <div class="checkbox">
-                                                                    <input type="checkbox" id="checkbox0" value="check">
-                                                                    <label for="checkbox0"></label>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width:40px" class="hidden-xs-down"><i class="fa fa-star-o"></i></td>
-                                                            <td class="hidden-xs-down">작성자</td>
-                                                            <td class="max-texts"> <a href="app-email-detail.do"/><span class="label label-info mr-2">Work</span> 여기가 타이틀 제목 입니다.</td>
-                                                            <td class="hidden-xs-down"><i class="fa fa-paperclip"></i></td>
-                                                            <td class="text-right"> 보낸 시간 </td>
-                                                        </tr>
-                                                        
-                                                        
-                                                    </tbody>
-                                                </table>
+                                            <div class="card-body">
+                                                <h3 class="card-title mb-0">제목</h3>
+                                            </div>
+                                            <div>
+                                                <hr class="mt-0">
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="d-flex mb-5">
+                                                    <div>
+                                                        <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user" width="40" class="img-circle" /></a>
+                                                    </div>
+                                                    <div class="pl-2">
+                                                        <h4 class="mb-0">이름</h4>
+                                                        <small class="text-muted">From: 이메일</small>
+                                                    </div>
+                                                </div>
+                                                <p><b>Dear USer</b></p>
+                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
+                                                <p>enean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,</p>
+                                            </div>
+                                            <div>
+                                                <hr class="mt-0">
+                                            </div>
+                                            <div class="card-body">
+                                                <h4><i class="fa fa-paperclip mr-2 mb-2"></i> Attachments <span>(3)</span></h4>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img1.jpg"> </a>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img2.jpg"> </a>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img3.jpg"> </a>
+                                                    </div>
+                                                </div>
+                                                <div class="b-all mt-3 p-3">
+                                                    <p class="pb-3">click here to <a href="#">Reply</a> or <a href="#">Forward</a></p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +83,7 @@
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
+                <!-- End Page Content -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- Right sidebar -->
@@ -135,9 +145,43 @@
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
-			<c:import url="../common/footer.jsp" />
-		</div>
-	</div>
-	<c:import url="../common/bottomJquery.jsp" />
-</body>
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer"> © 2019 Monster Admin by wrappixel.com </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+	</body>
+           
 </html>
