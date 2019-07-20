@@ -6,13 +6,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ApproveController {
 
-	@RequestMapping("/approve/approveWrite.do")
+	@RequestMapping("/approval/approvalWrite.do")
 	public String approveMain() {
-		return "approve/approveWrite";
+		return "approval/approvalWrite";
 	}
 	
 	@RequestMapping("/error.do")
 	public String error() {
 		return "common/error";
+	}
+	
+	//approvDoc Mapping
+	@RequestMapping("/approval/approvalDoc/vacation.do")
+	public String approvalVaction() {
+		return "approval/approvalDoc/approval_vacation";
 	}
 }

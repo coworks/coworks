@@ -7,8 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<c:import url="views/common/header.jsp" />
 <title>CO-WORKS</title>
+<c:import url="views/common/header.jsp" />
 <!-- Calendar CSS -->
 <link
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css"
