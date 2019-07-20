@@ -88,7 +88,7 @@
         $('.textarea_editor').wysihtml5();
     });
     
-    $("#dropZoneMy").dropzone({ url: "${pageContext.request.contextPath}/resources/images/mailAttachment" });
+    $("#dropZoneMy").dropzone({ url: "${pageContext.request.contextPath}/resources/images/mailAttachment/" });
     </script>
    
 </body>
