@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CO-WORKS : 결재 서류작성하기</title>
-<c:import url="../common/header.jsp" />
+<c:import url="../../common/header.jsp" />
 <style>
 .list-group-item {
 	border: none;
@@ -23,8 +23,8 @@
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
-		<c:import url="../common/topbar.jsp" />
-		<c:import url="../common/sidebar.jsp" />
+		<c:import url="../../common/topbar.jsp" />
+		<c:import url="../../common/sidebar.jsp" />
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="row">
@@ -49,8 +49,36 @@
 								</div>
 								<div class="col-xlg-10 col-lg-9 border-left">
 									<div class="card-body">
-										<h1 align="center">서식을 선택해주세요</h1>
-
+										<h4 class="card-title">결재 서류작성하기</h4>
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
 									</div>
 
 								</div>
@@ -59,13 +87,13 @@
 					</div>
 				</div>
 			</div>
-			<c:import url="../common/footer.jsp" />
+			<c:import url="../../common/footer.jsp" />
 		</div>
 	</div>
-	<c:import url="../common/bottomJquery.jsp" />
+	<c:import url="../../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-treeview-master/dist/bootstrap-treeview.min.js"></script>
-	<script type="text/javascript">
-		$('#slimtest1').slimScroll({
+	 <script type="text/javascript">
+	 $('#slimtest1').slimScroll({
 			height : '400px'
 		});
 		$(function() {
@@ -170,6 +198,7 @@
 			});
 
 		});
+		
 	</script>
 </body>
 </html>
