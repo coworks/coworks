@@ -80,19 +80,15 @@
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
-	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>
+	<script src="dropZoneMy/templates/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/bootstrap-wysihtml5.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/dropzone-master/dist/dropzone.js"></script>
 	  <script>
     $(document).ready(function() {
-        $('.textarea_editor').wysihtml5();ㅎ
+        $('.textarea_editor').wysihtml5();
     });
     
-    $("#dropZoneMy").dropzone({ 
-    	url: "${pageContext.request.contextPath}/resources/images/mailAttachment"
-    	
-    });
-    
+    $("#dropZoneMy").dropzone({ url: "${pageContext.request.contextPath}/resources/images/mailAttachment/" });
     </script>
    
 </body>
