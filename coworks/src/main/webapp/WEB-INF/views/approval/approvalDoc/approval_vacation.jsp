@@ -80,15 +80,15 @@
 															<th>사번</th>
 															<td><input type="number" class="form-control" value="10236421" name="adoc_writerno" /></td>
 															<th>기안자명</th>
-															<td><input type="text" class="form-control" name="adoc_writerName" /></td>
+															<td><input type="text" class="form-control" name="writerName" /></td>
 															<th>부서</th>
-															<td><input type="text" class="form-control" value="영업부" name="adoc_dept" /></td>
+															<td><input type="text" class="form-control" value="영업부" name="writerDept" /></td>
 														</tr>
 														<tr>
 															<th>결재자</th>
 															<td colspan="5">
 																<div class="tags-default">
-																	<select multiple data-role="tagsinput">
+																	<select multiple data-role="tagsinput" name="approvSignList">
 																		<option value="이름1">사번1</option>
 																		<option value="이름2">사번2</option>
 																		<option value="이름3">사번3</option>

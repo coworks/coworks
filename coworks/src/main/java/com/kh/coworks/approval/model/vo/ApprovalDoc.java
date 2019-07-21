@@ -3,20 +3,30 @@ package com.kh.coworks.approve.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class ApprovDoc implements Serializable {
-	private int adoc_no; // πÆº≠¿Œµ¶Ω∫
-	private int aform_no; // º≠Ωƒ¿Œµ¶Ω∫
-	private int adoc_writerno; // ±‚æ»¿⁄ªÁø¯π¯»£
-	private Timestamp adoc_uploadDate; // ∞‘Ω√≥Ø¬•
-	private int adoc_security; // ∫∏æ» µÓ±ﬁ
-	private Date adoc_expiration; // ∫∏¡∏∏∏∑·¿œ
-	private String adoc_subject; // ∞·¿Á¡¶∏Ò
-	private String adoc_content; // ≥ªøÎ
-	private String adoc_state; // ¡¯«‡ªÛ»≤
+	private int adoc_no; // Î¨∏ÏÑúÎ≤àÌò∏
+	private int aform_no; // ÏÑúÏãùÎ¨∏ÏÑú Î≤àÌò∏
+	private int adoc_writerno; // ÏûëÏÑ±Ïûê
+	private Timestamp adoc_uploadDate; // Ïò¨Î¶∞ÎÇ†Ïßú
+	private int adoc_security; // Î≥¥ÏïàÎì±Í∏â
+	private Date adoc_expiration; // ÎßåÎ£åÏùº
+	private String adoc_subject; // Ï†úÎ™©
+	private String[] adoc_content; // ÎÇ¥Ïö©
+	private String adoc_state; // Í≤∞Ïû¨ ÏÉÅÌÉú
+
+	private String writerDept;
+	private String writerJobTitle;
+	private String writerName;
+
+	private List<ApprovStatus> statusList = new ArrayList<>();
+	private List<ApprovAttach> attachList = new ArrayList<>();
 
 	public ApprovDoc() {
 		super();
@@ -24,7 +34,7 @@ public class ApprovDoc implements Serializable {
 	}
 
 	public ApprovDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
-			Date adoc_expiration, String adoc_subject, String adoc_content, String adoc_state) {
+			Date adoc_expiration, String adoc_subject, String[] adoc_content, String adoc_state) {
 		super();
 		this.adoc_no = adoc_no;
 		this.aform_no = aform_no;
@@ -35,6 +45,24 @@ public class ApprovDoc implements Serializable {
 		this.adoc_subject = adoc_subject;
 		this.adoc_content = adoc_content;
 		this.adoc_state = adoc_state;
+	}
+
+	public ApprovDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
+			Date adoc_expiration, String adoc_subject, String[] adoc_content, String adoc_state, String writerDept,
+			String writerJobTitle, String writerName) {
+		super();
+		this.adoc_no = adoc_no;
+		this.aform_no = aform_no;
+		this.adoc_writerno = adoc_writerno;
+		this.adoc_uploadDate = adoc_uploadDate;
+		this.adoc_security = adoc_security;
+		this.adoc_expiration = adoc_expiration;
+		this.adoc_subject = adoc_subject;
+		this.adoc_content = adoc_content;
+		this.adoc_state = adoc_state;
+		this.writerDept = writerDept;
+		this.writerJobTitle = writerJobTitle;
+		this.writerName = writerName;
 	}
 
 	public int getAdoc_no() {
@@ -93,11 +121,11 @@ public class ApprovDoc implements Serializable {
 		this.adoc_subject = adoc_subject;
 	}
 
-	public String getAdoc_content() {
+	public String[] getAdoc_content() {
 		return adoc_content;
 	}
 
-	public void setAdoc_content(String adoc_content) {
+	public void setAdoc_content(String[] adoc_content) {
 		this.adoc_content = adoc_content;
 	}
 
@@ -109,12 +137,37 @@ public class ApprovDoc implements Serializable {
 		this.adoc_state = adoc_state;
 	}
 
+	public String getWriterDept() {
+		return writerDept;
+	}
+
+	public void setWriterDept(String writerDept) {
+		this.writerDept = writerDept;
+	}
+
+	public String getWriterJobTitle() {
+		return writerJobTitle;
+	}
+
+	public void setWriterJobTitle(String writerJobTitle) {
+		this.writerJobTitle = writerJobTitle;
+	}
+
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+
 	@Override
 	public String toString() {
 		return "ApprovDoc [adoc_no=" + adoc_no + ", aform_no=" + aform_no + ", adoc_writerno=" + adoc_writerno
 				+ ", adoc_uploadDate=" + adoc_uploadDate + ", adoc_security=" + adoc_security + ", adoc_expiration="
-				+ adoc_expiration + ", adoc_subject=" + adoc_subject + ", adoc_content=" + adoc_content
-				+ ", adoc_state=" + adoc_state + "]";
+				+ adoc_expiration + ", adoc_subject=" + adoc_subject + ", adoc_content=" + Arrays.toString(adoc_content)
+				+ ", adoc_state=" + adoc_state + ", writerDept=" + writerDept + ", writerJobTitle=" + writerJobTitle
+				+ ", writerName=" + writerName + "]";
 	}
 
 }
