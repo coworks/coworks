@@ -19,6 +19,19 @@
 	height: 400px;
 	overflow: scroll;
 }
+
+.table td, .table th {
+	padding: .3rem;
+	vertical-align: middle;
+}
+
+table.fixed {
+	table-layout: fixed;
+}
+
+table.fixed td {
+	overflow: hidden;
+}
 </style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
@@ -51,6 +64,7 @@
 									<div class="card-body">
 										<h1 align="center">서식을 선택해주세요</h1>
 
+										<c:import url="./approvalForm/defaultForm.jsp" />
 									</div>
 
 								</div>
