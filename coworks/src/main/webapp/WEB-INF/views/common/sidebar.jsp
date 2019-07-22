@@ -50,9 +50,9 @@
 				<li><a href="#" aria-expanded="false"><i
 						class="mdi mdi-file-chart"></i><span class="hide-menu">설문조사</span></a>
 				</li>
-				<li><a href="${pageContext.request.contextPath}/authority/authorityList.do" aria-expanded="false"><i class="mdi mdi-account-settings-variant"></i>
+				<li><a href="${pageContext.request.contextPath}/employee/employeeList.do" aria-expanded="false"><i class="mdi mdi-account-settings-variant"></i>
 				<span class="hide-menu">인사 관리</span></a></li>
-				<li><a href="#" aria-expanded="false"><i class="mdi mdi-account-key"></i>
+				<li><a href="${pageContext.request.contextPath}/authority/authorityList.do" aria-expanded="false"><i class="mdi mdi-account-key"></i>
 				<span class="hide-menu">권한관리</span></a></li>
 				 
 			</ul>
