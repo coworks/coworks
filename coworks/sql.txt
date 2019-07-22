@@ -238,6 +238,14 @@
    );
 
 
+	Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO,COLUMN1,COLUMN2) values ('1','관리',1,null,null);
+	Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO,COLUMN1,COLUMN2) values ('2','경영',2,null,null);
+	Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO,COLUMN1,COLUMN2) values ('3','마케팅',3,null,null);
+	Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO,COLUMN1,COLUMN2) values ('4','인사',4,null,null);
+	Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO,COLUMN1,COLUMN2) values ('5','전산',5,null,null);
+	Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO,COLUMN1,COLUMN2) values ('6','총무',6,null,null);
+	Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO,COLUMN1,COLUMN2) values ('7','회계',7,null,null);
+
 
 
 
@@ -256,7 +264,8 @@
    "EMP_HIREDATE" DATE, 
    "COLUMN1" DATE, 
    "EMP_ISWORK" VARCHAR2(5), 
-   "EMP_SIGNATURE" VARCHAR2(200)
+   "EMP_SIGNATURE" VARCHAR2(200),
+   EMP_AUTHORITY VARCHAR2(100)
    );
 
 
@@ -270,7 +279,12 @@
    "JOB_TITLE" VARCHAR2(30)
    );
    
-
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('1','부장');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('2','차장');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('3','과장');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('4','주임');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('5','대리');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('6','사원');
 
 
 
