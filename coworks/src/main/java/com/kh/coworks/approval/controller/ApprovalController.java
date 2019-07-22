@@ -41,15 +41,18 @@ public class ApprovalController {
 	}
 
 	// approvDoc Mapping
-	@RequestMapping("/approval/approvalDoc/vacation.do")
-	public String approvalVaction() {
-		return "approval/approvalDoc/approval_vacation";
+	@RequestMapping("/approval/WriteLeaveApplication.do")
+	public String approvalVacation() {
+		return "approval/approvalDoc/approvalWriteForm/leaveApplicationForm";
+	}
+
+	@RequestMapping("/approval/WriteExpenseReport.do")
+	public String approvalExpense() {
+		return "approval/approvalDoc/approvalWriteForm/expenseReportForm";
 	}
 
 	@RequestMapping("/approval/createApproval")
 	public String approveCreate(ApprovalDoc doc, Model model) {
-
-		
 
 		return "approval/approvalPending.do";
 	}

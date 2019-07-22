@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CO-WORKS : 결재 서류작성하기</title>
-<c:import url="../../common/header.jsp" />
+<c:import url="../../../common/header.jsp" />
 <link href="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath }/resources/templates/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
@@ -26,8 +26,8 @@
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
-		<c:import url="../../common/topbar.jsp" />
-		<c:import url="../../common/sidebar.jsp" />
+		<c:import url="../../../common/topbar.jsp" />
+		<c:import url="../../../common/sidebar.jsp" />
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="row">
@@ -52,23 +52,23 @@
 								</div>
 								<div class="col-xlg-10 col-lg-9 border-left">
 									<div class="card-body">
-										<h4 class="card-title">휴가 신청서</h4>
+										<h4 class="card-title">지출 품의서</h4>
 
 										<form action="">
 											<div class="table-responsive mt-2">
 												<table class="table table-bordered no-wrap">
 													<tbody>
 														<tr>
-															<th>문서번호</th>
+															<th scope="col" class="border">문서번호</th>
 															<td><input type="text" class="form-control" value="자동입력" readonly="readonly" /></td>
-															<th>보존년한</th>
+															<th scope="col" class="border">보존년한</th>
 															<td><div class="input-group mb-3">
 																	<input type="number" class="form-control" name="expiration" aria-describedby="expiration_post">
 																	<div class="input-group-append">
 																		<span class="input-group-text" id="expiration_post">년</span>
 																	</div>
 																</div></td>
-															<th>보안등급</th>
+															<th scope="col" class="border">보안등급</th>
 															<td><div class="input-group mb-3">
 																	<input type="number" class="form-control" name="adoc_security" aria-describedby="security_post">
 																	<div class="input-group-append">
@@ -77,15 +77,15 @@
 																</div></td>
 														</tr>
 														<tr>
-															<th>사번</th>
+															<th scope="col" class="border">사번</th>
 															<td><input type="number" class="form-control" value="10236421" name="adoc_writerno" /></td>
-															<th>기안자명</th>
+															<th scope="col" class="border">기안자명</th>
 															<td><input type="text" class="form-control" name="writerName" /></td>
-															<th>부서</th>
+															<th scope="col" class="border">부서</th>
 															<td><input type="text" class="form-control" value="영업부" name="writerDept" /></td>
 														</tr>
 														<tr>
-															<th>결재자</th>
+															<th scope="col" class="border">결재자</th>
 															<td colspan="5">
 																<div class="tags-default">
 																	<select multiple data-role="tagsinput" name="approvSignList">
@@ -97,40 +97,51 @@
 															</td>
 														</tr>
 														<tr>
-															<th>문서 제목</th>
+															<th scope="col" class="border">문서 제목</th>
 															<td colspan="5"><input type="text" class="form-control" name="adoc_subject" /></td>
 														</tr>
-														<tr>
-															<th>휴가 종류</th>
-															<td colspan="5">
-																<div class="radio radio-info">
-																	<input type="radio" name="vacation_type" id="vacation_type1" value="연차" checked> <label for="vacation_type1"> 연차 </label> <input type="radio" name="vacation_type" id="vacation_type2" value="월차"> <label for="vacation_type2"> 월차 </label> <input type="radio" name="vacation_type" id="vacation_type3" value="반차"> <label for="vacation_type3"> 반차 </label> <input type="radio" name="vacation_type" id="vacation_type4" value="병가"> <label for="vacation_type4">
-																		병가 </label> <input type="radio" name="vacation_type" id="vacation_type5" value="기타"> <label for="vacation_type5"> 기타 </label>
-
-																</div> <input type="text" id="gitar" readonly="readonly" class="form-control" />
-															</td>
-														</tr>
-														<tr>
-															<th>휴가 기간</th>
-															<td colspan="5">
-																<div class="input-daterange input-group" id="date-range">
-																	<input type="text" class="form-control" name="start" />
-																	<div class="input-group-append">
-																		<span class="input-group-text bg-info b-0 text-white">TO</span>
-																	</div>
-																	<input type="text" class="form-control" name="end" />
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<th colspan="6">휴가 사유</th>
-														</tr>
-														<tr>
-															<td colspan="6"><textarea class="form-control" rows="10"></textarea></td>
-														</tr>
 													</tbody>
+												</table>
+												<table class="table table-bordered no-wrap">
+													<tbody>
+														<tr>
+															<th scope="col" class="border">순번</th>
+															<th scope="col" class="border">품명</th>
+															<th scope="col" class="border">규격</th>
+															<th scope="col" class="border">수량</th>
+															<th scope="col" class="border">단가</th>
+															<th scope="col" class="border">금액</th>
+														</tr>
+														<c:set var="index" value="0" />
+														<tr>
+															<c:set var="index" value="${index+1 }" />
+															<td><input type="number" value="${index }" readonly="readonly" class="form-control" /></td>
+															<td><input type="text" name="" class="form-control" /></td>
+															<td><input type="text" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+														</tr>
+														<tr>
+															<c:set var="index" value="${index+1 }" />
+															<td><input type="number" value="${index }" readonly="readonly" class="form-control" /></td>
+															<td><input type="text" name="" class="form-control" /></td>
+															<td><input type="text" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+														</tr>
+														<tr>
+															<c:set var="index" value="${index+1 }" />
+															<td><input type="number" value="${index }" readonly="readonly" class="form-control" /></td>
+															<td><input type="text" name="" class="form-control" /></td>
+															<td><input type="text" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+															<td><input type="number" name="" class="form-control" /></td>
+														</tr>
 
-
+													</tbody>
 												</table>
 
 											</div>
@@ -146,10 +157,10 @@
 					</div>
 				</div>
 			</div>
-			<c:import url="../../common/footer.jsp" />
+			<c:import url="../../../common/footer.jsp" />
 		</div>
 	</div>
-	<c:import url="../../common/bottomJquery.jsp" />
+	<c:import url="../../../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-treeview-master/dist/bootstrap-treeview.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
