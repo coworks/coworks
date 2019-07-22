@@ -1,5 +1,16 @@
 package com.kh.coworks.employee.model.dao;
 
-public interface EmployeeDao {
+import java.util.List;
+import java.util.Map;
 
+import com.kh.coworks.employee.model.vo.Employee;
+
+public interface EmployeeDao {
+	
+	int insertEmployee(Employee employee);
+	
+	List<Map<String, String>> selectEmployeeList(int cPage, int limit);
+	
+	int selectEmployeeTotalContents();
+	
 }

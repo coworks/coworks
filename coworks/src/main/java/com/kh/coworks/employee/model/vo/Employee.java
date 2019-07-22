@@ -2,23 +2,25 @@ package com.kh.coworks.employee.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Arrays;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class Employee implements Serializable {
-	private int emp_no; // »ç¿ø¹øÈ£
-	private String emp_name; // »ç¿ø¸í
-	private String job_code; // Á÷±ÞÄÚµå
-	private String dept_code; // ºÎ¼­ÄÚµå
-	private String emp_phone; // ¿¬¶ôÃ³
-	private String emp_email; // ÀÌ¸ÞÀÏ
-	private Date emp_birth; // »ý³â¿ùÀÏ
-	private String emp_gender; // ¼ºº°
-	private Date emp_hireDate; // ÀÔ»çÀÏ
-	private Date emp_resignDate; // Åð»çÀÏ
-	private String emp_isWork; // ÀçÁ÷¿©ºÎ
-	private String emp_signature; // °³ÀÎ¼­¸í
+	private int emp_no; // ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	private String emp_name; // ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String job_code; // ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
+	private String dept_code; // ï¿½Î¼ï¿½ï¿½Úµï¿½
+	private String emp_phone; // ï¿½ï¿½ï¿½ï¿½Ã³
+	private String emp_email; // ï¿½Ì¸ï¿½ï¿½ï¿½
+	private Date emp_birth; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String emp_gender; // ï¿½ï¿½ï¿½ï¿½
+	private Date emp_hireDate; // ï¿½Ô»ï¿½ï¿½ï¿½
+	private Date emp_resignDate; // ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String emp_isWork; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String emp_signature; // ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
+	private String[] emp_authority;
 
 	private String job_title;
 	private String dept_name;
@@ -30,7 +32,7 @@ public class Employee implements Serializable {
 
 	public Employee(int emp_no, String emp_name, String job_code, String dept_code, String emp_phone, String emp_email,
 			Date emp_birth, String emp_gender, Date emp_hireDate, Date emp_resignDate, String emp_isWork,
-			String emp_signature, String job_title, String dept_name) {
+			String emp_signature, String job_title, String dept_name, String[] emp_authority) {
 		super();
 		this.emp_no = emp_no;
 		this.emp_name = emp_name;
@@ -46,6 +48,7 @@ public class Employee implements Serializable {
 		this.emp_signature = emp_signature;
 		this.job_title = job_title;
 		this.dept_name = dept_name;
+		this.emp_authority = emp_authority;
 	}
 
 	public int getEmp_no() {
@@ -160,13 +163,21 @@ public class Employee implements Serializable {
 		this.dept_name = dept_name;
 	}
 
+	public String[] getEmp_authority() {
+		return emp_authority;
+	}
+
+	public void setEmp_authority(String[] emp_authority) {
+		this.emp_authority = emp_authority;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [emp_no=" + emp_no + ", emp_name=" + emp_name + ", job_code=" + job_code + ", dept_code="
 				+ dept_code + ", emp_phone=" + emp_phone + ", emp_email=" + emp_email + ", emp_birth=" + emp_birth
 				+ ", emp_gender=" + emp_gender + ", emp_hireDate=" + emp_hireDate + ", emp_resignDate=" + emp_resignDate
-				+ ", emp_isWork=" + emp_isWork + ", emp_signature=" + emp_signature + ", job_title=" + job_title
-				+ ", dept_name=" + dept_name + "]";
+				+ ", emp_isWork=" + emp_isWork + ", emp_signature=" + emp_signature + ", emp_authority="
+				+ Arrays.toString(emp_authority) + ", job_title=" + job_title + ", dept_name=" + dept_name + "]";
 	}
 
 }
