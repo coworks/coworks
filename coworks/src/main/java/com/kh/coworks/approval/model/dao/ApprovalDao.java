@@ -1,5 +1,5 @@
-package com.kh.coworks.approve.model.dao;
+package com.kh.coworks.approval.model.dao;
 
-public interface ApprovDao {
+public interface ApprovalDao {
 
 }

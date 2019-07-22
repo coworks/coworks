@@ -1,4 +1,4 @@
-package com.kh.coworks.approve.model.vo;
+package com.kh.coworks.approval.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ApprovDoc implements Serializable {
+public class ApprovalDoc implements Serializable {
 	private int adoc_no; // 문서번호
 	private int aform_no; // 서식문서 번호
 	private int adoc_writerno; // 작성자
@@ -25,15 +25,15 @@ public class ApprovDoc implements Serializable {
 	private String writerJobTitle;
 	private String writerName;
 
-	private List<ApprovStatus> statusList = new ArrayList<>();
-	private List<ApprovAttach> attachList = new ArrayList<>();
+	private List<ApprovalStatus> statusList = new ArrayList<>();
+	private List<ApprovalAttach> attachList = new ArrayList<>();
 
-	public ApprovDoc() {
+	public ApprovalDoc() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ApprovDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
+	public ApprovalDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
 			Date adoc_expiration, String adoc_subject, String[] adoc_content, String adoc_state) {
 		super();
 		this.adoc_no = adoc_no;
@@ -47,7 +47,7 @@ public class ApprovDoc implements Serializable {
 		this.adoc_state = adoc_state;
 	}
 
-	public ApprovDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
+	public ApprovalDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
 			Date adoc_expiration, String adoc_subject, String[] adoc_content, String adoc_state, String writerDept,
 			String writerJobTitle, String writerName) {
 		super();

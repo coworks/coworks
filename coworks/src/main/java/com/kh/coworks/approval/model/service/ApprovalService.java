@@ -1,6 +1,6 @@
-package com.kh.coworks.approve.model.service;
+package com.kh.coworks.approval.model.service;
 
-public interface ApprovService {
+public interface ApprovalService {
 	
 	
 	

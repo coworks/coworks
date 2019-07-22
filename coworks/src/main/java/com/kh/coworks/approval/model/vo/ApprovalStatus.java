@@ -1,4 +1,4 @@
-package com.kh.coworks.approve.model.vo;
+package com.kh.coworks.approval.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -6,19 +6,19 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ApprovStatus implements Serializable {
-	private int as_no;// ÀÎµ¦½º
-	private int aform_no;// ¹®¼­ÀÎµ¦½º
-	private int emp_no;// »ç¿ø¹øÈ£
-	private String as_status;// ½ÂÀÎ¿©ºÎ
-	private Date as_date;// °áÀçÀÏ½Ã
+public class ApprovalStatus implements Serializable {
+	private int as_no;// ï¿½Îµï¿½ï¿½ï¿½
+	private int aform_no;// ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½
+	private int emp_no;// ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	private String as_status;// ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½
+	private Date as_date;// ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½
 
-	public ApprovStatus() {
+	public ApprovalStatus() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ApprovStatus(int as_no, int aform_no, int emp_no, String as_status, Date as_date) {
+	public ApprovalStatus(int as_no, int aform_no, int emp_no, String as_status, Date as_date) {
 		super();
 		this.as_no = as_no;
 		this.aform_no = aform_no;

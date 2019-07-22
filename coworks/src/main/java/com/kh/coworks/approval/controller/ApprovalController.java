@@ -1,14 +1,14 @@
-package com.kh.coworks.approve.controller;
+package com.kh.coworks.approval.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.coworks.approve.model.vo.ApprovDoc;
+import com.kh.coworks.approval.model.vo.ApprovalDoc;
 
 @Controller
-public class ApproveController {
+public class ApprovalController {
 
 	@RequestMapping("/approval/approvalWrite.do")
 	public String approvalMain() {
@@ -47,7 +47,7 @@ public class ApproveController {
 	}
 
 	@RequestMapping("/approval/createApproval")
-	public String approveCreate(ApprovDoc doc, Model model) {
+	public String approveCreate(ApprovalDoc doc, Model model) {
 
 		
 

@@ -1,12 +1,12 @@
-package com.kh.coworks.approve.model.exception;
+package com.kh.coworks.approval.model.exception;
 
-public class ApprovException extends RuntimeException {
+public class ApprovalException extends RuntimeException {
 
-	public ApprovException() {
+	public ApprovalException() {
 		super();
 	}
 
-	public ApprovException(String message) {
+	public ApprovalException(String message) {
 		super(message);
 	}
 

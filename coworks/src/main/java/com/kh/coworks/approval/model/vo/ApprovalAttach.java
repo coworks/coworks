@@ -1,23 +1,23 @@
-package com.kh.coworks.approve.model.vo;
+package com.kh.coworks.approval.model.vo;
 
 import java.io.Serializable;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class ApprovAttach implements Serializable {
-	private int apAtt_no;// ÀÎµ¦½º
-	private int adoc_no;// ¹®¼­ÀÎµ¦½º
-	private String apAtt_oriname;// ÆÄÀÏ±âÁ¸ÀÌ¸§
-	private String apAtt_rename;// ÆÄÀÏº¯°æÀÌ¸§
-	private String apAtt_path;// ÆÄÀÏ°æ·Î
+public class ApprovalAttach implements Serializable {
+	private int apAtt_no;// ï¿½Îµï¿½ï¿½ï¿½
+	private int adoc_no;// ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½
+	private String apAtt_oriname;// ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	private String apAtt_rename;// ï¿½ï¿½ï¿½Ïºï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+	private String apAtt_path;// ï¿½ï¿½ï¿½Ï°ï¿½ï¿½
 
-	public ApprovAttach() {
+	public ApprovalAttach() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ApprovAttach(int apAtt_no, int adoc_no, String apAtt_oriname, String apAtt_rename, String apAtt_path) {
+	public ApprovalAttach(int apAtt_no, int adoc_no, String apAtt_oriname, String apAtt_rename, String apAtt_path) {
 		super();
 		this.apAtt_no = apAtt_no;
 		this.adoc_no = adoc_no;

@@ -1,22 +1,22 @@
-package com.kh.coworks.approve.model.vo;
+package com.kh.coworks.approval.model.vo;
 
 import java.io.Serializable;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class ApprovForm implements Serializable {
+public class ApprovalForm implements Serializable {
 	private int aform_no; // 인덱스
 	private int adoc_no; // 문서번호
 	private String aform_inputName;// 칼럼명
 	private String aform_inputData;// 데이타
 
-	public ApprovForm() {
+	public ApprovalForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ApprovForm(int aform_no, int adoc_no, String aform_inputName, String aform_inputData) {
+	public ApprovalForm(int aform_no, int adoc_no, String aform_inputName, String aform_inputData) {
 		super();
 		this.aform_no = aform_no;
 		this.adoc_no = adoc_no;
