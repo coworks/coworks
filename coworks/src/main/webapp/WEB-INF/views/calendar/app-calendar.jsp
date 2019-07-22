@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -46,12 +45,9 @@
                         </ol>
                     </div>
                     <div class="col-md-6 col-4 align-self-center">
-                        <button class="right-side-toggle waves-effect waves-light btn-info btn-circle btn-sm float-right ml-2"><i class="ti-settings text-white"></i></button>
-                        <button class="btn float-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i> 일정 추가</button>
-                        <div class="dropdown float-right mr-2 hidden-sm-down">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> January 2019 </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="#">February 2019</a> <a class="dropdown-item" href="#">March 2019</a> <a class="dropdown-item" href="#">April 2019</a> </div>
-                        </div>
+                         <button class="btn btn-success float-right" id="individual">개인</button>  
+                         <button class="btn btn-info float-right" id="department">부서</button>  
+                         <button class="btn btn-danger float-right" id="company">회사</button> 
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -62,7 +58,7 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-md-12 col-lg-3">
-                        <div class="card">
+                       <!--  <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Drag and Drop Your Event</h4>
                                 <div class="row">
@@ -73,46 +69,66 @@
                                             <div class="calendar-events" data-class="bg-danger"><i class="fa fa-circle mb-3 text-danger"></i> My Event Three</div>
                                             <div class="calendar-events" data-class="bg-warning"><i class="fa fa-circle mb-3 text-warning"></i> My Event Four</div>
                                         </div> 
-                                        <!-- <div class="checkbox mb-3">
+                                        <div class="checkbox mb-3">
                                             <input id="drop-remove" type="checkbox">
                                             <label for="drop-remove">
                                                 Remove after drop
                                             </label>
-                                        </div> -->
+                                        </div>
                                         <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
                                             <i class="ti-plus"></i> Add New Event
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        </div>  
+                        </div>   -->
                          <div class="card">
                             <div class="card-body">
+                            <form name="insertCalendar" action="${pageContext.request.contextPath}/calendar/insertCalendar.do" method="post">
+			
                                 <h4 class="card-title">일정 추가</h4>
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class='col-md-12'>
 	                 						<div class='form-group'>
 	                 							<label class='control-label'>일정 명</label>
-	                 							<input class='form-control' placeholder='Insert Event Name' type='text' name='title'/>
+	                 							<input class='form-control' placeholder='Insert Event Name' type='text' id="cal_name" name="cal_name"/>
+	                 							
+	                 						</div>
+	                 					</div> <div class='col-md-12'>
+	                 						<div class='form-group'>
+	                 							<label class='control-label'>일정 내용</label>
+	                 							<textarea class='form-control' row="3"type='text' id="cal_content" name="cal_content" ></textarea>
+	                 						
 	                 						</div>
 	                 					</div> 
-	                 						
+	                 						 
 						                 <div class='col-md-12'>
-						                 	<div class='form-group'>
+						                 	<div class='form-group' >
 						                 		<label class='control-label'>색상</label>
-						                 		<select class='form-control' name='category'>
+						                 		<select class='form-control' id="category" name='category' onchange="changeCategory();">
 						                 			 <option value='bg-danger'>빨강</option> 
 									                 <option value='bg-success'>초록</option> 
 									                 <option value='bg-purple'>보라</option>  
 									                 <option value='bg-info'>파랑</option> 
 									                 <option value='bg-warning'>노랑</option>
+						                 		<input type="hidden" id="cal_color" name="cal_color" value="bg-danger"/>
 						                 		</select>
 						                 	</div>
 						                 </div>
-										 
+										 <div class='col-md-12'>
+						                 	<div class='form-group' >
+						                 		<label class='control-label'>분류</label>
+						                 		<select class='form-control' id= "category2" name='category2'  onchange="changeCategory2();">
+						                 			 <option value='개인'>개인</option> 
+									                 <option value='부서'>부서</option> 
+									                 <option value='회사'>회사</option>   
+						                 		</select>
+						                 		<input type="hidden" id="cal_type" name="cal_type" value="개인"/>
+						                 	</div>
+						                 </div>
 										
-	                 					<div class='input-group mb-3'>
+	                 					<div class='input-group mb-3' style="float:both;">  
 	                 						<input type='text' class='form-control datetime' />
 			                 					<div class='input-group-append'>
 				                 					<span class='input-group-text'>
@@ -120,12 +136,28 @@
 				                 					</span>
 			                 					</div>
 	                 					</div> 
+	                 					<script>
+	                 					function changeCategory(){ 
+	                 						console.log($("#category").find(":selected").val()); 
+	                 						 
+	                 						var calcolor=$('#category option:selected').val();
+	                 						$('#cal_color').val(calcolor);
+	                 					};
+	                 					
+	                 					function changeCategory2(){
+	                 						console.log($("#category2").find(":selected").val());  
+	                 						 
+	                 						var caltype=$('#category2 option:selected').val();
+	                 						$('#cal_type').val(caltype);
+	                 					};
+	                 					</script>
 		       					          
-	                
+	                					<input id="cal_beginDate" name="cal_beginDate" type="text"/> 
+	                					<input id="cal_endDate" name="cal_endDate" type="text"/>
                                         
-                                        <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
-                                            <i class="ti-plus"></i> 추가
-                                        </a>
+                                        <button type="submit" class="btn btn-danger btn-block waves-effect waves-light">
+                                             		 추가
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -153,18 +185,21 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title"><strong>일정 추가/수정</strong></h4>
+                                <h4 class="modal-title"><strong>일정 수정</strong></h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body"></div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
-                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light ">  Delete</button>
+                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light">  Delete</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                
+                
                 <!-- Modal Add Category -->
                 <div class="modal fade none-border" id="add-new-event">
                     <div class="modal-dialog">
@@ -301,9 +336,7 @@
 		src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
-  <script
-		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/cal-init.js"></script>
-  <script
+ <script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.print.min.js"></script>
   
 
@@ -317,9 +350,11 @@
  				
 	<script>
 	
+	
+	
+	
 	!function($) {
 	    "use strict";
-
 	    var CalendarApp = function() {
 	        this.$body = $("body")
 	        this.$calendar = $('#calendar'),
@@ -331,7 +366,6 @@
 	        this.$calendarObj = null
 	    };
 	    
-
 	    /* on drop */
 	    CalendarApp.prototype.onDrop = function (eventObj, date) { 
 	        var $this = this;
@@ -347,25 +381,53 @@
 	            // render the event on the calendar
 	            $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true);
 	            // is the "remove after drop" checkbox checked?
-	            if ($('#drop-remove').is(':checked')) {
+	           
+	           if ($('#drop-remove').is(':checked')) {
 	                // if so, remove the element from the "Draggable Events" list
 	                eventObj.remove();
 	            }
+	            
+	           
 	    },
 	    /* on click on event */
 	    CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-	        var $this = this;
+	        var $this = this; 
+	        var startdate=moment(calEvent.start,'YYYY-MM-DD  HH:mm');
+	        var enddate=moment(calEvent.end,'YYYY-MM-DD  HH:mm');
 	            var form = $("<form></form>");
-	            form.append("<label>Change event name</label>");
-	            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
+	            form.append("");
+	            form.append("<div><label>기간 :&nbsp;&nbsp;</label><span>"+startdate.format('YYYY-MM-DD  HH:mm')+" - "+enddate.format('YYYY-MM-DD  HH:mm')+"</span></div>")
+	            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div></br>");
+	            form.append("<div><textarea class='form-control' row='3' type='text'>"+ calEvent.content+"</textarea>");
+	            form.append("<div>");
 	            $this.$modal.modal({
 	                backdrop: 'static'
 	            });
 	            $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function () {
-	                $this.$calendarObj.fullCalendar('removeEvents', function (ev) {
-	                    return (ev._id == calEvent._id);
+	            	
+	            	$this.$calendarObj.fullCalendar('removeEvents', function (ev) {
+	                	// cal_no받은것 input에넣기
+	                		console.log(calEvent);
+	                			console.log(calEvent._id);	// 삭제할 _id찾기
+	                	console.log(calEvent);	
+	                		var result=(ev._id == calEvent._id);
+	                	 $.ajax({
+	     					
+	     					url : "${pageContext.request.contextPath}/calendar/deleteCalendar.do",
+	     					data : {cal_no : calEvent._id},
+	     					dataType : "json",
+	     					async:false,
+	     					success : function(data){
+	     						 
+	     					},error: function(data){
+	     						result=false;
+	     					}
+	     					
+	     					
+	 				});  
+	                	 return result;
 	                });
-	                $this.$modal.modal('hide');
+ 	                $this.$modal.modal('hide');
 	            });
 	            $this.$modal.find('form').on('submit', function () {
 	                calEvent.title = form.find("input[type=text]").val();
@@ -374,12 +436,20 @@
 	                return false;
 	            });
 	    },
+	    
+	    
 	    /* on select */
+	    
 	    CalendarApp.prototype.onSelect = function (start, end, allDay) {
 	        var $this = this;
+	        
+	        /*
+	        // 일정 칸 클릭시 아무것도없으면 안나타나게하기
 	            $this.$modal.modal({
-	                backdrop: 'static'
-	            });
+	                backdrop: 'static'	
+	            }); 
+	        
+	         칸 클릭시 일정추가 modal
 	            var form = $("<form></form>");
 	            form.append("<div class='row'></div>");
 	            form.find(".row")
@@ -399,14 +469,13 @@
 	                form.submit();
 	            });
 	            
-	            $this.$modal.find('.datetime').daterangepicker({
-	                timePicker: true,
-	                timePickerIncrement: 30,
-	                locale: {
-	                    format: 'MM/DD/YYYY h:mm A'
-	                }
+	                 $this.$modal.find('.delete-event').hide().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.save-event').unbind('click').click(function () {
+	                form.submit();
 	            });
 	            
+	         */ 
+	         /*
+	            // ** render--> 만들기
 	            $this.$modal.find('form').on('submit', function () {
 	                var title = form.find("input[name='title']").val();
 	                var beginning = form.find("input[name='beginning']").val();	//아직 없음
@@ -428,23 +497,31 @@
 	                return false;
 	                
 	            });
+	           */
 	            $this.$calendarObj.fullCalendar('unselect');
 	    },
+	    
 	    CalendarApp.prototype.enableDrag = function() {
 	        //init events
 	        $(this.$event).each(function () {
 	            // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
 	            // it doesn't need to have a start or end
+	            
 	            var eventObject = {
 	                title: $.trim($(this).text()) // use the element's text as the event title
-	            };
+	                
+	                
+	       		};
 	            // store the Event Object in the DOM element so we can get to it later
 	            $(this).data('eventObject', eventObject);
-	            // make the event draggable using jQuery UI
-	            $(this).draggable({
+	            
+	            	
+	            $(this).draggable({	
 	                zIndex: 999,
 	                revert: true,      // will cause the event to go back to its
 	                revertDuration: 0  //  original position after the drag
+	                
+	                // ajax update 날짜
 	            });
 	        });
 	    }
@@ -453,7 +530,7 @@
 	 
 	    
 	    /* Initializing */
-	    CalendarApp.prototype.init = function() {
+	    CalendarApp.prototype.init= function() {
 	        this.enableDrag();
 	        /*  Initialize the calendar  */
 	        var date = new Date();
@@ -462,54 +539,34 @@
 	        var y = date.getFullYear();
 	        var form = '';
 	        var today = new Date($.now());
-
 	         
-	        var defaultEvents =  [{
-	                title: 'Released Ample Admin!',
-	                start: new Date($.now() + 506800000),
-	                className: 'bg-info'
-	            }, {
-	                title: 'This is today check date',
-	                start: today,
-	                end: today,
-	                className: 'bg-danger'
-	            }, {
-	                title: 'This is your birthday',
-	                start: new Date($.now() + 848000000),
-	                className: 'bg-info'
-	            },{
-	                title: 'your meeting with john',
-	                start: new Date($.now() - 1099000000),
-	                end:  new Date($.now() - 919000000),
-	                className: 'bg-warning'
-	            },{
-	                title: 'your meeting with john',
-	                start: new Date($.now() - 1199000000),
-	                end: new Date($.now() - 1199000000),
-	                className: 'bg-purple'
-	            },{
-	                title: 'your meeting with john',
-	                start: new Date($.now() - 399000000),
-	                end: new Date($.now() - 219000000),
-	                className: 'bg-info'
-	            },  
-	              {
-	                title: 'Hanns birthday',
-	                start: new Date($.now() + 868000000),
-	                className: 'bg-danger'
-	            },{
-	                title: 'Like it?',
-	                start: new Date($.now() + 348000000),
-	                className: 'bg-success'
-	            }];
-
+	        
+	       
+	        var defaultEvents = [];
+	        
+	        // 일정 받아오기
+	        <c:forEach items="${list}" var="calendar">
+	      
+				
+				// db넣은것 출력
+	     	   defaultEvents.push({
+	     		content :  '${calendar.cal_content}',	// 일정 내용
+	        	title   :  '${calendar.cal_name}',	// 일정 제목
+	            start   :  '${calendar.cal_beginDate}',	// 시작일
+	            end		:  '${calendar.cal_endDate}',	// 종료일
+	            className : '${calendar.cal_color}',	// 색상변경(탬플릿적용 색)
+	            _id:'${calendar.cal_no}'	// id값 넣어야 삭제가능...ㅠ
+	        })
+	    	</c:forEach>
+	        
+	 
 	        var $this = this;
 	        
 	        
 	        $this.$calendarObj = $this.$calendar.fullCalendar({
-	            slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
-	            minTime: '08:00:00',
-	            maxTime: '19:00:00',  
+	            slotDuration: '00:30:00', /* If we want to split day time each 15minutes */
+	            minTime: '06:00:00',
+	            maxTime: '24:30:00',  
 	            defaultView: 'month',  
 	            handleWindowResize: true,   
 	             
@@ -526,27 +583,13 @@
 	            drop: function(date) { $this.onDrop($(this), date); },
 	            select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
 	            eventClick: function(calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
-
 	        });
-
-	        //on new event 이벤트 새로 생성(왼쪽)
-	        this.$saveCategoryBtn.on('click', function(){
-	            var categoryName = $this.$categoryForm.find("input[name='category-name']").val();
-	            var categoryColor = $this.$categoryForm.find("select[name='category-color']").val();
-	            if (categoryName !== null && categoryName.length != 0) {
-	                $this.$extEvents.append('<div class="calendar-events" data-class="bg-' + categoryColor + '" style="position: relative;"><i class="fa fa-circle text-' + categoryColor + '"></i>' + categoryName + '</div>')
-	                $this.enableDrag();
-	                // ajax
-	            }
-
-	        });
+	    
 	    },
-
 	   //init CalendarApp
 	    $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
 	    
 	}(window.jQuery),
-
 	//initializing CalendarApp
 	function($) {
 	    "use strict";
@@ -560,7 +603,16 @@
          locale: {
              format: 'MM/DD/YYYY h:mm A'
          }
-     });
+     }, 
+     function(start, end) {
+      console.log("Callback has been called!");
+      $('#cal_beginDate').val(start.format('YYYY-MM-DD HH:mm:ss'));
+      $('#cal_endDate').val(end.format('YYYY-MM-DD HH:mm:ss'));
+      console.log(start.format('yyyy-mm-dd hh:mm:ss')) + ' - ' + end.format(end.format('YY-MM-DD HH:mm:ss.S'));
+      startDate = start;
+      endDate = end;  
+     }
+	 );
 	
 	</script>	
 			</div>
@@ -571,5 +623,3 @@
 	 
 </body>
 </html>
-
-
