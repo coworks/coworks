@@ -4,18 +4,19 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class Mail implements Serializable {
-	private int mail_no; // ÀÎµ¦½º
-	private int mail_from; // ¹ß½ÅÀÚ
-	private int mail_to; // ¼ö½ÅÀÚ
-	private String mail_subject; // Á¦¸ñ
-	private String mail_content; // ³»¿ë
-	private Timestamp mail_sendDate; // º¸³½½Ã°£
-	private Timestamp mail_readDate; // ÀÐÀº½Ã°£
-	private String mail_isRead; // ÀÐ±â ¿©ºÎ
-	private String mail_fromDel; // º¸³½ÀÌ »èÁ¦¿©ºÎ
-	private String mail_toDel; // ¹Þ´ÂÀÌ »èÁ¦¿©ºÎ
-	private int mfolder_no; // Æú´õ ÀÎµ¦½º
-	private String mail_attachpath; // Ã·ºÎÆÄÀÏ
+	private int mail_no; // ï¿½Îµï¿½ï¿½ï¿½
+	private int mail_from; // ï¿½ß½ï¿½ï¿½ï¿½
+	private int mail_to; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String mail_subject; // ï¿½ï¿½ï¿½ï¿½
+	private String mail_content; // ï¿½ï¿½ï¿½ï¿½
+	private Timestamp mail_sendDate; // ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+	private Timestamp mail_readDate; // ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+	private String mail_isRead; // ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private String mail_fromDel; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String mail_toDel; // ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int mfolder_no; // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+	private String mail_attachpath; // Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String mail_to_email;
 	
 	private String emp_name;
 
@@ -24,9 +25,11 @@ public class Mail implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public Mail(int mail_no, int mail_from, int mail_to, String mail_subject, String mail_content,
 			Timestamp mail_sendDate, Timestamp mail_readDate, String mail_isRead, String mail_fromDel,
-			String mail_toDel, int mfolder_no, String mail_attachpath, String emp_name) {
+			String mail_toDel, int mfolder_no, String mail_attachpath, String mail_to_email, String emp_name) {
 		super();
 		this.mail_no = mail_no;
 		this.mail_from = mail_from;
@@ -40,8 +43,23 @@ public class Mail implements Serializable {
 		this.mail_toDel = mail_toDel;
 		this.mfolder_no = mfolder_no;
 		this.mail_attachpath = mail_attachpath;
+		this.mail_to_email = mail_to_email;
 		this.emp_name = emp_name;
 	}
+
+
+
+	public String getMail_to_email() {
+		return mail_to_email;
+	}
+
+
+
+	public void setMail_to_email(String mail_to_email) {
+		this.mail_to_email = mail_to_email;
+	}
+
+
 
 	public int getMail_no() {
 		return mail_no;
