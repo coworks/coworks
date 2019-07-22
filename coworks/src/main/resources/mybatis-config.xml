@@ -8,10 +8,14 @@
 	</settings>
 
 	<typeAliases>
-		
+		<typeAlias type="com.kh.coworks.employee.model.vo.Employee" alias="employee" />
 		<typeAlias type="com.kh.coworks.calendar.model.vo.Calendar" alias="calendar"/> 
+		<typeAlias type="com.kh.coworks.common.typeHandler.StringArrayTypeHandler" alias="strArrTypeHandler" />
 	</typeAliases>
-	
+
+	<typeHandlers>
+		<package name="com.kh.coworks.common.typeHandler" />
+	</typeHandlers>
 	
 </configuration>
 
