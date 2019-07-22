@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>co-works : 인사관리</title>
 <c:import url="../common/header.jsp" />
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
@@ -23,7 +23,7 @@
 					<!-- Column -->
 					<div class="card">
 						<div class="card-body">
-							<h4 class="card-title">Editable with Datatable</h4>
+							<h4 class="card-title">인사관리</h4>
 							<div id="basicgrid" class="jsgrid"
 								style="position: relative; height: 500px; width: 100%;">
 								<div class="jsgrid-grid-header jsgrid-header-scrollbar">
