@@ -11,4 +11,28 @@
       <property name="username" value="COWORKS"/>
       <property name="password" value="COWORKS_"/>
     </bean>
+    
+     
+    
+    
+    <!-- Mybatis를 연동하기 위한 설정 -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<!-- dataSource : 마이바티스 빈 객체에 사용할 DB 설정 객체 참조 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- mapperLocations : mybatis-config에 작성하였던 mapper 파일들을 한번에 불러오기 위한 설정 -->
+		<property name="mapperLocations" value="classpath*:mappers/*.xml"/>
+		<!-- configLocation : mybatis-config 설정을 읽어 오기 위한 속성 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+	</bean>
+    
+    <!-- Mybatis 사용과 관련된 sqlSession 객체 선언하기 -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    	<constructor-arg index="0" ref="sqlSessionFactoryBean"/>
+    </bean>
+    
+    <!-- 트랜잭션 처리와 관련된 매니저 객체 선언하기 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+    </bean>
+    
 </beans>

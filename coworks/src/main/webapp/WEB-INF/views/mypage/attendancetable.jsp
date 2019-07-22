@@ -17,30 +17,28 @@
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				
-				<!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <div class="row page-titles">
-                    <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor mb-0 mt-0">근태 관리</h3>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Attendance</li>
-                        </ol>
-                    </div>
-                    <div class="col-md-6 col-4 align-self-center">
-                        <div class="dropdown float-right mr-2 hidden-sm-down">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> January 2019 </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="#">February 2019</a> <a class="dropdown-item" href="#">March 2019</a> <a class="dropdown-item" href="#">April 2019</a> </div>
-                        </div>
-                    </div>
-                </div>
+				 
 				
 				
 				 <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">ooo 님의 근태 현황</h4> 
+                            
+                            
+	                            <div class="align-self-center">
+	                                <h4 class="card-title float-left">ooo 님의 근태 현황</h4> 
+	                                <div class=" align-self-center">
+	                      			  <div class="dropdown float-right ">
+				                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> January 2019 </button>
+				                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="#">February 2019</a> <a class="dropdown-item" href="#">March 2019</a> <a class="dropdown-item" href="#">April 2019</a> </div>
+				                      </div>
+				                    </div>
+				                    	
+	                             </div>
+	                             
+	                             </br></br></br></br>
+	                             
+	                             
                                 <div class="table-responsive">
                                     <table class="table no-wrap">
                                         <thead>

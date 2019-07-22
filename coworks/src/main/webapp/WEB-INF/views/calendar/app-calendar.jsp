@@ -8,10 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>일정 관리</title>
+<title>CO-WORKS : 일정 관리</title>
    <!-- Calendar CSS -->
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" />
-    
      
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
     <!-- Color picker plugins css -->
