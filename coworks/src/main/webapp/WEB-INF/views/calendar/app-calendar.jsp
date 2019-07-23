@@ -45,11 +45,31 @@
                         </ol>
                     </div>
                     <div class="col-md-6 col-4 align-self-center">
-                         <button class="btn btn-success float-right" id="individual">개인</button>  
-                         <button class="btn btn-info float-right" id="department">부서</button>  
-                         <button class="btn btn-danger float-right" id="company">회사</button> 
+                         <input type="button" class="btn btn-success float-right" id="indi" onclick="onclick1('개인');"   value="개인"/>  
+                         <input type="button" class="btn btn-info float-right" id="depart" onclick="onclick1('부서');" value="부서"/>   
+                         <input type="button" class="btn btn-danger float-right" id="com" onclick="onclick1('회사');" value="회사"/>    
                     </div>
                 </div>
+                
+                <script>
+	                function onclick1(type){
+	                	 var result=type;
+	                	 console.log(result);
+	                	 
+	                	 $.ajax({
+	                		 url : "${pageContext.request.contextPath}/calendar/selectListCalendar.do",
+		     					data : {cal_type : type},
+		     					dataType : "json",
+		     					async:false,
+		     					success : function(data){
+		     						 
+		     					},error: function(data){
+		     						result=false;
+		     					} 
+	                	 });
+	                	
+                };
+                </script>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -128,7 +148,7 @@
 						                 	</div>
 						                 </div>
 										
-	                 					<div class='input-group mb-3' style="float:both;">  
+	                 					<div class='input-group mb-5' style="float:both;">  
 	                 						<input type='text' class='form-control datetime' />
 			                 					<div class='input-group-append'>
 				                 					<span class='input-group-text'>
@@ -244,56 +264,7 @@
                 <!-- Right sidebar -->
                 <!-- ============================================================== -->
                 <!-- .right-sidebar -->
-                <div class="right-sidebar">
-                    <div class="slimscrollright">
-                        <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
-                        <div class="r-panel-body">
-                            <ul id="themecolors" class="mt-3">
-                                <li><b>With Light sidebar</b></li>
-                                <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
-                                <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
-                                <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
-                                <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
-                                <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
-                                <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
-                                <li class="d-block mt-4"><b>With Dark sidebar</b></li>
-                                <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
-                                <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
-                                <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
-                                <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
-                                <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
-                                <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li>
-                            </ul>
-                            <ul class="mt-3 chatonline">
-                                <li><b>Chat option</b></li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/resources/template/assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/resources/template/assets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/resources/template/assets/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/resources/template/assets/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/resources/template/assets/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/resources/template/assets/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/resources/template/assets/images/users/7.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                
                 <!-- ============================================================== -->
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
@@ -357,7 +328,7 @@
 	    "use strict";
 	    var CalendarApp = function() {
 	        this.$body = $("body")
-	        this.$calendar = $('#calendar'),
+	        this.$calendar = $('#calendar'),	
 	        this.$event = ('#calendar-events div.calendar-events'),
 	        this.$categoryForm = $('#add-new-event form'),
 	        this.$extEvents = $('#calendar-events'),
@@ -368,7 +339,7 @@
 	    
 	    /* on drop */
 	    CalendarApp.prototype.onDrop = function (eventObj, date) { 
-	        var $this = this;
+	        var $this = this; 
 	            // retrieve the dropped element's stored Event Object
 	            var originalEventObject = eventObj.data('eventObject');
 	            var $categoryClass = eventObj.attr('data-class');
@@ -381,14 +352,11 @@
 	            // render the event on the calendar
 	            $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true);
 	            // is the "remove after drop" checkbox checked?
-	           
-	           if ($('#drop-remove').is(':checked')) {
+	            if ($('#drop-remove').is(':checked')) {
 	                // if so, remove the element from the "Draggable Events" list
 	                eventObj.remove();
 	            }
-	            
-	           
-	    },
+	    }, 
 	    /* on click on event */
 	    CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
 	        var $this = this; 
@@ -408,13 +376,13 @@
 	            	$this.$calendarObj.fullCalendar('removeEvents', function (ev) {
 	                	// cal_no받은것 input에넣기
 	                		console.log(calEvent);
-	                			console.log(calEvent._id);	// 삭제할 _id찾기
+	                			console.log(calEvent.id);	// 삭제할 id찾기
 	                	console.log(calEvent);	
-	                		var result=(ev._id == calEvent._id);
+	                		var result=(ev.id == calEvent.id);
 	                	 $.ajax({
 	     					
 	     					url : "${pageContext.request.contextPath}/calendar/deleteCalendar.do",
-	     					data : {cal_no : calEvent._id},
+	     					data : {cal_no : calEvent.id},
 	     					dataType : "json",
 	     					async:false,
 	     					success : function(data){
@@ -443,61 +411,6 @@
 	    CalendarApp.prototype.onSelect = function (start, end, allDay) {
 	        var $this = this;
 	        
-	        /*
-	        // 일정 칸 클릭시 아무것도없으면 안나타나게하기
-	            $this.$modal.modal({
-	                backdrop: 'static'	
-	            }); 
-	        
-	         칸 클릭시 일정추가 modal
-	            var form = $("<form></form>");
-	            form.append("<div class='row'></div>");
-	            form.find(".row")
-	                .append("<div class='col-md-6'><div class='form-group'><label class='control-label'>일정 명</label><input class='form-control' placeholder='Insert Event Name' type='text' name='title'/></div></div>")
-	                .append("<div class='col-md-6'><div class='form-group'><label class='control-label'>색상</label><select class='form-control' name='category'></select></div></div>")
-	                .append("<div class='input-group mb-3'><input type='text' class='form-control datetime' /><div class='input-group-append'><span class='input-group-text'><span class='ti-calendar'></span></span></div></div>")
-	                .find("select[name='category']")
-	                .append("<option value='bg-danger'>빨강</option>")
-	                .append("<option value='bg-success'>초록</option>")
-	                .append("<option value='bg-purple'>보라</option>") 
-	                .append("<option value='bg-info'>파랑</option>")
-	                .append("<option value='bg-warning'>노랑</option></div></div>") 
-	                .append("<div class='col-md-6'><div class='form-group'><label class='control-label'>시작</label><input name='startDate' type='date' class='form-control'/></div></div>")
-	                .append("<div class='col-md-6'><div class='form-group'><label class='control-label'>종료</label><input name='endDate' type='date' class='form-control'/></div></div>")
-	                
-	                 $this.$modal.find('.delete-event').hide().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.save-event').unbind('click').click(function () {
-	                form.submit();
-	            });
-	            
-	                 $this.$modal.find('.delete-event').hide().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.save-event').unbind('click').click(function () {
-	                form.submit();
-	            });
-	            
-	         */ 
-	         /*
-	            // ** render--> 만들기
-	            $this.$modal.find('form').on('submit', function () {
-	                var title = form.find("input[name='title']").val();
-	                var beginning = form.find("input[name='beginning']").val();	//아직 없음
-	                var ending = form.find("input[name='ending']").val();//아직 없음
-	                var categoryClass = form.find("select[name='category'] option:checked").val();
-	                if (title !== null && title.length != 0) {
-	                    $this.$calendarObj.fullCalendar('renderEvent', {
-	                        title: title,
-	                        start:start,
-	                        end: end,
-	                        allDay: false,
-	                        className: categoryClass	
-	                    }, true);  
-	                    $this.$modal.modal('hide');
-	                }
-	                else{
-	                    alert('일정 명을 입력하세요');
-	                }
-	                return false;
-	                
-	            });
-	           */
 	            $this.$calendarObj.fullCalendar('unselect');
 	    },
 	    
@@ -521,7 +434,6 @@
 	                revert: true,      // will cause the event to go back to its
 	                revertDuration: 0  //  original position after the drag
 	                
-	                // ajax update 날짜
 	            });
 	        });
 	    }
@@ -555,7 +467,9 @@
 	            start   :  '${calendar.cal_beginDate}',	// 시작일
 	            end		:  '${calendar.cal_endDate}',	// 종료일
 	            className : '${calendar.cal_color}',	// 색상변경(탬플릿적용 색)
-	            _id:'${calendar.cal_no}'	// id값 넣어야 삭제가능...ㅠ
+	            id:'${calendar.cal_no}'	// id값 넣어야 삭제가능...ㅠ
+	            
+	            
 	        })
 	    	</c:forEach>
 	        
@@ -574,15 +488,38 @@
 	                left: 'prev,next today',
 	                center: 'title',
 	                right: 'month,agendaWeek,agendaDay'
-	            },
+	            }, 
+	                
 	            events: defaultEvents,	//이벤트 불러오기
-	            editable: true,
+	            editable: true,	// 
 	            droppable: true, // this allows things to be dropped onto the calendar !!!
 	            eventLimit: true, // allow "more" link when too many events
 	            selectable: true,
 	            drop: function(date) { $this.onDrop($(this), date); },
 	            select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
-	            eventClick: function(calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
+	            eventClick: function(calEvent, jsEvent, view,event) { $this.onEventClick(calEvent, jsEvent, view); },
+	            eventDrop : function(event, delta, revertFun){ 
+	            	 
+	            	var id= event.id;	//해당  일정의 cal_no 넘버값 찾기
+                    var start= $.fullCalendar.formatDate(event.start, "YYYY-MM-DD HH:mm:ss.SSSSSSSSS");	//옮겨진 시작날
+                    var end =$.fullCalendar.formatDate(event.end, "YYYY-MM-DD HH:mm:ss.SSSSSSSSS");	//옮겨진 마지막날
+                
+       			 
+        		// 일정 드래그시 날짜수정
+       			$.ajax({
+                    url: "${pageContext.request.contextPath}/calendar/updateCalendar.do",
+                    dataType : "json",
+                    data:{cal_no:event.id, cal_begindate:start, cal_enddate:end},
+                     
+                    success:function(){
+                       // alert("succes drag");
+                    },error:function(){ 
+                       // alert("error drag !!!!");
+                    }
+                });
+	            	 
+	            }
+	        
 	        });
 	    
 	    },
@@ -598,10 +535,11 @@
 	
 	
 	 $('.datetime').daterangepicker({
+		
          timePicker: true,
          timePickerIncrement: 30,
          locale: {
-             format: 'MM/DD/YYYY h:mm A'
+             format: 'YY/MM/DD hh:mm'
          }
      }, 
      function(start, end) {
