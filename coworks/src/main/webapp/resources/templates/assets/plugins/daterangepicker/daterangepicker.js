@@ -47,7 +47,7 @@
         this.showISOWeekNumbers = false;
         this.showCustomRangeLabel = true;
         this.timePicker = false;
-        this.timePicker24Hour = false;
+        this.timePicker24Hour = true;
         this.timePickerIncrement = 1;
         this.timePickerSeconds = false;
         this.linkedCalendars = true;
@@ -1330,7 +1330,7 @@
             var i = 0;
             for (var range in this.ranges) {
               if (this.timePicker) {
-                    var format = this.timePickerSeconds ? "YYYY-MM-DD hh:mm:ss" : "YYYY-MM-DD hh:mm";
+                    var format = this.timePickerSeconds ? "YYYY-MM-DD HH:mm:ss" : "YYYY-MM-DD HH:mm";
                     //ignore times when comparing dates if time picker seconds is not enabled
                     if (this.startDate.format(format) == this.ranges[range][0].format(format) && this.endDate.format(format) == this.ranges[range][1].format(format)) {
                         customRange = false;
@@ -1420,13 +1420,13 @@
             var minute = parseInt(cal.find('.minuteselect').val(), 10);
             var second = this.timePickerSeconds ? parseInt(cal.find('.secondselect').val(), 10) : 0;
 
-            if (!this.timePicker24Hour) {
+            /*if (!this.timePicker24Hour) {
                 var ampm = cal.find('.ampmselect').val();
                 if (ampm === 'PM' && hour < 12)
                     hour += 12;
                 if (ampm === 'AM' && hour === 12)
                     hour = 0;
-            }
+            }*/
 
             if (isLeft) {
                 var start = this.startDate.clone();
