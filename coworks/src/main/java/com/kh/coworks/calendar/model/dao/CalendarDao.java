@@ -20,4 +20,6 @@ public interface CalendarDao {
 	
 	int updateCalendar(Calendar calendar);
 	
+	int updateCalendar2(Calendar calendar);
+	
 }

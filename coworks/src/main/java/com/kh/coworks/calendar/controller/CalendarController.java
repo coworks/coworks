@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.coworks.calendar.model.exception.CalendarException;
@@ -101,7 +103,7 @@ public class CalendarController {
 			@RequestParam(value="cal_enddate",  required = true) String cal_endDate, HttpSession session,HttpServletResponse resp) throws IOException {
 		
 		
-		 Timestamp ts1=java.sql.Timestamp.valueOf(cal_beginDate);	//timestamp로 변환
+		 Timestamp ts1=java.sql.Timestamp.valueOf(cal_beginDate);	 
 		 Timestamp ts2=java.sql.Timestamp.valueOf(cal_endDate);
 
 		 System.out.println("시작 : " + ts1);
@@ -122,6 +124,23 @@ public class CalendarController {
 			
 			
 			resp.getWriter().print(true);
+		
+		 
+	}
+	
+	@RequestMapping("/calendar/updateCalendar2.do")
+	@ResponseBody
+	public void updateCalendar2(@ModelAttribute Calendar calendar, HttpSession session,HttpServletResponse resp) throws IOException {
+
+		 
+		 
+	 int result=calService.updateCalendar2(calendar);
+		  
+			
+		 
+			
+			
+			resp.getWriter().print(false);
 		
 		 
 	}
