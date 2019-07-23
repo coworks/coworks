@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-4">
 			<table class="no-wrap table-bordered table fixed">
-			<col width="80px">
+				<col width="80px">
 				<tr>
 					<th scope="col" class="border">문서번호</th>
 					<td></td>
@@ -26,10 +26,10 @@
 		<div class="col-4"></div>
 		<div class="col-4">
 			<table class="no-wrap table-bordered table fixed">
-				<col width="20px"/>
-				<col width="60px"/>
-				<col width="60px"/>
-				<col width="60px"/>
+				<col width="20px" />
+				<col width="60px" />
+				<col width="60px" />
+				<col width="60px" />
 				<tr>
 					<th rowspan="3" width="15px">결<br />재
 					</th>
@@ -73,10 +73,11 @@
 					<th scope="col" class="border">직책</th>
 					<td></td>
 				</tr>
-			</table>
-			<table class="no-wrap table-bordered table">
+
 				<tr>
-					<td height="500px"></td>
+					<td colspan="2">
+						<div style="height: 500px"></div>
+					</td>
 				</tr>
 			</table>
 		</div>

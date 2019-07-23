@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-4">
 			<table class="no-wrap table-bordered table fixed">
-				<col width="80px">
+			<col width="80px">
 				<tr>
 					<th scope="col" class="border">문서번호</th>
 					<td></td>
@@ -26,10 +26,10 @@
 		<div class="col-4"></div>
 		<div class="col-4">
 			<table class="no-wrap table-bordered table fixed">
-				<col width="20px" />
-				<col width="60px" />
-				<col width="60px" />
-				<col width="60px" />
+				<col width="20px"/>
+				<col width="60px"/>
+				<col width="60px"/>
+				<col width="60px"/>
 				<tr>
 					<th rowspan="3" width="15px">결<br />재
 					</th>
@@ -64,44 +64,21 @@
 				<tr>
 					<th scope="col" class="border" width="100px">소속</th>
 					<td></td>
-					<th scope="col" class="border" width="100px">직책</th>
-					<td></td>
 				</tr>
 				<tr>
 					<th scope="col" class="border">성명</th>
 					<td></td>
-					<th scope="col" class="border">작성일</th>
-					<td></td>
 				</tr>
 				<tr>
-					<th scope="col" class="border">제목</th>
-					<td colspan="3"></td>
+					<th scope="col" class="border">직책</th>
+					<td></td>
 				</tr>
 			</table>
-			<table class="no-wrap table-bordered table mb-0">
+			<table class="no-wrap table-bordered table">
 				<tr>
-					<th scope="col" class="border"></th>
-					<th scope="col" class="border"></th>
-					<th scope="col" class="border"></th>
-					<th scope="col" class="border"></th>
-					<th scope="col" class="border"></th>
-					<th scope="col" class="border"></th>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td colspan="6">
-						<div style="height: 200px"></div>
-					</td>
+					<td height="500px"></td>
 				</tr>
 			</table>
-
 		</div>
 		<div class="col-9"></div>
 		<div class="col-3" style="text-align: left">

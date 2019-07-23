@@ -30,7 +30,7 @@
 								<input type="button" value="일괄 결재하기" class="btn btn-warning mb-3 float-right" />
 
 								<div class="table-responsive">
-									<table class="table no-wrap table-bordered" style="text-align: center;">
+									<table class="table no-wrap table-bordered table-hover" style="text-align: center;">
 										<thead class="bg-info text-white">
 											<tr>
 												<th><input type="checkbox" name="allck" /></th>

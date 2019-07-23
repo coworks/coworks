@@ -10,9 +10,9 @@ import com.kh.coworks.approval.model.vo.ApprovalDoc;
 @Controller
 public class ApprovalController {
 
-	@RequestMapping("/approval/approvalWrite.do")
+	@RequestMapping("/approval/approvalSelectForm.do")
 	public String approvalMain() {
-		return "approval/approvalWrite";
+		return "approval/approvalSelectForm";
 	}
 
 	@RequestMapping("/error.do")

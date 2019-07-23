@@ -15,7 +15,7 @@
 				<li><a href="#" aria-expanded="false"><i class="mdi mdi-message-text-outline"></i><span class="hide-menu">메신저</span></a></li>
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-pen"></i><span class="hide-menu">결재</span></a>
 					<ul aria-expanded="false" class="collapse">
-						<li><a href="${pageContext.request.contextPath}/approval/approvalWrite.do">작성하기</a></li>
+						<li><a href="${pageContext.request.contextPath}/approval/approvalSelectForm.do">작성하기</a></li>
 						<li><a href="${pageContext.request.contextPath}/approval/approvalPending.do">미결함</a></li>
 						<li><a href="#">진행함</a></li>
 						<li><a href="#">완료함</a></li>
