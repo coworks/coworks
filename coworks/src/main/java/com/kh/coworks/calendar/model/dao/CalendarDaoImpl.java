@@ -49,9 +49,4 @@ public class CalendarDaoImpl implements CalendarDao {
 		return sqlSession.update("calendar.updateCalendar",calendar);
 	}
 
-	@Override
-	public int updateCalendar2(Calendar calendar) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("calendar.updateCalendar2",calendar);
-	}
 }

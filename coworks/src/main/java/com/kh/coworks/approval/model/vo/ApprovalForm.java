@@ -7,21 +7,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApprovalForm implements Serializable {
 	private int aform_no; // 인덱스
-	private int adoc_no; // 문서번호
-	private String aform_inputName;// 칼럼명
-	private String aform_inputData;// 데이타
+	private String aform_title; // 서류 제목
+	private String aform_folderName;// 폴더명
+	private String aform_formPage;// 입력폼
+	private String aform_docPage;// 출력폼
 
 	public ApprovalForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ApprovalForm(int aform_no, int adoc_no, String aform_inputName, String aform_inputData) {
+	public ApprovalForm(int aform_no, String aform_title, String aform_folderName, String aform_formPage,
+			String aform_docPage) {
 		super();
 		this.aform_no = aform_no;
-		this.adoc_no = adoc_no;
-		this.aform_inputName = aform_inputName;
-		this.aform_inputData = aform_inputData;
+		this.aform_title = aform_title;
+		this.aform_folderName = aform_folderName;
+		this.aform_formPage = aform_formPage;
+		this.aform_docPage = aform_docPage;
 	}
 
 	public int getAform_no() {
@@ -32,34 +35,42 @@ public class ApprovalForm implements Serializable {
 		this.aform_no = aform_no;
 	}
 
-	public int getAdoc_no() {
-		return adoc_no;
+	public String getAform_title() {
+		return aform_title;
 	}
 
-	public void setAdoc_no(int adoc_no) {
-		this.adoc_no = adoc_no;
+	public void setAform_title(String aform_title) {
+		this.aform_title = aform_title;
 	}
 
-	public String getAform_inputName() {
-		return aform_inputName;
+	public String getAform_folderName() {
+		return aform_folderName;
 	}
 
-	public void setAform_inputName(String aform_inputName) {
-		this.aform_inputName = aform_inputName;
+	public void setAform_folderName(String aform_folderName) {
+		this.aform_folderName = aform_folderName;
 	}
 
-	public String getAform_inputData() {
-		return aform_inputData;
+	public String getAform_formPage() {
+		return aform_formPage;
 	}
 
-	public void setAform_inputData(String aform_inputData) {
-		this.aform_inputData = aform_inputData;
+	public void setAform_formPage(String aform_formPage) {
+		this.aform_formPage = aform_formPage;
+	}
+
+	public String getAform_docPage() {
+		return aform_docPage;
+	}
+
+	public void setAform_docPage(String aform_docPage) {
+		this.aform_docPage = aform_docPage;
 	}
 
 	@Override
 	public String toString() {
-		return "ApprovForm [aform_no=" + aform_no + ", adoc_no=" + adoc_no + ", aform_inputName=" + aform_inputName
-				+ ", aform_inputData=" + aform_inputData + "]";
+		return "ApprovalForm [aform_no=" + aform_no + ", aform_title=" + aform_title + ", aform_folderName="
+				+ aform_folderName + ", aform_formPage=" + aform_formPage + ", aform_docPage=" + aform_docPage + "]";
 	}
 
 }

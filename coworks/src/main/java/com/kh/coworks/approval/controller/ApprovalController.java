@@ -1,23 +1,41 @@
 package com.kh.coworks.approval.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.coworks.approval.model.service.ApprovalService;
 import com.kh.coworks.approval.model.vo.ApprovalDoc;
+import com.kh.coworks.approval.model.vo.ApprovalForm;
 
 @Controller
 public class ApprovalController {
 
+	@Autowired
+	private ApprovalService approvalService;
+
 	@RequestMapping("/approval/approvalSelectForm.do")
-	public String approvalMain() {
+	public String approvalFormFolderList(Model model) {
+		List<String> list = approvalService.selectApprovalFormFolderList();
+
+		model.addAttribute("folder", list);
+
 		return "approval/approvalSelectForm";
 	}
 
-	@RequestMapping("/error.do")
-	public String error() {
-		return "common/error";
+	@RequestMapping("/approval/approvalSelectFormFolder.do")
+	public String approvalFormList(@RequestParam String folderName, Model model) {
+		List<ApprovalForm> list = approvalService.selectApprovalFormList(folderName);
+		
+		
+
+		model.addAttribute("forms", list);
+
+		return "approval/approvalSelectForm";
 	}
 
 	@RequestMapping("/approval/approvalPending.do")

@@ -42,64 +42,27 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>
-													<i class="mdi mdi-folder"></i> 공용문서
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-folder"></i> 인사관리부
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-folder"></i> 운영관리부
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-folder"></i> 전산부
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-folder"></i> 총무부
-												</td>
-											</tr>
+											<c:if test="${folder != null}">
+												<c:forEach var="folderList" items="${folder }" varStatus="status">
+													<tr>
+														<td onclick="selectFolder('${folderList}');"><i class="mdi mdi-folder"></i> ${folderList }</td>
+													</tr>
+												</c:forEach>
+											</c:if>
 
 
 
-											<tr>
-												<td>
-													<i class="mdi mdi-folder"></i> ../
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-file-outline"></i> 서식명1
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-file-outline"></i> 서식명2
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-file-outline"></i> 서식명3
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-file-outline"></i> 서식명4
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<i class="mdi mdi-file-outline"></i> 서식명5
-												</td>
-											</tr>
+											<c:if test="${forms != null}">
+												<tr>
+													<td onclick="selectForm"><i class="mdi mdi-folder"></i> ../</td>
+												</tr>
+												<c:forEach var="formList" items="${forms }" varStatus="status">
+													<tr>
+														<td onclick="selectForm('${formList.aform_formPage}')"><i class="mdi mdi-file-outline"></i> ${formList.aform_title }</td>
+													</tr>
+												</c:forEach>
+											</c:if>
+
 										</tbody>
 									</table>
 								</div>
@@ -112,6 +75,16 @@
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<script>
+		function selectFolder(folderName) {
+			location.href = "${pageContext.request.contextPath}/approval/approvalSelectFormFolder.do?folderName="
+					+ folderName;
+		}
+		function selectForm(formPage) {
+			location.href = "${pageContext.request.contextPath}/approval/"
+					+ formPage;
+		}
+	</script>
 
 </body>
 </html>

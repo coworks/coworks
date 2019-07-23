@@ -23,7 +23,5 @@ public interface CalendarService {
 	int deleteCalendar(int cal_no);
 	
 	int updateCalendar(Calendar calendar);
-	
-	int updateCalendar2(Calendar calendar);
 	 
 }

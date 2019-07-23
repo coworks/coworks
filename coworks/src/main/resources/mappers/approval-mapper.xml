@@ -4,11 +4,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="approval">
 
-	<select id="selectFormFolderList">
+	<select id="selectApprovalFormFolderList" resultType="string">
 		select distinct aform_folderName from approvalForm
 	</select>
 
-	<select id="selectFormList" parameterType="string">
+	<select id="selectApprovalFormList" parameterType="string" resultType="approvalForm">
 		select * from approvalForm where aform_folderName=#{aform_folderName}
 	</select>
 	

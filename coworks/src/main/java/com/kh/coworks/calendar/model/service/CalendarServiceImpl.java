@@ -48,11 +48,5 @@ public class CalendarServiceImpl implements CalendarService {
 		// TODO Auto-generated method stub
 		return calDao.updateCalendar(calendar);
 	}
-	
-	@Override
-	public int updateCalendar2(Calendar calendar) {
-		// TODO Auto-generated method stub
-		return calDao.updateCalendar2(calendar);
-	}
 
 }

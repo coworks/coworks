@@ -15,7 +15,7 @@
 			<div class="error-body text-center">
 				<h1 class="text-info">ERROR</h1>
 				<h3 class="text-uppercase">페이지에 오류가 발생했습니다!</h3>
-				<p class="text-muted mt-4 mb-4">ERROR MESSAGE</p>
+				<p class="text-muted mt-4 mb-4"><%= exception.getMessage() %></p>
 				<a href="javascript:history.back();" class="btn btn-info btn-rounded waves-effect waves-light mb-5">Back</a>
 			</div>
 			<c:import url="../common/footer.jsp" />
