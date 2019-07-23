@@ -78,14 +78,14 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-md-12 col-lg-3">
-                       <!--  <div class="card">
+                          <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Drag and Drop Your Event</h4>
+                                <h4 class="card-title">간편 일정 등록</h4>
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div id="calendar-events" class="mt-3">
-                                            <div class="calendar-events" data-class="bg-info"><i class="fa fa-circle mb-3 text-info"></i> My Event One</div>
-                                            <div class="calendar-events" data-class="bg-success"><i class="fa fa-circle mb-3 text-success"></i> My Event Two</div>
+                                            <div class="calendar-events" data-class="bg-info"><i class="fa fa-circle mb-3 text-info"></i> 부서 회의</div>
+                                            <div class="calendar-events" data-class="bg-success"><i class="fa fa-circle mb-3 text-success"></i> 휴가</div>
                                             <div class="calendar-events" data-class="bg-danger"><i class="fa fa-circle mb-3 text-danger"></i> My Event Three</div>
                                             <div class="calendar-events" data-class="bg-warning"><i class="fa fa-circle mb-3 text-warning"></i> My Event Four</div>
                                         </div> 
@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>   -->
+                        </div>    
                          <div class="card">
                             <div class="card-body">
                             <form name="insertCalendar" action="${pageContext.request.contextPath}/calendar/insertCalendar.do" method="post">
@@ -172,11 +172,12 @@
 	                 					};
 	                 					</script>
 		       					          
-	                					<input id="cal_beginDate" name="cal_beginDate" type="text"/> 
-	                					<input id="cal_endDate" name="cal_endDate" type="text"/>
-                                        
+	                				<!--  ** 날짜 출력 확인용 --> 
+	                					<input id="cal_beginDate" name="cal_beginDate" type="hidden"/> 
+	                					<input id="cal_endDate" name="cal_endDate" type="hidden"/>
+                                     
                                         <button type="submit" class="btn btn-danger btn-block waves-effect waves-light">
-                                             		 추가
+                                             		 + 추가
                                         </button>
                                     </div>
                                 </div>
@@ -211,8 +212,8 @@
                             <div class="modal-body"></div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
-                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light">  Delete</button>
+                               <button type="button" class='btn btn-success save-event waves-effect waves-light'><i class='fa fa-check'></i> Save</button>
+                            <button type="button" class="btn btn-danger delete-event waves-effect waves-light">  Delete</button>
                             </div>
                         </div>
                     </div>
@@ -363,15 +364,38 @@
 	        var startdate=moment(calEvent.start,'YYYY-MM-DD  HH:mm');
 	        var enddate=moment(calEvent.end,'YYYY-MM-DD  HH:mm');
 	            var form = $("<form></form>");
-	            form.append("");
 	            form.append("<div><label>기간 :&nbsp;&nbsp;</label><span>"+startdate.format('YYYY-MM-DD  HH:mm')+" - "+enddate.format('YYYY-MM-DD  HH:mm')+"</span></div>")
-	            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div></br>");
-	            form.append("<div><textarea class='form-control' row='3' type='text'>"+ calEvent.content+"</textarea>");
-	            form.append("<div>");
+	            form.append("<div class='input-group'><input class='form-control' name='title' type='text' value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div></br>");
+	            form.append("<div><textarea class='form-control' name='content' row='3' type='text'>"+ calEvent.content+"</textarea>");
+	            form.append("<div class='input-group mb-5' style='float:both;'><input type='text' name='datetime' class='form-control datetime/><div class='input-group-append'><span class='input-group-text'><span class='ti-calendar'></span></span></div>");
+     			form.append("<input type='hidden' id='cal_beginDate2' name='cal_beginDate2' value='"+$.fullCalendar.formatDate(calEvent.start, 'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+"'/><input type='hidden' id='cal_endDate2' name='cal_endDate2' value='"+$.fullCalendar.formatDate(calEvent.end, 'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+"'/>"); 
 	            $this.$modal.modal({
 	                backdrop: 'static'
 	            });
-	            $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function () {
+	            
+	            
+	        
+	            form.find('input[name=datetime]').daterangepicker({
+	            			
+	                     timePicker: true,
+	                     timePickerIncrement: 30,
+	                     locale: {
+	                         format: 'YY/MM/DD hh:mm'
+	                     }
+	                 }, 
+	                 function(start, end) { 
+	                 (form.find("input[name=cal_beginDate2]")).val(start.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
+	                 (form.find("input[name=cal_endDate2]")).val(end.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
+	                 // $('#cal_endDate2').val(end.format('YYYY-MM-DD HH:mm:ss'));
+	                  console.log(start.format('YYYY-MM-DD HH:mm:ss')) + ' - ' + end.format(end.format('YYYY-MM-DD HH:mm:ss'));
+	                  
+	                 }
+	            	 );
+	            	
+	            
+            
+	            
+	            $this.$modal.find('.delete-event').show().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function () {
 	            	
 	            	$this.$calendarObj.fullCalendar('removeEvents', function (ev) {
 	                	// cal_no받은것 input에넣기
@@ -397,11 +421,41 @@
 	                });
  	                $this.$modal.modal('hide');
 	            });
-	            $this.$modal.find('form').on('submit', function () {
-	                calEvent.title = form.find("input[type=text]").val();
+	            
+	            var result;
+	            // 일정 칸 클릭시 해당 일정 내용 수정
+	            $this.$modal.find('.save-event').unbind('click').click(function () {
+	            //$this.$modal.on('submit', function () {
+	                calEvent.title = form.find("input[name=title]").val();
+	                calEvent.start = form.find("input[name=cal_beginDate2]").val();
+	                console.log(calEvent.start); 
+	                
+	                calEvent.end = form.find("input[name=cal_endDate2]").val();
+	                calEvent.content = form.find("textarea[type=text]").val();
 	                $this.$calendarObj.fullCalendar('updateEvent', calEvent);
 	                $this.$modal.modal('hide');
-	                return false;
+	                
+	                $.ajax({
+	                	url : "${pageContext.request.contextPath}/calendar/updateCalendar2.do",
+     					data : {cal_no:calEvent.id, cal_name:calEvent.title, cal_content:calEvent.content,
+     							cal_beginDate:calEvent.start, cal_endDate:calEvent.end},
+     					type:"post",
+     					dataType : "json",
+     					async:false,
+     					success : function(data){
+     						
+     						 result=false;
+          					console.log(result);
+     					},error: function(data){
+     						
+     					
+     						result=true;
+         					console.log(result);
+     					}
+	                
+	                });
+	                
+	                return result;
 	            });
 	    },
 	    

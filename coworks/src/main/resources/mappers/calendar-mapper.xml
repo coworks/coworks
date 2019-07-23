@@ -21,4 +21,8 @@
 		UPDATE CALENDAR SET CAL_BEGINDATE=#{cal_beginDate}, CAL_ENDDATE=#{cal_endDate} WHERE CAL_NO=#{cal_no}
 	</update>
 	
+	<update id="updateCalendar2" parameterType="calendar">
+		UPDATE CALENDAR SET CAL_NAME=#{cal_name}, CAL_CONTENT=#{cal_content}, CAL_BEGINDATE=#{cal_beginDate}, CAL_ENDDATE=#{cal_endDate} WHERE CAL_NO=#{cal_no}
+	</update>
+	
 </mapper>
