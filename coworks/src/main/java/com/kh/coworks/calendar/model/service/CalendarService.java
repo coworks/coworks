@@ -16,10 +16,12 @@ public interface CalendarService {
 	
 	List<Calendar> selectListAllCalendar(int emp_no);
 	
+	//int selectOne
+	
 	int insertCalendar(Calendar calendar);
 	
 	int deleteCalendar(int cal_no);
 	
-	//int updateCalendar(Calendar calendar);
+	int updateCalendar(Calendar calendar);
 	 
 }

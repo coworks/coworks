@@ -24,13 +24,13 @@ public class CalendarServiceImpl implements CalendarService {
 
 
 
+	
 	/*
-	@Override
-	public List<Calendar> selectListCalendar(int emp_no, String cal_type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-*/
+	  @Override public List<Calendar> selectListCalendar(int emp_no, String cal_type) { 
+	  	// TODO Auto-generated method stub return
+	  	calDao.selectListCalendar(emp_no, cal_type); }
+	 */
+
 	@Override
 	public int insertCalendar(Calendar calendar) {
 		// TODO Auto-generated method stub
@@ -42,11 +42,11 @@ public class CalendarServiceImpl implements CalendarService {
 		// TODO Auto-generated method stub
 		return calDao.deleteCalendar(cal_no);
 	}
-	/*
+	
 	@Override
 	public int updateCalendar(Calendar calendar) {
 		// TODO Auto-generated method stub
-		return 0;
+		return calDao.updateCalendar(calendar);
 	}
-*/
+
 }

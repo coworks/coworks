@@ -1,8 +1,9 @@
 package com.kh.coworks.calendar.model.vo;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Calendar {
+public class Calendar implements Serializable{
 	private int cal_no;
 	private String cal_holder;
 	private String cal_type;

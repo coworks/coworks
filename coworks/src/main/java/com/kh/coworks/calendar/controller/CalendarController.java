@@ -1,6 +1,7 @@
 package com.kh.coworks.calendar.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,27 +38,38 @@ public class CalendarController {
 	
 	/*
 	@RequestMapping("/calendar/selectListCalendar.do")
-	public String selectListCalendar(Model model, @RequestParam("cal_type") String cal_type) {
+	public String selectListCalendar(Model model, HttpSession session, @RequestParam("cal_type") String cal_type) {
 		// 세션 아이디와 사내,부서,개인인지 선택받은것 불러오기
-		
+		Calendar cal=new Calendar();
 		// 나중에 11에  emp_no 세션받아서 보내야함
-		List<Calendar> list=calService.selectListCalendar(11,cal_type);
+		if(cal_type.equals("부서")) {
+			cal.setCal_holder('a1');	// 부서코드 넣기
+		}else {
+			cal.setCal_holder('1');	// 사용자 고유 번호 넣기
+		}
+		
+		
+		
+		List<Calendar> list=calService.selectListCalendar(cal);
 		System.out.println("받아온 list확인 : "+list);
 		
 		model.addAttribute("list",list);
 		
 		return "calendar/app-calendar";
 	}
-	*/
 	
+	*/
 	
 	// delete insert update -> ajax로 할건지는 나중에생각하기
 	
 	@RequestMapping("/calendar/insertCalendar.do")
 	public ModelAndView insertCalendar(Calendar calendar,ModelAndView mv,HttpSession session) throws CalendarException {
 		System.out.println("Calendar 확인 : "+calendar);
-	 
-			try{
+			
+		/*
+		 * if(calendar.getCal_type().equals("부서")) { int
+		 * selectOne=calService.selectOneCalendar(1); // 부서번호 }
+		 */ 
 				int insertCalendar = calService.insertCalendar(calendar);
 			
 		
@@ -66,14 +78,12 @@ public class CalendarController {
 		
 		mv.setViewName("redirect:/calendar/calendarview.do");
 		
-			}catch(CalendarException e) {
-				throw new CalendarException("insert 에러 : "+e.getMessage());
-			}
+			 
 		return mv;
 	}
 	
 	@RequestMapping("/calendar/deleteCalendar.do")
-	public void deleteCalendar(@RequestParam int cal_no, HttpServletResponse resp) throws IOException{
+	public void deleteCalendar(@RequestParam("cal_no") int cal_no, HttpServletResponse resp) throws IOException{
 		boolean result = calService.deleteCalendar(cal_no)>0?true:false;
 		
 		System.out.println("delete 캘린더 결과 : "+result);
@@ -84,23 +94,38 @@ public class CalendarController {
 	}
 	
  
-	 /*
+	 
 	@RequestMapping("/calendar/updateCalendar.do")
-	public ModelAndView updateCalendar(Calendar calendar,ModelAndView mv,HttpSession session) {
+	public void updateCalendar(@RequestParam(value="cal_no",  required = true) int cal_no,  
+			@RequestParam(value="cal_begindate",  required = true) String cal_beginDate, 
+			@RequestParam(value="cal_enddate",  required = true) String cal_endDate, HttpSession session,HttpServletResponse resp) throws IOException {
 		
-		try {
-		int updateCalendar = calService.updateCalendar(calendar);
 		
-		System.out.println("update 캘린더 결과 : "+updateCalendar);
+		 Timestamp ts1=java.sql.Timestamp.valueOf(cal_beginDate);	//timestamp로 변환
+		 Timestamp ts2=java.sql.Timestamp.valueOf(cal_endDate);
+
+		 System.out.println("시작 : " + ts1);
+		 System.out.println("끝 : " + ts2);
+		 
+		 
+		 Calendar cal=new Calendar();
+		 cal.setCal_no(cal_no);
+		 cal.setCal_beginDate(ts1);
+		 cal.setCal_endDate(ts2);
+		 
+		 System.out.println("cal : "+cal);
+		 
+		int result=calService.updateCalendar(cal);
+		  
+			
+		 
+			
+			
+			resp.getWriter().print(true);
 		
-		mv.setViewName("redirect:/calendar/selectListCalendar.do");
-		
-		}catch(CalendarException e) {
-			throw new CalendarException("update 에러 : "+e.getMessage());
-		}
-		return mv;
+		 
 	}
 	
- */
+
 	
 }
