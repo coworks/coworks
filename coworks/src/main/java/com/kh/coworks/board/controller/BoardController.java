@@ -18,7 +18,7 @@ public class BoardController {
 	///////////////////////////////////////////////////////////자료실(documentboard폴더)
 	
 	// 자료실 - 통합자료실 - 업무문서(게시판 보기)
-	@RequestMapping("/documentboard/businessdocdatalist.do")
+	@RequestMapping("/documentboard/businessdoclist.do")
 	public String selectBusinessdoc() {
 		return "documentboard/businessdoclist";
 	}
@@ -56,7 +56,7 @@ public class BoardController {
 	
 	
 	// 자료실 - 사규(게시판 보기)
-	@RequestMapping("/documentboard/companyrulesdatalist.do")
+	@RequestMapping("/documentboard/companyruleslist.do")
 	public String selectCompanyruleslist() {
 		return "documentboard/companyruleslist";
 	}
@@ -134,7 +134,7 @@ public class BoardController {
 	
 	
 	// 자료실 - 통합자료실 - 교육문서(게시판 보기)
-	@RequestMapping("/documentboard/empedudocdatalist.do")
+	@RequestMapping("/documentboard/empedudoclist.do")
 	public String selectEmpedudoc() {
 		return "documentboard/empedudoclist";
 	}

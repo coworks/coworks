@@ -59,54 +59,18 @@
 									</tr>
 								</thead>
 								<tbody class="text-al-ct">
-									<tr>
-										<td>index</td>
-										<td class="text-al-left">일일업무계획서<span class="badge badge-danger ml-auto">new</span></td>
-										<td>2019-07-18</td>
-										<td><i class="fa fa-paperclip"></i></td>
+								<c:forEach items="${list}" var="b">
+									<tr id="${b.bo_no}">
+										<td>${b.bo_no }</td>
+										<td class="text-al-left">${b.bo_title }<span class="badge badge-danger ml-auto">new</span></td>
+										<td>${b.bo_date }</td>
+										<td>
+											<c:if test="${b.fileCount>0 }">
+												<i class="fa fa-paperclip"></i>
+											</c:if>
+										</td>
 									</tr>
-									<tr>
-										<td>index</td>
-										<td class="text-al-left">주간업무계획서</td>
-										<td>2019-07-18</td>
-										<td><i class="fa fa-paperclip"></i></td>
-									</tr>
-									<tr>
-										<td>index</td>
-										<td class="text-al-left">월간업무계획서</td>
-										<td>2019-07-18</td>
-										<td><i class="fa fa-paperclip"></i></td>
-									</tr>
-									<tr>
-										<td>index</td>
-										<td class="text-al-left">주간회의록</td>
-										<td>2019-07-18</td>
-										<td><i class="fa fa-paperclip"></i></td>
-									</tr>
-									<tr>
-										<td>index</td>
-										<td class="text-al-left">업무협조공문</td>
-										<td>2019-07-18</td>
-										<td><i class="fa fa-paperclip"></i></td>
-									</tr>
-									<tr>
-										<td>index</td>
-										<td class="text-al-left">개인별실적(목표)보고서</td>
-										<td>2019-07-18</td>
-										<td><i class="fa fa-paperclip"></i></td>
-									</tr>
-									<tr>
-										<td>index</td>
-										<td class="text-al-left">주간업무계획분석보고서</td>
-										<td>2019-07-18</td>
-										<td><i class="fa fa-paperclip"></i></td>
-									</tr>
-									<tr>
-										<td>index</td>
-										<td class="text-al-left">평가표</td>
-										<td>2019-07-18</td>
-										<td><i class="fa fa-paperclip"></i></td>
-									</tr>
+									</c:forEach>
 								</tbody>
 								<tfoot>
 									<tr class="footable-paging">
@@ -165,6 +129,14 @@
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/db.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.js"></script>
-	
+	<script>
+		$(function(){
+			$("tr[id]").on("click", function(){
+				var bo_no = $(this).attr("id");
+				console.log("bo_no="+bo_no);
+				location.href="${pageContext.request.contextPath}/documentboard/businessdocForm.do?no="+bo_no;
+			});
+		});
+	</script>
 </body>
 </html>
