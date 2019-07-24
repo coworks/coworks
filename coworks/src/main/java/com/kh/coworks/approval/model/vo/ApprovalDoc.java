@@ -18,7 +18,7 @@ public class ApprovalDoc implements Serializable {
 	private int adoc_security; // 보안등급
 	private Date adoc_expiration; // 만료일
 	private String adoc_subject; // 제목
-	private String[] adoc_content; // 내용
+	private String adoc_content; // 내용
 	private String adoc_state; // 결재 상태
 
 	private String writerDept;
@@ -34,7 +34,7 @@ public class ApprovalDoc implements Serializable {
 	}
 
 	public ApprovalDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
-			Date adoc_expiration, String adoc_subject, String[] adoc_content, String adoc_state) {
+			Date adoc_expiration, String adoc_subject, String adoc_content, String adoc_state) {
 		super();
 		this.adoc_no = adoc_no;
 		this.aform_no = aform_no;
@@ -48,7 +48,7 @@ public class ApprovalDoc implements Serializable {
 	}
 
 	public ApprovalDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
-			Date adoc_expiration, String adoc_subject, String[] adoc_content, String adoc_state, String writerDept,
+			Date adoc_expiration, String adoc_subject, String adoc_content, String adoc_state, String writerDept,
 			String writerJobTitle, String writerName) {
 		super();
 		this.adoc_no = adoc_no;
@@ -121,11 +121,11 @@ public class ApprovalDoc implements Serializable {
 		this.adoc_subject = adoc_subject;
 	}
 
-	public String[] getAdoc_content() {
+	public String getAdoc_content() {
 		return adoc_content;
 	}
 
-	public void setAdoc_content(String[] adoc_content) {
+	public void setAdoc_content(String adoc_content) {
 		this.adoc_content = adoc_content;
 	}
 
@@ -165,7 +165,7 @@ public class ApprovalDoc implements Serializable {
 	public String toString() {
 		return "ApprovDoc [adoc_no=" + adoc_no + ", aform_no=" + aform_no + ", adoc_writerno=" + adoc_writerno
 				+ ", adoc_uploadDate=" + adoc_uploadDate + ", adoc_security=" + adoc_security + ", adoc_expiration="
-				+ adoc_expiration + ", adoc_subject=" + adoc_subject + ", adoc_content=" + Arrays.toString(adoc_content)
+				+ adoc_expiration + ", adoc_subject=" + adoc_subject + ", adoc_content=" + adoc_content
 				+ ", adoc_state=" + adoc_state + ", writerDept=" + writerDept + ", writerJobTitle=" + writerJobTitle
 				+ ", writerName=" + writerName + "]";
 	}

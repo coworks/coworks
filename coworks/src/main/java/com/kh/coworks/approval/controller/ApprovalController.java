@@ -1,9 +1,15 @@
 package com.kh.coworks.approval.controller;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.coworks.approval.model.service.ApprovalService;
+import com.kh.coworks.approval.model.vo.ApprovalAttach;
 import com.kh.coworks.approval.model.vo.ApprovalDoc;
 import com.kh.coworks.approval.model.vo.ApprovalForm;
+import com.kh.coworks.approval.model.vo.ApprovalStatus;
 
 @Controller
 public class ApprovalController {
@@ -69,14 +78,38 @@ public class ApprovalController {
 	}
 
 	// approvDoc Mapping
-	@RequestMapping(value = "/approval/write/{docType}", method = RequestMethod.GET)
-	public String approvalExpense(@PathVariable("docType") String docType) {
+	@RequestMapping(value = "/approval/write/{docType}/{formNo}", method = RequestMethod.GET)
+	public String approvalExpense(@PathVariable("docType") String docType, @PathVariable("formNo") int formNo,
+			Model model) {
+		model.addAttribute("formNo", formNo);
 		return "approval/approvalDoc/approvalWriteForm/" + docType;
 	}
 
-	@RequestMapping(value = "/approval/writeApprovalDone", method = RequestMethod.POST,/* headers = "accept=application/json", produces="text/plain;charset=UTF-8"*/consumes = "application/x-www-form-urlencoded")
-	public String approveCreate(@RequestBody Map<String,Object> body, Model model) {
-		System.out.println(body);
-		return "approval/approvalPending.do";
+	@RequestMapping(value = "/approval/writeApprovalDone", method = RequestMethod.POST)
+	public String approveCreate(@RequestParam Map<String, Object> body,
+			@RequestParam(required = false, value = "upfiles") MultipartFile[] upfiles, Model model) {
+
+		ApprovalDoc doc = new ApprovalDoc();
+		List<ApprovalStatus> signList = new ArrayList<ApprovalStatus>();
+		List<ApprovalAttach> fileList = new ArrayList<ApprovalAttach>();
+
+		doc.setAdoc_security(Integer.valueOf((String) body.get("adoc_security")));
+		doc.setAdoc_subject((String) body.get("adoc_subject"));
+		doc.setAdoc_writerno(Integer.valueOf((String) body.get("adoc_writerno")));
+		doc.setAform_no(Integer.valueOf((String) body.get("aform_no")));
+
+		body.remove("adoc_writerno");
+		body.remove("aform_no");
+		body.remove("adoc_security");
+		body.remove("adoc_subject");
+		body.remove("upFiles");
+
+		doc.setAdoc_content(new JSONObject(body).toJSONString());
+
+		System.out.println(doc);
+
+		//approvalService.insertApprovalDoc(doc, signList, fileList);
+
+		return "redirect:/approval/approvalPending.do";
 	}
 }

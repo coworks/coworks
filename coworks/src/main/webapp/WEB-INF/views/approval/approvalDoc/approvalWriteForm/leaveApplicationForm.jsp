@@ -26,7 +26,7 @@
 
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">휴가 신청서</h2>
-									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" accept="application/x-www-form-urlencoded">
+									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype = "multipart/form-data">
 										<div class="table-responsive mt-2">
 
 											<c:import url="./common/approvalHeader.jsp" />
@@ -109,7 +109,7 @@
 		var count = 0;
 		function addFileForm() {
 			var html = "<div id='item_"+count+"'>";
-			html += "<input type='file' name='upFiles[]' />";
+			html += "<input type='file' name='upFiles' />";
 			html += "<input type='button' onclick='deleteBtn(this)' class='btn btn-outline-danger' value='삭제'/></div>";
 			count++;
 			$("#file-list").append(html);
@@ -118,6 +118,15 @@
 		function deleteBtn(obj) {
 			$(obj).parent().remove();
 		}
+		
+	/* 	function submitApproval(){
+			var req=JSON.stringify(obj);
+			
+			url:"${pageContext.request.contextPath }/approval/writeApprovalDone",
+			type:"post",
+			data:json_data,
+			dataType:"json"
+		} */
 	</script>
 </body>
 </html>

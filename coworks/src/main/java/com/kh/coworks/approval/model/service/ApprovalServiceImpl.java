@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.coworks.approval.model.dao.ApprovalDao;
+import com.kh.coworks.approval.model.vo.ApprovalAttach;
+import com.kh.coworks.approval.model.vo.ApprovalDoc;
 import com.kh.coworks.approval.model.vo.ApprovalForm;
+import com.kh.coworks.approval.model.vo.ApprovalStatus;
 
 @Service
 public class ApprovalServiceImpl implements ApprovalService {
@@ -27,5 +30,18 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public List<ApprovalForm> searchApprovalForm(String search) {
 		return approvalDao.searchApprovalForm(search);
+	}
+
+	@Override
+	public int insertApprovalDoc(ApprovalDoc doc, List<ApprovalStatus> signList, List<ApprovalAttach> fileList) {
+		approvalDao.insertApprovalDoc(doc);
+
+		for (ApprovalStatus sign : signList)
+			approvalDao.insertApprovalSign(sign);
+
+		for (ApprovalAttach attach : fileList)
+			approvalDao.insertApprovalAttach(attach);
+
+		return 0;
 	}
 }
