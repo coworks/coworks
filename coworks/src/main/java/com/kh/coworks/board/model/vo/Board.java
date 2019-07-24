@@ -2,11 +2,19 @@ package com.kh.coworks.board.model.vo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class Board implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3213L;
+	
+	
 	private int bo_no;// �ε���
 	private String bo_code;// �Խ����ڵ�
 	private String bo_title;// ����
@@ -16,7 +24,9 @@ public class Board implements Serializable {
 	private String bo_status;// ��������
 	
 	private String writerName;
-
+	private int fileCount;
+	private List<Attach> files = new ArrayList<>();
+	
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -33,6 +43,22 @@ public class Board implements Serializable {
 		this.bo_date = bo_date;
 		this.bo_status = bo_status;
 		this.writerName = writerName;
+	}
+	
+	
+
+	public Board(int bo_no, String bo_code, String bo_title, String bo_content, int emp_no, Timestamp bo_date,
+			String bo_status, String writerName, int fileCount) {
+		super();
+		this.bo_no = bo_no;
+		this.bo_code = bo_code;
+		this.bo_title = bo_title;
+		this.bo_content = bo_content;
+		this.emp_no = emp_no;
+		this.bo_date = bo_date;
+		this.bo_status = bo_status;
+		this.writerName = writerName;
+		this.fileCount = fileCount;
 	}
 
 	public int getBo_no() {
@@ -99,11 +125,29 @@ public class Board implements Serializable {
 		this.writerName = writerName;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Board [bo_no=" + bo_no + ", bo_code=" + bo_code + ", bo_title=" + bo_title + ", bo_content="
 				+ bo_content + ", emp_no=" + emp_no + ", bo_date=" + bo_date + ", bo_status=" + bo_status
-				+ ", writerName=" + writerName + "]";
+				+ ", writerName=" + writerName + ", fileCount=" + fileCount + ", files=" + files + "]";
+	}
+
+	public int getFileCount() {
+		return fileCount;
+	}
+
+	public void setFileCount(int fileCount) {
+		this.fileCount = fileCount;
+	}
+
+	public List<Attach> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<Attach> files) {
+		this.files = files;
 	}
 	
 	
