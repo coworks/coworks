@@ -75,7 +75,7 @@
 										<div class="form-group">
 											<label class="control-label">생년월일 </label> <input type="text"
 												id="emp_birth" name="emp_birth" class="form-control"
-												placeholder="19920831">
+												placeholder="1992-08-31">
 											<!-- <small class="form-control-feedback"> This is inline help </small> -->
 										</div>
 									</div>
@@ -86,13 +86,9 @@
 												id="dept_code" name="dept_code"
 												class="form-control custom-select">
 												<option value="0"></option>
-												<option value="1">관리</option>
-												<option value="2">경영</option>
-												<option value="3">마케팅</option>
-												<option value="4">인사</option>
-												<option value="5">전산</option>
-												<option value="6">총무</option>
-												<option value="7">회계</option>
+												<c:forEach items="${departmentList}" var="de">
+													<option value="${de.dept_code}">${de.dept_name}</option>
+												</c:forEach>
 											</select> <small class="form-control-feedback"> Select your
 												dept </small>
 										</div>
@@ -118,12 +114,9 @@
 											<label class="control-label">직급</label> <select id="job_code"
 												name="job_code" class="form-control custom-select">
 												<option value="0"></option>
-												<option value="1">부장</option>
-												<option value="2">차장</option>
-												<option value="3">과장</option>
-												<option value="4">주임</option>
-												<option value="5">대리</option>
-												<option value="6">사원</option>
+												<c:forEach items="${jobList}" var="j">
+													<option value="${j.job_code}">${j.job_title}</option>
+												</c:forEach>
 											</select> <small class="form-control-feedback"> Select your
 												level </small>
 										</div>

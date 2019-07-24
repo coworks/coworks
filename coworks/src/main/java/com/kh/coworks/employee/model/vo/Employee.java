@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Employee implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2346;
 	private int emp_no; // �����ȣ
 	private String emp_name; // �����
 	private String job_code; // �����ڵ�

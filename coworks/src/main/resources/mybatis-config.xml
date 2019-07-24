@@ -9,6 +9,8 @@
 
 	<typeAliases>
 		<typeAlias type="com.kh.coworks.employee.model.vo.Employee" alias="employee" />
+		<typeAlias type="com.kh.coworks.employee.model.vo.Department" alias="department" />
+		<typeAlias type="com.kh.coworks.employee.model.vo.Job" alias="job" />
 		<typeAlias type="com.kh.coworks.calendar.model.vo.Calendar" alias="calendar" />
 		<typeAlias type="com.kh.coworks.board.model.vo.Board" alias="board" />
 		<typeAlias type="com.kh.coworks.board.model.vo.Attach" alias="attachment" />

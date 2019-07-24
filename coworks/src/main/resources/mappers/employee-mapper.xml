@@ -8,6 +8,7 @@
 		        typeHandler="strArrTypeHandler" />
 	</resultMap>
 	
+	
 	<select id="selectEmployeeList" resultType="employee">
 		SELECT EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
 		FROM EMPLOYEE E, DEPARTMENT D, JOB J
@@ -18,6 +19,14 @@
 	
 	<select id="selectEmployeeTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM EMPLOYEE
+	</select>
+	
+	<select id="selectDepartment" resultType="department">
+		SELECT DEPT_CODE, DEPT_NAME FROM DEPARTMENT
+	</select>
+	
+	<select id="selectJob" resultType="job">
+		SELECT JOB_CODE, JOB_TITLE FROM JOB
 	</select>
 	
 	<insert id="insertEmployee" parameterType="employee">
