@@ -10,7 +10,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.coworks.employee.model.vo.Employee" alias="employee" />
 		<typeAlias type="com.kh.coworks.calendar.model.vo.Calendar" alias="calendar" />
-
+		<typeAlias type="com.kh.coworks.calendar.model.vo.Board" alias="board" />
 		<typeAlias type="com.kh.coworks.approval.model.vo.ApprovalAttach" alias="approvalAttach" />
 		<typeAlias type="com.kh.coworks.approval.model.vo.ApprovalDoc" alias="approvalDoc" />
 		<typeAlias type="com.kh.coworks.approval.model.vo.ApprovalForm" alias="approvalForm" />
