@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<input type="hidden" value="${formNo }" name="aform_no"/>
 <table class="table table-bordered no-wrap">
 	<tbody>
 		<tr>
