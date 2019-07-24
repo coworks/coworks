@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 
 import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.employee.model.service.EmployeeService;
+import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Employee;
+import com.kh.coworks.employee.model.vo.Job;
 
 
 
@@ -50,10 +52,16 @@ public class EmployeeController {
 		// 2. 전체 페이지 게시글 수 가져오기
 		int totalContents = employeeService.selectEmployeeTotalContents();
 
+		// 3. 사원추가 SELECT 부서 목록
+		ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+		
+		// 4. 사원추가 SELECT 사원 목록 
+		ArrayList<Job> jobList = new ArrayList<>(employeeService.selectJobList());
+		
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "employeeList.do");
 
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
-				.addAttribute("pageBar", pageBar);
+				.addAttribute("pageBar", pageBar).addAttribute("departmentList",departmentList).addAttribute("jobList",jobList);
 
 		return "employee/employeeList";
 	}

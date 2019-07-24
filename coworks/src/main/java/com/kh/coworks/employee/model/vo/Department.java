@@ -6,11 +6,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Department implements Serializable {
-	private String dept_code; // ºÎ¼­ÄÚµå
-	private String dept_name; // ºÎ¼­¸í
-	private int dept_mgrno; // ÆÀÀå»ç¹ø
-	private String dept_sup; // »óÀ§ºÎ¼­
-	private int dept_level; // ºÎ¼­·¹º§
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2345L;
+	private String dept_code; // ï¿½Î¼ï¿½ï¿½Úµï¿½
+	private String dept_name; // ï¿½Î¼ï¿½ï¿½ï¿½
+	private int dept_mgrno; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String dept_sup; // ï¿½ï¿½ï¿½ï¿½ï¿½Î¼ï¿½
+	private int dept_level; // ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	public Department() {
 		super();
 		// TODO Auto-generated constructor stub
