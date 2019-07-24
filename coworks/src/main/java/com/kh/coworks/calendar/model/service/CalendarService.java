@@ -12,7 +12,7 @@ public interface CalendarService {
 	static int BOARD_SRV_ERROR=0;
 	static int BOARD_SRV_COMP=1;
 	
-	//List<Calendar> selectListCalendar(int emp_no,String cal_type);
+	List<Calendar> selectListCalendar(Calendar calendar);
 	
 	List<Calendar> selectListAllCalendar(int emp_no);
 	

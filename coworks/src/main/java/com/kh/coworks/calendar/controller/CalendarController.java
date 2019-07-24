@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,29 +39,31 @@ public class CalendarController {
 		return mv;
 	}
 	
-	/*
+	 
 	@RequestMapping("/calendar/selectListCalendar.do")
-	public String selectListCalendar(Model model, HttpSession session, @RequestParam("cal_type") String cal_type) {
+	public ModelAndView selectListAllCalendar(@RequestParam String cal_type,ModelAndView mv, HttpSession session) {
 		// 세션 아이디와 사내,부서,개인인지 선택받은것 불러오기
+		
+		System.out.println("cal_Type 검색 : "+cal_type);
 		Calendar cal=new Calendar();
 		// 나중에 11에  emp_no 세션받아서 보내야함
 		if(cal_type.equals("부서")) {
-			cal.setCal_holder('a1');	// 부서코드 넣기
+			cal.setCal_holder("a1");	// 부서코드 넣기
 		}else {
-			cal.setCal_holder('1');	// 사용자 고유 번호 넣기
+			cal.setCal_holder("1");	// 사용자 고유 번호 넣기
 		}
-		
+		cal.setCal_type(cal_type);
 		
 		
 		List<Calendar> list=calService.selectListCalendar(cal);
 		System.out.println("받아온 list확인 : "+list);
 		
-		model.addAttribute("list",list);
-		
-		return "calendar/app-calendar";
+		mv.addObject("list", list);
+		mv.setViewName("calendar/app-calendar");
+		return mv;
 	}
 	
-	*/
+	 
 	
 	// delete insert update -> ajax로 할건지는 나중에생각하기
 	
@@ -136,10 +139,7 @@ public class CalendarController {
 		 
 	 int result=calService.updateCalendar2(calendar);
 		  
-			
-		 
-			
-			
+	
 			resp.getWriter().print(false);
 		
 		 

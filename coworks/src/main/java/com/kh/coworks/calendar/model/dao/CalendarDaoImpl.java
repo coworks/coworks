@@ -24,12 +24,14 @@ public class CalendarDaoImpl implements CalendarDao {
 	}
 
 
-	/*
+	 
 	
-	 @Override public List<Calendar> selectListCalendar() { // TODO Auto-generated method stub return
-	 sqlSession.selectList("calendar.selectListCalendar",); }
+	 @Override 
+	 public List<Calendar> selectListCalendar(Calendar calendar) { // TODO Auto-generated method stub return
+		return sqlSession.selectList("calendar.selectListCalendar",calendar); 
+	 }
 	
-*/
+ 
 	@Override
 	public int insertCalendar(Calendar calendar) {
 		// TODO Auto-generated method stub

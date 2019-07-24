@@ -25,11 +25,13 @@ public class CalendarServiceImpl implements CalendarService {
 
 
 	
-	/*
-	  @Override public List<Calendar> selectListCalendar(int emp_no, String cal_type) { 
+	 
+	  @Override 
+	  public List<Calendar> selectListCalendar(Calendar calendar) { 
 	  	// TODO Auto-generated method stub return
-	  	calDao.selectListCalendar(emp_no, cal_type); }
-	 */
+	  	return calDao.selectListCalendar(calendar); 
+	  	}
+	 
 
 	@Override
 	public int insertCalendar(Calendar calendar) {
