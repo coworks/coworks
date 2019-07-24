@@ -10,7 +10,7 @@ import com.kh.coworks.calendar.model.vo.Calendar;
 public interface CalendarDao { 
 	
 	
-	//List<Calendar> selectListCalendar(int emp_no,String cal_type);	// 개인,부서,회사 별로 보기
+	List<Calendar> selectListCalendar(Calendar calendar);	// 개인,부서,회사 별로 보기
 	
 	List<Calendar> selectListAllCalendar(int emp_no);	// 전체 보기
 	

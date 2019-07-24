@@ -13,6 +13,11 @@
 		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{emp_no}
 	</select>
 	
+	
+	<select id="selectListCalendar" parameterType="calendar" resultType="calendar">
+		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{cal_holder} AND CAL_TYPE=#{cal_type}
+	</select>
+	
 	<delete id="deleteCalendar" parameterType="_int">
 		DELETE FROM CALENDAR WHERE CAL_NO=#{cal_no}
 	</delete>

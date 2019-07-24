@@ -58,21 +58,29 @@
                 
                 <script>
                    function onclick1(type){
-                       var result=type;
-                       console.log(result);
+                       var cal_type=type;
+                       console.log(cal_type);
                        
-                       $.ajax({
+                       location.href="${pageContext.request.contextPath}/calendar/selectListCalendar.do?cal_type="+cal_type;
+                       
+                       
+                       
+                       
+                       
+                       
+                      /*  $.ajax({
                           url : "${pageContext.request.contextPath}/calendar/selectListCalendar.do",
-                          data : {cal_type : type},
+                          data : {cal_type : result},
+                          type:"post",
                           dataType : "json",
                           async:false,
                           success : function(data){
                               
                           },error: function(data){
                              result=false;
-                          } 
+                          }  
                        });
-                      
+                       */ 
                 };
                 </script>
                 <!-- ============================================================== -->
