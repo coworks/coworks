@@ -10,4 +10,6 @@ public interface ApprovalDao {
 
 	List<ApprovalForm> selectApprovalFormList(String aform_folderName);
 
+	List<ApprovalForm> searchApprovalForm(String search);
+
 }

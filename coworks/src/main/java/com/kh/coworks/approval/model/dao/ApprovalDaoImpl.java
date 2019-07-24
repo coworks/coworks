@@ -25,4 +25,10 @@ public class ApprovalDaoImpl implements ApprovalDao {
 		return sqlSession.selectList("approval.selectApprovalFormList", aform_folderName);
 	}
 
+	@Override
+	public List<ApprovalForm> searchApprovalForm(String search) {
+
+		return sqlSession.selectList("approval.searchApprovalForm", search);
+	}
+
 }

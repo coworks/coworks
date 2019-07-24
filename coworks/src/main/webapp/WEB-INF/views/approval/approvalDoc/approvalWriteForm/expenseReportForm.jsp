@@ -23,96 +23,98 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="card-title">지출 품의서</h4>
+								<div style="width: 80%; margin-left: auto; margin-right: auto;">
+									<h2 class="card-title">지출 품의서</h2>
 
-								<form action="">
-									<div class="table-responsive mt-2">
+									<form action="">
+										<div class="table-responsive mt-2">
 
-										<c:import url="./common/approvalHeader.jsp" />
+											<c:import url="./common/approvalHeader.jsp" />
 
-										<table class="table table-bordered no-wrap">
-											<tbody>
-												<tr>
-													<th scope="col" class="border">순번</th>
-													<th scope="col" class="border">품명</th>
-													<th scope="col" class="border">규격</th>
-													<th scope="col" class="border">수량</th>
-													<th scope="col" class="border">단가</th>
-													<th scope="col" class="border">금액</th>
-												</tr>
-												<c:set var="index" value="0" />
-												<tr>
-													<c:set var="index" value="${index+1 }" />
-													<td>
-														<input type="number" value="${index }" readonly="readonly" class="form-control" />
-													</td>
-													<td>
-														<input type="text" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="text" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-												</tr>
-												<tr>
-													<c:set var="index" value="${index+1 }" />
-													<td>
-														<input type="number" value="${index }" readonly="readonly" class="form-control" />
-													</td>
-													<td>
-														<input type="text" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="text" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-												</tr>
-												<tr>
-													<c:set var="index" value="${index+1 }" />
-													<td>
-														<input type="number" value="${index }" readonly="readonly" class="form-control" />
-													</td>
-													<td>
-														<input type="text" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="text" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-													<td>
-														<input type="number" name="" class="form-control" />
-													</td>
-												</tr>
+											<table class="table table-bordered no-wrap">
+												<tbody>
+													<tr>
+														<th scope="col" class="border">순번</th>
+														<th scope="col" class="border">품명</th>
+														<th scope="col" class="border">규격</th>
+														<th scope="col" class="border">수량</th>
+														<th scope="col" class="border">단가</th>
+														<th scope="col" class="border">금액</th>
+													</tr>
+													<c:set var="index" value="0" />
+													<tr>
+														<c:set var="index" value="${index+1 }" />
+														<td>
+															<input type="number" value="${index }" readonly="readonly" class="form-control" />
+														</td>
+														<td>
+															<input type="text" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="text" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+													</tr>
+													<tr>
+														<c:set var="index" value="${index+1 }" />
+														<td>
+															<input type="number" value="${index }" readonly="readonly" class="form-control" />
+														</td>
+														<td>
+															<input type="text" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="text" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+													</tr>
+													<tr>
+														<c:set var="index" value="${index+1 }" />
+														<td>
+															<input type="number" value="${index }" readonly="readonly" class="form-control" />
+														</td>
+														<td>
+															<input type="text" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="text" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+														<td>
+															<input type="number" name="" class="form-control" />
+														</td>
+													</tr>
 
-											</tbody>
-										</table>
+												</tbody>
+											</table>
 
-									</div>
-									<div align="right">
-										<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
-									</div>
-								</form>
+										</div>
+										<div align="right">
+											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>

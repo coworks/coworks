@@ -9,6 +9,8 @@ public interface ApprovalService {
 	List<String> selectApprovalFormFolderList();
 
 	List<ApprovalForm> selectApprovalFormList(String aform_folderName);
+
+	List<ApprovalForm> searchApprovalForm(String search);
 	
 
 }
