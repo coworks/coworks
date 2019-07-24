@@ -18,6 +18,36 @@
 	<div id="main-wrapper">
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
+
+		<div id="myModal" class="modal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true"
+			style="display: none;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" id="myModalLabel">부서 추가</h2>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+					</div>
+
+					<div class="modal-body">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label">부서명 </label> <input type="text"
+									id="dept_name" name="dept_name" class="form-control"
+									placeholder="부서명을 입력하세요">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info waves-effect"
+							data-dismiss="modal">등록하기</button>
+						<button type="button" class="btn btn-danger waves-effect"
+							data-dismiss="modal">취소하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="modal bs-example-modal-lg" tabindex="-1" role="dialog"
 			aria-labelledby="myLargeModalLabel" style="display: none;"
 			aria-hidden="true">
