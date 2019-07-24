@@ -223,7 +223,7 @@
 				<!-- Column -->
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">인사관리</h4>
+						<h2 class="card-title">인사관리</h2>
 						<div class="row" style="margin-left: 250px; margin-top: 30px;">
 							<select class="form-control custom-select" style="width: 15%">
 								<option value="0"></option>
@@ -236,12 +236,14 @@
 								<button class="btn btn-info" type="button">검색</button>
 							</div>
 						</div>
+
 						<div
 							style="position: absolute; margin-top: 155px; margin-left: 1200px;">
 							<div class="input-group">
 								<button class="btn btn-info" type="button">부서수정</button>
 								&nbsp&nbsp&nbsp&nbsp
-								<button class="btn btn-info" type="button">부서추가</button>
+								<button data-toggle="modal" data-target="#myModal"
+									class="btn btn-info" type="button">부서추가</button>
 								&nbsp&nbsp&nbsp&nbsp
 								<!-- <button class="btn btn-info" type="button">사원추가</button> -->
 								<button data-toggle="modal" data-target=".bs-example-modal-lg"
@@ -306,13 +308,16 @@
 							</div>
 							<div class="jsgrid-pager-container" style="text-align: right;">
 								<div class="jsgrid-pager">
-								<c:out value="${pageBar}" escapeXml="false"/>
-									Pages: <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
-									<a href="javascript:void(0);">First</a></span>
-									 <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
-									 <a href="javascript:void(0);">Prev</a></span> 
-									 <span class="jsgrid-pager-page jsgrid-pager-current-page">1</span>
-									 <span class="jsgrid-pager-page"><a href="javascript:void(0);">2</a></span><span
+									<c:out value="${pageBar}" escapeXml="false" />
+									Pages: <span
+										class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
+										<a href="javascript:void(0);">First</a>
+									</span> <span
+										class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
+										<a href="javascript:void(0);">Prev</a>
+									</span> <span class="jsgrid-pager-page jsgrid-pager-current-page">1</span>
+									<span class="jsgrid-pager-page"><a
+										href="javascript:void(0);">2</a></span><span
 										class="jsgrid-pager-page"><a href="javascript:void(0);">3</a></span><span
 										class="jsgrid-pager-page"><a href="javascript:void(0);">4</a></span><span
 										class="jsgrid-pager-page"><a href="javascript:void(0);">5</a></span><span
