@@ -5,14 +5,18 @@
 <mapper namespace="approval">
 
 	<select id="selectApprovalFormFolderList" resultType="string">
-		select distinct aform_folderName from approvalForm
+		select distinct aform_folderName from approvalForm order by 1
 	</select>
 
 	<select id="selectApprovalFormList" parameterType="string" resultType="approvalForm">
-		select * from approvalForm where aform_folderName=#{aform_folderName}
+		select * from approvalForm where aform_folderName=#{aform_folderName} order by AFORM_TITLE
 	</select>
-	
-	
+
+	<select id="searchApprovalForm" parameterType="string" resultType="approvalForm">
+		select * from approvalForm where aform_title like '%'||#{search}||'%' order by AFORM_TITLE
+	</select>
+
+
 
 
 </mapper>
