@@ -24,4 +24,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalDao.selectApprovalFormList(aform_folderName);
 	}
 
+	@Override
+	public List<ApprovalForm> searchApprovalForm(String search) {
+		return approvalDao.searchApprovalForm(search);
+	}
 }
