@@ -2,6 +2,9 @@ package com.kh.coworks.mail.controller;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
+import javax.servlet.http.HttpSession;
+
+import com.kh.coworks.employee.model.vo.Employee;
 
 public class MailAuth extends Authenticator {
 
@@ -11,8 +14,11 @@ public class MailAuth extends Authenticator {
 	PasswordAuthentication pa;
 	
 	public MailAuth() {
-		String mail_id = "kyurin123@gmail.com";
-		String mail_pw = "zizi1069";
+		Employee emp = new Employee(); // 나중에 세션값으로 변경
+		emp.setEmp_email("mail_0318@naver.com");
+		emp.setEmp_email_password("*cjfjas2");
+		String mail_id = emp.getEmp_email();
+		String mail_pw = emp.getEmp_email_password();
 		
 		pa = new PasswordAuthentication(mail_id,mail_pw);
 	}
@@ -21,8 +27,6 @@ public class MailAuth extends Authenticator {
 		// Authenticator를 사용하기 위해선 PasswordAuthenticator 클래스로 부터 인스턴스를 생성하고
 		// getPasswordAuthentication 메소드로 데이터를 리턴 받아와야 한다.
 		// PasswordAuthentication 클래스는 사용자의 아이디와 패스워드를 입력받아 반환하도록 정의한다.
-		
-		
 		
 		return pa;
 	}

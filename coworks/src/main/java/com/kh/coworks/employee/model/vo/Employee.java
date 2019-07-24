@@ -21,6 +21,15 @@ public class Employee implements Serializable {
 	private String emp_isWork; // ��������
 	private String emp_signature; // ���μ���
 	private String[] emp_authority;
+	private String emp_email_password;
+
+	public String getEmp_email_password() {
+		return emp_email_password;
+	}
+
+	public void setEmp_email_password(String emp_email_password) {
+		this.emp_email_password = emp_email_password;
+	}
 
 	private String job_title;
 	private String dept_name;

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mail">
+
+	<!-- 
+	<insert id="insertCalendar" parameterType="calendar" useGeneratedKeys="false">
+		INSERT INTO CALENDAR VALUES(SEQ_CALENDAR.NEXTVAL,1,#{cal_type},#{cal_color},#{cal_name},#{cal_content},#{cal_beginDate},#{cal_endDate})
+	</insert>
+	
+ 	<select id="selectListAllCalendar" parameterType="_int" resultType="calendar">
+		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{emp_no}
+	</select>
+	
+	<delete id="deleteCalendar" parameterType="_int">
+		DELETE FROM CALENDAR WHERE CAL_NO=#{cal_no}
+	</delete> -->
+	
+	
+	<!-- 게시글 입력 -->
+	<insert id="sendingMail">
+		INSERT INTO MAIL(MAIL_NO, MAIL_TO,MAIL_SUBJECT,MAIL_CONTENT, MAIL_TO_EMAIL)
+		VALUES (SEQ_MAIL.NEXTVAL, 
+		        #{mail_to}, #{mail_subject}, #{mail_content}, #{mail_to_email})
+		
+		<!-- board 객체를 insert에서 전달하여 SQL을 실행한 뒤,
+			 board 객체에 select한 게시글 번호를 주입받아 돌아온다. -->
+		<!-- 1번) -->
+		<selectKey keyProperty="mail_no" resultType="_int" order="AFTER">
+			SELECT seq_mail.CURRVAL FROM DUAL
+		</selectKey>
+		<!-- selectKey : 특정 쿼리가 끝난 이후에 기본키로 꺼내와야 할 것들을 따로 꺼내오는 부가적인 쿼리를 짤 수 있다. -->
+		<!-- boardNo라는 것을 resultType으로 int꺼내오게 하면서 order(언제수행할거냐, insert가 끝난 후 추가적으로 넣을게요) -->
+		
+		<!-- 위의 쿼리는 하고, 그냥 끝나는게 아니라 부가 쿼리 실행하고 결과는 위의 쿼리만 보여주지만 내부적으로 부가쿼리를 보유하고 있다. -->
+	</insert>
+
+	<!-- 게시글 -> 첨부파일 넣기 -->
+	<insert id="insertMailAttach">
+		<!-- 2번) 알아서 현재값 찾아 boardNo넣어서 아래의 INSERT의 #{boardNo}로 들고온다. -->
+		<selectKey keyProperty="mail_no" resultType="_int" order="BEFORE">
+			SELECT SEQ_MAIL.CURRVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO MAILATTACH(ATTACH_NO, MAIL_NO, 
+		                       ATTACH_ORINAME, ATTACH_RENAME,ATTACH_PATH)
+		VALUES(SEQ_MAIL_ATTACH.NEXTVAL, #{mail_no}, 
+		       #{attach_oriname}, #{attach_rename}, #{attach_path})
+	</insert>
+	
+</mapper>

@@ -8,21 +8,13 @@
 	</settings>
 
 	<typeAliases>
-		<typeAlias type="com.kh.coworks.employee.model.vo.Employee" alias="employee" />
-		<typeAlias type="com.kh.coworks.calendar.model.vo.Calendar" alias="calendar" />
-
-		<typeAlias type="com.kh.coworks.approval.model.vo.ApprovalAttach" alias="approvalAttach" />
-		<typeAlias type="com.kh.coworks.approval.model.vo.ApprovalDoc" alias="approvalDoc" />
-		<typeAlias type="com.kh.coworks.approval.model.vo.ApprovalForm" alias="approvalForm" />
-		<typeAlias type="com.kh.coworks.approval.model.vo.ApprovalStatus" alias="approvalStatus" />
-
-		<typeAlias type="com.kh.coworks.common.typeHandler.StringArrayTypeHandler" alias="strArrTypeHandler" />
+		
+		<typeAlias type="com.kh.coworks.calendar.model.vo.Calendar" alias="calendar"/> 
+	
+		<typeAlias type="com.kh.coworks.mail.model.vo.Mail" alias="mail"/> 
 	</typeAliases>
-
-	<typeHandlers>
-		<package name="com.kh.coworks.common.typeHandler" />
-	</typeHandlers>
-
+	
+	
 </configuration>
 
 

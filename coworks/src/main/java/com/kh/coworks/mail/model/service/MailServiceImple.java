@@ -13,8 +13,8 @@ import com.kh.coworks.mail.model.vo.MailAttach;
 @Service
 public class MailServiceImple implements MailService {
 
-//	@Autowired
-//	MailDao mailDao ;
+	@Autowired
+	MailDao mailDao ;
 	@Override
 	public List<Map<String, String>> selectMailList(int cPage, int limit) {
 		return null;

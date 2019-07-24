@@ -47,6 +47,7 @@
                                             <div class="inbox-center b-all table-responsive">
                                                 <table class="table table-hover no-wrap">
                                                     <tbody>
+                                                    <c:forEach items="${mails}" var="m"> 
                                                         <tr class="unread">
                                                             <td style="width:40px">
                                                                 <div class="checkbox">
@@ -55,13 +56,12 @@
                                                                 </div>
                                                             </td>
                                                             <td style="width:40px" class="hidden-xs-down"><i class="fa fa-star-o"></i></td>
-                                                            <td class="hidden-xs-down">작성자</td>
-                                                            <td class="max-texts"> <a href="app-email-detail.do"/><span class="label label-info mr-2">Work</span> 여기가 타이틀 제목 입니다.</td>
+                                                            <td class="hidden-xs-down"> ${m.getMail_from() }</td>
+                                                            <td class="max-texts"> <a href="app-email-detail.do"/><span class="label label-info mr-2">Work</span> ${m.getMail_subject() }</td>
                                                             <td class="hidden-xs-down"><i class="fa fa-paperclip"></i></td>
                                                             <td class="text-right"> 보낸 시간 </td>
                                                         </tr>
-                                                        
-                                                        
+                                                        </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -85,7 +85,7 @@
                         <div class="r-panel-body">
                             <ul id="themecolors" class="mt-3">
                                 <li><b>With Light sidebar</b></li>
-                                <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
+                                <!-- <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
                                 <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
                                 <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
                                 <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
@@ -97,11 +97,11 @@
                                 <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
                                 <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
                                 <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
-                                <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li>
+                                <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li> -->
                             </ul>
                             <ul class="mt-3 chatonline">
                                 <li><b>Chat option</b></li>
-                                <li>
+                               <!--  <li>
                                     <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
                                 </li>
                                 <li>
@@ -124,7 +124,7 @@
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)"><img src="../assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>

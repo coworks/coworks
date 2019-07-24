@@ -13,8 +13,8 @@ import com.kh.coworks.mail.model.vo.MailAttach;
 @Repository
 public class MailDaoImpl implements MailDao {
 
-//	@Autowired
-//	SqlSessionTemplate sqlSession;
+	@Autowired
+	SqlSessionTemplate sqlSession;
 	
 	@Override
 	public List<Map<String, String>> selectMailList(int cPage, int limit) {
@@ -28,11 +28,14 @@ public class MailDaoImpl implements MailDao {
 
 	@Override
 	public int sendingMail(Mail mail) {
-		return sqlSession.insert("board.sendingMail",mail);
+		System.out.println("dao");
+		return sqlSession.insert("mail.sendingMail",mail);
 	}
 
 	@Override
 	public int insertMailAttach(MailAttach att) {
+
+		System.out.println("dao atta");
 		return sqlSession.insert("mail.insertMailAttach",att);
 	}
 

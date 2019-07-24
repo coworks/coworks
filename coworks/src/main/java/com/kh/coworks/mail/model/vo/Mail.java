@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 public class Mail implements Serializable {
 	private int mail_no; // �ε���
-	private int mail_from; // �߽���
+	private String mail_from; // �߽���
 	private int mail_to; // ������
 	private String mail_subject; // ����
 	private String mail_content; // ����
@@ -27,7 +27,7 @@ public class Mail implements Serializable {
 
 	
 
-	public Mail(int mail_no, int mail_from, int mail_to, String mail_subject, String mail_content,
+	public Mail(int mail_no, String mail_from, int mail_to, String mail_subject, String mail_content,
 			Timestamp mail_sendDate, Timestamp mail_readDate, String mail_isRead, String mail_fromDel,
 			String mail_toDel, int mfolder_no, String mail_attachpath, String mail_to_email, String emp_name) {
 		super();
@@ -69,12 +69,12 @@ public class Mail implements Serializable {
 		this.mail_no = mail_no;
 	}
 
-	public int getMail_from() {
+	public String getMail_from() {
 		return mail_from;
 	}
 
-	public void setMail_from(int mail_from) {
-		this.mail_from = mail_from;
+	public void setMail_from(String string) {
+		this.mail_from = string;
 	}
 
 	public int getMail_to() {
