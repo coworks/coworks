@@ -1,25 +1,40 @@
 package com.kh.coworks.attendance.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import com.kh.coworks.attendance.model.vo.Attendance;
+
+@Repository
 public class AttendanceDaoImpl implements AttendanceDao {
-/*
+
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
 	@Override
-	public int insertAttendanceCome(int emp_no, String atten_attIP) {
+	public int insertAttendanceCome(Attendance attendance) {
 		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int insertAttendanceLeave(int emp_no, String atten_leaveIP) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("attendance.insertAttendanceCome",attendance);
 	}
 	
-	*/
-
+	@Override
+	public List<Attendance> selectListAttendance(int emp_no){
+		return sqlSession.selectList("attendance.selectListAttendance",emp_no);
+	}
+	
+	@Override
+	public int updateAttendanceLeave(Attendance attendance) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("attendance.updateAttendanceLeave",attendance);
+	}
+	
+	
+	@Override
+	public int selectListCountAttendance(int emp_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("attendance.selectListCountAttendance",emp_no);
+	}
 }

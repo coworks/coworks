@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Attendance implements Serializable {
-	private int atten_no;// ÀÎµ¦½º
-	private int emp_no;// »ç¿ø¹øÈ£
-	private Date atten_date;// ÀÏÀÚ
-	private Time atten_attTime;// Ãâ±Ù½Ã°£
-	private Time atten_leaveTime;// Åð±Ù½Ã°£
-	private String atten_attIP;// Ãâ±Ù¾ÆÀÌÇÇ
-	private String atten_leaveIP;// Åð±Ù¾ÆÀÌÇÇ
-	private String atten_state;// ±ÙÅÂ»óÅÂ
+	private int atten_no;// ï¿½Îµï¿½ï¿½ï¿½
+	private int emp_no;// ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	private Date atten_date;// ï¿½ï¿½ï¿½ï¿½
+	private Time atten_attTime;// ï¿½ï¿½Ù½Ã°ï¿½
+	private Time atten_leaveTime;// ï¿½ï¿½Ù½Ã°ï¿½
+	private String atten_attIP;// ï¿½ï¿½Ù¾ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String atten_leaveIP;// ï¿½ï¿½Ù¾ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String atten_state;// ï¿½ï¿½ï¿½Â»ï¿½ï¿½ï¿½
 	public Attendance() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -80,6 +80,9 @@ public class Attendance implements Serializable {
 	public void setAtten_state(String atten_state) {
 		this.atten_state = atten_state;
 	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Attendance [atten_no=" + atten_no + ", emp_no=" + emp_no + ", atten_date=" + atten_date

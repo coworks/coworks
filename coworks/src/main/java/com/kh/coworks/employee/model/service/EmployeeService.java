@@ -20,4 +20,6 @@ public interface EmployeeService {
 	
 	List<Job> selectJobList();
 	
+	Employee selectEmployee(int emp_no);
+	
 }

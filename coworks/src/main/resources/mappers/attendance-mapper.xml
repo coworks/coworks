@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="attendance">
+	
+	<select id="selectListCountAttendance" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd')
+	</select>
+	<select id="selectListAttendance" parameterType="_int" resultType="attendance">
+		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd')
+		
+	</select>
+	<insert id="insertAttendanceCome" parameterType="attendance">
+		INSERT INTO ATTENDANCE(ATTEN_NO,EMP_NO,ATTEN_DATE,ATTEN_ATTTIME,ATTEN_ATTIP,ATTEN_STATE) 
+		SELECT SEQ_ATTEN_NO.NEXTVAL, #{emp_no},#{atten_date},#{atten_attTime},#{atten_attIP},'출근' from dual
+		WHERE NOT EXISTS (SELECT ATTEN_DATE FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd') )
+	
+		
+		</insert>
+	
+	<update id="updateAttendanceLeave" parameterType="attendance">
+		UPDATE ATTENDANCE SET ATTEN_LEAVETIME=#{atten_leaveTime}, ATTEN_LEAVEIP=#{atten_leaveIP}, ATTEN_STATE='퇴근'
+		WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd')
+	</update>
+	
+	 
+	
+</mapper>
