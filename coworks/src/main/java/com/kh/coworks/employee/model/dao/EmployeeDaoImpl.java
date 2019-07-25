@@ -46,5 +46,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Job> selectJobList() {
 		return sqlSession.selectList("employee.selectJob");
 	}
+	
+	@Override
+	public Employee selectEmployee(int emp_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("employee.selectEmployee",emp_no);
+	}
 
 }

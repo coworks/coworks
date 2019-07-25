@@ -1,13 +1,20 @@
 package com.kh.coworks.attendance.model.service;
 
+import java.util.List;
+
+import com.kh.coworks.attendance.model.vo.Attendance;
+import com.kh.coworks.calendar.model.vo.Calendar;
+
 public interface AttendanceService {
-	/*
+	 
 	static int BOARD_SRV_ERROR=0;
 	static int BOARD_SRV_COMP=1;
 	
-	int insertAttendanceCome(int emp_no, String atten_attIP);
+	int insertAttendanceCome(Attendance attendance);
 	
-	int insertAttendanceLeave(int emp_no, String atten_leaveIP);
+	List<Attendance> selectListAttendance(int emp_no);
 	
-	*/
+	int updateAttendanceLeave(Attendance attendance);
+	
+	 
 }

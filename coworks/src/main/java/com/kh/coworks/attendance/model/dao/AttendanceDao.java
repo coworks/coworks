@@ -1,11 +1,19 @@
 package com.kh.coworks.attendance.model.dao;
 
+import java.util.List;
+
+import com.kh.coworks.attendance.model.vo.Attendance;
+
 public interface AttendanceDao {
 	
-	/*
-	int insertAttendanceCome(int emp_no, String atten_attIP);
 	
-	int insertAttendanceLeave(int emp_no, String atten_leaveIP);
+	int insertAttendanceCome(Attendance attendance);
 	
-	*/
+	int selectListCountAttendance(int emp_no);
+	
+	List<Attendance> selectListAttendance(int emp_no);
+	
+	int updateAttendanceLeave(Attendance attendance);
+	
+	
 }

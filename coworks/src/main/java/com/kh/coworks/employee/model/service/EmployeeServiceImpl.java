@@ -43,6 +43,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<Job> selectJobList() {
 		return employeeDao.selectJobList();
 	}
+	
+	
+	@Override
+	public Employee selectEmployee(int emp_no) {
+		// TODO Auto-generated method stub
+		return employeeDao.selectEmployee(emp_no);
+	}
+	
 
 
 

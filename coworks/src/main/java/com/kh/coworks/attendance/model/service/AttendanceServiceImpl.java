@@ -1,17 +1,51 @@
 package com.kh.coworks.attendance.model.service;
 
-public class AttendanceServiceImpl implements AttendanceService {
-/*
-	@Override
-	public int insertAttendanceCome(int emp_no, String atten_attIP) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kh.coworks.attendance.model.dao.AttendanceDao;
+import com.kh.coworks.attendance.model.vo.Attendance;
+
+@Service
+public class AttendanceServiceImpl implements AttendanceService {
+
+	@Autowired
+	private AttendanceDao attendancedao;
+	
 	@Override
-	public int insertAttendanceLeave(int emp_no, String atten_leaveIP) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertAttendanceCome(Attendance attendance) {
+		int result=0;
+		
+		//int count=attendancedao.selectListCountAttendance(1);	
+
+		//System.out.println("count값 22: "+count);
+		//if(count<=0) {
+			//System.out.println("count값 : "+count);
+			result=attendancedao.insertAttendanceCome(attendance);
+		//}
+
+		return result;
 	}
-*/
+	
+	@Override
+	public List<Attendance> selectListAttendance(int emp_no){
+		return attendancedao.selectListAttendance(emp_no);
+	}
+	
+	
+	@Override
+	public int updateAttendanceLeave(Attendance attendance) {
+		int result=0;
+		
+		int count=attendancedao.selectListCountAttendance(1);
+		if(count==1) {
+			result= attendancedao.updateAttendanceLeave(attendance);
+		}
+		
+		return result;
+		
+	}
+ 
 }

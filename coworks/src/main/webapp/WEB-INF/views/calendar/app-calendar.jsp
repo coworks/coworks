@@ -464,19 +464,20 @@
                    $this.$modal.modal('hide');
                    
                    $.ajax({
-                      url : "${pageContext.request.contextPath}/calendar/updateCalendar2.do",
-                    data : {cal_no:calEvent.id, cal_name:calEvent.title, cal_content:calEvent.content,
-                          cal_beginDate:calEvent.start, cal_endDate:calEvent.end},
-                    type:"post",
-                    dataType : "json",
-                    async:false,
-                    success : function(data){
-                       
-                        result=false;
-                         console.log(result);
-                    },error: function(data){
-                       
-                    
+                    	url : "${pageContext.request.contextPath}/calendar/updateCalendar2.do",
+                    	data : {cal_no:calEvent.id, cal_name:calEvent.title, cal_content:calEvent.content,
+                          		cal_beginDate:calEvent.start, cal_endDate:calEvent.end},
+	                    type:"post",
+	                    dataType : "json",
+	                    async:false,
+	                    success : function(data){
+	                       
+	                         result=false;
+	                         console.log(result);
+	                         
+	                    },error: function(data){
+	                       
+	                    
                        result=true;
                         console.log(result);
                     }

@@ -26,16 +26,16 @@
 		<div class="login-register" style="background-image: url(${pageContext.request.contextPath}/resources/images/login_background.jpg);">
 			<div class="login-box card">
 				<div class="card-body">
-					<form class="form-horizontal form-material" id="loginform" action="index.html">
+					<form class="form-horizontal form-material" id="loginform" action="${pageContext.request.contextPath}/common/goLogin.do" method="post">
 						<h3 class="box-title mb-3">Login</h3>
 						<div class="form-group ">
 							<div class="col-xs-12">
-								<input class="form-control" type="text" required="" placeholder="사원번호">
+								<input class="form-control" name="emp_no" type="text" required="" placeholder="사원번호">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-xs-12">
-								<input class="form-control" type="password" required="" placeholder="비밀번호">
+								<input class="form-control" name="emp_password" type="password" required="" placeholder="비밀번호">
 							</div>
 						</div>
 						<div class="form-group">
@@ -51,6 +51,7 @@
 								<button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Login</button>
 							</div>
 						</div>
+						 
 					</form>
 					<form class="form-horizontal" id="recoverform" action="index.html">
 						<div class="form-group ">
