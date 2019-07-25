@@ -2,16 +2,16 @@
 	pageEncoding="UTF-8"%>
 <meta charset="UTF-8">
 <!-- <div class="col-12"> -->
-<div class="col-xlg-2 col-lg-4 col-md-4">
+<div class="col-xlg-2 col-lg-3 col-md-3">
 	<div class="card-body inbox-panel">
 		<a href="app-compose.do"
 			class="btn btn-danger mb-3 p-2 btn-block waves-effect waves-light">메일쓰기</a>
 		<ul class="list-group list-group-full">
-			<li class="list-group-item active"><a href="app-email.do"><i
-					class="mdi mdi-gmail"></i> 외부 메일함 </a><span
-				class="badge badge-success ml-auto"> 읽지 않은 메일 수</span></li>
-				<li class="list-group-item "><a href="app-email.do"><i
+			<li class="list-group-item active"><a href="${pageContext.request.contextPath}/mail/app-mail.do"><i
 					class="mdi mdi-gmail"></i> 내부 메일함 </a><span
+				class="badge badge-success ml-auto"> 읽지 않은 메일 수</span></li>
+				<li class="list-group-item "><a href="${pageContext.request.contextPath}/mail/app-email.do"><i
+					class="mdi mdi-gmail"></i> 외부 메일함 </a><span
 				class="badge badge-success ml-auto"> 읽지 않은 메일 수</span></li>
 			<li class="list-group-item"><a href="javascript:void(0)"> <i
 					class="mdi mdi-star"></i> 즐겨찾기

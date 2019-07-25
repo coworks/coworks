@@ -29,7 +29,8 @@
                         <div class="card">
                             <div class="row">
                                 <c:import url="mail-common.jsp"/>
-                                <div class="col-xlg-10 col-lg-8 col-md-8">
+                                <!-- lg-8 md-8 -->
+                                <div class="col-xlg-10 col-lg-9 col-md-9">
                                    <c:import url="mail-topbar.jsp"/>
                                     <!-- 
                                     <td class="max-texts"><a href="app-email-detail.html"><span class="label label-info mr-2">Work</span> Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
@@ -48,7 +49,9 @@
                                                 <table class="table table-hover no-wrap">
                                                     <tbody>
                                                     <c:forEach items="${mails}" var="m"> 
-                                                        <tr class="unread">
+                                                        <%-- <a href="/mail/selectOneMail.do/${m.getMail_no()}">  --%>
+                                                    	<input type="text" name="mail_no" value="${m.getMail_no()}" id="mail_no" hidden/>
+                                                        <tr class="unread mailRow" onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}'">
                                                             <td style="width:40px">
                                                                 <div class="checkbox">
                                                                     <input type="checkbox" id="checkbox0" value="check">
@@ -56,17 +59,55 @@
                                                                 </div>
                                                             </td>
                                                             <td style="width:40px" class="hidden-xs-down"><i class="fa fa-star-o"></i></td>
-                                                            <td class="hidden-xs-down"> ${m.getMail_from() }</td>
-                                                            <td class="max-texts"> <a href="app-email-detail.do"/><span class="label label-info mr-2">Work</span> ${m.getMail_subject() }</td>
+                                                           	
+                                                            <td class="hidden-xs-down"> 
+                                                            
+															<c:if test="${m.getMail_from().length() gt 19}">
+                                                            	${m.getMail_from().substring(0,19) } ...
+                                                            </c:if>
+                                                          	<c:if test="${m.getMail_from().length() le 19}">
+                                                          		${m.getMail_from() }
+                                                          	</c:if></td><!-- <a href="app-email-detail.do"/> -->
+                                                            <td class="max-texts"> <span class="label label-info mr-2">Work</span> 
+                                                          	<c:if test="${m.getMail_subject().length() gt 10}">
+                                                            	${m.getMail_subject().substring(0,10) } ...
+                                                            </c:if>
+                                                          	<c:if test="${m.getMail_subject().length()le 10}">
+                                                          		${m.getMail_subject() }
+                                                          	</c:if> 
+                                                          	
+                                                            </td>
+                                                           
                                                             <td class="hidden-xs-down"><i class="fa fa-paperclip"></i></td>
-                                                            <td class="text-right"> 보낸 시간 </td>
-                                                        </tr>
+                                                            <td class="text-right"> 보낸 시간 ${m.getMail_sendDate() } </td>
+                                                        </tr>  
+                                                      <!--   </a>  -->
                                                         </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- 페이지네이션 -->
+                                    <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                </li>
+                                                <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                 </div>
                             </div>
                         </div>
@@ -139,5 +180,15 @@
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<!-- <script>
+		$(".mailRow").on("click",function(){
+			var m = $(this).val();
+			var mail_no = $("#mailRow").eq(0);
+			console.log(m);/* 
+			console.log(mail_no); */
+			/* location.href="/mail/selectOneMail.do/${m.getMail_no()}"; */
+		});
+		
+	</script> -->
 </body>
 </html>

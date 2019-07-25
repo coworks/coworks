@@ -17,7 +17,7 @@ public class Mail implements Serializable {
 	private int mfolder_no; // ���� �ε���
 	private String mail_attachpath; // ÷������
 	private String mail_to_email;
-	
+	private String mail_from_email;
 	private String emp_name;
 
 	public Mail() {
@@ -26,6 +26,18 @@ public class Mail implements Serializable {
 	}
 
 	
+
+	public String getMail_from_email() {
+		return mail_from_email;
+	}
+
+
+
+	public void setMail_from_email(String mail_from_email) {
+		this.mail_from_email = mail_from_email;
+	}
+
+
 
 	public Mail(int mail_no, String mail_from, int mail_to, String mail_subject, String mail_content,
 			Timestamp mail_sendDate, Timestamp mail_readDate, String mail_isRead, String mail_fromDel,

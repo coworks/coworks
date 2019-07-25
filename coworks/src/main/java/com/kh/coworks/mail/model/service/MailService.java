@@ -31,7 +31,7 @@ public interface MailService {
 	 * @param list
 	 * @return
 	 */
-	int sendingMail(Mail mail, List<MailAttach> list);
+	int mailFormEnd(Mail mail, List<MailAttach> list);
 	
 	/***
 	 * 메일 하나 조회
