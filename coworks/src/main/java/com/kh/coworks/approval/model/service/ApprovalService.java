@@ -8,7 +8,10 @@ import com.kh.coworks.approval.model.vo.ApprovalForm;
 import com.kh.coworks.approval.model.vo.ApprovalStatus;
 
 public interface ApprovalService {
-	
+
+	static final int APPROVAL_SRV_ERROR = 0;
+	static final int APPROVAL_SRV_COMP = 1;
+
 	List<String> selectApprovalFormFolderList();
 
 	List<ApprovalForm> selectApprovalFormList(String aform_folderName);
@@ -16,6 +19,11 @@ public interface ApprovalService {
 	List<ApprovalForm> searchApprovalForm(String search);
 
 	int insertApprovalDoc(ApprovalDoc doc, List<ApprovalStatus> signList, List<ApprovalAttach> fileList);
-	
+
+	ApprovalDoc selectOneApprovalDoc(int adoc_no);
+
+	List<ApprovalAttach> selectApprovalAttach(int adoc_no);
+
+	List<ApprovalStatus> selectApprovalStatus(int adoc_no);
 
 }

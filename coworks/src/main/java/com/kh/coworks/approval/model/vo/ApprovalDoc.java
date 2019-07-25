@@ -19,14 +19,13 @@ public class ApprovalDoc implements Serializable {
 	private Date adoc_expiration; // 만료일
 	private String adoc_subject; // 제목
 	private String adoc_content; // 내용
-	private String adoc_state; // 결재 상태
+	private int adoc_status; // 결재 상태
 
 	private String writerDept;
 	private String writerJobTitle;
 	private String writerName;
-
-	private List<ApprovalStatus> statusList = new ArrayList<>();
-	private List<ApprovalAttach> attachList = new ArrayList<>();
+	
+	private String docPage;
 
 	public ApprovalDoc() {
 		super();
@@ -34,7 +33,7 @@ public class ApprovalDoc implements Serializable {
 	}
 
 	public ApprovalDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
-			Date adoc_expiration, String adoc_subject, String adoc_content, String adoc_state) {
+			Date adoc_expiration, String adoc_subject, String adoc_content, int adoc_status) {
 		super();
 		this.adoc_no = adoc_no;
 		this.aform_no = aform_no;
@@ -44,11 +43,11 @@ public class ApprovalDoc implements Serializable {
 		this.adoc_expiration = adoc_expiration;
 		this.adoc_subject = adoc_subject;
 		this.adoc_content = adoc_content;
-		this.adoc_state = adoc_state;
+		this.adoc_status = adoc_status;
 	}
 
 	public ApprovalDoc(int adoc_no, int aform_no, int adoc_writerno, Timestamp adoc_uploadDate, int adoc_security,
-			Date adoc_expiration, String adoc_subject, String adoc_content, String adoc_state, String writerDept,
+			Date adoc_expiration, String adoc_subject, String adoc_content, int adoc_status, String writerDept,
 			String writerJobTitle, String writerName) {
 		super();
 		this.adoc_no = adoc_no;
@@ -59,7 +58,7 @@ public class ApprovalDoc implements Serializable {
 		this.adoc_expiration = adoc_expiration;
 		this.adoc_subject = adoc_subject;
 		this.adoc_content = adoc_content;
-		this.adoc_state = adoc_state;
+		this.adoc_status = adoc_status;
 		this.writerDept = writerDept;
 		this.writerJobTitle = writerJobTitle;
 		this.writerName = writerName;
@@ -129,12 +128,12 @@ public class ApprovalDoc implements Serializable {
 		this.adoc_content = adoc_content;
 	}
 
-	public String getAdoc_state() {
-		return adoc_state;
+	public int getAdoc_status() {
+		return adoc_status;
 	}
 
-	public void setAdoc_state(String adoc_state) {
-		this.adoc_state = adoc_state;
+	public void setAdoc_status(int adoc_status) {
+		this.adoc_status = adoc_status;
 	}
 
 	public String getWriterDept() {
@@ -161,12 +160,20 @@ public class ApprovalDoc implements Serializable {
 		this.writerName = writerName;
 	}
 
+	public String getDocPage() {
+		return docPage;
+	}
+
+	public void setDocPage(String docPage) {
+		this.docPage = docPage;
+	}
+
 	@Override
 	public String toString() {
 		return "ApprovDoc [adoc_no=" + adoc_no + ", aform_no=" + aform_no + ", adoc_writerno=" + adoc_writerno
 				+ ", adoc_uploadDate=" + adoc_uploadDate + ", adoc_security=" + adoc_security + ", adoc_expiration="
 				+ adoc_expiration + ", adoc_subject=" + adoc_subject + ", adoc_content=" + adoc_content
-				+ ", adoc_state=" + adoc_state + ", writerDept=" + writerDept + ", writerJobTitle=" + writerJobTitle
+				+ ", adoc_status=" + adoc_status + ", writerDept=" + writerDept + ", writerJobTitle=" + writerJobTitle
 				+ ", writerName=" + writerName + "]";
 	}
 

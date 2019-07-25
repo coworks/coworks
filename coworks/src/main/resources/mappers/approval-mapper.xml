@@ -9,14 +9,12 @@
 		distinct aform_folderName from approvalForm order by 1
 	</select>
 
-	<select id="selectApprovalFormList" parameterType="string"
-		resultType="approvalForm">
+	<select id="selectApprovalFormList" parameterType="string" resultType="approvalForm">
 		select * from approvalForm where
 		aform_folderName=#{aform_folderName} order by AFORM_TITLE
 	</select>
 
-	<select id="searchApprovalForm" parameterType="string"
-		resultType="approvalForm">
+	<select id="searchApprovalForm" parameterType="string" resultType="approvalForm">
 		select * from approvalForm where aform_title like
 		'%'||#{search}||'%' order by AFORM_TITLE
 	</select>
@@ -24,19 +22,33 @@
 	<insert id="insertApprovalDoc">
 		insert into approvalDoc (ADOC_NO, AFORM_NO, ADOC_WRITERNO,
 		ADOC_UPLOADDATE, ADOC_SECURITY, ADOC_EXPIRATION, ADOC_SUBJECT,
-		ADOC_CONTENT, ADOC_STATE) values (seq_apdoc.nextval, #{aform_no},
-		#{adoc_writerNo}, SYSDATE, #{adoc_security}, #{adoc_expiration},
+		ADOC_CONTENT, adoc_status) values (seq_apdoc.nextval, #{aform_no},
+		#{adoc_writerno}, DEFAULT, #{adoc_security}, #{adoc_expiration},
 		#{adoc_subject},#{adoc_content},DEFAULT)
-		<selectKey keyProperty="adoc_no" resultType="_int"
-			order="AFTER">
+		<selectKey keyProperty="adoc_no" resultType="_int" order="AFTER">
 			SELECT SEQ_apdoc.CURRVAL FROM DUAL
 		</selectKey>
 	</insert>
-	<insert id="insertApprovalStatus"></insert>
+	<insert id="insertApprovalStatus">
+		insert into approvalStatus(AS_NO,ADOC_NO,EMP_NO,AS_STATUS) values (seq_apst.nextval,#{adoc_no},#{emp_no},default)
+	</insert>
 
-	<insert id="insertApprovalAttach"></insert>
+	<insert id="insertApprovalAttach">
+		insert into approvalAttach (APATT_NO,ADOC_NO,APATT_ORINAME,APATT_RENAME,APATT_PATH) values (sql_apatt.nextval,#{adoc_no},#{apAtt_oriname},#{apAtt_rename},#{apAtt_path})
+	</insert>
 
+	<select id="selectOneApprovalDoc" parameterType="_int" resultType="approvalDoc">
+		SELECT DOC.*, FORM.AFORM_DOCPAGE DOCPAGE FROM APPROVALDOC DOC, APPROVALFORM FORM WHERE adoc_no=#{adoc_no} and FORM.AFORM_NO = DOC.AFORM_NO
+	</select>
 
+	<select id="selectApprovalAttach" parameterType="_int" resultType="approvalAttach">
+		select * from approvalAttach where adoc_no=#{adoc_no}
+	</select>
+
+	<select id="selectApprovalStatus" parameterType="_int" resultType="approvalStatus">
+		select st.*,emp_name,job_title from approvalStatus st, employee e, job j where st.adoc_no=#{adoc_no} and st.emp_no=e.emp_no and e.job_code=j.job_code
+
+	</select>
 
 
 </mapper>

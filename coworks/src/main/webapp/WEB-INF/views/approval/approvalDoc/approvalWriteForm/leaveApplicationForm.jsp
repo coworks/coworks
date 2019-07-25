@@ -103,21 +103,21 @@
 		jQuery('#date-range').datepicker({
 			toggleActive : true
 		});
-		$(function() {
-			$('#button-add-file').click(addFileForm);
-		});
+		
 		var count = 0;
-		function addFileForm() {
+		 $('#button-add-file').on("click",function(){
 			var html = "<div id='item_"+count+"'>";
-			html += "<input type='file' name='upFiles' />";
+			html += "<input type='file' name='upFiles' multiple/>";
 			html += "<input type='button' onclick='deleteBtn(this)' class='btn btn-outline-danger' value='삭제'/></div>";
 			count++;
 			$("#file-list").append(html);
-		}
+		});
 
 		function deleteBtn(obj) {
 			$(obj).parent().remove();
 		}
+		
+		
 		
 	/* 	function submitApproval(){
 			var req=JSON.stringify(obj);

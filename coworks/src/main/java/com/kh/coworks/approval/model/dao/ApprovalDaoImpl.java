@@ -24,13 +24,11 @@ public class ApprovalDaoImpl implements ApprovalDao {
 
 	@Override
 	public List<ApprovalForm> selectApprovalFormList(String aform_folderName) {
-
 		return sqlSession.selectList("approval.selectApprovalFormList", aform_folderName);
 	}
 
 	@Override
 	public List<ApprovalForm> searchApprovalForm(String search) {
-
 		return sqlSession.selectList("approval.searchApprovalForm", search);
 	}
 
@@ -47,6 +45,21 @@ public class ApprovalDaoImpl implements ApprovalDao {
 	@Override
 	public int insertApprovalAttach(ApprovalAttach attach) {
 		return sqlSession.insert("approval.insertApprovalAttach", attach);
+	}
+
+	@Override
+	public ApprovalDoc selectOneApprovalDoc(int adoc_no) {
+		return sqlSession.selectOne("approval.selectOneApprovalDoc", adoc_no);
+	}
+
+	@Override
+	public List<ApprovalAttach> selectApprovalAttach(int adoc_no) {
+		return sqlSession.selectList("approval.selectApprovalAttach", adoc_no);
+	}
+
+	@Override
+	public List<ApprovalStatus> selectApprovalStatus(int adoc_no) {
+		return sqlSession.selectList("approval.selectApprovalStatus", adoc_no);
 	}
 
 }
