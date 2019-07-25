@@ -10,6 +10,15 @@
 		</layout>
 	</appender>
 	
+	<appender class="org.apache.log4j.DailyRollingFileAppender" name="loginLogger">
+		<param name="file" value="C:/dev/SpringWorkspace/04_SpringProject/src/main/resources/logs/login/login.log"/>
+		<param name="Append" value="true"/>
+		<param name="datePattern" value=".yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%-5p: [%d{yyyy/MM/dd HH:mm:ss}] %m%n"/>
+		</layout>
+	</appender>
+	
 	<!-- Application Loggers -->
 	<logger name="com.kh.coworks">
 		<level value="info" />

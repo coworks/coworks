@@ -89,13 +89,11 @@ public class CommonController {
 	}
 	
 	@RequestMapping("/logout.do")
-	public String employeeLogout(SessionStatus sessionStatus) {
-		//SessionStatus : 현재 연결되어 있는 세션의 상태를 관리하는 객체
-		System.out.println("session 상태 확인 : "+sessionStatus.isComplete());
-		
-		if(!sessionStatus.isComplete()) {
-			sessionStatus.setComplete(); // 세션끝내기
-		}
+	public String employeeLogout(HttpServletRequest request,SessionStatus sessionStatus) {
+		 
+		request.getSession().removeAttribute("employee");	
+			//sessionStatus.setComplete(); // 세션끝내기 
+		 
 		
 		return "redirect:/";
 	}
