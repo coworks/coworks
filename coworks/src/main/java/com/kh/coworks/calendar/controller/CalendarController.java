@@ -1,9 +1,12 @@
 package com.kh.coworks.calendar.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp; 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -15,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
+ 
 import com.kh.coworks.calendar.model.exception.CalendarException;
 import com.kh.coworks.calendar.model.service.CalendarService;
-import com.kh.coworks.calendar.model.vo.Calendar; 
+import com.kh.coworks.calendar.model.vo.Calendar;
+import com.kh.coworks.employee.model.vo.Employee; 
 
 @Controller
 public class CalendarController {
@@ -28,10 +32,16 @@ public class CalendarController {
 	
 	
 	@RequestMapping("/calendar/calendarview.do")
-	public ModelAndView selectListAllCalendar(ModelAndView mv, HttpSession session) {
+	public ModelAndView selectListAllCalendar(ModelAndView mv,HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		Employee employee=(Employee) session.getAttribute("employee");
+		System.out.println("세션값 : "+employee);
+		System.out.println("아이디 : "+employee.getEmp_no());
+		
+		
 		// 나중에 세션으로 사용자 아이디 받아서 검색... => 현재는 1로 고정(임시)
 		System.out.println("넘어가나?");
-		List<Calendar> list = calService.selectListAllCalendar(1);	
+		List<Calendar> list = calService.selectListAllCalendar(employee.getEmp_no());	
 		
 		System.out.println("select 확인" +list);
 		mv.addObject("list", list);
@@ -108,12 +118,14 @@ public class CalendarController {
 		
 		 Timestamp ts1=java.sql.Timestamp.valueOf(cal_beginDate);	 
 		 Timestamp ts2=java.sql.Timestamp.valueOf(cal_endDate);
-
+		 
 		 System.out.println("시작 : " + ts1);
 		 System.out.println("끝 : " + ts2);
 		 
-		 
-		 Calendar cal=new Calendar();
+		
+			 
+			 
+		Calendar cal=new Calendar();
 		 cal.setCal_no(cal_no);
 		 cal.setCal_beginDate(ts1);
 		 cal.setCal_endDate(ts2);

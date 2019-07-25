@@ -7,7 +7,9 @@
 		<result property="emp_authority" column="emp_authority"
 		        typeHandler="strArrTypeHandler" />
 	</resultMap>
-	
+	<select id="selectEmployee" resultType="employee" parameterType="_int">
+		SELECT * FROM EMPLOYEE WHERE EMP_NO=#{emp_no} 
+	</select>
 	
 	<select id="selectEmployeeList" resultType="employee">
 		SELECT EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE

@@ -19,4 +19,6 @@ public interface EmployeeDao {
 	List<Department> selectDepartmentList(); 
 	
 	List<Job> selectJobList();
+	
+	Employee selectEmployee(int emp_no);
 }
