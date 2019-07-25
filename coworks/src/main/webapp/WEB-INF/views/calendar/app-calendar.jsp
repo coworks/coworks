@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, com.kh.coworks.calendar.model.vo.*" %>
+   pageEncoding="UTF-8" %>
+<%@ page import="java.util.*, com.kh.coworks.employee.model.vo.Employee,com.kh.coworks.calendar.model.vo.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
+<% 
+Employee employee = (Employee)session.getAttribute("employee"); 
+%>
 
  
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
 <title>CO-WORKS : 일정 관리</title>
    <!-- Calendar CSS -->

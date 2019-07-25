@@ -33,7 +33,7 @@ public class CalendarController {
 	
 	@RequestMapping("/calendar/calendarview.do")
 	public ModelAndView selectListAllCalendar(ModelAndView mv,HttpServletRequest request) {
-		HttpSession session=request.getSession();
+		HttpSession session=request.getSession(false);
 		Employee employee=(Employee) session.getAttribute("employee");
 		System.out.println("세션값 : "+employee);
 		System.out.println("아이디 : "+employee.getEmp_no());

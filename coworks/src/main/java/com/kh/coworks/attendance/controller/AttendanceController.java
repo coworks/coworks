@@ -30,7 +30,7 @@ public class AttendanceController {
 	
 	@RequestMapping("/attendancecome.do") 
 	public ModelAndView insertAttendaceCome( HttpServletRequest request,Model model) { 
-		HttpSession session=request.getSession();
+		HttpSession session=request.getSession(false);
 		Employee employee=(Employee) session.getAttribute("employee");
 		 ModelAndView mv=new ModelAndView();
 		System.out.println("세션값 : "+session);
