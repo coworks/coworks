@@ -34,7 +34,7 @@
 					<th rowspan="3" width="15px">결<br />재
 					</th>
 					<th scope="col" class="border" width="60px">담당</th>
-					<th scope="col" class="border" width="60px">담당</th>
+					<th scope="col" class="border" width="60px"></th>
 					<th scope="col" class="border" width="60px"></th>
 
 				</tr>

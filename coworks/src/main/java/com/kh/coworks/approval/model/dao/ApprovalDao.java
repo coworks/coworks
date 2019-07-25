@@ -21,4 +21,10 @@ public interface ApprovalDao {
 
 	int insertApprovalAttach(ApprovalAttach attach);
 
+	ApprovalDoc selectOneApprovalDoc(int adoc_no);
+
+	List<ApprovalAttach> selectApprovalAttach(int adoc_no);
+
+	List<ApprovalStatus> selectApprovalStatus(int adoc_no);
+
 }

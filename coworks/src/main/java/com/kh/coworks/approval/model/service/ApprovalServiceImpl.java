@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.coworks.approval.model.dao.ApprovalDao;
+import com.kh.coworks.approval.model.exception.ApprovalException;
 import com.kh.coworks.approval.model.vo.ApprovalAttach;
 import com.kh.coworks.approval.model.vo.ApprovalDoc;
 import com.kh.coworks.approval.model.vo.ApprovalForm;
@@ -34,14 +35,48 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 	@Override
 	public int insertApprovalDoc(ApprovalDoc doc, List<ApprovalStatus> signList, List<ApprovalAttach> fileList) {
-		approvalDao.insertApprovalDoc(doc);
+		int result = APPROVAL_SRV_ERROR;
 
-		for (ApprovalStatus sign : signList)
-			approvalDao.insertApprovalSign(sign);
+		result = approvalDao.insertApprovalDoc(doc);
+		if (result == APPROVAL_SRV_ERROR)
+			throw new ApprovalException();
 
-		for (ApprovalAttach attach : fileList)
-			approvalDao.insertApprovalAttach(attach);
+		if (signList.size() > 0) {
+			for (ApprovalStatus sign : signList) {
+				sign.setAdoc_no(doc.getAdoc_no());;
+				result = approvalDao.insertApprovalSign(sign);
 
-		return 0;
+				if (result == APPROVAL_SRV_ERROR)
+					throw new ApprovalException();
+			}
+		}
+
+		if (fileList.size() > 0) {
+			for (ApprovalAttach attach : fileList) {
+				attach.setAdoc_no(doc.getAdoc_no());
+				approvalDao.insertApprovalAttach(attach);
+
+				if (result == APPROVAL_SRV_ERROR)
+					throw new ApprovalException();
+			}
+		}
+		
+		return result;
 	}
+	
+	@Override
+	public ApprovalDoc selectOneApprovalDoc(int adoc_no) {
+		return approvalDao.selectOneApprovalDoc(adoc_no);
+	}
+
+	@Override
+	public List<ApprovalAttach> selectApprovalAttach(int adoc_no) {
+		return approvalDao.selectApprovalAttach(adoc_no);
+	}
+
+	@Override
+	public List<ApprovalStatus> selectApprovalStatus(int adoc_no) {
+		return approvalDao.selectApprovalStatus(adoc_no);
+	}
+
 }
