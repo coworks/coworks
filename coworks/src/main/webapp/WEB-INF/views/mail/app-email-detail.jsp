@@ -36,7 +36,7 @@
                                     <div class="card-body pt-0">
                                         <div class="card b-all shadow-none">
                                             <div class="card-body">
-                                                <h3 class="card-title mb-0">제목</h3>
+                                                <h3 class="card-title mb-0">제목: ${mail.getMail_subject()}</h3>
                                             </div>
                                             <div>
                                                 <hr class="mt-0">
@@ -44,7 +44,7 @@
                                             <div class="card-body">
                                                 <div class="d-flex mb-5">
                                                     <div>
-                                                        <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user" width="40" class="img-circle" /></a>
+                                                        <a href="javascript:void(0)"><img src="#" alt="user" width="40" class="img-circle" /></a>
                                                     </div>
                                                     <div class="pl-2">
                                                         <h4 class="mb-0">이름</h4>
@@ -52,9 +52,10 @@
                                                     </div>
                                                 </div>
                                                 <p><b>Dear USer</b></p>
-                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
+                                                ${mail.getMail_content()}
+                                           <!--      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
                                                 <p>enean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,</p>
-                                            </div>
+                                            --> </div>
                                             <div>
                                                 <hr class="mt-0">
                                             </div>
@@ -62,13 +63,7 @@
                                                 <h4><i class="fa fa-paperclip mr-2 mb-2"></i> Attachments <span>(3)</span></h4>
                                                 <div class="row">
                                                     <div class="col-md-2">
-                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img1.jpg"> </a>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img2.jpg"> </a>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img3.jpg"> </a>
+                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="#"> </a>
                                                     </div>
                                                 </div>
                                                 <div class="b-all mt-3 p-3">
@@ -89,7 +84,7 @@
                 <!-- Right sidebar -->
                 <!-- ============================================================== -->
                 <!-- .right-sidebar -->
-                <div class="right-sidebar">
+                <!-- <div class="right-sidebar">
                     <div class="slimscrollright">
                         <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
                         <div class="r-panel-body">
@@ -138,7 +133,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- ============================================================== -->
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
@@ -149,8 +144,8 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer"> © 2019 Monster Admin by wrappixel.com </footer>
-            <!-- ============================================================== -->
+<!--             <footer class="footer"> © 2019 Monster Admin by wrappixel.com </footer>
+ -->            <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
         </div>
@@ -164,24 +159,24 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="../assets/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
+ <!--    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    Bootstrap tether Core JavaScript
     <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
+    slimscrollbar scrollbar JavaScript
     <script src="js/jquery.slimscroll.js"></script>
-    <!--Wave Effects -->
+    Wave Effects
     <script src="js/waves.js"></script>
-    <!--Menu sidebar -->
+    Menu sidebar
     <script src="js/sidebarmenu.js"></script>
-    <!--stickey kit -->
+    stickey kit
     <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-    <!--Custom JavaScript -->
+    Custom JavaScript
     <script src="js/custom.min.js"></script>
-    <!-- ============================================================== -->
-    <!-- Style switcher -->
-    <!-- ============================================================== -->
-    <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    ==============================================================
+    Style switcher
+    ==============================================================
+    <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script> -->
 	</body>
            
 </html>

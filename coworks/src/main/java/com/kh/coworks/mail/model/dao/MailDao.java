@@ -10,11 +10,11 @@ public interface MailDao {
 
 	List<Map<String,String>> selectMailList(int cPage,int limit);
 	int selectMailTotalContents();
-	int sendingMail(Mail mail);
+	int mailFormEnd(Mail mail);
 	int insertMailAttach(MailAttach att);
 	Mail selectOneMail(int mail_no);
 	List<MailAttach> selectAttachList(int mail_no);
-	int mailUpdate(Mail mail);
+	int updateMail(Mail mail);
 	int updateAttach(MailAttach att);
 	int deleteMail(int mail_no);
 	int deleteMailAttach(int mail_no);

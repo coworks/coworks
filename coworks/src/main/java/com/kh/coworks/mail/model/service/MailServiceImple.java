@@ -17,7 +17,7 @@ public class MailServiceImple implements MailService {
 	MailDao mailDao ;
 	@Override
 	public List<Map<String, String>> selectMailList(int cPage, int limit) {
-		return null;
+		return mailDao.selectMailList(cPage, limit);
 	}
 
 	@Override
@@ -26,10 +26,10 @@ public class MailServiceImple implements MailService {
 	}
 
 	@Override
-	public int sendingMail(Mail mail, List<MailAttach> list) {
+	public int mailFormEnd(Mail mail, List<MailAttach> list) {
 		
 		int result = MAIL_SRV_ERROR;
-		result = mailDao.sendingMail(mail);
+		result = mailDao.mailFormEnd(mail);
 		if(result == MAIL_SRV_ERROR)
 			throw new MailException("메일 전송 실패");
 		
@@ -44,17 +44,17 @@ public class MailServiceImple implements MailService {
 
 	@Override
 	public Mail selectOneMail(int mail_no) {
-		return null;
+		return mailDao.selectOneMail(mail_no);
 	}
 
 	@Override
 	public List<MailAttach> selectMailAttachList(int mail_no) {
-		return null;
+		return mailDao.selectAttachList(mail_no);
 	}
 
 	@Override
 	public int updateMail(Mail mail, List<MailAttach> list) {
-		return 0;
+		return mailDao.updateMail(mail);
 	}
 
 	@Override

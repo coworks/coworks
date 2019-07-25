@@ -41,8 +41,9 @@
                         <div class="card">
                             <div class="row">
                                 <c:import url="mail-common.jsp"/>
-                                <div class="col-xlg-10 col-lg-8 col-md-7">    
-                                <form action="${pageContext.request.contextPath}/mail/mailFormEnd.do"" method="POST" enctype="multipart/form-data">
+                                <!-- lg-8 md-7 -->
+                                <div class="col-xlg-10 col-lg-9 col-md-9">    
+                                <form action="${pageContext.request.contextPath}/mail/mailFormEnd.do" method="POST" enctype="multipart/form-data">
                                     
                                     <div class="card-body">
                                         <h3 class="card-title">메일 작성하기</h3>
@@ -56,12 +57,15 @@
                                             <textarea class="textarea_editor form-control" name="mail_content" rows="15" placeholder=""></textarea>
                                         </div>
                                         <h4><i class="ti-link"></i>첨부파일</h4>
-                                        <div class="dropzone" id="myDropzone" name="dropzone">
-                                           <!--  <div class="fallback">
+                                       <!--  <div id="myDropzone" name="dropzone">
+                                         <input name="upFile" type="file"class="dropzone"  multiple />
+                                            <div class="fallback">
                                                 <input name="upFile" type="file" multiple />
-                                            </div> -->
-                                       	</div>
-                                        
+                                            </div>
+                                       	</div> -->
+                                        <div id='file-list'>
+                                  		  <input type="button" id='button-add-file' value='파일 추가' class="btn  btn-outline-secondary" />
+                                		</div>
                                         <button type="submit" class="btn btn-success mt-3"><i class="fa fa-envelope-o"></i> 전송 </button>
                                         <button class="btn btn-inverse mt-3"><i class="fa fa-times"></i> 취소 </button>
                                     </div>
@@ -96,7 +100,21 @@
     $(document).ready(function() {
         $('.textarea_editor').wysihtml5();
     });
-    Dropzone.autoDiscover = false;
+  
+    var count = 0;
+    $('#button-add-file').on("click",function(){
+       var html = "<div id='item_"+count+"'>";
+       html += "<input type='file' name='upFile' multiple/>";
+       html += "<input type='button' onclick='deleteBtn(this)' class='btn btn-danger' value='삭제'/></div>";
+       count++;
+       $("#file-list").append(html);
+    });
+    
+    function deleteBtn(obj) {
+       $(obj).parent().remove();
+    }
+
+  /*   Dropzone.autoDiscover = false;
     var myDropzone = new Dropzone("#myDropzone",{
    		url :"#",
        addRemoveLinks : true,
@@ -108,7 +126,7 @@
     		   if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
     	        	console.log("com");
     	        	console.log(file);
-    	        	/* doSomething(); */
+    	        	/* doSomething(); 
     	      }
     		   // 호출하면 file list 삭제하고 재생성해서 데이터 담기
     	   });
@@ -116,7 +134,7 @@
     		   if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
     	        	console.log("com");
     	        	console.log(file);
-    	        	/* doSomething(); */
+    	        	/* doSomething(); 
     	      }
     		   // 호출하면 file list 삭제하고 재생성해서 데이터 담기
     	   });
@@ -128,13 +146,11 @@
     	        data: "id="+name,
     	        dataType: 'html'
     	    });
-       } */
+       } 
        
     });
-    
-    
-    
-    
+     */
+        
     </script>
    
 </body>

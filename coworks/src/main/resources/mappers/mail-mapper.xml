@@ -4,25 +4,36 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mail">
 
-	<!-- 
-	<insert id="insertCalendar" parameterType="calendar" useGeneratedKeys="false">
-		INSERT INTO CALENDAR VALUES(SEQ_CALENDAR.NEXTVAL,1,#{cal_type},#{cal_color},#{cal_name},#{cal_content},#{cal_beginDate},#{cal_endDate})
-	</insert>
+	<!-- <resultMap id="mailMap" type="map">
+		<id property="mail_no" column="mail_no"/>
+		<result property="mail_from" column="mail_from"/>
+		<result property="mail_to" column="mail_to"/>
+		<result property="mail_subject" column="mail_subject"/>
+		<result property="mail_content" column="mail_content"/>
+		<result property="mail_senddate" column="mail_sendDate"/>
+		<result property="mail_to_email" column="mail_to_email"/>
+	</resultMap> -->
+	<resultMap id="mailMap" type="mail"/>
+	<resultMap id="mailAttachMap" type="mailAttach"/>
 	
- 	<select id="selectListAllCalendar" parameterType="_int" resultType="calendar">
-		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{emp_no}
+	
+	<select id="selectOneMail" resultType="mail">
+		select * from mail where mail_no = #{mail_no}
 	</select>
 	
-	<delete id="deleteCalendar" parameterType="_int">
-		DELETE FROM CALENDAR WHERE CAL_NO=#{cal_no}
-	</delete> -->
+	<select id="selectMailAttachList" resultMap="mailAttachMap">
+		select * from mailattach where mail_no = #{mail_no}
+	</select>
+	<select id="selectMailList" resultMap="mailMap">
+		select * from mail <!-- where mail_from = emp_no -->
+	</select>
+	
 	
 	
 	<!-- 게시글 입력 -->
-	<insert id="sendingMail">
-		INSERT INTO MAIL(MAIL_NO, MAIL_TO,MAIL_SUBJECT,MAIL_CONTENT, MAIL_TO_EMAIL)
-		VALUES (SEQ_MAIL.NEXTVAL, 
-		        #{mail_to}, #{mail_subject}, #{mail_content}, #{mail_to_email})
+	<insert id="mailFormEnd">
+		INSERT INTO MAIL(MAIL_NO, MAIL_SUBJECT,MAIL_CONTENT, MAIL_SENDDATE ,MAIL_TO_EMAIL , MAIL_FROM_EMAIL)
+		VALUES (SEQ_MAIL.NEXTVAL,#{mail_subject}, #{mail_content}, #{mail_sendDate},#{mail_to_email},#{mail_from_email})
 		
 		<!-- board 객체를 insert에서 전달하여 SQL을 실행한 뒤,
 			 board 객체에 select한 게시글 번호를 주입받아 돌아온다. -->
@@ -48,5 +59,5 @@
 		VALUES(SEQ_MAIL_ATTACH.NEXTVAL, #{mail_no}, 
 		       #{attach_oriname}, #{attach_rename}, #{attach_path})
 	</insert>
-	
+
 </mapper>

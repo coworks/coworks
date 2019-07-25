@@ -3,6 +3,7 @@ package com.kh.coworks.mail.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,8 @@ public class MailDaoImpl implements MailDao {
 	
 	@Override
 	public List<Map<String, String>> selectMailList(int cPage, int limit) {
-		return null;
+		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
+		return sqlSession.selectList("mail.selectMailList", null, rows);
 	}
 
 	@Override
@@ -27,34 +29,30 @@ public class MailDaoImpl implements MailDao {
 	}
 
 	@Override
-	public int sendingMail(Mail mail) {
+	public int mailFormEnd(Mail mail) {
 		System.out.println("dao");
-		return sqlSession.insert("mail.sendingMail",mail);
+		return sqlSession.insert("mail.mailFormEnd",mail);
 	}
 
 	@Override
 	public int insertMailAttach(MailAttach att) {
-
 		System.out.println("dao atta");
 		return sqlSession.insert("mail.insertMailAttach",att);
 	}
 
 	@Override
 	public Mail selectOneMail(int mail_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("mail.selectOneMail", mail_no);
 	}
 
 	@Override
 	public List<MailAttach> selectAttachList(int mail_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("mail.selectAttachList",mail_no);
 	}
 
 	@Override
-	public int mailUpdate(Mail mail) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateMail(Mail mail) {
+		return sqlSession.update("mail.updateMail",mail);
 	}
 
 	@Override
