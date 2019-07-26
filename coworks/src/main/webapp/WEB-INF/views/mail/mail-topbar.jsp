@@ -5,13 +5,13 @@
 <div class="card-body">
 	<div class="btn-group mb-2 mr-2" role="group"
 		aria-label="Button group with nested dropdown">
-		<button type="button" class="btn btn-secondary font-18 text-dark">
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/mail/storeMail.do'" class="btn btn-secondary font-18 text-dark">
 			<i class="mdi mdi-inbox-arrow-down"></i>
 		</button>
 		<button type="button" class="btn btn-secondary font-18 text-dark">
 			<i class="mdi mdi-alert-octagon"></i>
 		</button>
-		<button type="button" class="btn btn-secondary font-18 text-dark">
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/mail/deleteMail.do'" class="btn btn-secondary font-18 text-dark">
 			<i class="mdi mdi-delete"></i>
 		</button>
 	</div>
@@ -24,8 +24,8 @@
 				<i class="mdi mdi-folder font-18 "></i>
 			</button>
 			<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-				<a class="dropdown-item" href="#">Dropdown link</a> <a
-					class="dropdown-item" href="#">Dropdown link</a>
+				<a class="dropdown-item" href="/mail/updateFolder.do/1">폴더 1로 이동</a> <a
+					class="dropdown-item" href="/mail/updateFolder.do/2">폴더 2로 이동</a>
 			</div>
 		</div>
 		<div class="btn-group" role="group">

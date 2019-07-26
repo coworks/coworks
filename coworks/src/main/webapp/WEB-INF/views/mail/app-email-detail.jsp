@@ -6,17 +6,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+   .m-center{
+      margin: 0 auto;
+   }
+</style>
 <meta charset="UTF-8">
-<title>CO-WORKS : 메일함</title>
+<title>CO-WORKS : Insert title here</title>
 <c:import url="../common/header.jsp" />
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
-		<div class="page-wrapper">   
-		<div class="container-fluid">    
-                <!-- ============================================================== -->
+		<div class="page-wrapper">
+			<div class="container-fluid">
+				 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <c:import url ="mail-location.jsp"/>
@@ -43,9 +48,9 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="d-flex mb-5">
-                                                    <div>
+                                                    <!-- <div>
                                                         <a href="javascript:void(0)"><img src="#" alt="user" width="40" class="img-circle" /></a>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="pl-2">
                                                         <h4 class="mb-0">이름</h4>
                                                         <small class="text-muted">From: 이메일</small>
@@ -60,12 +65,28 @@
                                                 <hr class="mt-0">
                                             </div>
                                             <div class="card-body">
-                                                <h4><i class="fa fa-paperclip mr-2 mb-2"></i> Attachments <span>(3)</span></h4>
+                                                <h4><i class="fa fa-paperclip mr-2 mb-2"></i> Attachments <span>${attachList.size() }</span></h4>
                                                 <div class="row">
-                                                    <div class="col-md-2">
-                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="#"> </a>
-                                                    </div>
+                                                   
+                                                   
+                                                    <c:forEach items="${attachList}" var="at">
+                                                     <div class="col-md-2">
+                                                        <a href="${at.getAttach_path }${at.getAttach_rename()}" download="${at.getAttach_oriname()}">
+                                                        
+                                                        <div class="img-thumbnail img-responsive">${at.getAttach_oriname() }
+                                                        </div>
+                                                          <!-- <img border="1" src="" alt="W3Schools" width="104" height="142"> -->
+                                                         </a>
+  <%--  <img class="img-thumbnail img-responsive" alt="${at.attach_oriname }" src="${at.getAttach_path()}/${at.getAttach_rename()}" download> --%> 
+                                                   	 </div>
+                                                    </c:forEach>
+                                                    
+                                                    
                                                 </div>
+                                                
+                                                
+                                                
+                                                
                                                 <div class="b-all mt-3 p-3">
                                                     <p class="pb-3">click here to <a href="#">Reply</a> or <a href="#">Forward</a></p>
                                                 </div>
@@ -137,46 +158,10 @@
                 <!-- ============================================================== -->
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-<!--             <footer class="footer"> © 2019 Monster Admin by wrappixel.com </footer>
- -->            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
- <!--    <script src="../assets/plugins/jquery/jquery.min.js"></script>
-    Bootstrap tether Core JavaScript
-    <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    slimscrollbar scrollbar JavaScript
-    <script src="js/jquery.slimscroll.js"></script>
-    Wave Effects
-    <script src="js/waves.js"></script>
-    Menu sidebar
-    <script src="js/sidebarmenu.js"></script>
-    stickey kit
-    <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-    Custom JavaScript
-    <script src="js/custom.min.js"></script>
-    ==============================================================
-    Style switcher
-    ==============================================================
-    <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script> -->
-	</body>
-           
+			</div>
+			<c:import url="../common/footer.jsp" />
+		</div>
+	</div>
+	<c:import url="../common/bottomJquery.jsp" />
+</body>
 </html>

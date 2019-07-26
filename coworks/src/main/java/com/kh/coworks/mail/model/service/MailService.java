@@ -23,7 +23,7 @@ public interface MailService {
 	 * 페이지 처리
 	 * @return
 	 */
-	int selectMaildTotalContents();
+	int selectMailTotalContents();
 	
 	/***
 	 * 메일 전송 메소드
@@ -50,10 +50,9 @@ public interface MailService {
 	/***
 	 * 메일 수정 메소드
 	 * @param mail
-	 * @param list
 	 * @return
 	 */
-	int updateMail(Mail mail , List<MailAttach> list);
+	int updateMail(Mail mail);
 	
 	/***
 	 * 메일 삭제 메소드
@@ -68,4 +67,6 @@ public interface MailService {
 	 * @return
 	 */
 	int deleteAttach(int attach_no);
+
+
 }
