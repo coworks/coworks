@@ -6,12 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Job implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2347;
-	private String job_code; // ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
-	private String job_title; // ï¿½ï¿½ï¿½Þ¸ï¿½
+	private String job_code; // Á÷±ÞÄÚµå
+	private String job_title; // Á÷±Þ¸í
 	public Job() {
 		super();
 		// TODO Auto-generated constructor stub

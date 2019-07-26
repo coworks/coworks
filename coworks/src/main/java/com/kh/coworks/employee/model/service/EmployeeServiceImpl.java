@@ -1,6 +1,5 @@
 package com.kh.coworks.employee.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.coworks.employee.model.dao.EmployeeDao;
-import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Employee;
-import com.kh.coworks.employee.model.vo.Job;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -33,25 +30,5 @@ public class EmployeeServiceImpl implements EmployeeService {
 		// TODO Auto-generated method stub
 		return employeeDao.selectEmployeeTotalContents();
 	}
-
-	@Override
-	public List<Department> selectDepartmentList() {
-		return employeeDao.selectDepartmentList();
-	}
-
-	@Override
-	public List<Job> selectJobList() {
-		return employeeDao.selectJobList();
-	}
-	
-	
-	@Override
-	public Employee selectEmployee(int emp_no) {
-		// TODO Auto-generated method stub
-		return employeeDao.selectEmployee(emp_no);
-	}
-	
-
-
 
 }
