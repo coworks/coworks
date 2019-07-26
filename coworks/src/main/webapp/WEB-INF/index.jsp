@@ -54,16 +54,37 @@
 										<c:out value="${today}" />
 									</h4>
 									<p class="card-text" id="time">
-										출근 시간 : ${atten.atten_attTime }	</br>
-										IP : ${atten.atten_attIP }				
+										<span id="span1"> 출근 시간</span>: ${atten.atten_attTime }	</br>
+										<span id="span2">IP </span>: ${atten.atten_attIP }
 										
 									 
-									 </p>
+									 </p> 
 									  
-									<button type="button" class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
+									<button type="button" id="leavebutton" onclick="onclick1(${atten.atten_no});" class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
 								</div>
 							</div>
 						</div>
+						
+						<script>
+		                   function onclick1(atten_no){ 
+							$.ajax({
+								url : "${pageContext.request.contextPath}/mypage/attendanceleave.do",
+		                          data : {atten_no :atten_no},
+		                          type:"post",
+		                          dataType : "json", 
+		                          success : function(data){
+		                        	  alert("성공~");
+		                              $('#leavebutton').css("background-color","blue");
+		                              $('#leavebutton').html();
+		                              $('#span1').html("퇴근 완료");
+		                          },error: function(data){
+		                        	  alert("실패~"); 
+		                          }  
+							})
+							
+						};
+						
+						</script>
 						<div class="card">
 							<div class="card-body">
 								<div class="m-2 p-2">
