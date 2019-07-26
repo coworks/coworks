@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : 업무 자료 작성</title>
+<title>CO-WORKS : 작성 폼</title>
 
 <c:import url="../common/header.jsp" />
 
@@ -26,49 +26,43 @@
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
 		<div class="page-wrapper">
-			<div class="container-fluid">
+			<div class="container-fluid ">
 				
 				<!-- 시작 -->
 				
-				
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor mb-0 mt-0">COWORKS 업무 자료</h3>
+                        <h3 class="text-themecolor mb-0 mt-0">COWORKS 글 작성하기</h3>
                         
                     </div>
                     
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
+
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="card">
-							<div class="row">
-								<div class="col-xlg-2 col-lg-2 col-md-1">
-									<!-- 좌측 공간 -->
-								</div>
-								<div class="col-xlg-10 col-lg-8 col-md-7">
-									<div class="card-body">
-										<h3 class="card-title text-primary">업무 자료 새 글 등록</h3>
-										<div class="form-group">
-											<input class="form-control" placeholder="제목 : ">
-										</div>
-										<div class="form-group">
-											<input class="form-control" placeholder="작성자 : OOO">
+							
+								
+								<div class="col-xlg-9 col-lg-8 col-md-7 align-self-center">
+									<div class="card-body" style="margin-bottom: 7%;">
+									<h3 class="card-title text-primary">새 글 등록</h3>
+									<div class="form-group">
+									<select class="form-control custom-select" style="width: 15%;">
+										<option value="0"></option>
+										<option value="CD">사내규정</option>
+										<option value="ED">교육문서</option>
+										<option value="BD">업무문서</option>
+										<option value="DD">부서별</option>
+									</select>
+									<h4 style="float:right; padding-top:5px;">작성자 : ${board.emp_no }</h4>
+									</div>
+									<div class="form-group">
+											<input class="form-control" placeholder="제목을 입력하세요.">
 										</div>
 										<div class="form-group">
 									
-											
-											</ul>
 											<textarea class="textarea_editor form-control" rows="15"
-												placeholder="내용 입력"></textarea>
+												placeholder="내용을 입력하세요."></textarea>
 											
 											</div>
 										<h4>
@@ -79,29 +73,24 @@
                                                 <input name="file" type="file" multiple />
                                             </div>
                                         </form>
+                                        
+                                        <div style="float:right;">
 										<button type="submit" class="btn btn-success mt-3">
-											<i class="fa fa-envelope-o"></i> 등록
+											<i class="far fa-check-circle"></i> 등록
 										</button>
-										<button class="btn btn-inverse mt-3">
-											<i class="fa fa-times"></i> 취소
+										&nbsp;
+										<button class="btn btn-danger mt-3" onclick="goback();">
+											<i class=" far fa-times-circle"></i> 취소
 										</button>
+										</div>
+									
 									</div>
 								</div>
-							</div>
+							
 						</div>
 					</div>
 				</div>
-				<!-- ============================================================== -->
-                <!-- End Page Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
 
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
         
 				
 				<!-- 끝 -->
@@ -129,6 +118,13 @@
            return time+date+"."+ext;
         }
      });
+    
+    function goback(){
+    	console.log("뒤로가기. --> 알람이 뜨면서 작성 취소할건지 물어봐야 함 / Form, UpdateView 둘 다 해야 한다.")
+    	window.history.go(-1);
+    	
+    }
+    
 	</script>
 	
 </body>

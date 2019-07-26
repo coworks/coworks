@@ -32,6 +32,7 @@ public class Board implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public Board(int bo_no, String bo_code, String bo_title, String bo_content, int emp_no, Timestamp bo_date,
 			String bo_status, String writerName) {
 		super();
@@ -47,6 +48,23 @@ public class Board implements Serializable {
 	
 	
 
+	//전체
+	public Board(int bo_no, String bo_code, String bo_title, String bo_content, int emp_no, Timestamp bo_date,
+			String bo_status, String writerName, int fileCount, List<Attach> files) {
+		super();
+		this.bo_no = bo_no;
+		this.bo_code = bo_code;
+		this.bo_title = bo_title;
+		this.bo_content = bo_content;
+		this.emp_no = emp_no;
+		this.bo_date = bo_date;
+		this.bo_status = bo_status;
+		this.writerName = writerName;
+		this.fileCount = fileCount;
+		this.files = files;
+		
+	}
+
 	public Board(int bo_no, String bo_code, String bo_title, String bo_content, int emp_no, Timestamp bo_date,
 			String bo_status, String writerName, int fileCount) {
 		super();
@@ -59,6 +77,7 @@ public class Board implements Serializable {
 		this.bo_status = bo_status;
 		this.writerName = writerName;
 		this.fileCount = fileCount;
+
 	}
 
 	public int getBo_no() {

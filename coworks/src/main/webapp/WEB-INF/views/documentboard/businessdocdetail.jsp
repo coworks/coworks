@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : 업무 자료 상세 보기</title>
+<title>CO-WORKS : 상세 보기</title>
 <c:import url="../common/header.jsp" />
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
@@ -23,13 +23,12 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="card">
-							<div class="row" style="padding-top : 10px;">
+							<div class="row col-xlg-9 col-lg-8 col-md-7 align-self-center">
 								
-								
-								<div class="card-body pt-0">
+								<div class="card-body">
                                         <div class="card b-all shadow-none">
                                             <div class="card-body">
-                                                <h3 class="card-title mb-0">제목이쥬~~~~~~~~~~</h3>
+                                                <h3 class="card-title mb-0" style="color : #009999; font-weight:bold">${board.bo_title }</h3>
                                             </div>
                                             <div>
                                                 <hr class="mt-0">
@@ -37,22 +36,22 @@
                                             <div class="card-body">
                                                 <div class="d-flex mb-5">
                                                     <div>
-                                                        <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user" width="40" class="img-circle"></a>
-                                                    </div>
-                                                    <div class="pl-2">
-                                                        <h4 class="mb-0">Pavan kumar</h4>
-                                                        <small class="text-muted">From: jonathan@domain.com</small>
+													<img
+														src="${pageContext.request.contextPath}/resources/images/boardImg/noun_user.png"
+														style="width: 60px; vertical-align: middle;" />
+													</div>
+                                                    <div class="pl-3" style="padding-top : 6px;">
+                                                        <h4 class="mb-0">작성자 : ${board.emp_no }</h4>
+                                                        <small class="text-muted">작성 날짜 : <fmt:formatDate value="${board.bo_date }" pattern="yyyy년MM월dd일 HH:mm"/></small>
                                                     </div>
                                                 </div>
-                                                <p><b>Dear USer</b></p>
-                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
-                                                <p>enean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,</p>
+                                                <p><b>${board.bo_content }</b></p>
                                             </div>
                                             <div>
                                                 <hr class="mt-0">
                                             </div>
                                             <div class="card-body">
-                                                <h4><i class="fa fa-paperclip mr-2 mb-2"></i> 첨부파일 <span>(3)</span></h4>
+                                                <h4><i class="fa fa-paperclip mr-2 mb-2"></i> 첨부파일 <span>[${attachmentList.size()}]</span></h4>
                                                 <div class="row">
                                                     <div class="col-md-2">
                                                         <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img1.jpg"> </a>
@@ -69,13 +68,15 @@
                                             
                                         </div>
                                         
+                                        
+                                        <!-- 세션에서 id를 가져와서 등록한 사람이랑 일치하는 경우에만 보이도록 한다. -->
                                          <div style="text-align : right;">
-                                            	<a href="businessdocUpdateView.do" class="btn btn-warning waves-effect waves-light"><i class="ti-pencil"></i>수정</a> &nbsp;
+                                            	<a class="btn btn-warning waves-effect waves-light" onclick="updateView();" style="color:white;"><i class="ti-pencil"></i>수정</a> &nbsp;
                                             	<a href="#" class="btn btn-danger waves-effect waves-light"><i class="fa fa-times"></i>삭제</a>
                                             </div>
+                                            
+                                            
                                     </div>								
-								
-								
 							</div>
 						</div>
 					</div>
@@ -92,5 +93,13 @@
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<script>
+		function updateView(){
+			console.log("bo_code=${bo_code}");
+			console.log("bo_no=${board.bo_no}");
+			console.log("emp_no=${board.emp_no}");
+			location.href="${pageContext.request.contextPath}/documentboard/${bo_code}/${board.bo_no}/${board.emp_no}";			
+		}
+	</script>
 </body>
 </html>
