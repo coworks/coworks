@@ -94,6 +94,19 @@ public class AttendanceController {
 	  return "common/index";
 	
 	}
+	
+	@RequestMapping("/mypage/attendanceview.do")
+	public ModelAndView selectListAttendance(HttpServletRequest request) {
+		 ModelAndView mv=new ModelAndView();
+		HttpSession session=request.getSession(false);
+		Employee employee=(Employee) session.getAttribute("employee");
+		
+		List<Attendance> list=attendanceService.selectListAttendance(employee.getEmp_no());
+		
+		mv.addObject("list",list);
+		mv.setViewName("mypage/attendancetable");
+		return mv;
+	}
 	 
 
 }

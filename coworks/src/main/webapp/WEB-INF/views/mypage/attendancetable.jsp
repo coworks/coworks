@@ -42,88 +42,31 @@
                                 <div class="table-responsive">
                                     <table class="table no-wrap">
                                         <thead>
-                                            <tr>
+                                        <tr>
                                                 <th>인덱스</th>
                                                 <th>날짜</th>
                                                 <th>출근</th>
                                                 <th>퇴근</th>
-                                                <th>지각</th>
-                                                <th>결석</th>
                                                 <th>근무시간</th>
                                                 <th>출근 IP</th>
                                                 <th>퇴근 IP</th>
-                                            </tr>
+                                            </tr> 
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2019/01/04</td>
-                                                <td>08:00</td>
-                                                <td>17:40</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td><span class="label label-danger">9:30</span></td>
-                                                <td>192.32.313.95</td>
-                                                <td>192.32.313.95 </td>
+                                        
+                                        <c:forEach items="${list}" var="attend" varStatus="idx">
+                                        
+											<tr>
+												<td>${idx.count}
+                                                <td>${attend.atten_date}</td>
+                                                <td>${attend.atten_attTime}</td>
+                                                <td>${attend.atten_leaveTime}</td>
+                                                <td>임시</td>
+                                                <td>${attend.atten_attIP}</td>
+                                                <td>${attend.atten_leaveIP}</td>  
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>2019/01/05</td>
-                                                <td>08:00</td>
-                                                <td>17:40</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td><span class="label label-info">9:30</span> </td>
-                                                <td>192.32.313.95</td>
-                                                <td>192.32.313.95</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>2019/01/06</td>
-                                                <td>08:00</td>
-                                                <td>17:40</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td><span class="label label-warning">9:30</span> </td>
-                                                <td>192.32.313.95</td>
-                                                <td>192.32.313.95</td> 
-                                            </tr>
-                                            <tr>
-                                                
-                                                <td>4</td>
-                                                <td>2019/01/09</td>
-                                                <td>08:00</td>
-                                                <td>17:40</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td><span class="label label-success">9:30</span> </td>
-                                                <td>192.32.313.95</td>
-                                                <td>192.32.313.95</td>
-                                            </tr>
-                                            <tr>
-                                                
-                                                <td>5</td>
-                                                <td>2019/01/10</td>
-                                                <td>08:00</td>
-                                                <td>17:40</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td><span class="label label-info">9:30</span> </td>
-                                                <td>192.32.313.95</td>
-                                                <td>192.32.313.95</td>
-                                            </tr>
-                                            <tr>
-                                                
-                                                <td>6</td>
-                                                <td>2019/01/11</td>
-                                                <td>08:00</td>
-                                                <td>17:40</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td><span class="label label-success">9:30</span> </td>
-                                                <td>192.32.313.95</td>
-                                                <td>192.32.313.95</td>
-                                            </tr>
+                                           </c:forEach>
+                                             
                                         </tbody>
                                     </table>
                                 </div>

@@ -8,7 +8,10 @@
 		SELECT COUNT(*) FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd')
 	</select>
 	
-	
+	<select id="selectListAttendance" parameterType="_int" resultType="attendance">
+		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no}
+		
+	</select>
 	 
 	
 	<select id="selectOneAttendance" parameterType="_int" resultType="attendance">

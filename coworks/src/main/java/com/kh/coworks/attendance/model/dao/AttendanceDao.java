@@ -15,5 +15,5 @@ public interface AttendanceDao {
 	
 	int updateAttendanceLeave(Attendance attendance);
 	
-	
+	List<Attendance> selectListAttendance(int emp_no);
 }

@@ -47,5 +47,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return result;
 		
 	}
+
+	@Override
+	public List<Attendance> selectListAttendance(int emp_no) {
+		// TODO Auto-generated method stub
+		return attendancedao.selectListAttendance(emp_no);
+	}
+	
+	
  
 }

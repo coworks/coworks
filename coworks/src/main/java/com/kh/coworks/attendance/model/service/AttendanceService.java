@@ -15,6 +15,8 @@ public interface AttendanceService {
 	Attendance selectOneAttendance(int emp_no);
 	
 	int updateAttendanceLeave(Attendance attendance);
+
+	List<Attendance> selectListAttendance(int emp_no);
 	
 	 
 }

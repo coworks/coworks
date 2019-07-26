@@ -37,4 +37,13 @@ public class AttendanceDaoImpl implements AttendanceDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("attendance.selectListCountAttendance",emp_no);
 	}
+
+	@Override
+	public List<Attendance> selectListAttendance(int emp_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("attendance.selectListAttendance",emp_no);
+	}
+
+	
+
 }
