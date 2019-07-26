@@ -8,7 +8,7 @@
       <!-- Sidebar navigation-->
       <nav class="sidebar-nav">
          <ul id="sidebarnav">
-            <li><a href="${pageContext.request.contextPath}" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">메인</span></a></li>
+            <li><a href="${pageContext.request.contextPath}/common/gomain.do" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">메인</span></a></li>
             <li><a href="#" aria-expanded="false"><i class="mdi mdi-phone"></i><span class="hide-menu">연락처</span></a>
             <li><a href="${pageContext.request.contextPath}/mail/app-email.do" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">메일</span></a></li>
             <li><a href="${pageContext.request.contextPath}/calendar/calendarview.do" aria-expanded="false"><i class="mdi mdi-calendar-multiple"></i><span class="hide-menu">일정</span></a></li>
