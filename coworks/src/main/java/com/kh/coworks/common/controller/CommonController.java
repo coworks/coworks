@@ -109,7 +109,7 @@ public class CommonController {
       
       
       if(employee!=null) {
-         mv.setViewName("../index");
+         mv.setViewName("redirect:/attendancecome.do");
       }else {
          msg="로그인 후 이용 가능합니다";
          mv.addObject("loc",loc);
