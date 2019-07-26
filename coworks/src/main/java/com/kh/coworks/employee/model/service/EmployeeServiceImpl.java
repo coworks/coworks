@@ -1,6 +1,7 @@
 package com.kh.coworks.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee selectEmployee(int emp_no) {
 		// TODO Auto-generated method stub
 		return employeeDao.selectEmployee(emp_no);
+	}
+
+	@Override
+	public int insertDeptName(Department dept) {
+		return employeeDao.insertDeptName(dept);
+	}
+
+	@Override
+	public int updateDeptName(Department dept) {
+		return employeeDao.updateDeptName(dept);
+	}
+
+	@Override
+	public List<Map<String, String>> searchEmployee(int cPage, int limit, HashMap<String, String> hmap) {
+		return employeeDao.searchEmployee(cPage, limit, hmap);
 	}
 	
 

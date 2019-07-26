@@ -1,6 +1,7 @@
 package com.kh.coworks.employee.controller;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired; 
@@ -86,4 +87,51 @@ public class EmployeeController {
 
 		return "employee/employeeList";
 	}
+	
+	@RequestMapping("/employee/deptInsert.do")
+	public String deptInsert(Department dept) {
+		
+		int result = employeeService.insertDeptName(dept);
+		
+		return "redirect:/employee/employeeList.do";
+	}
+	
+	@RequestMapping("/employee/deptupdate.do")
+	public String deptUpdate(Department dept) {
+		
+		int result = employeeService.updateDeptName(dept);
+		
+		return "redirect:/employee/employeeList.do";
+	}
+	
+	@RequestMapping("/employee/employeeSearch.do")
+	public String selectEmployeeSearch(@RequestParam(value = "cPage", required = false, defaultValue = "1") 
+	int cPage, String con, String keyword, Model model) {
+
+		int limit = 2; // 한 페이지 당 게시글 수
+
+		System.out.println("체크" + "con" + con + "keyword" + keyword );
+		
+		HashMap<String, String> hmap = new HashMap<>();
+		//category, keyword라서 둘 다 String
+		
+		hmap.put("con", con); //category라는 이름으로 category그대로 넘긴다.
+		hmap.put("keyword", keyword);
+		
+				
+		// 1. 현재 페이지 게시글 목록 가져오기
+		ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.searchEmployee(cPage, limit, hmap));
+
+		// 2. 전체 페이지 게시글 수 가져오기
+		int totalContents = employeeService.selectEmployeeTotalContents();
+
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "employeeList.do");
+
+		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
+				.addAttribute("pageBar", pageBar);
+		
+		return "employee/employeeList";
+	}
+	
+	
 }

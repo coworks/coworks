@@ -19,33 +19,78 @@
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
 
+		<div id="updatedepart" class="modal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true"
+			style="display: none;">
+			<div class="modal-dialog">
+				<form method="post" action="deptupdate.do" name="deptUpdate">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title" id="myModalLabel">부서명 변경하기 </h2>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+						</div>
+						<div class="col-md-12">
+										<div class="form-group has-success">
+											<label class="control-label">부서명</label> <select
+												id="dept_code" name="dept_code"
+												class="form-control custom-select">
+												<option value="0"></option>
+												<c:forEach items="${departmentList}" var="de">
+													<option value="${de.dept_code}">${de.dept_name}</option>
+												</c:forEach>
+											</select> 
+										</div>
+									</div>
+
+						<div class="modal-body">
+							<div class="col-md-13">
+								<div class="form-group">
+									<label class="control-label">변경할 부서명 </label> <input type="text"
+										id="dept_name" name="dept_name" class="form-control"
+										placeholder="부서명을 입력하세요">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-info waves-effect">등록하기</button>
+							<button type="button" class="btn btn-danger waves-effect"
+								data-dismiss="modal">취소하기</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
 		<div id="myModal" class="modal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true"
 			style="display: none;">
 			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h2 class="modal-title" id="myModalLabel">부서 추가</h2>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">×</button>
-					</div>
+				<form method="post" action="deptInsert.do" name="deptInsert">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title" id="myModalLabel">부서 추가</h2>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+						</div>
 
-					<div class="modal-body">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label class="control-label">부서명 </label> <input type="text"
-									id="dept_name" name="dept_name" class="form-control"
-									placeholder="부서명을 입력하세요">
+						<div class="modal-body">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label">부서명 </label> <input type="text"
+										id="dept_name" name="dept_name" class="form-control"
+										placeholder="부서명을 입력하세요">
+								</div>
 							</div>
 						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-info waves-effect">등록하기</button>
+							<button type="button" class="btn btn-danger waves-effect"
+								data-dismiss="modal">취소하기</button>
+						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-info waves-effect"
-							data-dismiss="modal">등록하기</button>
-						<button type="button" class="btn btn-danger waves-effect"
-							data-dismiss="modal">취소하기</button>
-					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 		<div class="modal bs-example-modal-lg" tabindex="-1" role="dialog"
@@ -218,22 +263,26 @@
 					<div class="card-body">
 						<h2 class="card-title">인사관리</h2>
 						<div class="row" style="margin-left: 250px; margin-top: 30px;">
-							<select class="form-control custom-select" style="width: 15%">
-								<option value="0"></option>
-								<option value="1">이름</option>
-								<option value="2">직급</option>
-								<option value="3">부서</option>
+							<select class="form-control custom-select" style="width: 15%"
+							id="searchCondition" name="searchCondition">
+								<option value="">----</option>
+								<option value="empname">이름</option>
+								<option value="jobtitle">직급</option>
+								<option value="deptname">부서</option>
 							</select>
 							<div class="input-group" style="width: 60%; margin-left: 20px;">
-								<input type="text" class="form-control" style="width: 70%">
-								<button class="btn btn-info" type="button">검색</button>
+								<input type="search" id="keyword" class="form-control" style="width: 70%">
+								<button class="btn btn-info" type="button" onclick="search();">검색</button>
 							</div>
 						</div>
+
+
 
 						<div
 							style="position: absolute; margin-top: 155px; margin-left: 1200px;">
 							<div class="input-group">
-								<button class="btn btn-info" type="button">부서수정</button>
+								<button data-toggle="modal" data-target="#updatedepart"
+									class="btn btn-info" type="button">부서수정</button>
 								&nbsp&nbsp&nbsp&nbsp
 								<button data-toggle="modal" data-target="#myModal"
 									class="btn btn-info" type="button">부서추가</button>
@@ -336,6 +385,11 @@
 	</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<script>
+		function search(){
+			location.href="${pageContext.request.contextPath}/employee/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
+		}
+	</script>
 	<%-- 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/db.js"></script>
 	<script type="text/javascript"

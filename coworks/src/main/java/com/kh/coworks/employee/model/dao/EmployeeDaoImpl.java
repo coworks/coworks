@@ -1,6 +1,7 @@
 package com.kh.coworks.employee.model.dao;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,22 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public Employee selectEmployee(int emp_no) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("employee.selectEmployee",emp_no);
+	}
+
+	@Override
+	public int insertDeptName(Department dept) {
+		return sqlSession.insert("employee.insertDeptName",dept);
+	}
+
+	@Override
+	public int updateDeptName(Department dept) {
+		return sqlSession.update("employee.updateDeptName",dept);
+	}
+
+	@Override
+	public List<Map<String, String>> searchEmployee(int cPage, int limit, HashMap<String, String> hmap) {
+		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
+		return sqlSession.selectList("employee.selectSerachEmployee", hmap, rows);
 	}
 
 }

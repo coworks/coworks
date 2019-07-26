@@ -1,6 +1,7 @@
 package com.kh.coworks.employee.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,4 +22,10 @@ public interface EmployeeDao {
 	List<Job> selectJobList();
 	
 	Employee selectEmployee(int emp_no);
+
+	int insertDeptName(Department dept);
+
+	int updateDeptName(Department dept);
+
+	List<Map<String, String>> searchEmployee(int cPage, int limit, HashMap<String, String> hmap);
 }
