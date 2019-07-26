@@ -25,7 +25,7 @@ public class MailDaoImpl implements MailDao {
 
 	@Override
 	public int selectMailTotalContents() {
-		return 0;
+		return sqlSession.selectOne("mail.selectMailTotalContents");
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class MailDaoImpl implements MailDao {
 
 	@Override
 	public List<MailAttach> selectAttachList(int mail_no) {
-		return sqlSession.selectList("mail.selectAttachList",mail_no);
+		return sqlSession.selectList("mail.selectMailAttachList",mail_no);
 	}
 
 	@Override
@@ -63,17 +63,18 @@ public class MailDaoImpl implements MailDao {
 
 	@Override
 	public int deleteMail(int mail_no) {
-		return 0;
+		return sqlSession.delete("mail.deleteMail",mail_no);
 	}
 
 	@Override
 	public int deleteMailAttach(int mail_no) {
-		return 0;
+		return sqlSession.delete("mail.deleteMailAttach",mail_no);
 	}
 
 	@Override
 	public int deleteFile(int attNo) {
 		return 0;
 	}
+
 
 }

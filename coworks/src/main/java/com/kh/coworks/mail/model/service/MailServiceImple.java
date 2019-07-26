@@ -21,8 +21,8 @@ public class MailServiceImple implements MailService {
 	}
 
 	@Override
-	public int selectMaildTotalContents() {
-		return 0;
+	public int selectMailTotalContents() {
+		return mailDao.selectMailTotalContents();
 	}
 
 	@Override
@@ -53,18 +53,18 @@ public class MailServiceImple implements MailService {
 	}
 
 	@Override
-	public int updateMail(Mail mail, List<MailAttach> list) {
+	public int updateMail(Mail mail) {
 		return mailDao.updateMail(mail);
 	}
 
 	@Override
 	public int deleteMail(int mail_no) {
-		return 0;
+		return mailDao.deleteMail(mail_no);
 	}
 
 	@Override
-	public int deleteAttach(int attach_no) {
-		return 0;
+	public int deleteAttach(int mail_no) {
+		return mailDao.deleteMailAttach(mail_no);
 	}
 
 }

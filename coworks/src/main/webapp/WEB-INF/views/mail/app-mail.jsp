@@ -10,6 +10,12 @@
 <title>CO-WORKS : 메일함</title>
 <c:import url="../common/header.jsp" />
 </head>
+
+<style>
+   .m-center{
+      margin: 0 auto;
+   }
+</style>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
 		<c:import url="../common/topbar.jsp" />
@@ -51,35 +57,35 @@
                                                     <c:forEach items="${mails}" var="m"> 
                                                         <%-- <a href="/mail/selectOneMail.do/${m.getMail_no()}">  --%>
                                                     	<input type="text" name="mail_no" value="${m.getMail_no()}" id="mail_no" hidden/>
-                                                        <tr class="unread mailRow" onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}'">
+                                                        <tr class="unread mailRow" >
                                                             <td style="width:40px">
                                                                 <div class="checkbox">
-                                                                    <input type="checkbox" id="checkbox0" value="check">
-                                                                    <label for="checkbox0"></label>
+                                                                    <input type="checkbox" id="checkbox${m.getMail_no() }" name="chkMails" value="check${m.getMail_no() }">
+                                                                    <label for="checkbox${m.getMail_no() }"></label>
                                                                 </div>
                                                             </td>
                                                             <td style="width:40px" class="hidden-xs-down"><i class="fa fa-star-o"></i></td>
                                                            	
                                                             <td class="hidden-xs-down"> 
                                                             
-															<c:if test="${m.getMail_from().length() gt 19}">
-                                                            	${m.getMail_from().substring(0,19) } ...
+															<c:if test="${m.getMail_from_email().length() gt 30}">
+                                                            	${m.getMail_from_email().substring(0,30) } ...
                                                             </c:if>
-                                                          	<c:if test="${m.getMail_from().length() le 19}">
-                                                          		${m.getMail_from() }
+                                                          	<c:if test="${m.getMail_from_email().length() le 30}">
+                                                          		${m.getMail_from_email() }
                                                           	</c:if></td><!-- <a href="app-email-detail.do"/> -->
-                                                            <td class="max-texts"> <span class="label label-info mr-2">Work</span> 
-                                                          	<c:if test="${m.getMail_subject().length() gt 10}">
+                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}/${type}'"> <span class="label label-info mr-2">Work</span> 
+                                                          	<c:if test="${m.getMail_subject().length() gt 30}">
                                                             	${m.getMail_subject().substring(0,10) } ...
                                                             </c:if>
-                                                          	<c:if test="${m.getMail_subject().length()le 10}">
+                                                          	<c:if test="${m.getMail_subject().length()le 30}">
                                                           		${m.getMail_subject() }
                                                           	</c:if> 
                                                           	
                                                             </td>
                                                            
                                                             <td class="hidden-xs-down"><i class="fa fa-paperclip"></i></td>
-                                                            <td class="text-right"> 보낸 시간 ${m.getMail_sendDate() } </td>
+                                                            <td class="text-right"><%-- <fmt:formatDate value=" ${m.getMail_sendDate()}" pattern="MM/dd/yyyy" /> --%> </td>
                                                         </tr>  
                                                       <!--   </a>  -->
                                                         </c:forEach>
@@ -89,7 +95,8 @@
                                         </div>
                                     </div>
                                     <!-- 페이지네이션 -->
-                                    <nav aria-label="Page navigation example">
+                                    <c:out value="${pageBar}" escapeXml="false"/>
+                                    <!-- <nav aria-label="Page navigation example m-center">
                                             <ul class="pagination">
                                                 <li class="page-item">
                                                     <a class="page-link" href="javascript:void(0)" aria-label="Previous">
@@ -107,7 +114,7 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </nav>
+                                        </nav> -->
                                 </div>
                             </div>
                         </div>

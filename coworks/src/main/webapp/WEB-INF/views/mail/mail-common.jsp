@@ -4,7 +4,7 @@
 <!-- <div class="col-12"> -->
 <div class="col-xlg-2 col-lg-3 col-md-3">
 	<div class="card-body inbox-panel">
-		<a href="app-compose.do"
+		<a href="${pageContext.request.contextPath}/mail/app-compose.do"
 			class="btn btn-danger mb-3 p-2 btn-block waves-effect waves-light">메일쓰기</a>
 		<ul class="list-group list-group-full">
 			<li class="list-group-item active"><a href="${pageContext.request.contextPath}/mail/app-mail.do"><i
