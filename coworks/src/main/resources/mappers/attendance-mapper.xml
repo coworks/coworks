@@ -30,7 +30,8 @@
 	
 	<update id="updateAttendanceLeave" parameterType="attendance">
 		UPDATE ATTENDANCE SET ATTEN_LEAVETIME=#{atten_leaveTime}, ATTEN_LEAVEIP=#{atten_leaveIP}, ATTEN_STATE='퇴근'
-		WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd')
+		WHERE EMP_NO=#{emp_no}  AND  (SELECT ATTEN_LEAVETIME FROM ATTENDANCE WHERE ATTEN_NO=#{atten_no})  IS NULL
+		
 	</update>
 	
 	 

@@ -37,14 +37,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 	
 	@Override
 	public int updateAttendanceLeave(Attendance attendance) {
-		int result=0;
-		
-		int count=attendancedao.selectListCountAttendance(1);
-		if(count==1) {
-			result= attendancedao.updateAttendanceLeave(attendance);
-		}
-		
-		return result;
+ 
+		 
+			return  attendancedao.updateAttendanceLeave(attendance);
+ 
+	 
 		
 	}
 

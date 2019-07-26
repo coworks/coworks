@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.coworks.employee.model.vo.*" %>
+	
+
 <!-- ============================================================== -->
 <!-- Topbar header - style you can find in pages.scss -->
 <!-- ============================================================== -->
@@ -208,7 +210,7 @@
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle text-muted waves-effect waves-dark"
 					href="" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">홍길동</a>
+					aria-expanded="false">${sessionScope.employee.emp_name}</a>
 					<div class="dropdown-menu dropdown-menu-right animated flipInY">
 						<ul class="dropdown-user">
 						
