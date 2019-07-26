@@ -102,7 +102,7 @@
 										<div class="modal-content">
 											<div class="modal-header">
 												<h4 class="modal-title">
-													<strong>Add Event</strong>
+													<strong>일정 상세보기</strong>
 												</h4>
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 											</div>
