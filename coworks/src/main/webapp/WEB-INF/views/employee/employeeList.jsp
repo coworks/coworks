@@ -289,7 +289,7 @@
 								&nbsp&nbsp&nbsp&nbsp
 								<!-- <button class="btn btn-info" type="button">사원추가</button> -->
 								<button data-toggle="modal" data-target=".bs-example-modal-lg"
-									class="btn btn-info" type="button">사원추가</button>
+									class="btn btn-info" type="button">사원추가</button>aa
 								</td>
 							</div>
 						</div>
