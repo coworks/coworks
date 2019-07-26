@@ -33,13 +33,13 @@ public class CalendarController {
 	
 	@RequestMapping("/calendar/calendarview.do")
 	public ModelAndView selectListAllCalendar(ModelAndView mv,HttpServletRequest request) {
-		HttpSession session=request.getSession();
-		Employee employee=(Employee) session.getAttribute("employee");
+		
+		
+		Employee employee=(Employee) request.getSession().getAttribute("employee");
 		System.out.println("세션값 : "+employee);
 		System.out.println("아이디 : "+employee.getEmp_no());
 		
-		
-		// 나중에 세션으로 사용자 아이디 받아서 검색... => 현재는 1로 고정(임시)
+		 
 		System.out.println("넘어가나?");
 		List<Calendar> list = calService.selectListAllCalendar(employee.getEmp_no());	
 		
@@ -51,8 +51,9 @@ public class CalendarController {
 	
 	 
 	@RequestMapping("/calendar/selectListCalendar.do")
-	public ModelAndView selectListAllCalendar(@RequestParam String cal_type,ModelAndView mv, HttpSession session) {
-		// 세션 아이디와 사내,부서,개인인지 선택받은것 불러오기
+	public ModelAndView selectListAllCalendar(HttpServletRequest request ,@RequestParam String cal_type,ModelAndView mv, HttpSession session) {
+		Employee employee=(Employee) request.getSession().getAttribute("employee");
+		String emp_no= Integer.toString(employee.getEmp_no());
 		
 		System.out.println("cal_Type 검색 : "+cal_type);
 		Calendar cal=new Calendar();
@@ -60,7 +61,7 @@ public class CalendarController {
 		if(cal_type.equals("부서")) {
 			cal.setCal_holder("1");	// 부서코드 넣기 나중에수정
 		}else {
-			cal.setCal_holder("1");	// 사용자 고유 번호 넣기
+			cal.setCal_holder(emp_no);	 
 		}
 		cal.setCal_type(cal_type);
 		
@@ -78,13 +79,20 @@ public class CalendarController {
 	// delete insert update -> ajax로 할건지는 나중에생각하기
 	
 	@RequestMapping("/calendar/insertCalendar.do")
-	public ModelAndView insertCalendar(Calendar calendar,ModelAndView mv,HttpSession session) throws CalendarException {
+	public ModelAndView insertCalendar(Calendar calendar,ModelAndView mv,HttpServletRequest request) throws CalendarException {
+		
+		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸듯..
+		 
+		// 나중에 11에  emp_no 세션받아서 보내야함
+		if((calendar.getCal_type()).equals("부서")) {
+			calendar.setCal_holder("1");	// 부서코드 넣기 나중에수정
+		}else {
+			calendar.setCal_holder(Integer.toString(employee.getEmp_no()));	// 사용자 고유 번호 넣기
+		}
+		
 		System.out.println("Calendar 확인 : "+calendar);
 			
-		/*
-		 * if(calendar.getCal_type().equals("부서")) { int
-		 * selectOne=calService.selectOneCalendar(1); // 부서번호 }
-		 */ 
+		 
 				int insertCalendar = calService.insertCalendar(calendar);
 			
 		
@@ -98,14 +106,18 @@ public class CalendarController {
 	}
 	
 	@RequestMapping("/calendar/deleteCalendar.do")
-	public void deleteCalendar(@RequestParam("cal_no") int cal_no, HttpServletResponse resp) throws IOException{
-		boolean result = calService.deleteCalendar(cal_no)>0?true:false;
+	public void deleteCalendar(@RequestParam("cal_no") int cal_no, HttpServletResponse resp,HttpServletRequest request) throws IOException{
+		
+		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸삘..
+		
+		//if(employee!=null) 
+			boolean result = calService.deleteCalendar(cal_no)>0?true:false;
 		
 		System.out.println("delete 캘린더 결과 : "+result);
 		
 		
 		resp.getWriter().print(result);
-		 
+		
 	}
 	
  
@@ -113,7 +125,9 @@ public class CalendarController {
 	@RequestMapping("/calendar/updateCalendar.do")
 	public void updateCalendar(@RequestParam(value="cal_no",  required = true) int cal_no,  
 			@RequestParam(value="cal_begindate",  required = true) String cal_beginDate, 
-			@RequestParam(value="cal_enddate",  required = true) String cal_endDate, HttpSession session,HttpServletResponse resp) throws IOException {
+			@RequestParam(value="cal_enddate",  required = true) String cal_endDate, HttpServletRequest request,HttpServletResponse resp) throws IOException {
+		
+		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸삘
 		
 		
 		 Timestamp ts1=java.sql.Timestamp.valueOf(cal_beginDate);	 
@@ -145,11 +159,13 @@ public class CalendarController {
 	
 	@RequestMapping("/calendar/updateCalendar2.do")
 	@ResponseBody
-	public void updateCalendar2(@ModelAttribute Calendar calendar, HttpSession session,HttpServletResponse resp) throws IOException {
+	public void updateCalendar2(@ModelAttribute Calendar calendar, HttpServletRequest request,HttpServletResponse resp) throws IOException {
 
+		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸삘
 		 
-		 
-	 int result=calService.updateCalendar2(calendar);
+		 //업데이트할 자료 확인
+		System.out.println("업데이트할자료 2 : "+calendar);
+		int result=calService.updateCalendar2(calendar);
 		  
 	
 			resp.getWriter().print(false);

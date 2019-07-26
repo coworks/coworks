@@ -12,7 +12,7 @@ public interface AttendanceService {
 	
 	int insertAttendanceCome(Attendance attendance);
 	
-	List<Attendance> selectListAttendance(int emp_no);
+	Attendance selectOneAttendance(int emp_no);
 	
 	int updateAttendanceLeave(Attendance attendance);
 	

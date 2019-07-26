@@ -25,81 +25,106 @@ import com.kh.coworks.employee.model.vo.Employee;
 @Controller
 public class CommonController {
 
-	
-	@Autowired
-	EmployeeService employeeService;
-	
-	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
-	
-	
-	@RequestMapping(value="/common/goLogin.do", method=RequestMethod.POST)
-	public ModelAndView goLogin(HttpServletRequest request,Model model,@RequestParam int emp_no, HttpSession session,@RequestParam String emp_password) throws EmployeeException{
-		System.out.println("아이디 패스워드 받아서 세션저장해야됩니다요~~");
-		
-		ModelAndView mv=new ModelAndView();
-		
-		
-		 
-		try {
-		Employee e=employeeService.selectEmployee(emp_no);
-		
-		String rawPassword=emp_password;	// 암호화x 나중에 암호화 할것임돠
-		System.out.println("암호화 전 : "+rawPassword);
-		
-		//e.setEmp_password(bcryptPasswordEncoder.encode(rawPassword)); // 나중에~
-		
-		System.out.println("사용자 :"+e);
-		
-		//System.out.println("암호화 후 : "+e.getEmp_password());	// 나중에~~
-		
-		String loc="/";
-		String msg="";
-		
-		
-		if(e ==null) {
-			msg="없는 사용자입니다.";
-			
-			loc="/";
-		}else {
-			// 3. 회원이 로그인에 사용한 비밀번호와 원래 저장되어있던 비밀번호확인
-			if(e.getEmp_password().equals(emp_password)) {
-			//if(bcryptPasswordEncoder.matches(emp_password, e.getEmp_password())) {	// 비밀번호 암호화 후 추가예정
-				msg="로그인 성공!";
-			 
-				session.setAttribute("employee",e);
-				
-				loc="/attendancecome.do";
-			 }else {
-			 	msg="비밀번호가 일치하지 않습니다!";
-			 	loc="/";
-			 } 
-		}	 
-		mv.addObject("loc",loc);
-		mv.addObject("msg",msg);
-		
-		System.out.println(mv);
-		
-		// 화면 전달을 위한 viewName 등록하기
-		mv.setViewName("common/msg");
-		}catch(Exception e) {
-			throw new EmployeeException("로그인 에러 : "+e.getMessage());
-		 }
-		return mv;
-	}
-	
-	@RequestMapping("/logout.do")
-	public String employeeLogout(HttpServletRequest request,SessionStatus sessionStatus) {
-		 
-		request.getSession().removeAttribute("employee");	
-			//sessionStatus.setComplete(); // 세션끝내기 
-		 
-		
-		return "redirect:/";
-	}
-	
-}
+   
+   @Autowired
+   EmployeeService employeeService;
+   
+   @Autowired
+   private BCryptPasswordEncoder bcryptPasswordEncoder;
+   
+   
+   @RequestMapping(value="/common/goLogin.do", method=RequestMethod.POST)
+   public ModelAndView goLogin(HttpServletRequest request,Model model,@RequestParam int emp_no, HttpSession session,@RequestParam String emp_password) throws EmployeeException{
+      System.out.println("아이디 패스워드 받아서 세션저장해야됩니다요~~");
+      
+      ModelAndView mv=new ModelAndView();
+      
+      
+       
+      try {
+      Employee e=employeeService.selectEmployee(emp_no);
+      
+      String rawPassword=emp_password;   // 암호화x 나중에 암호화 할것임돠
+      System.out.println("암호화 전 : "+rawPassword);
+      
+      //e.setEmp_password(bcryptPasswordEncoder.encode(rawPassword)); // 나중에~
+      
+      System.out.println("사용자 :"+e);
+      
+      //System.out.println("암호화 후 : "+e.getEmp_password());   // 나중에~~
+      
+      String loc="/";
+      String msg="";
+      
+      
+      if(e ==null) {
+         msg="없는 사용자입니다.";
+         
+         loc="/";
+      }else {
+         // 3. 회원이 로그인에 사용한 비밀번호와 원래 저장되어있던 비밀번호확인
+         if(e.getEmp_password().equals(emp_password)) {
+         //if(bcryptPasswordEncoder.matches(emp_password, e.getEmp_password())) {   // 비밀번호 암호화 후 추가예정
+            msg="로그인 성공!";
+          
+            session.setAttribute("employee",e);
+            
+            loc="/attendancecome.do";
+          }else {
+             msg="비밀번호가 일치하지 않습니다!";
+             loc="/";
+          } 
+      }    
+      mv.addObject("loc",loc);
+      mv.addObject("msg",msg);
+      
+      System.out.println(mv);
+      
+      // 화면 전달을 위한 viewName 등록하기
+      mv.setViewName("common/msg");
+      }catch(Exception e) {
+         throw new EmployeeException("로그인 에러 : "+e.getMessage());
+       }
+      return mv;
+   }
+   
+   @RequestMapping("/logout.do")
+   public String employeeLogout(HttpServletRequest request,SessionStatus sessionStatus) {
+       
+      request.getSession().removeAttribute("employee");   
+         //sessionStatus.setComplete(); // 세션끝내기 
+       
+      
+      return "redirect:/";
+   }
+   
+   @RequestMapping("/common/gomain.do")
+   public ModelAndView gomain(HttpServletRequest request,SessionStatus sessionStatus) {
+      HttpSession session=request.getSession();
+      Employee employee=(Employee) session.getAttribute("employee");
+      ModelAndView mv=new ModelAndView();
 
+      String loc="/";
+      String msg=""; 
+      
+      
+      if(employee!=null) {
+         mv.setViewName("../index");
+      }else {
+         msg="로그인 후 이용 가능합니다";
+         mv.addObject("loc",loc);
+         mv.addObject("msg",msg);
+         
+         System.out.println(mv);
+         
+         // 화면 전달을 위한 viewName 등록하기
+         mv.setViewName("common/msg");
+      }
+      
+      return mv;
+   }
+   
+}
 
 
 

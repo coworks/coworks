@@ -21,8 +21,8 @@ public class AttendanceDaoImpl implements AttendanceDao {
 	}
 	
 	@Override
-	public List<Attendance> selectListAttendance(int emp_no){
-		return sqlSession.selectList("attendance.selectListAttendance",emp_no);
+	public Attendance selectOneAttendance(int emp_no){
+		return sqlSession.selectOne("attendance.selectOneAttendance",emp_no);
 	}
 	
 	@Override

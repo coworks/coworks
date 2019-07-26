@@ -6,7 +6,7 @@
 
 	
 	<insert id="insertCalendar" parameterType="calendar" useGeneratedKeys="false">
-		INSERT INTO CALENDAR VALUES(SEQ_CALENDAR.NEXTVAL,1,#{cal_type},#{cal_color},#{cal_name},#{cal_content},#{cal_beginDate},#{cal_endDate})
+		INSERT INTO CALENDAR VALUES(SEQ_CALENDAR.NEXTVAL,#{cal_holder},#{cal_type},#{cal_color},#{cal_name},#{cal_content},#{cal_beginDate},#{cal_endDate})
 	</insert>
 	
  	<select id="selectListAllCalendar" parameterType="_int" resultType="calendar">

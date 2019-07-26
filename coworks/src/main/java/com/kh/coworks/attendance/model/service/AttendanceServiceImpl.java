@@ -30,8 +30,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 	
 	@Override
-	public List<Attendance> selectListAttendance(int emp_no){
-		return attendancedao.selectListAttendance(emp_no);
+	public Attendance selectOneAttendance(int emp_no){
+		return attendancedao.selectOneAttendance(emp_no);
 	}
 	
 	

@@ -53,7 +53,7 @@ public class CalendarServiceImpl implements CalendarService {
 	
 	@Override
 	public int updateCalendar2(Calendar calendar) {
-		return calDao.updateCalendar(calendar);
+		return calDao.updateCalendar2(calendar);
 	}
 
 }
