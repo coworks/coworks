@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <script>
 alert("${msg}"); //${pageContext.request.contextPath}--> spring , ${loc}--->/
 location.href="${pageContext.request.contextPath}${loc}";

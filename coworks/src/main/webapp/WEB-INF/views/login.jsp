@@ -51,6 +51,7 @@
 								<button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Login</button>
 							</div>
 						</div>
+						 
 					</form>
 					<form class="form-horizontal" id="recoverform" action="index.html">
 						<div class="form-group ">

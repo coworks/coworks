@@ -597,7 +597,7 @@
                     data:{cal_no:event.id, cal_begindate:start, cal_enddate:end},
                      
                     success:function(){
-                       // alert("succes drag");
+                       alert("succes drag");
                     },error:function(){ 
                        // alert("error drag !!!!");
                     }

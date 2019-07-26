@@ -7,10 +7,16 @@
 	<select id="selectListCountAttendance" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd')
 	</select>
-	<select id="selectListAttendance" parameterType="_int" resultType="attendance">
+	
+	
+	 
+	
+	<select id="selectOneAttendance" parameterType="_int" resultType="attendance">
 		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd')
 		
 	</select>
+	
+	
 	<insert id="insertAttendanceCome" parameterType="attendance">
 		INSERT INTO ATTENDANCE(ATTEN_NO,EMP_NO,ATTEN_DATE,ATTEN_ATTTIME,ATTEN_ATTIP,ATTEN_STATE) 
 		SELECT SEQ_ATTEN_NO.NEXTVAL, #{emp_no},#{atten_date},#{atten_attTime},#{atten_attIP},'출근' from dual
