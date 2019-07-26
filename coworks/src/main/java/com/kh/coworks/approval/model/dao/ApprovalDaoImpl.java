@@ -62,4 +62,9 @@ public class ApprovalDaoImpl implements ApprovalDao {
 		return sqlSession.selectList("approval.selectApprovalStatus", adoc_no);
 	}
 
+	@Override
+	public ApprovalForm selectApprovalDocForm(int aform_no) {
+		return sqlSession.selectOne("approval.selectApprovalDocForm", aform_no);
+	}
+
 }

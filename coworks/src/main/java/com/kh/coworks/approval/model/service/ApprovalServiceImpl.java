@@ -79,4 +79,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalDao.selectApprovalStatus(adoc_no);
 	}
 
+	@Override
+	public ApprovalForm selectApprovalDocForm(int aform_no) {
+		return approvalDao.selectApprovalDocForm(aform_no);
+	}
+
 }

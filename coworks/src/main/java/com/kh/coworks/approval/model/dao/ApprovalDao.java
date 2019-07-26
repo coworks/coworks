@@ -27,4 +27,6 @@ public interface ApprovalDao {
 
 	List<ApprovalStatus> selectApprovalStatus(int adoc_no);
 
+	ApprovalForm selectApprovalDocForm(int aform_no);
+
 }

@@ -29,15 +29,15 @@
 		<tr>
 			<th scope="col" class="border">사번</th>
 			<td>
-				<input type="number" class="form-control" value="10236421" name="adoc_writerno" />
+				<input type="number" class="form-control" value="10236421" name="adoc_writerno" readonly="readonly"/>
 			</td>
 			<th scope="col" class="border">기안자명</th>
 			<td>
-				<input type="text" class="form-control" name="writerName" />
+				<input type="text" class="form-control" readonly="readonly"/>
 			</td>
 			<th scope="col" class="border">부서</th>
 			<td>
-				<input type="text" class="form-control" value="영업부" name="writerDept" />
+				<input type="text" class="form-control"  readonly="readonly"/>
 			</td>
 		</tr>
 		<tr>

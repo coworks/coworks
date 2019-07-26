@@ -38,7 +38,7 @@
 	</insert>
 
 	<select id="selectOneApprovalDoc" parameterType="_int" resultType="approvalDoc">
-		SELECT DOC.*, FORM.AFORM_DOCPAGE DOCPAGE FROM APPROVALDOC DOC, APPROVALFORM FORM WHERE adoc_no=#{adoc_no} and FORM.AFORM_NO = DOC.AFORM_NO
+		SELECT * FROM APPROVALDOC FORM WHERE adoc_no=#{adoc_no} 
 	</select>
 
 	<select id="selectApprovalAttach" parameterType="_int" resultType="approvalAttach">
@@ -46,8 +46,12 @@
 	</select>
 
 	<select id="selectApprovalStatus" parameterType="_int" resultType="approvalStatus">
-		select st.*,emp_name,job_title from approvalStatus st, employee e, job j where st.adoc_no=#{adoc_no} and st.emp_no=e.emp_no and e.job_code=j.job_code
+		select st.*,emp_name,job_title from approvalStatus st, employee e, job j where st.adoc_no=#{adoc_no} and st.emp_no=e.emp_no
+		and e.job_code=j.job_code
+	</select>
 
+	<select id="selectApprovalDocForm" resultType="approvalForm">
+		select * from approvalForm where aform_no=#{aform_no}
 	</select>
 
 

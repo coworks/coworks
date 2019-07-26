@@ -23,7 +23,6 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">휴가 신청서</h2>
 									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype = "multipart/form-data">

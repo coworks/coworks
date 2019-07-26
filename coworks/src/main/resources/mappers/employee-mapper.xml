@@ -8,7 +8,7 @@
 		        typeHandler="strArrTypeHandler" />
 	</resultMap>
 	<select id="selectEmployee" resultType="employee" parameterType="_int">
-		SELECT * FROM EMPLOYEE WHERE EMP_NO=#{emp_no} 
+		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no} 
 	</select>
 	
 	<select id="selectEmployeeList" resultType="employee">

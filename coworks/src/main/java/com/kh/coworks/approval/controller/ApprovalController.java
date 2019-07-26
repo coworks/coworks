@@ -1,7 +1,9 @@
 package com.kh.coworks.approval.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +12,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -28,12 +33,16 @@ import com.kh.coworks.approval.model.vo.ApprovalAttach;
 import com.kh.coworks.approval.model.vo.ApprovalDoc;
 import com.kh.coworks.approval.model.vo.ApprovalForm;
 import com.kh.coworks.approval.model.vo.ApprovalStatus;
+import com.kh.coworks.employee.model.service.EmployeeService;
 
 @Controller
 public class ApprovalController {
 
 	@Autowired
 	private ApprovalService approvalService;
+	
+	@Autowired
+	private EmployeeService employeeService;
 
 	@RequestMapping("/approval/approvalSelectForm.do")
 	public String approvalFormFolderList(Model model) {
@@ -97,7 +106,8 @@ public class ApprovalController {
 		List<ApprovalStatus> signList = new ArrayList<ApprovalStatus>();
 		List<ApprovalAttach> fileList = new ArrayList<ApprovalAttach>();
 
-		String saveDir = session.getServletContext().getRealPath("/resources/approval/attach");
+		String savePath = "/resources/approval/attach";
+		String saveDir = session.getServletContext().getRealPath(savePath);
 		if (new File(saveDir).exists()) {
 
 			for (MultipartFile f : upFiles) {
@@ -119,7 +129,7 @@ public class ApprovalController {
 					ApprovalAttach attach = new ApprovalAttach();
 					attach.setApAtt_oriname(originalName);
 					attach.setApAtt_rename(renamedName);
-					attach.setApAtt_path(saveDir);
+					attach.setApAtt_path(savePath);
 
 					fileList.add(attach);
 				}
@@ -151,16 +161,76 @@ public class ApprovalController {
 		return "redirect:/approval/approvalPending.do";
 	}
 
+	@RequestMapping(value = "/approval/approvalAttachDown")
+	public void fileDownload(HttpServletResponse response, HttpServletRequest request, @RequestParam String path,
+			@RequestParam String name) {
+
+		File file = new File(path);
+
+		FileInputStream fileInputStream = null;
+		ServletOutputStream servletOutputStream = null;
+
+		try {
+			String downName = null;
+			String browser = request.getHeader("User-Agent");
+
+			if (browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")) {
+				downName = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
+
+			} else {
+				downName = new String(name.getBytes("UTF-8"), "ISO-8859-1");
+			}
+
+			response.setHeader("Content-Disposition", "attachment;filename=\"" + downName + "\"");
+			response.setContentType("application/octer-stream");
+			response.setHeader("Content-Transfer-Encoding", "binary;");
+
+			fileInputStream = new FileInputStream(file);
+			servletOutputStream = response.getOutputStream();
+
+			byte b[] = new byte[1024];
+			int data = 0;
+
+			while ((data = (fileInputStream.read(b, 0, b.length))) != -1) {
+
+				servletOutputStream.write(b, 0, data);
+
+			}
+
+			servletOutputStream.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (servletOutputStream != null) {
+				try {
+					servletOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (fileInputStream != null) {
+				try {
+					fileInputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	@RequestMapping(value = "/approval/approvalDoc/v/{docNo}", method = RequestMethod.GET)
 	public ModelAndView approvalDocView(@PathVariable("docNo") int adoc_no) {
-		ModelAndView mv=new ModelAndView();
+		ModelAndView mv = new ModelAndView();
 
 		ApprovalDoc doc = approvalService.selectOneApprovalDoc(adoc_no);
 
 		mv.addObject("doc", doc).addObject("signList", approvalService.selectApprovalStatus(adoc_no))
-				.addObject("attachList", approvalService.selectApprovalAttach(adoc_no));
-		
-		mv.setViewName("approval/approvalDoc/approvalForm/"+doc.getDocPage());
+				.addObject("attachList", approvalService.selectApprovalAttach(adoc_no))
+				.addObject("form", approvalService.selectApprovalDocForm(doc.getAform_no()))
+				.addObject("writer", employeeService.selectEmployee(doc.getAdoc_writerno()));
+
+		mv.setViewName("approval/approvalDocDetail");
 
 		return mv;
 	}
