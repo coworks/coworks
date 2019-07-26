@@ -40,8 +40,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info waves-effect"
-							data-dismiss="modal">등록하기</button>
+						<button type="submit" class="btn btn-info waves-effect"
+							>등록하기</button>
 						<button type="button" class="btn btn-danger waves-effect"
 							data-dismiss="modal">취소하기</button>
 					</div>

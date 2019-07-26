@@ -79,9 +79,10 @@ public class EmployeeController {
 		return "redirect:employee/employeeList";
 	}
 	
-	
-	
-	
+	@RequestMapping("employee/.do")
+	public String updateEmployee() {
+		return "redirect:/mypage/mypage.do";
+	}
 	
 	
 }
