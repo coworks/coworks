@@ -9,7 +9,7 @@
 		<!-- Logo -->
 		<!-- ============================================================== -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}"> <!-- Logo icon --> <b>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/common/gomain.do"> <!-- Logo icon --> <b>
 					<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 					<!-- Dark Logo icon --> <img
 					src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG"
