@@ -26,6 +26,9 @@ public class Employee implements Serializable {
 	private String emp_isWork; // ��������
 	private String emp_signature; // ���μ���
 	private String[] emp_authority;
+	private String dept_name;
+	private String job_title;
+	
 	public int getEmp_no() {
 		return emp_no;
 	}
@@ -124,9 +127,22 @@ public class Employee implements Serializable {
 	public Employee() {
 		super();
 	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+	public String getJob_title() {
+		return job_title;
+	}
+	public void setJob_title(String job_title) {
+		this.job_title = job_title;
+	}
 	public Employee(int emp_no, String emp_name, String emp_password, String job_code, String dept_code,
 			String emp_phone, String emp_email, String emp_emailpassword, Date emp_birth, String emp_gender,
-			Date emp_hireDate, Date emp_resignDate, String emp_isWork, String emp_signature, String[] emp_authority) {
+			Date emp_hireDate, Date emp_resignDate, String emp_isWork, String emp_signature, String[] emp_authority,
+			String dept_name, String job_title) {
 		super();
 		this.emp_no = emp_no;
 		this.emp_name = emp_name;
@@ -143,6 +159,8 @@ public class Employee implements Serializable {
 		this.emp_isWork = emp_isWork;
 		this.emp_signature = emp_signature;
 		this.emp_authority = emp_authority;
+		this.dept_name = dept_name;
+		this.job_title = job_title;
 	}
 	@Override
 	public String toString() {
@@ -151,10 +169,11 @@ public class Employee implements Serializable {
 				+ emp_email + ", emp_emailpassword=" + emp_emailpassword + ", emp_birth=" + emp_birth + ", emp_gender="
 				+ emp_gender + ", emp_hireDate=" + emp_hireDate + ", emp_resignDate=" + emp_resignDate + ", emp_isWork="
 				+ emp_isWork + ", emp_signature=" + emp_signature + ", emp_authority=" + Arrays.toString(emp_authority)
-				+ "]";
-	} 
-
-	 
+				+ ", dept_name=" + dept_name + ", job_title=" + job_title + "]";
+	}
+	
+	
+	
   
 
 }
