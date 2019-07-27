@@ -67,4 +67,9 @@ public class ApprovalDaoImpl implements ApprovalDao {
 		return sqlSession.selectOne("approval.selectApprovalDocForm", aform_no);
 	}
 
+	@Override
+	public List<ApprovalDoc> selectApprovalYet(int emp_no) {
+		return sqlSession.selectList("approval.selectApprovalYet", emp_no);
+	}
+
 }

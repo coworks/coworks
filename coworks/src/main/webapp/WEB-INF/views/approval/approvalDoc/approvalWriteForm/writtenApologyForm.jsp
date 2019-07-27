@@ -12,6 +12,7 @@
 <link href="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath }/resources/templates/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath }/resources/approval/css/approvalDoc.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/templates/resources/css/hummingbird-treeview.css" rel="stylesheet" type="text/css">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -24,48 +25,20 @@
 						<div class="card">
 							<div class="card-body">
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
-									<h2 class="card-title mb-5">지출 품의서</h2>
-
+									<h2 class="card-title mb-5">시말서</h2>
 									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype="multipart/form-data">
 										<div class="table-responsive mt-2">
 											<c:import url="./common/approvalHeader.jsp" />
-
-											<input type="hidden" name="colNum" value="5" /> <input type="hidden" name="colTitle1" value="품명" /> <input type="hidden" name="colTitle2" value="규격" /> <input type="hidden" name="colTitle3" value="수량" /> <input type="hidden" name="colTitle4" value="단가" /> <input type="hidden" name="colTitle5" value="금액" />
-
 											<table class="table table-bordered no-wrap">
-												<colgroup>
-													<col width="10%" />
-													<col width="18%" />
-													<col width="18%" />
-													<col width="18%" />
-													<col width="18%" />
-													<col width="18%" />
-												</colgroup>
-												<thead>
-													<tr>
-														<th scope="col" class="border">순번</th>
-														<th scope="col" class="border">품명</th>
-														<th scope="col" class="border">규격</th>
-														<th scope="col" class="border">수량</th>
-														<th scope="col" class="border">단가</th>
-														<th scope="col" class="border">금액</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach var="index" begin="1" end="15" step="1">
-														<tr>
-															<c:set var="row" value="1" />
-															<td><input type="number" value="${index }" readonly="readonly" class="form-control" /></td>
-															<td><input type="text" name="col${index }/row${row}" class="form-control" /></td>
-															<td><input type="text" name="col${index }/row${row+1}" class="form-control" /></td>
-															<td><input type="number" name="col${index }/row${row+2}" class="form-control" /></td>
-															<td><input type="number" name="col${index }/row${row+3}" class="form-control" /></td>
-															<td><input type="number" name="col${index }/row${row+4}" class="form-control" /></td>
-														</tr>
-													</c:forEach>
+												<tr>
+													<th>위반 내용</th>
+												</tr>
+												<tr>
+													<td><textarea class="form-control" rows="10" name="apology_reason">
+													</textarea></td>
+												</tr>
 												</tbody>
 											</table>
-
 										</div>
 										<c:import url="./common/approvalAttachAdd.jsp" />
 										<div align="right">
@@ -74,6 +47,7 @@
 									</form>
 								</div>
 							</div>
+							<c:import url="./common/approvalSignModal.jsp" />
 						</div>
 					</div>
 				</div>
@@ -82,7 +56,35 @@
 		</div>
 	</div>
 	<c:import url="../../../common/bottomJquery.jsp" />
+
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
+	<script>
+		$("#treeview").hummingbird();
+
+		function applySelect() {
+			var signList = $('input[name=signList]:checked');
+
+			if (signList.length != 2) {
+				alert("결재자는 2명을 선택해야합니다.");
+			} else {
+				$('.modal').modal("hide");
+
+				for (var i = 0, len = signList.length; i < len; i++) {
+					var index = signList[i];
+					
+					var table = $('<tr>');
+					table.append('<td>'+(i+1)+'</td>');
+					table.append('<td>gg</td>');
+					table.append('<td>gg</td>');
+					table.append('<td>dd</td>');
+					
+					$('#signTable tbody').append(table);
+
+				}
+			}
+		};
+	</script>
 
 </body>
 </html>

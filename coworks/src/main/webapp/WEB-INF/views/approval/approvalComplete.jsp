@@ -6,8 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : 결재 완료
-함</title>
+<title>CO-WORKS : 결재 완료함</title>
 <c:import url="../common/header.jsp" />
 <style type="text/css">
 .table td, .table th {
@@ -24,9 +23,9 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="card">
+						<div class="card p-3 pb-5">
 							<div class="card-body">
-								<h4 class="card-title mb-3">결재 대기 문서</h4>
+								<h4 class="card-title mb-3">결재 완료 문서</h4>
 
 								<input type="button" value="일괄 결재하기" class="btn btn-warning mb-3 float-right" />
 

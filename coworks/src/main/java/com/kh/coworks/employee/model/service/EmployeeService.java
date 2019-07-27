@@ -31,4 +31,7 @@ public interface EmployeeService {
 
 	int selectSearchEmployeeTotalContents(String con, HashMap<String, String> hmap);
 	
+	List<Employee> selectEmployeeList();
+
+	List<Map<String, Object>> selectDeptEmpCount();
 }

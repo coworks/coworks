@@ -23,7 +23,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="card">
+						<div class="card p-3 pb-5">
 							<div class="card-body">
 								<h4 class="card-title mb-3">결재 대기 문서</h4>
 

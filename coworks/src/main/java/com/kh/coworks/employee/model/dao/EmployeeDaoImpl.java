@@ -90,5 +90,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 		return sqlSession.selectOne(searchType, hmap);
 	}
-
+	@Override
+	public List<Employee> selectEmployeeList() {
+		return sqlSession.selectList("employee.selectEmpList");
+	}
+	
+	@Override
+	public List<Map<String,Object>> selectDeptEmpCount(){
+		return sqlSession.selectList("employee.selectDeptEmpCount");
+	}
 }

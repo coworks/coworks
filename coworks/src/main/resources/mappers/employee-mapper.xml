@@ -52,6 +52,31 @@
 		SET DEPT_NAME = #{dept_name} 
 		WHERE DEPT_CODE = #{dept_code}
 	</update>
+
+	<select id="selectSerachEmployee" parameterType="hashmap"
+		resultType="employee">
+		SELECT EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
+		FROM EMPLOYEE E,
+		DEPARTMENT D, JOB J
+		<bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		<where>
+			<if test="con == 'empname'">
+				EMP_NAME LIKE #{mySQLPattern}
+			</if>
+			<if test="con == 'jobtitle'">
+				JOB_TITLE LIKE #{mySQLPattern}
+			</if>
+			<if test="con == 'deptname'">
+				DEPT_NAME LIKE #{mySQLPattern}
+			</if>
+			AND E.JOB_CODE = J.Job_Code
+			AND E.Dept_Code = D.Dept_Code
+		</where>
+	</select>
+
+	<select id="selectEmpList" resultType="employee">
+		select emp_no,emp_name,dept_code,job_code,dept_name,job_title from empview order by dept_name asc, job_code asc
+	</select>
 	
 	<select id="selectSerachEmployee" parameterType="hashmap" resultType="employee">
 	 	SELECT EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
@@ -70,6 +95,11 @@
        		AND E.Dept_Code = D.Dept_Code
 	 	</where>
 	 </select>
+	 
+	 <select id="selectDeptEmpCount" resultType="hashmap">
+	select dept_name,count(*) count from empview group by dept_name order by dept_name
+	</select>
+
 	 
 	 <select id="selectSearchEmployeeTotalContents" parameterType="hashmap" resultType="_int" >
 		SELECT COUNT(*) FROM EMPLOYEE <bind name="mySQLPattern" value="'%' + keyword + '%'"/>

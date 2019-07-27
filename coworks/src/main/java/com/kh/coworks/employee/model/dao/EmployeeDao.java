@@ -30,4 +30,8 @@ public interface EmployeeDao {
 	List<Map<String, String>> searchEmployee(int cPage, int limit, HashMap<String, String> hmap);
 
 	int selectSearchEmployeeTotalContents(String con, HashMap<String, String> hmap);
+
+	List<Employee> selectEmployeeList();
+
+	List<Map<String, Object>> selectDeptEmpCount();
 }

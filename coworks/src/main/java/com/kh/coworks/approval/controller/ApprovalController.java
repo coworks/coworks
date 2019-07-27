@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,19 +29,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonArray;
 import com.kh.coworks.approval.model.service.ApprovalService;
 import com.kh.coworks.approval.model.vo.ApprovalAttach;
 import com.kh.coworks.approval.model.vo.ApprovalDoc;
 import com.kh.coworks.approval.model.vo.ApprovalForm;
 import com.kh.coworks.approval.model.vo.ApprovalStatus;
 import com.kh.coworks.employee.model.service.EmployeeService;
+import com.kh.coworks.employee.model.vo.Employee;
 
 @Controller
 public class ApprovalController {
 
 	@Autowired
 	private ApprovalService approvalService;
-	
+
 	@Autowired
 	private EmployeeService employeeService;
 
@@ -75,7 +78,12 @@ public class ApprovalController {
 	}
 
 	@RequestMapping("/approval/approvalYet.do")
-	public String approvalYet() {
+	public String approvalYet(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Employee employee = (Employee) session.getAttribute("employee");
+		List<ApprovalDoc> list = approvalService.selectApprovalYet(employee.getEmp_no());
+
+		model.addAttribute("docList", list);
 		return "approval/approvalYet";
 	}
 
@@ -94,6 +102,9 @@ public class ApprovalController {
 	public String approvalExpense(@PathVariable("docType") String docType, @PathVariable("formNo") int formNo,
 			Model model) {
 		model.addAttribute("formNo", formNo);
+		model.addAttribute("empList", employeeService.selectEmployeeList());
+		model.addAttribute("deptList", employeeService.selectDeptEmpCount());
+
 		return "approval/approvalDoc/approvalWriteForm/" + docType;
 	}
 
@@ -158,7 +169,7 @@ public class ApprovalController {
 
 		approvalService.insertApprovalDoc(doc, signList, fileList);
 
-		return "redirect:/approval/approvalPending.do";
+		return "redirect:/approval/approvalYet.do";
 	}
 
 	@RequestMapping(value = "/approval/approvalAttachDown")

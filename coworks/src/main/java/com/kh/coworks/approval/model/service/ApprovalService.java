@@ -28,4 +28,6 @@ public interface ApprovalService {
 
 	ApprovalForm selectApprovalDocForm(int aform_no);
 
+	List<ApprovalDoc> selectApprovalYet(int emp_no);
+
 }

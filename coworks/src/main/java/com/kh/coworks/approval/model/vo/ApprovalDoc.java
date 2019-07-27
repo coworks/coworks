@@ -26,6 +26,7 @@ public class ApprovalDoc implements Serializable {
 	private String writerName;
 	
 	private String docPage;
+	private String aform_title;
 
 	public ApprovalDoc() {
 		super();
@@ -166,6 +167,14 @@ public class ApprovalDoc implements Serializable {
 
 	public void setDocPage(String docPage) {
 		this.docPage = docPage;
+	}
+
+	public String getAform_title() {
+		return aform_title;
+	}
+
+	public void setAform_title(String aform_title) {
+		this.aform_title = aform_title;
 	}
 
 	@Override

@@ -25,7 +25,7 @@
 							<div class="card-body">
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">휴가 신청서</h2>
-									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype = "multipart/form-data">
+									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype="multipart/form-data">
 										<div class="table-responsive mt-2">
 
 											<c:import url="./common/approvalHeader.jsp" />
@@ -36,25 +36,21 @@
 													<th scope="col" class="border">휴가 종류</th>
 													<td colspan="5">
 														<div class="radio radio-info">
-															<input type="radio" name="vacation_type" id="vacation_type1" value="연차" checked> <label for="vacation_type1"> 연차 </label> <input type="radio" name="vacation_type"
-																id="vacation_type2" value="월차"
-															> <label for="vacation_type2"> 월차 </label> <input type="radio" name="vacation_type" id="vacation_type3" value="반차"> <label for="vacation_type3"> 반차 </label> <input
-																type="radio" name="vacation_type" id="vacation_type4" value="병가"
-															> <label for="vacation_type4"> 병가 </label> <input type="radio" name="vacation_type" id="vacation_type5" value="기타"> <label for="vacation_type5"> 기타 </label>
+															<input type="radio" name="vacation_type" id="vacation_type1" value="연차" checked> <label for="vacation_type1"> 연차 </label> <input type="radio" name="vacation_type" id="vacation_type2" value="월차"> <label for="vacation_type2"> 월차 </label> <input type="radio" name="vacation_type" id="vacation_type3" value="반차"> <label for="vacation_type3"> 반차 </label> <input type="radio" name="vacation_type" id="vacation_type4" value="병가"> <label for="vacation_type4">
+																병가 </label> <input type="radio" name="vacation_type" id="vacation_type5" value="기타"> <label for="vacation_type5"> 기타 </label>
 
-														</div>
-														<input type="text" id="gitar" readonly="readonly" class="form-control" />
+														</div> <input type="text" id="gitar" readonly="readonly" class="form-control" />
 													</td>
 												</tr>
 												<tr>
 													<th scope="col" class="border">휴가 기간</th>
 													<td colspan="5">
-														<div class="input-daterange input-group" id="date-range">
-															<input type="text" class="form-control" name="start_date" />
+														<div class="input-group mb-3">
+															<input type="text" class="form-control vacation-range" name="vacation_range"> <input type="hidden" name="vacation_period" value="1" />
 															<div class="input-group-append">
-																<span class="input-group-text bg-secondary b-0 text-white">~</span>
+																<span class="input-group-text"> <span class="ti-calendar"></span>
+																</span>
 															</div>
-															<input type="text" class="form-control" name="end_date" />
 														</div>
 													</td>
 												</tr>
@@ -62,21 +58,16 @@
 													<th colspan="6">휴가 사유</th>
 												</tr>
 												<tr>
-													<td colspan="6">
-														<textarea class="form-control" rows="10" name="vacation_reason"></textarea>
-													</td>
+													<td colspan="6"><textarea class="form-control" rows="10" name="vacation_reason"></textarea></td>
 												</tr>
 												</tbody>
 
 
 											</table>
 
-											<div id='file-list'>
-												<i class="fas fa-paperclip"></i> 첨부파일 <input type="button" id='button-add-file' value='파일 추가' class="btn btn-outline-secondary" />
-											</div>
-
-
 										</div>
+
+										<c:import url="./common/approvalAttachAdd.jsp" />
 										<div align="right">
 											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
 										</div>
@@ -93,39 +84,42 @@
 		</div>
 	</div>
 	<c:import url="../../../common/bottomJquery.jsp" />
-	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-treeview-master/dist/bootstrap-treeview.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
-	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/moment/moment.js"></script>
-	<script>
-		jQuery('#date-range').datepicker({
-			toggleActive : true
-		});
-		
-		var count = 0;
-		 $('#button-add-file').on("click",function(){
-			var html = "<div id='item_"+count+"'>";
-			html += "<input type='file' name='upFiles' multiple/>";
-			html += "<input type='button' onclick='deleteBtn(this)' class='btn btn-outline-danger' value='삭제'/></div>";
-			count++;
-			$("#file-list").append(html);
-		});
 
-		function deleteBtn(obj) {
-			$(obj).parent().remove();
-		}
-		
-		
-		
-	/* 	function submitApproval(){
-			var req=JSON.stringify(obj);
-			
-			url:"${pageContext.request.contextPath }/approval/writeApprovalDone",
-			type:"post",
-			data:json_data,
-			dataType:"json"
-		} */
+	<script>
+		var period = $('input[name=vacation_period]');
+
+		$('.vacation-range').daterangepicker(
+				{
+					dateLimit : {
+						days : 15
+					},
+					opens : "center",
+					drops : "up",
+					buttonClasses : "btn",
+					locale : {
+						separator : " ~ ",
+						daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
+						monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
+								"7월", "8월", "9월", "10월", "11월", "12월" ],
+						format : 'YYYY년 MM월 DD일'
+					},
+					minDate : moment(),
+					maxDate : moment().add(2, 'months'),
+					autoApply : true
+				},
+				function(start, end, label) {
+					console.log(start.format('YYYY-MM-DD') + ' to '
+							+ end.format('YYYY-MM-DD'));
+					console.log(Math
+							.ceil((end - start) / (1000 * 60 * 60 * 24)));
+					period
+							.val(Math.ceil((end - start)
+									/ (1000 * 60 * 60 * 24)));
+				});
 	</script>
 </body>
 </html>

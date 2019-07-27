@@ -6,7 +6,14 @@
 <table class="no-wrap table-bordered table mb-0">
 	<tr>
 		<td colspan="2">
-			<div style="height: 500px"></div>
+			<div style="height: 500px; padding: 30px;" id="docContent">
+
+				<ol>
+
+				</ol>
+
+
+			</div>
 		</td>
 	</tr>
 </table>

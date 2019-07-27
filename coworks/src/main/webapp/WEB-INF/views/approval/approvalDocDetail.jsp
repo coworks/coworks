@@ -8,7 +8,21 @@
 <meta charset="UTF-8">
 <title>CO-WORKS : ${doc.adoc_subject }</title>
 <c:import url="../common/header.jsp" />
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/approval/css/approvalDoc.css" />
+<style type="text/css">
+.table td, .table th {
+	padding: .75rem;
+	vertical-align: middle;
+}
+
+.table th {
+	background: whitesmoke;
+	text-align: center;
+}
+
+div p{
+white-space: normal;
+}
+</style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -19,13 +33,15 @@
 
 				<div class="row">
 					<div class="col-12">
-						<div class="card">
+						<div class="card p-3 pb-5">
 							<div class="card-body col-8 align-self-center">
 								<button id="print" class=" btn btn-outline-info" type="button">
 									<span><i class="fa fa-print"></i> Print</span>
 								</button>
 								<div class="printArea">
-									<h2 class="card-title mb-5 mt-3" align="center">${form.aform_title }</h2>
+									<h2 class="card-title mb-5 mt-3" align="center">
+										<b>${form.aform_title }</b>
+									</h2>
 									<div class="row">
 										<div class="col-4">
 											<table class="no-wrap table-bordered table ">
@@ -48,8 +64,8 @@
 												</tr>
 											</table>
 										</div>
-										<div class="col-4"></div>
-										<div class="col-4">
+										<div class="col-3"></div>
+										<div class="col-5">
 											<table class="no-wrap table-bordered table ">
 												<colgroup>
 													<col width="10%" />
@@ -66,21 +82,14 @@
 
 												</tr>
 												<tr align="center">
-													<td>
-														<img alt="담당자sign" src="${pageContext.request.contextPath}/resources/images/empSign/stamp.png" width="50px" height="50px">
-													</td>
-													<td>
-														<img alt="담당자sign" src="${pageContext.request.contextPath}/resources/images/empSign/stamp.png" width="50px" height="50px">
-													</td>
+													<td><img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${writer.emp_signature}" width="50em" height="50em"></td>
+													<td></td>
 													<td></td>
 												</tr>
 												<tr align="center">
-													<td>
-														<fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd" />
-													</td>
-													<td>2019-07-23</td>
+													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yy/MM/dd" /></td>
 													<td></td>
-
+													<td></td>
 												</tr>
 											</table>
 										</div>
@@ -104,9 +113,7 @@
 													<th scope="col" class="border">성명</th>
 													<td>${writer.emp_name}</td>
 													<th scope="col" class="border">작성일</th>
-													<td>
-														<fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" />
-													</td>
+													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" /></td>
 												</tr>
 												<tr>
 													<th scope="col" class="border">제목</th>
@@ -114,19 +121,18 @@
 												</tr>
 											</table>
 											<c:set var="docURL" value="./approvalDoc/approvalForm/${form.aform_docPage }.jsp" />
-
 											<c:import url="${docURL }" />
 
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-9"></div>
+										<div class="col-9 "></div>
 										<div class="col-3 mt-2" style="text-align: left">
 											<span>일자 : &nbsp;&nbsp;<fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd" /></span><br /> <span> 서명 : &nbsp;&nbsp;${writer.emp_name}&nbsp;&nbsp;(인)</span>
 										</div>
 									</div>
 								</div>
-								<c:if test="${attachList != null }">
+								<c:if test="${!empty attachList  }">
 									<div id="file-list">
 										<i class="fas fa-paperclip"></i> 첨부파일 <br />
 										<ul>
@@ -148,7 +154,7 @@
 	<c:import url="../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath}/resources/templates/resources/js/jquery.PrintArea.js" type="text/JavaScript"></script>
 	<script>
-		$(document).ready(function() {
+		$(function() {
 			$("#print").click(function() {
 				var mode = 'iframe';
 				var close = mode == "popup";
@@ -156,8 +162,39 @@
 					mode : mode,
 					popClose : close
 				};
-				$("div.printArea").printArea(options);
+				$(".printArea").printArea(options);
 			});
+			
+			
+		
+		var docType="${form.aform_title}";
+		var content = ${doc.adoc_content};
+		console.log(docType);
+		console.log(content);
+		
+		
+		if(docType=="휴가신청서"){
+			var docContentList=$('<ol>');
+			docContentList.append("<li>휴가 종류 : "+content.vacation_type+"</li><br />");
+			docContentList.append("<li>휴가 기간 : "+content.vacation_range+" ("+content.vacation_period+" 일간)</li><br />");
+			docContentList.append("<li>휴가 사유 : "+content.vacation_reason+"</li><br />"); 
+	
+			var subCon=$('<p>').text("위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.").css("text-align","center")
+			
+			$('#docContent').append(docContentList);
+			$('#docContent').append('<br>').append(subCon);
+			
+		} else if(docType=="시말서"){
+			var docContent=$('<p>');
+			docContent.append("<b>위반내용</b><br>&nbsp;"+content.apology_reason);
+			var subCon=$('<p>');
+			subCon.append("위 본인은 직원으로서 제 사규를 준수하고 맡은바 책임과 의무를 다하여 성실히 복무하여야 함에도 불구하고 위와 같이 회사의 관련 규정을 위반하였는바 이에 시말서를 제출하고 그에 따른 처벌을 감수하며 차후 본건을 계기로 과오의 재발이 없을 것임을 서약합니다. ").css("text-align","center")
+
+			$('#docContent').append(docContent);
+			$('#docContent').append('<br>').append(subCon);
+		}
+
+		
 		});
 	</script>
 </body>

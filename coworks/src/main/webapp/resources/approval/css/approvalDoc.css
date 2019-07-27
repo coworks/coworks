@@ -8,6 +8,9 @@
 	background: whitesmoke;
 	text-align: center;
 }
+.table td {
+	text-align: center;
+}
 
 table.fixed {
 	table-layout: fixed;

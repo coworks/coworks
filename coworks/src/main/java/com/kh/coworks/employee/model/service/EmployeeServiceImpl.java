@@ -72,7 +72,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.selectSearchEmployeeTotalContents(con, hmap);
 	}
 	
+	@Override
+	public List<Employee> selectEmployeeList(){
+		return employeeDao.selectEmployeeList();
+	}
 
+	@Override
+	public List<Map<String, Object>> selectDeptEmpCount() {
+		return employeeDao.selectDeptEmpCount();
+	}
 
 
 }

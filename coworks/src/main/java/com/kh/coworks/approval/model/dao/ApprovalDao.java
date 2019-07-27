@@ -29,4 +29,6 @@ public interface ApprovalDao {
 
 	ApprovalForm selectApprovalDocForm(int aform_no);
 
+	List<ApprovalDoc> selectApprovalYet(int emp_no);
+
 }

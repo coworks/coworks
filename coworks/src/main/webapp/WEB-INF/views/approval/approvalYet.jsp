@@ -10,8 +10,12 @@
 <c:import url="../common/header.jsp" />
 <style type="text/css">
 .table td, .table th {
-	padding: .4rem;
+	padding: .5rem;
 	vertical-align: middle;
+}
+
+.table td {
+	cursor: pointer;
 }
 </style>
 </head>
@@ -23,38 +27,31 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="card">
+						<div class="card p-3 pb-5">
 							<div class="card-body">
-								<h4 class="card-title mb-3">결재 대기 문서</h4>
+								<h4 class="card-title mb-5">결재 진행 문서</h4>
 
-								<input type="button" value="일괄 결재하기" class="btn btn-warning mb-3 float-right" />
-
-								<div class="table-responsive">
-									<table class="table no-wrap table-bordered table-hover" style="text-align: center;">
+								<div class="">
+									<table class="table no-wrap  table-hover mt-5" style="text-align: center;">
 										<thead class="bg-info text-white">
 											<tr>
-												<th><input type="checkbox" name="allck" /></th>
+												<th></th>
 												<th>제목</th>
 												<th>결재 양식</th>
 												<th>작성일시</th>
-												<th>작성자</th>
 												<th></th>
 											</tr>
 										</thead>
-										<tbody class="border border-info">
-											<tr>
-												<td><input type="checkbox" name="checkApproval" /></td>
-												<td>김둘리 휴가 신청합니다!</td>
-												<td>휴가신청서</td>
-												<td>2019-06-30</td>
-												<td>김둘리</td>
-												<td>
-													<div align="center">
-														<input type="button" value="승인" class="btn  btn-outline-success  mr-2" /> <input type="button" value="반려" class="btn  btn-outline-danger " />
-													</div>
-												</td>
-											</tr>
-
+										<tbody class=" border-info">
+											<c:forEach items="${docList}" var="doc" varStatus="vs">
+												<tr onclick="location.href='${pageContext.request.contextPath}/approval/approvalDoc/v/${doc.adoc_no}'">
+													<td>${vs.index+1 }</td>
+													<td>${doc.adoc_subject }</td>
+													<td>${doc.aform_title }</td>
+													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" /></td>
+													<td>결재 진행 중</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>

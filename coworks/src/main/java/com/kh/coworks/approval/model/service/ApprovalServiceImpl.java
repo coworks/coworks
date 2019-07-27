@@ -84,4 +84,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalDao.selectApprovalDocForm(aform_no);
 	}
 
+	@Override
+	public List<ApprovalDoc> selectApprovalYet(int emp_no) {
+		return approvalDao.selectApprovalYet(emp_no);
+	}
+
 }

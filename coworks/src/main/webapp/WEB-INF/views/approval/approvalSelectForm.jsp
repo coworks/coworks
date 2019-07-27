@@ -12,6 +12,10 @@
 .table td, .table th {
 	padding-left: 2em;
 }
+
+.table td {
+	cursor: pointer;
+}
 </style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
