@@ -395,7 +395,7 @@
            }
            var startdate=moment(calEvent.start,'YYYY-MM-DD  HH:mm');
            var enddate=moment(calEvent.end,'YYYY-MM-DD  HH:mm');
-           alert(startdate+","+enddate+","+calEvent.content+","+calEvent.title);
+        //   alert(startdate+","+enddate+","+calEvent.content+","+calEvent.title); 확인용
                var form = $("<form></form>");
               /*  form.append("<div><label>기간 :&nbsp;&nbsp;</label><span>"+startdate.format('YYYY-MM-DD  HH:mm')+" - "+enddate.format('YYYY-MM-DD  HH:mm')+"</span></div>")
                */ 
