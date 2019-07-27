@@ -15,6 +15,9 @@ public interface CalendarDao {
 	List<Calendar> selectListAllCalendar(int emp_no);	// 전체 보기
 	
 	int insertCalendar(Calendar calendar);
+	/*
+	 * int insertCalendar2(Calendar calendar);
+	 */
 	
 	int deleteCalendar(int cal_no);
 	

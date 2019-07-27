@@ -1,10 +1,13 @@
 package com.kh.coworks.calendar.controller;
 
-import java.io.IOException;
-import java.sql.Date;
+import java.io.IOException; 
 import java.sql.Time;
-import java.sql.Timestamp; 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -103,6 +106,27 @@ public class CalendarController {
 		
 			 
 		return mv;
+	}
+	
+	@RequestMapping("/calendar/insertCalendar2.do")
+	public void insertCalendar2(@ModelAttribute Calendar calendar, HttpServletResponse resp,HttpServletRequest request) throws IOException {
+		
+		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸삘..
+		
+		
+		
+ 
+		calendar.setCal_content("내용없음");
+		
+		calendar.setCal_type("회사");
+		calendar.setCal_holder(Integer.toString(employee.getEmp_no()));// 아직 부서 설정안했기때문에  null값이라 emp_no넣어줘야함
+		//if(employee!=null) 
+			boolean result = calService.insertCalendar(calendar)>0?true:false;
+		
+		 
+		
+		
+		resp.getWriter().print(result);
 	}
 	
 	@RequestMapping("/calendar/deleteCalendar.do")

@@ -39,6 +39,18 @@ public class CalendarDaoImpl implements CalendarDao {
 		return sqlSession.insert("calendar.insertCalendar",calendar);
 	}
 	
+	
+	
+	
+	/*
+	 * @Override public int insertCalendar2(Calendar calendar) { // TODO
+	 * Auto-generated method stub return
+	 * sqlSession.insert("calendar.insertCalendar",calendar); }
+	 */
+
+
+
+
 	@Override
 	public int deleteCalendar(int cal_no) {
 		// TODO Auto-generated method stub

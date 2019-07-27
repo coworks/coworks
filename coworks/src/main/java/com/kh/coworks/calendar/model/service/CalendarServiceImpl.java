@@ -39,6 +39,17 @@ public class CalendarServiceImpl implements CalendarService {
 		return calDao.insertCalendar(calendar);
 	}
 	
+	
+	
+	/*
+	 * @Override public int insertCalendar2(Calendar calendar) { // TODO
+	 * Auto-generated method stub return calDao.insertCalendar2(calendar); }
+	 */
+
+
+
+
+
 	@Override
 	public int deleteCalendar(int cal_no) {
 		// TODO Auto-generated method stub

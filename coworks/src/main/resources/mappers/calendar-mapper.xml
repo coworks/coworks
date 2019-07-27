@@ -5,10 +5,6 @@
 <mapper namespace="calendar">
 
 	
-	<insert id="insertCalendar" parameterType="calendar" useGeneratedKeys="false">
-		INSERT INTO CALENDAR VALUES(SEQ_CALENDAR.NEXTVAL,#{cal_holder},#{cal_type},#{cal_color},#{cal_name},#{cal_content},#{cal_beginDate},#{cal_endDate})
-	</insert>
-	
  	<select id="selectListAllCalendar" parameterType="_int" resultType="calendar">
 		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{emp_no}
 	</select>
@@ -17,6 +13,13 @@
 	<select id="selectListCalendar" parameterType="calendar" resultType="calendar">
 		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{cal_holder} AND CAL_TYPE=#{cal_type}
 	</select>
+	
+	
+	<insert id="insertCalendar" parameterType="calendar" useGeneratedKeys="false">
+		INSERT INTO CALENDAR VALUES(SEQ_CALENDAR.NEXTVAL,#{cal_holder},#{cal_type},#{cal_color},#{cal_name},#{cal_content},#{cal_beginDate},#{cal_endDate})
+	</insert>
+	
+	
 	
 	<delete id="deleteCalendar" parameterType="_int">
 		DELETE FROM CALENDAR WHERE CAL_NO=#{cal_no}

@@ -63,24 +63,7 @@
                        
                        location.href="${pageContext.request.contextPath}/calendar/selectListCalendar.do?cal_type="+cal_type;
                        
-                       
-                       
-                       
-                       
-                       
-                      /*  $.ajax({
-                          url : "${pageContext.request.contextPath}/calendar/selectListCalendar.do",
-                          data : {cal_type : result},
-                          type:"post",
-                          dataType : "json",
-                          async:false,
-                          success : function(data){
-                              
-                          },error: function(data){
-                             result=false;
-                          }  
-                       });
-                       */ 
+                      
                 };
                 </script>
                 <!-- ============================================================== -->
@@ -97,20 +80,22 @@
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div id="calendar-events" class="mt-3">
-                                            <div class="calendar-events" data-class="bg-info"><i class="fa fa-circle mb-3 text-info"></i> 부서 회의</div>
-                                            <div class="calendar-events" data-class="bg-success"><i class="fa fa-circle mb-3 text-success"></i> 휴가</div>
-                                            <div class="calendar-events" data-class="bg-danger"><i class="fa fa-circle mb-3 text-danger"></i> My Event Three</div>
-                                            <div class="calendar-events" data-class="bg-warning"><i class="fa fa-circle mb-3 text-warning"></i> My Event Four</div>
+                                            <div class="calendar-events" data-class="bg-info"><i class="fa fa-circle mb-3 text-info"></i>회의</div>
+                                            <div class="calendar-events" data-class="bg-success"><i class="fa fa-circle mb-3 text-success"></i>휴가</div>
+                                            <div class="calendar-events" data-class="bg-danger"><i class="fa fa-circle mb-3 text-danger"></i>또머있죠</div>
+                                            <div class="calendar-events" data-class="bg-warning"><i class="fa fa-circle mb-3 text-warning"></i>추천받음</div>
                                         </div> 
+                                        <!-- 
+                                        	-- 나중에 생각해보기 -- 필요없을것같음
                                         <div class="checkbox mb-3">
                                             <input id="drop-remove" type="checkbox">
                                             <label for="drop-remove">
                                                 Remove after drop
                                             </label>
-                                        </div>
-                                        <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
-                                            <i class="ti-plus"></i> Add New Event
-                                        </a>
+                                        </div> -->
+                                        <!-- <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
+                                            <i class="ti-plus"></i> 추가
+                                        </a> -->
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +183,7 @@
                                   <input id="cal_endDate"  name="cal_endDate" type="hidden"/>
                                        
                                         <button type="submit" class="btn btn-danger btn-block waves-effect waves-light">
-                                                    + 추가
+                                                     <i class="ti-plus"></i> 추가
                                         </button>
                                     </div>
                                 </div>
@@ -338,7 +323,7 @@
     
      <!-- Date range Plugin JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js?ver=1"></script>
      <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
              
    <script>
@@ -376,7 +361,25 @@
                if ($categoryClass)
                    copiedEventObject['className'] = [$categoryClass];
                // render the event on the calendar
-               $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true);
+               $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true); 
+               // timestamp포맷 형식 맞춰서 보내주기
+               var start= $.fullCalendar.formatDate(copiedEventObject.start, "YYYY-MM-DD HH:mm:ss.SSSSSSSSS");
+               var end=$.fullCalendar.formatDate(copiedEventObject.start, "YYYY-MM-DD HH:30:ss.SSSSSSSSS");
+               alert(end);
+               $.ajax({
+            	   url: "${pageContext.request.contextPath}/calendar/insertCalendar2.do",
+                   dataType : "json",
+                   data:{cal_name:originalEventObject.title, cal_color:$categoryClass, cal_beginDate:start, cal_endDate:end},
+                    
+                   success:function(){
+                       location.href="${pageContext.request.contextPath}/calendar/calendarview.do";
+                   },error:function(){ 
+                       alert("error drag !!!!");
+                   }   
+               
+            	});
+               
+               
                // is the "remove after drop" checkbox checked?
                if ($('#drop-remove').is(':checked')) {
                    // if so, remove the element from the "Draggable Events" list
@@ -386,8 +389,13 @@
        /* on click on event */
        CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
            var $this = this; 
+           var today = new Date($.now());
+           if(calEvent.end==null){ 
+        	   calEvent.end=today;
+           }
            var startdate=moment(calEvent.start,'YYYY-MM-DD  HH:mm');
            var enddate=moment(calEvent.end,'YYYY-MM-DD  HH:mm');
+           alert(startdate+","+enddate+","+calEvent.content+","+calEvent.title);
                var form = $("<form></form>");
               /*  form.append("<div><label>기간 :&nbsp;&nbsp;</label><span>"+startdate.format('YYYY-MM-DD  HH:mm')+" - "+enddate.format('YYYY-MM-DD  HH:mm')+"</span></div>")
                */ 
@@ -395,14 +403,12 @@
                form.append("<div><label>내용</label><div><div><textarea class='form-control' name='content' row='3' type='text'>"+ calEvent.content+"</textarea>");
                form.append("<div><label>날짜</label><div><div class='input-group mb-5' style='float:both;'><input type='text' name='datetime' class='form-control datetime/><div class='input-group-append'><span class='input-group-text'><span class='ti-calendar'></span></span></div>");
               form.append("<input type='hidden' id='cal_beginDate2' name='cal_beginDate2' value='"+$.fullCalendar.formatDate(calEvent.start, 'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+"'/><input type='hidden' id='cal_endDate2' name='cal_endDate2' value='"+$.fullCalendar.formatDate(calEvent.end, 'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+"'/>"); 
-               $this.$modal.modal({
-                   backdrop: 'static'
-               });
+               
                
                
            
                form.find('input[name=datetime]').daterangepicker({
-                        
+            	  
                         timePicker: true,
                         timePickerIncrement: 30,
                         startDate: calEvent.start,   // default주기
@@ -421,7 +427,9 @@
                    );
                   
                
-            
+               $this.$modal.modal({
+                   backdrop: 'static'
+               });
                
                $this.$modal.find('.delete-event').show().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function () {
                   
@@ -502,7 +510,7 @@
            $(this.$event).each(function () {
                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
                // it doesn't need to have a start or end
-               
+               // 간편일정등록
                var eventObject = {
                    title: $.trim($(this).text()) // use the element's text as the event title
                    
@@ -541,8 +549,7 @@
            
            // 일정 받아오기
            <c:forEach items="${list}" var="calendar">
-         
-            
+	          
             // db넣은것 출력
               defaultEvents.push({
               content :  '${calendar.cal_content}',   // 일정 내용
@@ -561,7 +568,7 @@
            
            
            $this.$calendarObj = $this.$calendar.fullCalendar({
-        	   nextDayThreshold:'00:00:00',
+        	   nextDayThreshold:'00:00:00',	//0시이후로 하루로치기
            
                slotDuration: '00:30:00', /* If we want to split day time each 15minutes */
                minTime: '06:00:00',

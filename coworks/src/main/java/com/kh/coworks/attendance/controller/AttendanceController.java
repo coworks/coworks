@@ -37,12 +37,12 @@ public class AttendanceController {
 	@RequestMapping("/attendancecome.do") 
 	public ModelAndView insertAttendaceCome( HttpServletRequest request,Model model) { 
 		HttpSession session=request.getSession(false);
-		Employee employee=(Employee) session.getAttribute("employee");
-		 ModelAndView mv=new ModelAndView();
-		System.out.println("세션값 : "+session);
-		System.out.println("세션객체 : "+employee);
+		Employee employee=(Employee) session.getAttribute("employee"); 
+		
+		 ModelAndView mv=new ModelAndView(); 
 		Calendar cal=new GregorianCalendar();
 		Attendance attend=new Attendance();
+		
 		 Time time=new Time(cal.getTimeInMillis());
 		 Date date=new Date(cal.getTimeInMillis());
 		//2019-07-03 19:30:00.0
@@ -82,7 +82,7 @@ public class AttendanceController {
 	public ModelAndView insertAttendaceLeave(HttpServletRequest request,@RequestParam() String atten_no,Model model) { 
 		System.out.println("atten_no값 : "+atten_no);
 		HttpSession session=request.getSession(false);
-		Employee employee=(Employee) session.getAttribute("employee");
+		Employee employee=(Employee) session.getAttribute("employee"); 
 		ModelAndView mv=new ModelAndView();
 		Calendar cal=new GregorianCalendar();
 		Attendance attend=new Attendance();
@@ -103,11 +103,12 @@ public class AttendanceController {
 		 
 		attend.setAtten_leaveIP(ip);	
 		attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
-		attend.setAtten_leaveTime(time); 	// 퇴근찍은 시간	
+		attend.setAtten_leaveTime(time); 	// 퇴근찍은 시간	 
 		int no=Integer.parseInt(atten_no);
-		attend.setEmp_no(no);
-		 
+		attend.setAtten_no(no);
+		System.out.println("attendance 값 : "+attend);
 		int result=attendanceService.updateAttendanceLeave(attend);
+		System.out.println("result값 :"+result);
 		Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
 		
 		mv.addObject("atten",list);	    
