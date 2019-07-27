@@ -58,9 +58,9 @@ public class AttendanceController {
  
 		 
 		 System.out.println("ip :" +ip);
-		attend.setAtten_attIP(ip);	//나중에 세션 ip 받아오기
-		attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
-		attend.setAtten_attTime(time);
+		 attend.setAtten_attIP(ip);	//나중에 세션 ip 받아오기
+		 attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
+		 attend.setAtten_attTime(time);
 		 attend.setAtten_date(date);
 		 
 		int result=attendanceService.insertAttendanceCome(attend);

@@ -5,97 +5,95 @@
 <mapper namespace="employee">
 	<resultMap id="resultEmployee" type="employee">
 		<result property="emp_authority" column="emp_authority"
-		        typeHandler="strArrTypeHandler" />
+			typeHandler="strArrTypeHandler" />
 	</resultMap>
-	<select id="selectEmployee" resultType="employee" parameterType="_int">
-		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no} 
-	</select>
 	
+	<select id="selectEmployee" resultType="employee"
+		parameterType="_int">
+		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
+	</select>
+
 	<select id="selectEmployeeList" resultType="employee">
-		SELECT EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
+		SELECT EMP_NAME,
+		JOB_TITLE, DEPT_NAME, EMP_PHONE
 		FROM EMPLOYEE E, DEPARTMENT D, JOB J
 		WHERE E.JOB_CODE = J.Job_Code
-        AND E.Dept_Code = D.Dept_Code
-        ORDER BY E.EMP_NO DESC
+		AND E.Dept_Code = D.Dept_Code
+		ORDER BY
+		E.EMP_NO DESC
 	</select>
-	
+
 	<select id="selectEmployeeTotalContents" resultType="_int">
-		SELECT COUNT(*) FROM EMPLOYEE
+		SELECT
+		COUNT(*) FROM EMPLOYEE
 	</select>
-	
+
 	<select id="selectDepartment" resultType="department">
-		SELECT DEPT_CODE, DEPT_NAME FROM DEPARTMENT
+		SELECT DEPT_CODE,
+		DEPT_NAME FROM DEPARTMENT
 	</select>
-	
+
 	<select id="selectJob" resultType="job">
-		SELECT JOB_CODE, JOB_TITLE FROM JOB
+		SELECT JOB_CODE, JOB_TITLE
+		FROM JOB
 	</select>
-	
+
 	<insert id="insertEmployee" parameterType="employee">
-		INSERT INTO EMPLOYEE VALUES(
-			SEQ_EMPLOYEE.NEXTVAL, #{emp_name}, #{job_code},
-			#{dept_code}, #{emp_phone}, #{emp_email}, #{emp_birth},
-			#{emp_gender}, DEFAULT, DEFAULT, DEFAULT, DEFAULT,#{emp_authority,typeHandler=strArrTypeHandler}
-			)	
-	</insert>
-	
-	
-	<insert id="insertDeptName" parameterType="department">
-		INSERT INTO DEPARTMENT VALUES(
-			SEQ_DEPARTMENT.NEXTVAL, #{dept_name}, 1
+		INSERT INTO EMPLOYEE
+		VALUES(
+		SEQ_EMPLOYEE.NEXTVAL, #{emp_name}, #{job_code},
+		#{dept_code},
+		#{emp_phone}, #{emp_email}, #{emp_birth},
+		#{emp_gender}, DEFAULT,
+		DEFAULT, DEFAULT,
+		DEFAULT,#{emp_authority,typeHandler=strArrTypeHandler}
 		)
-	
 	</insert>
-	
+
+
+	<insert id="insertDeptName" parameterType="department">
+		INSERT INTO DEPARTMENT
+		VALUES(
+		SEQ_DEPARTMENT.NEXTVAL, #{dept_name}, 1
+		)
+
+	</insert>
+
 	<update id="updateDeptName" parameterType="department">
-		UPDATE DEPARTMENT 
-		SET DEPT_NAME = #{dept_name} 
+		UPDATE DEPARTMENT
+		SET
+		DEPT_NAME = #{dept_name}
 		WHERE DEPT_CODE = #{dept_code}
 	</update>
 
-	
+	<select id="selectSerachEmployee" parameterType="hashmap"
+		resultType="employee">
+		SELECT EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
+		FROM EMPLOYEE E,
+		DEPARTMENT D, JOB J
+		<bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		<where>
+			<if test="con == 'empname'">
+				EMP_NAME LIKE #{mySQLPattern}
+			</if>
+			<if test="con == 'jobtitle'">
+				JOB_TITLE LIKE #{mySQLPattern}
+			</if>
+			<if test="con == 'deptname'">
+				DEPT_NAME LIKE #{mySQLPattern}
+			</if>
+			AND E.JOB_CODE = J.Job_Code
+			AND E.Dept_Code = D.Dept_Code
+		</where>
+	</select>
 
 	<select id="selectEmpList" resultType="employee">
 		select emp_no,emp_name,dept_code,job_code,dept_name,job_title from empview order by dept_name asc, job_code asc
 	</select>
 	
-	<select id="selectSerachEmployee" parameterType="hashmap" resultType="employee">
-	 	SELECT EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
-		FROM EMPLOYEE E, DEPARTMENT D, JOB J <bind name="mySQLPattern" value="'%' + keyword + '%'"/>
-	 	<where>
-	 		<if test="con == 'empname'">
-	 			EMP_NAME LIKE #{mySQLPattern}
-	 		</if>
-	 		<if test="con == 'jobtitle'">
-	 			JOB_TITLE LIKE #{mySQLPattern}
-	 		</if>
-	 		<if test="con == 'deptname'">
-	 			DEPT_NAME LIKE #{mySQLPattern}
-	 		</if>
-	 		AND E.JOB_CODE = J.Job_Code
-       		AND E.Dept_Code = D.Dept_Code
-	 	</where>
-	 </select>
-	 
-	 <select id="selectDeptEmpCount" resultType="hashmap">
+	<select id="selectDeptEmpCount" resultType="hashmap">
 	select dept_name,count(*) count from empview group by dept_name order by dept_name
 	</select>
 
-	 
-	 <select id="selectSearchEmployeeTotalContents" parameterType="hashmap" resultType="_int" >
-		SELECT COUNT(*) FROM EMPLOYEE <bind name="mySQLPattern" value="'%' + keyword + '%'"/>
-		<where> EMP_NAME LIKE #{mySQLPattern} </where>
-	 </select>
-	 
-	  <select id="selectSearchJobTotalContents" parameterType="hashmap" resultType="_int" >
-		SELECT COUNT(*) FROM JOB <bind name="mySQLPattern" value="'%' + keyword + '%'"/>
-		WHERE JOB_TITLE LIKE #{mySQLPattern}
-	 </select>
-	 
-	  <select id="selectSearchDepartmentTotalContents" parameterType="hashmap" resultType="_int" >
-		SELECT COUNT(*) FROM DEPARTMENT <bind name="mySQLPattern" value="'%' + keyword + '%'"/>
-		WHERE DEPT_NAME LIKE #{mySQLPattern}
-	 </select>
-	 
-	
+
 </mapper>
