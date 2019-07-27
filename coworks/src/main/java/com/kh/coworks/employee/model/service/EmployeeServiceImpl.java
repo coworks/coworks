@@ -66,6 +66,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<Map<String, String>> searchEmployee(int cPage, int limit, HashMap<String, String> hmap) {
 		return employeeDao.searchEmployee(cPage, limit, hmap);
 	}
+
+	@Override
+	public int selectSearchEmployeeTotalContents(String con, HashMap<String, String> hmap) {
+		return employeeDao.selectSearchEmployeeTotalContents(con, hmap);
+	}
 	
 
 

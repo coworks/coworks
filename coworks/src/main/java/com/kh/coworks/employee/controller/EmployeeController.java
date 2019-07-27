@@ -110,12 +110,11 @@ public class EmployeeController {
 
 		int limit = 2; // 한 페이지 당 게시글 수
 
-		System.out.println("체크" + "con" + con + "keyword" + keyword );
 		
 		HashMap<String, String> hmap = new HashMap<>();
-		//category, keyword라서 둘 다 String
 		
-		hmap.put("con", con); //category라는 이름으로 category그대로 넘긴다.
+		
+		hmap.put("con", con); 
 		hmap.put("keyword", keyword);
 		
 				
@@ -123,7 +122,8 @@ public class EmployeeController {
 		ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.searchEmployee(cPage, limit, hmap));
 
 		// 2. 전체 페이지 게시글 수 가져오기
-		int totalContents = employeeService.selectEmployeeTotalContents();
+		int totalContents = employeeService.selectSearchEmployeeTotalContents(con,hmap);
+	
 
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "employeeList.do");
 

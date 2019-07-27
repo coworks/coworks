@@ -28,4 +28,6 @@ public interface EmployeeDao {
 	int updateDeptName(Department dept);
 
 	List<Map<String, String>> searchEmployee(int cPage, int limit, HashMap<String, String> hmap);
+
+	int selectSearchEmployeeTotalContents(String con, HashMap<String, String> hmap);
 }

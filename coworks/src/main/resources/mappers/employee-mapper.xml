@@ -70,5 +70,21 @@
        		AND E.Dept_Code = D.Dept_Code
 	 	</where>
 	 </select>
+	 
+	 <select id="selectSearchEmployeeTotalContents" parameterType="hashmap" resultType="_int" >
+		SELECT COUNT(*) FROM EMPLOYEE <bind name="mySQLPattern" value="'%' + keyword + '%'"/>
+		<where> EMP_NAME LIKE #{mySQLPattern} </where>
+	 </select>
+	 
+	  <select id="selectSearchJobTotalContents" parameterType="hashmap" resultType="_int" >
+		SELECT COUNT(*) FROM JOB <bind name="mySQLPattern" value="'%' + keyword + '%'"/>
+		WHERE JOB_TITLE LIKE #{mySQLPattern}
+	 </select>
+	 
+	  <select id="selectSearchDepartmentTotalContents" parameterType="hashmap" resultType="_int" >
+		SELECT COUNT(*) FROM DEPARTMENT <bind name="mySQLPattern" value="'%' + keyword + '%'"/>
+		WHERE DEPT_NAME LIKE #{mySQLPattern}
+	 </select>
+	 
 	
 </mapper>

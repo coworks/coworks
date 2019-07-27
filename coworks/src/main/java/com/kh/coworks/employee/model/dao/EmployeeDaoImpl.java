@@ -2,10 +2,13 @@ package com.kh.coworks.employee.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.mybatis.spring.SqlSessionTemplate; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -68,6 +71,24 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Map<String, String>> searchEmployee(int cPage, int limit, HashMap<String, String> hmap) {
 		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
 		return sqlSession.selectList("employee.selectSerachEmployee", hmap, rows);
+	}
+
+	@Override
+	public int selectSearchEmployeeTotalContents(String con, HashMap<String, String> hmap) {
+
+		String searchType = "";
+		String key = "";
+
+		if (con.equals("empname")) {
+			System.out.println("체크");
+			searchType = "employee.selectSearchEmployeeTotalContents";
+		} else if (con.equals("jobtitle")) {
+			searchType = "employee.selectSearchJobTotalContents";
+		} else if (con.equals("deptname")) {
+			searchType = "employee.selectSearchDepartmentTotalContents";
+		}
+
+		return sqlSession.selectOne(searchType, hmap);
 	}
 
 }
