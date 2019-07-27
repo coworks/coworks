@@ -938,7 +938,7 @@
                 var time = selected.clone().minute(i);
 
                 var disabled = false;
-                if (minDate && time.second(59).isBefore(minDate))
+                if (minDate && time.second(-1).isBefore(minDate))
                     disabled = true;
                 if (maxDate && time.second(0).isAfter(maxDate))
                     disabled = true;
