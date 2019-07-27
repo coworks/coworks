@@ -323,7 +323,7 @@
     
      <!-- Date range Plugin JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js?ver=1"></script>
      <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
              
    <script>
@@ -408,7 +408,7 @@
                
            
                form.find('input[name=datetime]').daterangepicker({
-                        
+            	  
                         timePicker: true,
                         timePickerIncrement: 30,
                         startDate: calEvent.start,   // default주기

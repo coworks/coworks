@@ -874,6 +874,7 @@
                     selected.minute(selected.minute() || timeSelector.find('.minuteselect option:selected').val());
                     selected.second(selected.second() || timeSelector.find('.secondselect option:selected').val());
 
+                    // 이거 안씀~ am/pm으로 나타낼때씀
                     if (!this.timePicker24Hour) {
                         var ampm = timeSelector.find('.ampmselect option:selected').val();
                         if (ampm === 'PM' && selected.hour() < 12)
@@ -908,7 +909,9 @@
 
                 var time = selected.clone().hour(i_in_24);
                 var disabled = false;
-                if (minDate && time.minute(59).isBefore(minDate))
+                if (minDate && time.minute(59).isBefore(minDate))	
+                	// 시간 같으면 상세보기 보는것 불가능... 따라서 밑에로 바꾸면되는데... minute은 어케..?퓨
+                	//if (minDate && time.minute(-1).isBefore(minDate))
                     disabled = true;
                 if (maxDate && time.minute(0).isAfter(maxDate))
                     disabled = true;
