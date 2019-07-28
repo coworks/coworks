@@ -40,21 +40,20 @@
 </table>
 
 
-<div style="height: 200px; border: 1px solid lightgray;" class="p-1 mb-2">
+<div style="height: 150px; border: 1px solid lightgray;" class="p-1 mb-2">
 	<table class="table no-wrap" id="signTable">
 		<thead>
 			<tr>
 				<th colspan="4" scope="col" class="border"><b>결재선</b><input type="button" class="btn btn-info btn-sm mb-1" value="추가하기" style="float: right;" data-target="#responsive-modal" data-toggle="modal" /></th>
 			</tr>
-		</thead>
-		<tbody>
 			<tr>
 				<th></th>
 				<th>이름</th>
 				<th>부서</th>
 				<th>직급</th>
 			</tr>
-
+		</thead>
+		<tbody>
 
 		</tbody>
 	</table>

@@ -43,7 +43,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 		if (signList.size() > 0) {
 			for (ApprovalStatus sign : signList) {
-				sign.setAdoc_no(doc.getAdoc_no());;
+				sign.setAdoc_no(doc.getAdoc_no());
+
 				result = approvalDao.insertApprovalSign(sign);
 
 				if (result == APPROVAL_SRV_ERROR)
@@ -54,16 +55,16 @@ public class ApprovalServiceImpl implements ApprovalService {
 		if (fileList.size() > 0) {
 			for (ApprovalAttach attach : fileList) {
 				attach.setAdoc_no(doc.getAdoc_no());
-				approvalDao.insertApprovalAttach(attach);
+				result = approvalDao.insertApprovalAttach(attach);
 
 				if (result == APPROVAL_SRV_ERROR)
 					throw new ApprovalException();
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public ApprovalDoc selectOneApprovalDoc(int adoc_no) {
 		return approvalDao.selectOneApprovalDoc(adoc_no);

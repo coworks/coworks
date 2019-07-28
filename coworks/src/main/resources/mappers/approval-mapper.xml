@@ -34,8 +34,8 @@
 	</insert>
 	<insert id="insertApprovalStatus">
 		insert into
-		approvalStatus(AS_NO,ADOC_NO,EMP_NO,AS_STATUS) values
-		(seq_apst.nextval,#{adoc_no},#{emp_no},default)
+		approvalStatus(AS_NO,ADOC_NO,EMP_NO,AS_STATUS,AS_DATE) values
+		(seq_apst.nextval,#{adoc_no},#{emp_no},default,SYSDATE)
 	</insert>
 
 	<insert id="insertApprovalAttach">
@@ -56,7 +56,7 @@
 
 	<select id="selectApprovalStatus" parameterType="_int"
 		resultType="approvalStatus">
-		select st.*,emp_name,job_title from approvalStatus st,
+		select st.*,emp_name,emp_signature,job_title from approvalStatus st,
 		employee e, job j where st.adoc_no=#{adoc_no} and st.emp_no=e.emp_no
 		and e.job_code=j.job_code
 	</select>
@@ -68,8 +68,10 @@
 
 	<select id="selectApprovalYet" parameterType="_int"
 		resultType="approvalDoc">
-		select doc.*,form.aform_title from approvalDoc doc, approvalForm form where
-		doc.aform_no=form.aform_no and adoc_status=0 and
+		select doc.*,form.aform_title from approvalDoc doc,
+		approvalForm form where
+		doc.aform_no=form.aform_no and adoc_status=0
+		and
 		adoc_writerno=#{emp_no} order by adoc_no desc
 	</select>
 

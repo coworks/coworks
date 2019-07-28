@@ -12,6 +12,7 @@
 <link href="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath }/resources/templates/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath }/resources/approval/css/approvalDoc.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/templates/resources/css/hummingbird-treeview.css" rel="stylesheet" type="text/css">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -74,6 +75,7 @@
 									</form>
 								</div>
 							</div>
+							<c:import url="./common/approvalSignModal.jsp" />
 						</div>
 					</div>
 				</div>
@@ -83,6 +85,39 @@
 	</div>
 	<c:import url="../../../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
+	<script>
+		$("#treeview").hummingbird();
 
+		function applySelect() {
+			var signList = $('input[name=signList]:checked');
+			console.log(signList);
+
+			if (signList.length != 2) {
+				alert("결재자는 2명을 선택해야합니다.");
+			} else {
+				$('.modal').modal("hide");
+				$('#signTable tbody').children().remove();
+
+				for (var i = 0, len = signList.length; i < len; i++) {
+					var index = signList[i];
+
+					console.log(index.dataset);
+
+					var table = $('<tr>');
+					table.append('<td>' + (i + 1) + '</td>');
+					table.append('<td>' + index.dataset.name + '</td>');
+					table.append('<td>' + index.dataset.dept + '</td>');
+					table.append('<td>' + index.dataset.job + '</td>');
+
+					table
+							.append("<input type='hidden' name='signList' value="+index.value+">");
+
+					$('#signTable tbody').append(table);
+
+				}
+			}
+		};
+	</script>
 </body>
 </html>

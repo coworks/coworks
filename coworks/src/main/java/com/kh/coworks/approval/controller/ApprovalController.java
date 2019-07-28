@@ -109,13 +109,22 @@ public class ApprovalController {
 	}
 
 	@RequestMapping(value = "/approval/writeApprovalDone", method = RequestMethod.POST)
-	public String approveCreate(@RequestParam Map<String, Object> body,
+	public String approveCreate(@RequestParam Map<String, Object> body,@RequestParam(value="signList") int[] sign,
 			@RequestParam(value = "upFiles", required = false) MultipartFile[] upFiles, Model model,
 			HttpSession session) {
 
 		ApprovalDoc doc = new ApprovalDoc();
 		List<ApprovalStatus> signList = new ArrayList<ApprovalStatus>();
-		List<ApprovalAttach> fileList = new ArrayList<ApprovalAttach>();
+		
+		for(int i:sign) {
+			ApprovalStatus as=new ApprovalStatus();
+			as.setEmp_no(i);
+			
+			signList.add(as);
+		}
+		
+		
+		List<ApprovalAttach> fileList = new ArrayList<ApprovalAttach>();		
 
 		String savePath = "/resources/approval/attach";
 		String saveDir = session.getServletContext().getRealPath(savePath);
@@ -162,6 +171,7 @@ public class ApprovalController {
 		body.remove("adoc_subject");
 		body.remove("upFiles");
 		body.remove("expiration");
+		body.remove("signList");
 
 		doc.setAdoc_content(new JSONObject(body).toJSONString());
 

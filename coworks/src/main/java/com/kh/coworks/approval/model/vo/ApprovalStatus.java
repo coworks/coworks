@@ -16,6 +16,7 @@ public class ApprovalStatus implements Serializable {
 	private String emp_name;
 	private String dept_name;
 	private String job_title;
+	private String emp_signature;
 
 	public ApprovalStatus() {
 		super();
@@ -93,6 +94,14 @@ public class ApprovalStatus implements Serializable {
 
 	public void setJob_title(String job_title) {
 		this.job_title = job_title;
+	}
+
+	public String getEmp_signature() {
+		return emp_signature;
+	}
+
+	public void setEmp_signature(String emp_signature) {
+		this.emp_signature = emp_signature;
 	}
 
 	@Override

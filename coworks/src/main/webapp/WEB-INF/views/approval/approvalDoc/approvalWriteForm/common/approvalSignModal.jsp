@@ -13,14 +13,14 @@
 				<div class="form-group">
 					<label for="recipient-name" class="control-label">검색하기</label> <input type="text" class="form-control" id="recipient-name">
 				</div>
-				<div id="treeview_container" class="hummingbird-treeview p-3" style="overflow:auto; height: 300px;">
+				<div id="treeview_container" class="hummingbird-treeview p-3" style="overflow: auto; height: 300px;">
 					<c:set var="index" value="0" />
 					<ul id="treeview" class="hummingbird-base">
 						<c:forEach var="dept" items="${deptList }" varStatus="vs">
 							<li><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
 								<ul>
 									<c:forEach var="deptEmp" begin="1" end="${dept.COUNT }" step="1">
-										<li><label> <input class="hummingbirdNoParent" name="signList" value="${index }" type="checkbox"> ${empList[index].emp_name } ( ${empList[index].job_title } )
+										<li><label> <input class="hummingbirdNoParent" name="signList" value="${empList[index].emp_no}" type="checkbox" data-name="${empList[index].emp_name }" data-job="${empList[index].job_title }" data-dept="${empList[index].dept_name }"> ${empList[index].emp_name } ( ${empList[index].job_title } )
 										</label></li>
 										<c:set var="index" value="${index+1 }"></c:set>
 									</c:forEach>

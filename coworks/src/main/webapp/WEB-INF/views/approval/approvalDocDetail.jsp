@@ -19,8 +19,8 @@
 	text-align: center;
 }
 
-div p{
-white-space: normal;
+div p {
+	white-space: normal;
 }
 </style>
 </head>
@@ -77,19 +77,27 @@ white-space: normal;
 													<th rowspan="3">결<br />재
 													</th>
 													<th scope="col" class="border">담당</th>
-													<th scope="col" class="border"></th>
-													<th scope="col" class="border"></th>
+													<th scope="col" class="border">${signList[0].job_title }</th>
+													<th scope="col" class="border">${signList[1].job_title }</th>
 
 												</tr>
 												<tr align="center">
-													<td><img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${writer.emp_signature}" width="50em" height="50em"></td>
-													<td></td>
-													<td></td>
+													<td><img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${writer.emp_signature}" width="50em" ></td>
+													<td><c:if test="${signList[0].as_status == 1}">
+															<img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[0].emp_signature}" width="50em" >
+														</c:if></td>
+													<td><c:if test="${signList[1].as_status == 1}">
+															<img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[1].emp_signature}" width="50em">
+														</c:if></td>
 												</tr>
 												<tr align="center">
 													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yy/MM/dd" /></td>
-													<td></td>
-													<td></td>
+													<td><c:if test="${signList[0].as_status == 1}">
+															<fmt:formatDate value="${signList[0].as_date}" pattern="yy/MM/dd" />
+														</c:if></td>
+													<td><c:if test="${signList[1].as_status == 1}">
+															<fmt:formatDate value="${signList[1].as_date}" pattern="yy/MM/dd" />
+														</c:if></td>
 												</tr>
 											</table>
 										</div>
