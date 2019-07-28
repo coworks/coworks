@@ -42,9 +42,12 @@ public class CalendarController {
 		System.out.println("세션값 : "+employee);
 		System.out.println("아이디 : "+employee.getEmp_no());
 		
-		 
+		Calendar cal=new Calendar();
+		cal.setCal_holder(Integer.toString(employee.getEmp_no()));
+		cal.setCal_type(employee.getDept_code());
+		
 		System.out.println("넘어가나?");
-		List<Calendar> list = calService.selectListAllCalendar(employee.getEmp_no());	
+		List<Calendar> list = calService.selectListAllCalendar(cal);	
 		
 		System.out.println("select 확인" +list);
 		mv.addObject("list", list);
@@ -62,7 +65,7 @@ public class CalendarController {
 		Calendar cal=new Calendar();
 		// 나중에 11에  emp_no 세션받아서 보내야함
 		if(cal_type.equals("부서")) {
-			cal.setCal_holder("1");	// 부서코드 넣기 나중에수정
+			cal.setCal_holder(employee.getDept_code());	// 부서코드 넣기 나중에수정
 		}else {
 			cal.setCal_holder(emp_no);	 
 		}
@@ -88,7 +91,7 @@ public class CalendarController {
 		 
 		// 나중에 11에  emp_no 세션받아서 보내야함
 		if((calendar.getCal_type()).equals("부서")) {
-			calendar.setCal_holder("1");	// 부서코드 넣기 나중에수정
+			calendar.setCal_holder(employee.getDept_code());	// 부서코드 넣기 나중에수정
 		}else {
 			calendar.setCal_holder(Integer.toString(employee.getEmp_no()));	// 사용자 고유 번호 넣기
 		}

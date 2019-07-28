@@ -5,8 +5,8 @@
 <mapper namespace="calendar">
 
 	
- 	<select id="selectListAllCalendar" parameterType="_int" resultType="calendar">
-		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{emp_no}
+ 	<select id="selectListAllCalendar" parameterType="calendar" resultType="calendar">
+		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{cal_holder} OR CAL_HOLDER=#{cal_type}
 	</select>
 	
 	

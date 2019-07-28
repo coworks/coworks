@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.coworks.calendar.model.vo.Calendar;
+import com.kh.coworks.employee.model.vo.Employee;
 
 
 @Repository
@@ -18,9 +19,9 @@ public class CalendarDaoImpl implements CalendarDao {
 	
 	
 	@Override
-	public List<Calendar> selectListAllCalendar(int emp_no) {
+	public List<Calendar> selectListAllCalendar(Calendar calendar) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("calendar.selectListAllCalendar",emp_no);
+		return sqlSession.selectList("calendar.selectListAllCalendar",calendar);
 	}
 
 

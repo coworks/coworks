@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.coworks.calendar.model.dao.CalendarDao;
 import com.kh.coworks.calendar.model.vo.Calendar;
 
+
 @Service
 public class CalendarServiceImpl implements CalendarService {
 	
@@ -17,9 +18,9 @@ public class CalendarServiceImpl implements CalendarService {
 	
 	
 @Override
-	public List<Calendar> selectListAllCalendar(int emp_no) {
+	public List<Calendar> selectListAllCalendar(Calendar calendar) {
 		// TODO Auto-generated method stub
-		return calDao.selectListAllCalendar(emp_no);
+		return calDao.selectListAllCalendar(calendar);
 	}
 
 

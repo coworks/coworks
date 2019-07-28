@@ -66,7 +66,13 @@ public class AttendanceController {
 		int result=attendanceService.insertAttendanceCome(attend);
 		
 		Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
-		List<com.kh.coworks.calendar.model.vo.Calendar> calendar=calendarSerivce.selectListAllCalendar(employee.getEmp_no());
+		
+		// 나중에 수정해야함 꼮!!!
+		com.kh.coworks.calendar.model.vo.Calendar cal1=new com.kh.coworks.calendar.model.vo.Calendar();
+		cal1.setCal_holder(Integer.toString(employee.getEmp_no()));
+		cal1.setCal_type(employee.getDept_code());
+		
+		List<com.kh.coworks.calendar.model.vo.Calendar> calendar=calendarSerivce.selectListAllCalendar(cal1);
 		 System.out.println("calendar : "+calendar);
 		mv.addObject("atten",list);	// index에 출근시간, ip시간 보여주기!!!! 나중에~~~
 		mv.addObject("list",calendar); 

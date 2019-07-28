@@ -14,7 +14,7 @@ public interface CalendarService {
 	
 	List<Calendar> selectListCalendar(Calendar calendar);
 	
-	List<Calendar> selectListAllCalendar(int emp_no);
+	List<Calendar> selectListAllCalendar(Calendar calendar);
 	
 	int insertCalendar(Calendar calendar);
 	/*
