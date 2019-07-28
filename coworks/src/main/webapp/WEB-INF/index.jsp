@@ -54,35 +54,49 @@
 										<c:out value="${today}" />
 									</h4>
 									<p class="card-text" id="time">
-										<span id="span1"> 출근 시간</span>: ${atten.atten_attTime }	</br>
-										<span id="span2">IP </span>: ${atten.atten_attIP }
+									
+										<span id="span1"> 
+											출근 시간 : ${atten.atten_attTime } &nbsp; &nbsp; &nbsp; &nbsp;
+											출근 IP : ${atten.atten_attIP }
+										</span>
+										
+									<c:if test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}" >
+										<br><span id="span2">
+											퇴근 시간 : ${atten.atten_leaveTime} &nbsp; &nbsp; &nbsp; &nbsp;
+											퇴근 IP : ${atten.atten_leaveIP}
+										</span><br>
+									 </c:if>
 										
 									 
 									 </p> 
-									  
-									<button type="button" id="leavebutton" onclick="onclick1(${atten.atten_no});" class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
+									 <c:choose>
+										 <c:when test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}" >
+											<button type="button" id="leaveSucess" class="btn waves-effect waves-light btn-block btn-outline-info" disabled="true">퇴근완료</button>
+										 </c:when>
+										   <c:otherwise>
+											<button type="button" id="leavebutton" onclick="onclick1(${atten.atten_no});" class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
+										 </c:otherwise>
+									 </c:choose>
 								</div>
 							</div>
 						</div>
 						
 						<script>
-		                   function onclick1(atten_no){ 
+						function onclick1(atten_no){ 
 							$.ajax({
 								url : "${pageContext.request.contextPath}/mypage/attendanceleave.do",
-		                          data : {atten_no :atten_no},
-		                          type:"post",
 		                          dataType : "json", 
-		                          success : function(data){
-		                        	  alert("성공~");
-		                              $('#leavebutton').css("background-color","blue");
-		                              $('#leavebutton').html();
-		                              $('#span1').html("퇴근 완료");
-		                          },error: function(data){
+		                          data : {atten_no :atten_no}, 
+		                          success : function(response){
+		                      	 	 location.href="${pageContext.request.contextPath}/attendancecome.do";
+		                          },error: function(){
 		                        	  alert("실패~"); 
 		                          }  
-							})
+							});
 							
 						};
+						
+						
 						
 						</script>
 						<div class="card">
