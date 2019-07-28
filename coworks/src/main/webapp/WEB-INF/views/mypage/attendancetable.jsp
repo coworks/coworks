@@ -26,11 +26,15 @@
                             
                             
 	                            <div class="align-self-center">
-	                                <h4 class="card-title float-left">ooo 님의 근태 현황</h4> 
+	                                <h4 class="card-title float-left">${sessionScope.employee.emp_name} 님의 근태 현황</h4> 
 	                                <div class=" align-self-center">
 	                      			  <div class="dropdown float-right ">
 				                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> January 2019 </button>
-				                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="#">February 2019</a> <a class="dropdown-item" href="#">March 2019</a> <a class="dropdown-item" href="#">April 2019</a> </div>
+				                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
+				                            	<input class="dropdown-item" href="#">February 2019
+				                            	<a class="dropdown-item" href="#">March 2019</a> 
+				                            	<a class="dropdown-item" href="#">April 2019</a> 
+				                            </div>
 				                      </div>
 				                    </div>
 				                    	
@@ -65,7 +69,7 @@
                                                 <td>${attend.atten_attIP}</td>
                                                 <td>${attend.atten_leaveIP}</td>  
                                             </tr>
-                                           </c:forEach>
+                                         </c:forEach>
                                              
                                         </tbody>
                                     </table>

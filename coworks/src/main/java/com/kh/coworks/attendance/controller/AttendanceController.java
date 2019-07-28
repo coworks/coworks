@@ -1,5 +1,6 @@
 package com.kh.coworks.attendance.controller;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Date;
@@ -9,10 +10,10 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -85,7 +86,7 @@ public class AttendanceController {
 	
 	
 	@RequestMapping("/mypage/attendanceleave.do") 
-	public ModelAndView insertAttendaceLeave(HttpServletRequest request,@RequestParam() String atten_no,Model model) { 
+	public void insertAttendaceLeave(HttpServletRequest request,HttpServletResponse response,@RequestParam() String atten_no,Model model) throws IOException { 
 		System.out.println("atten_no값 : "+atten_no);
 		HttpSession session=request.getSession(false);
 		Employee employee=(Employee) session.getAttribute("employee"); 
@@ -115,12 +116,9 @@ public class AttendanceController {
 		System.out.println("attendance 값 : "+attend);
 		int result=attendanceService.updateAttendanceLeave(attend);
 		System.out.println("result값 :"+result);
-		Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
+		//Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
+		response.getWriter().print(true);
 		
-		mv.addObject("atten",list);	    
-		mv.setViewName("../index");
-		
-	  return mv;
 	
 	}
 	
