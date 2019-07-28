@@ -56,8 +56,8 @@
 									<p class="card-text" id="time">
 									
 										<span id="span1"> 
-											출근 시간 : ${atten.atten_attTime } &nbsp; &nbsp; &nbsp; &nbsp;
-											출근 IP : ${atten.atten_attIP }
+											출근 시간 : ${atten.atten_attTime} &nbsp; &nbsp; &nbsp; &nbsp;
+											출근 IP : ${atten.atten_attIP}
 										</span>
 										
 									<c:if test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}" >
