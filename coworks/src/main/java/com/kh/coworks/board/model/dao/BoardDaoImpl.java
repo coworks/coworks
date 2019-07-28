@@ -60,8 +60,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int deleteBusinessdoc(int boardNo) {
-		return sqlSession.delete("board.deleteBusinessdoc", boardNo);
+	public int deleteBusinessdoc(Board b) {
+		return sqlSession.delete("board.deleteBusinessdoc", b);
 	}
 
 	@Override
@@ -79,5 +79,11 @@ public class BoardDaoImpl implements BoardDao {
 
 
 	//////////////////////////////////////////////////////////////
-
+	// 부서 리스트
+	@Override
+	public List<String> selectDeptList() {
+		return sqlSession.selectList("approval.selectApprovalFormFolderList");
+	}
+	
+	
 }

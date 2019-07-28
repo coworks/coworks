@@ -33,7 +33,7 @@ public class BoardServiceImpl implements BoardService {
 		int result = BOARD_SRV_ERROR;
 		
 		result = boardDao.insertBusinessdoc(board);
-		if(result == BOARD_SRV_ERROR) throw new BoardException("업무 자료실 글 추가 실패");
+		if(result == BOARD_SRV_ERROR) throw new BoardException("자료실 글 추가 실패");
 		
 		if(attachList.size() > 0) {
 			for(Attach at : attachList) {
@@ -48,6 +48,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board selectOnebusinessdocdetail(Board b) {
+		
 		return boardDao.selectOnebusinessdocdetail(b);
 	}
 	
@@ -61,33 +62,31 @@ public class BoardServiceImpl implements BoardService {
 		
 		int result = BOARD_SRV_ERROR;
 		
-//		List<Attach> originList
-//			= boardDao.selectBusinessdocAttachList(board.getBo_no());
-//		
-//		result = boardDao.updateBusinessdocview(board);
-//	
-//		if(result == BOARD_SRV_ERROR) throw new BoardException("업무 자료 게시글 수정 실패!");
-//		
-//		if(originList.size() > 0) {
-//			
-//			result = boardDao.deleteBusinessdoc(board.getBo_no());
-//			
-//			if(result == BOARD_SRV_ERROR) throw new BoardException("파일 첨부 에러!");
-//		}
-//		
-//		if(attachList.size() > 0) {
-//			for(Attach at : attachList) {
-//				result = boardDao.updateBusinessdocAttach(at);
-//				if(result == BOARD_SRV_ERROR) throw new BoardException();
-//			}
-//		}
+		List<Attach> originList = boardDao.selectBusinessdocAttachList(board);
+		
+		result = boardDao.updateBusinessdocview(board);
+		
+		if(result == BOARD_SRV_ERROR) throw new BoardException();
+		
+		if(originList.size() > 0) {
+			result = boardDao.deleteBusinessdocAttach(board.getBo_no());
+			
+			if(result == BOARD_SRV_ERROR) throw new BoardException();
+		}
+		
+		if(attachList.size() > 0) {
+			for(Attach at : attachList) {
+				result = boardDao.updateBusinessdocAttach(at);
+				if(result == BOARD_SRV_ERROR) throw new BoardException();
+			}
+		}
 		
 		return result;
 	}
 
 	@Override
-	public int deleteBusinessdoc(int boardNo) {
-		int result = boardDao.deleteBusinessdoc(boardNo);
+	public int deleteBusinessdoc(Board b) {
+		int result = boardDao.deleteBusinessdoc(b);
 //		
 //		if(result > BOARD_SRV_ERROR && boardDao.selectBusinessdocAttachList(boardNo).size()>0) {
 //			result = boardDao.deleteBusinessdocAttach(boardNo);
@@ -102,6 +101,14 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int deleteBusinessdocFile(int attNo) {
 		return boardDao.deleteBusinessdocFile(attNo);
+	}
+
+	
+	
+	// 부서 리스트
+	@Override
+	public List<String> selectDeptList(){
+		return boardDao.selectDeptList();
 	}
 
 

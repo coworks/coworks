@@ -32,10 +32,15 @@ public interface BoardService {
 	int updateBusinessdocview(Board board, List<Attach> attachList);
 	
 	// 게시글 삭제
-	int deleteBusinessdoc(int boardNo);
+	int deleteBusinessdoc(Board b);
 	
 	// 파일 한 개 삭제
 	int deleteBusinessdocFile(int attNo);
+
+	
+	
+	// 부서 리스트
+	List<String> selectDeptList();
 
 
 	

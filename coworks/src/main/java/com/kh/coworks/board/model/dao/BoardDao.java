@@ -36,13 +36,18 @@ public interface BoardDao {
 	int updateBusinessdocAttach(Attach att);
 	
 	// 게시글 삭제
-	int deleteBusinessdoc(int boardNo);
+	int deleteBusinessdoc(Board b);
 	
 	// 첨부파일 전체 삭제
 	int deleteBusinessdocAttach(int boardNo);
 	
 	// 파일 한 개 삭제
 	int deleteBusinessdocFile(int attNo);
+
+	
+	
+	// 부서 리스트
+	List<String> selectDeptList();
 
 	
 

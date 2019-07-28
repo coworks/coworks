@@ -7,8 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class Attach implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9090L;
+	
 	private int attach_no;// �ε���
-	private String bo_no;// �Խñ��ε���
+	private int bo_no;// �Խñ��ε���
 	private String attach_oriname;// ���ϱ����̸�
 	private String attach_rename;// ���Ϻ����̸�
 	private String attach_path;// ���ϰ��
@@ -18,7 +23,7 @@ public class Attach implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Attach(int attach_no, String bo_no, String attach_oriname, String attach_rename, String attach_path) {
+	public Attach(int attach_no, int bo_no, String attach_oriname, String attach_rename, String attach_path) {
 		super();
 		this.attach_no = attach_no;
 		this.bo_no = bo_no;
@@ -35,11 +40,11 @@ public class Attach implements Serializable {
 		this.attach_no = attach_no;
 	}
 
-	public String getBo_no() {
+	public int getBo_no() {
 		return bo_no;
 	}
 
-	public void setBo_no(String bo_no) {
+	public void setBo_no(int bo_no) {
 		this.bo_no = bo_no;
 	}
 

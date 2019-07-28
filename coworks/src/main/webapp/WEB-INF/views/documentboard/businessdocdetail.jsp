@@ -72,7 +72,7 @@
                                         <!-- 세션에서 id를 가져와서 등록한 사람이랑 일치하는 경우에만 보이도록 한다. -->
                                          <div style="text-align : right;">
                                             	<a class="btn btn-warning waves-effect waves-light" onclick="updateView();" style="color:white;"><i class="ti-pencil"></i>수정</a> &nbsp;
-                                            	<a href="#" class="btn btn-danger waves-effect waves-light"><i class="fa fa-times"></i>삭제</a>
+                                            	<a href="#" class="btn btn-danger waves-effect waves-light" onclick="deleteboard();"><i class="fa fa-times"></i>삭제</a>
                                             </div>
                                             
                                             
@@ -99,6 +99,13 @@
 			console.log("bo_no=${board.bo_no}");
 			console.log("emp_no=${board.emp_no}");
 			location.href="${pageContext.request.contextPath}/documentboard/${bo_code}/${board.bo_no}/${board.emp_no}";			
+		}
+		
+		function deleteboard(){
+			console.log("bo_code=${bo_code}");
+			console.log("bo_no=${board.bo_no}");
+			console.log("emp_no=${board.bo_content}");
+			location.href="${pageContext.request.contextPath}/documentboard/${bo_code}/${board.bo_no}/${board.bo_content}";		
 		}
 	</script>
 </body>

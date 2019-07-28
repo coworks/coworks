@@ -1,23 +1,29 @@
 package com.kh.coworks.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.coworks.board.model.service.BoardService;
+import com.kh.coworks.board.model.vo.Attach;
 import com.kh.coworks.board.model.vo.Board;
 import com.kh.coworks.common.util.Utils;
-import com.kh.coworks.employee.model.vo.Employee;
 
 @Controller
 public class BoardController {
@@ -56,12 +62,38 @@ public class BoardController {
 	}
 	
 	// (글쓰기)
-	@RequestMapping("documentboard/businessdocForm.do")
-	public String insertBusinessdoc() {
+	@RequestMapping("/documentboard/businessdocForm.do")
+	public String insertBusinessdocForm() {
 		return "documentboard/businessdocForm";
 	}
 	
 	// (글쓰기 등록)
+	@RequestMapping(value="/documentboard/docboard", method=RequestMethod.POST)
+	public String insertBusinessdoc(Board board, Model model, HttpSession session,
+				@RequestParam(value="upFile", required=false) MultipartFile[] upFile,
+				@RequestBody Board inboard) {
+		
+		List<Attach> list = new ArrayList<>();
+		System.out.println("컨트롤러에 도착했닝?");
+		int result = boardService.insertBusinessdoc(inboard, list);
+		
+		String boardCode = inboard.getBo_code();
+		int boardNo = inboard.getBo_no();
+		
+		String loc = "/documentboard/{boardCode}/{boardNo}"; //성공시 여기로 가도록 잡아준다.
+		String msg = "";
+		
+		if(result > 0) {
+			msg = "등록 성공!";
+		} else {
+			msg = "게시글 등록 실패!";
+		}
+		
+		model.addAttribute("loc", loc)
+		.addAttribute("msg", msg);
+		
+		return "documentboard/businessdoclist";
+	}
 	
 	// (게시글 한 개 조회)
 	@RequestMapping(value="/documentboard/{boardCode}/{boardNo}", method=RequestMethod.GET)
@@ -96,21 +128,153 @@ public class BoardController {
 		b.setBo_code(boardCode);
 		b.setBo_no(boardNo);
 		b.setEmp_no(bo_emp_no);
-		
+		b.setBo_content(b.getBo_content());
 		model.addAttribute("board", boardService.selectOnebusinessdocdetail(b))
 		.addAttribute("attachmentList", boardService.selectBusinessdocAttachList(b));
-		
-		
 		return "documentboard/businessdocUpdateView";
 	}
 	
 	// (수정 등록)
+	@RequestMapping(value="/documentboard/{boardCode}", method=RequestMethod.PUT)
+	public String updateBusinessdoc(
+			HttpSession session, Board board, Model model,
+			@PathVariable("boardCode") String boardCode,
+			@PathVariable("boardNo") int boardNo,
+			@RequestParam(value="upFile", required=false)
+			MultipartFile[] upFiles	) {
+		System.out.println("컨트롤러 도착");
+		int bo_no = board.getBo_no();
+		
+		// 원본 게시글 조회
+		Board originBoard = boardService.selectOnebusinessdocdetail(board);
+		originBoard.setBo_title(board.getBo_title());
+		originBoard.setBo_content(board.getBo_content());
+		
+//		List<Attach> list = boardService.selectBusinessdocAttachList(board);
+		
+		String saveDir_bo = session.getServletContext().getRealPath("resources/boardUpload");
+
+		List<Attach> list = boardService.selectBusinessdocAttachList(board);
+		System.out.println("여기 와유??????");
+		if (list == null)
+			list = new ArrayList<Attach>();
+
+		File dir = new File(saveDir_bo);
+
+		if (dir.exists() == false)
+			dir.mkdirs();
+
+		int idx = 0;
+		System.out.println("여기와유22222222????????");
+		for (MultipartFile f : upFiles) {
+			Attach at = null;
+
+			if (!f.isEmpty()) {
+				if (list.size() > idx) {
+					boolean idDeleted = new File(saveDir_bo + "/" + list.get(idx).getAttach_rename()).delete();
+
+					at = list.get(idx);
+				} else {
+					at = new Attach();
+					at.setBo_no(bo_no);
+
+					list.add(at);
+				}
+				String originName = f.getOriginalFilename();
+				String ext = originName.substring(originName.lastIndexOf(".") + 1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+				int rndNum = (int) (Math.random() * 1000);
+
+				String renamedName = sdf.format(new Date()) + "_" + rndNum + "." + ext;
+				System.out.println("여긴와유33333333????????");
+				try {
+					f.transferTo(new File(saveDir_bo + "/" + renamedName));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+
+				at.setAttach_oriname(originName);
+				at.setAttach_rename(renamedName);
+
+				list.set(idx, at);
+			}
+			idx++;
+		}
+		 
+		System.out.println("여긴와유44444444444444?????");
+		int result = boardService.updateBusinessdocview(board, list);
+		
+		
+		
+		if(result > 0) {
+			System.out.println("게시글 수정 성공------------------------------------");
+		} else {
+			System.out.println("게시글 수정 실패!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");		}
+		
+		return "documentboard/businessdocdetail";
+		
+		
+	}
+	
+	
+	
 	
 	// (게시글 삭제)
+	@RequestMapping(value="/documentboard/${bo_code}/${bo_no}/${bo_content")
+	public String deletebusinessdocboard(
+			@PathVariable("bo_code") String bo_code,
+			@PathVariable("bo_no") int bo_no,
+			@PathVariable("bo_content") String bo_content,
+			HttpSession session, Model model
+			) {
+		
+		Board b = new Board();
+		
+		b.setBo_code(bo_code);
+		b.setBo_no(bo_no);
+		b.setBo_content(bo_content);
+		
+			
+		List<Attach> list 
+		= boardService.selectBusinessdocAttachList(b);
+		
+		String saveDir = session.getServletContext().getRealPath("resources/boardUpload");
+		
+		if(list != null) {
+			for (Attach at : list) { // 첨부파일 하나씩 꺼내서
+
+				new File(saveDir + "/" + at.getAttach_rename()).delete();
+									// 이 저장경로에 있는 파일을 삭제한다.
+			}
+		}
+		
+		int result = boardService.deleteBusinessdoc(b);
+		
+		
+		
+		String loc = "/documentboard/{bo_code}";
+		
+		
+		if(result > 0) {
+			System.out.println("게시글 삭제 성공");
+		} else {
+			System.out.println("게시글 삭제 실패");
+		}
+		
+		model.addAttribute("loc", loc);
+		
+		return "documentboard/businessdoclist";
+		
+		
+	}
+	
 	
 	// (파일 한 개 삭제)
 
-	/*
+	
+	
+	
+	/* 세션 샘플
 	@RequestMapping("/mypage/attendanceview.do")
 	   public ModelAndView selectListAttendance(HttpServletRequest request) {
 	       ModelAndView mv=new ModelAndView();
@@ -125,4 +289,83 @@ public class BoardController {
 	   }
 	*/
 
+	
+	//부서별 게시판 목록
+	@RequestMapping("/documentboard/deptdocSelect.do")
+	public String deptdocSelect(Model model) {
+		List<String> list = boardService.selectDeptList();
+
+		model.addAttribute("folder", list);
+
+		return "documentboard/deptdoclist";
+	}
+	
+	//※첨부파일 다운로드! (만약을 위해 알려줌)※
+		// download 태그로 대체 가능하나
+		// 만약을 위해 구현하는 방법도 익히고 있어야 한다. 
+	/*	@RequestMapping("/board/fileDownload.do")
+		public void fileDownload(@RequestParam String oName,
+								   @RequestParam String rName,
+								   HttpServletRequest request,
+								   HttpServletResponse response){
+			
+			//파일저장디렉토리
+			String saveDirectory = request.getSession().getServletContext().getRealPath("/resources/upload");	
+		
+			BufferedInputStream bis = null;
+			ServletOutputStream sos = null;
+				 
+			try {
+				sos = response.getOutputStream();
+				File savedFile = new File(saveDirectory + "/" + rName);
+				response.setContentType("application/octet-stream; charset=utf-8");
+
+				// 한글 파일 명 처리 : 브라우져에 따른 인코딩 처리 선택
+				String resFilename = "";
+				boolean isMSIE = request.getHeader("user-agent").indexOf("MSIE") != -1 
+							  || request.getHeader("user-agent").indexOf("Trident") != -1;
+				System.out.println("isMSIE="+isMSIE);
+				if(isMSIE){
+					// ie는 utf-8 인코딩을 명시적으로 선언 해줘야 한다. 
+					// 또한 공백을 의미하는 ' '기호가 +로 변하기 때문에, 이를 %20로 치환해준다.
+					// 그럼 '+'는...?? ==> '+'기호는 그에 맞는 유니코드로 치환되기 때문에 상관 X
+					resFilename = URLEncoder.encode(oName, "UTF-8"); //java.net import~
+					System.out.println("ie : "+resFilename);//ie : %EC%97%AC%EB%9F%AC%EB%B6%84+%ED%99%94%EC%9D%B4%ED%8C%85.txt
+										
+					resFilename = resFilename.replaceAll("\\+", "%20");
+					System.out.println("ie : "+resFilename);//ie : %EC%97%AC%EB%9F%AC%EB%B6%84+%ED%99%94%EC%9D%B4%ED%8C%85.txt
+				} else {
+					// 다른 웹 브라우저 중 ISO-8859-1(EUC-KR)로 되어 있는 경우 인코딩 진행
+					resFilename = new String(oName.getBytes("UTF-8"),"ISO-8859-1");
+					System.out.println("not ie : "+resFilename);
+					
+				}
+				response.addHeader("Content-Disposition",
+						"attachment; filename=\"" + resFilename + "\"");
+
+				//파일크기지정
+				response.setContentLength((int)savedFile.length());
+
+				FileInputStream fis = new FileInputStream(savedFile);
+				bis = new BufferedInputStream(fis);
+				int read = 0;
+
+				while ((read = bis.read()) != -1) {
+					sos.write(read);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				
+				try {
+					sos.close();
+					bis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+
+		} */
 }

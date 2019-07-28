@@ -13,10 +13,9 @@
 
 <!-- wysihtml5 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/bootstrap-wysihtml5.css" />
-
 <!-- Dropzone css -->
 <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
-
+    
 
 
 
@@ -44,6 +43,7 @@
 							
 								
 								<div class="col-xlg-9 col-lg-8 col-md-7 align-self-center">
+								<form class="form-all" onsubmit="return validate();" enctype="multipart/form-data">
 									<div class="card-body" style="margin-bottom: 7%;">
 									<h3 class="card-title text-primary">글 수정하기</h3>
 									<div class="form-group">
@@ -57,22 +57,21 @@
 									<h4 style="float:right; padding-top:5px;">작성자 : ${board.emp_no }</h4>
 									</div>
 									<div class="form-group">
-											<input class="form-control" value="${board.bo_title }" readonly>
+											<input class="form-control" name="bo_upd_title" value="${board.bo_title }" readonly required>
 										</div>
 										<div class="form-group">
 									
-											<textarea class="textarea_editor form-control" rows="15"
-												placeholder="내용을 입력하세요."></textarea>
+											<textarea class="textarea_editor form-control" name="bo_udp_content" rows="15">
+											${board.bo_content }
+											</textarea>
 											
 											</div>
 										<h4>
 											<i class="ti-link"></i> 첨부 파일
 										</h4>
-										 <form action="#" class="dropzone" id="myDropzone" method="POST" enctype="multipart/form-data">
-                                            <div class="fallback">
-                                                <input name="file" type="file" multiple />
-                                            </div>
-                                        </form>
+										 <div id='file-list'>
+                                  		  <input type="button" id='button-add-file' value='파일 추가' class="btn  btn-outline-warning" />
+                                		</div>
                                         
                                         <div style="float:right;">
 										<button type="submit" class="btn btn-success mt-3">
@@ -83,7 +82,7 @@
 											<i class=" far fa-times-circle"></i> 취소
 										</button>
 										</div>
-									
+									</form>
 									</div>
 								</div>
 							
@@ -99,23 +98,26 @@
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	
-	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/bootstrap-wysihtml5.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/dropzone-master/dist/dropzone.js"></script>
    <script>
-    $(document).ready(function() {
-        $('.textarea_editor').wysihtml5();
-    });
+   $(document).ready(function() {
+       $('.textarea_editor').wysihtml5();
+   });
     
-    var myDropzone = new Dropzone("#myDropzone",{
-        addRemoveLinks : true,
-        renameFile :  function(file){
-           var date = new Date();
-           var time =  date.getTime();
-           var ext = file.name.lastIndexOf(".")+1;
-           return time+date+"."+ext;
-        }
-     });
+   var count = 0;
+   $('#button-add-file').on("click",function(){
+      var html = "<div id='item_"+count+"'>";
+      html += "<input type='file' name='upFile' multiple/>";
+      html += "<input type='button' onclick='deleteBtn(this)' class='btn btn-danger' value='삭제'/></div>";
+      count++;
+      $("#file-list").append(html);
+   });
+   
+   function deleteBtn(obj) {
+      $(obj).parent().remove();
+   }
     
     function goback(){
     	console.log("뒤로가기. --> 알람이 뜨면서 작성 취소할건지 물어봐야 함 / Form, UpdateView 둘 다 해야 한다.")
@@ -123,7 +125,44 @@
     	
     }
     
+    function validate(){
+		var content = $("[name=bo_udp_content]").val();
+		if(content.trim().length==0){
+			alert("내용을 입력하세요");
+			return false;
+		}
+		return true;
+	}
     
+    $("#form-all .btn-success").on("click",function(){
+    	var param = {};
+    	param.bo_content = $("#form-all [name=bo_udp_content]").val();
+    	param.bo_files = $("#form-all [name=file]").val();
+    	
+    	var jsonStr = JSON.stringify(param);
+		console.log(jsonStr);
+		
+		/* $.ajax({
+            url  : "${pageContext.request.contextPath}/documentboard/${board.bo_no}/${board.bo_code}",
+            data : jsonStr,
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            type : "post",
+            success : function(data){
+                console.log(data);
+            },
+            error : function(jqxhr, textStatus, errorThrown){
+                console.log("ajax 처리 실패 : ",jqxhr,textStatus,errorThrown);
+            }
+        }); */
+		
+		
+    });
+    
+    
+   /*  function update(){
+    	location.href="${pageContext.request.contextPath}/documentboard/${board.emp_no}/${board.bo_title}";
+    } */
     
 	</script>
 	
