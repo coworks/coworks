@@ -1,6 +1,7 @@
 package com.kh.coworks.attendance.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 		// TODO Auto-generated method stub
 		return attendancedao.selectListAttendance(emp_no);
 	}
+ 
+	@Override
+	public List<Attendance> selectTypeAttendance(Attendance attendance) {
+		// TODO Auto-generated method stub
+		return attendancedao.selectTypeAttendance(attendance);
+	}
+ 	
 	
 	
  

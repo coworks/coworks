@@ -13,25 +13,12 @@ public class Attendance implements Serializable {
 	private Date atten_date;// ����
 	private Time atten_attTime;// ��ٽð�
 	private Time atten_leaveTime;// ��ٽð�
+	private String atten_attLate;
+	private String atten_leaveEarly;
+	private String atten_hours;
 	private String atten_attIP;// ��پ�����
 	private String atten_leaveIP;// ��پ�����
 	private String atten_state;// ���»���
-	public Attendance() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Attendance(int atten_no, int emp_no, Date atten_date, Time atten_attTime, Time atten_leaveTime,
-			String atten_attIP, String atten_leaveIP, String atten_state) {
-		super();
-		this.atten_no = atten_no;
-		this.emp_no = emp_no;
-		this.atten_date = atten_date;
-		this.atten_attTime = atten_attTime;
-		this.atten_leaveTime = atten_leaveTime;
-		this.atten_attIP = atten_attIP;
-		this.atten_leaveIP = atten_leaveIP;
-		this.atten_state = atten_state;
-	}
 	public int getAtten_no() {
 		return atten_no;
 	}
@@ -62,6 +49,24 @@ public class Attendance implements Serializable {
 	public void setAtten_leaveTime(Time atten_leaveTime) {
 		this.atten_leaveTime = atten_leaveTime;
 	}
+	public String getAtten_attLate() {
+		return atten_attLate;
+	}
+	public void setAtten_attLate(String atten_attLate) {
+		this.atten_attLate = atten_attLate;
+	}
+	public String getAtten_leaveEarly() {
+		return atten_leaveEarly;
+	}
+	public void setAtten_leaveEarly(String atten_leaveEarly) {
+		this.atten_leaveEarly = atten_leaveEarly;
+	}
+	public String getAtten_hours() {
+		return atten_hours;
+	}
+	public void setAtten_hours(String atten_hours) {
+		this.atten_hours = atten_hours;
+	}
 	public String getAtten_attIP() {
 		return atten_attIP;
 	}
@@ -80,15 +85,35 @@ public class Attendance implements Serializable {
 	public void setAtten_state(String atten_state) {
 		this.atten_state = atten_state;
 	}
-	
-	
-	
+	public Attendance() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Attendance(int atten_no, int emp_no, Date atten_date, Time atten_attTime, Time atten_leaveTime,
+			String atten_attLate, String atten_leaveEarly, String atten_hours, String atten_attIP, String atten_leaveIP,
+			String atten_state) {
+		super();
+		this.atten_no = atten_no;
+		this.emp_no = emp_no;
+		this.atten_date = atten_date;
+		this.atten_attTime = atten_attTime;
+		this.atten_leaveTime = atten_leaveTime;
+		this.atten_attLate = atten_attLate;
+		this.atten_leaveEarly = atten_leaveEarly;
+		this.atten_hours = atten_hours;
+		this.atten_attIP = atten_attIP;
+		this.atten_leaveIP = atten_leaveIP;
+		this.atten_state = atten_state;
+	}
 	@Override
 	public String toString() {
 		return "Attendance [atten_no=" + atten_no + ", emp_no=" + emp_no + ", atten_date=" + atten_date
-				+ ", atten_attTime=" + atten_attTime + ", atten_leaveTime=" + atten_leaveTime + ", atten_attIP="
-				+ atten_attIP + ", atten_leaveIP=" + atten_leaveIP + ", atten_state=" + atten_state + "]";
+				+ ", atten_attTime=" + atten_attTime + ", atten_leaveTime=" + atten_leaveTime + ", atten_attLate="
+				+ atten_attLate + ", atten_leaveEarly=" + atten_leaveEarly + ", atten_hours=" + atten_hours
+				+ ", atten_attIP=" + atten_attIP + ", atten_leaveIP=" + atten_leaveIP + ", atten_state=" + atten_state
+				+ "]";
 	}
+	
 	
 	
 

@@ -2,12 +2,19 @@ package com.kh.coworks.attendance.controller;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.sql.Date;
+import java.net.UnknownHostException; 
 import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.sql.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,16 +43,52 @@ public class AttendanceController {
 
 	
 	@RequestMapping("/attendancecome.do") 
-	public ModelAndView insertAttendaceCome( HttpServletRequest request,Model model) { 
+	public ModelAndView insertAttendaceCome( HttpServletRequest request,Model model) throws ParseException { 
 		HttpSession session=request.getSession(false);
 		Employee employee=(Employee) session.getAttribute("employee"); 
-		
+		//
 		 ModelAndView mv=new ModelAndView(); 
 		Calendar cal=new GregorianCalendar();
 		Attendance attend=new Attendance();
 		
 		 Time time=new Time(cal.getTimeInMillis());
 		 Date date=new Date(cal.getTimeInMillis());
+		 
+		 //**** 지각 계산
+		 String str1 = new SimpleDateFormat("yyyyMMdd").format(date);
+		 String str2 = new SimpleDateFormat("HHmm").format(time);
+		 System.out.println(str2);
+		 String reqDateStr=str1+"090000";	//최소 출근시간 기준
+		 System.out.println(reqDateStr);
+		  
+		//현재시간 Date
+		java.util.Date curDate = new java.util.Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
+		
+		//요청시간을 Date로 parsing 후 time가져오기
+		java.util.Date reqDate = dateFormat.parse(reqDateStr);
+		System.out.println("reqDate : "+reqDate);
+		long reqDateTime = reqDate.getTime();
+		System.out.println("longreqDate : "+reqDateTime);
+		//현재시간을 요청시간의 형태로 format 후 time 가져오기
+		curDate = dateFormat.parse(dateFormat.format(curDate));
+		long curDateTime = curDate.getTime();
+		System.out.println("curDate : "+curDateTime);
+		//분으로 표현
+		if(curDateTime-reqDateTime>0) {
+		long hour= (curDateTime - reqDateTime) / (1000*60*60);
+		long minute = (curDateTime - reqDateTime) / 60000-(hour*60);
+		long second=(curDateTime - reqDateTime) / 1000-((hour*60*60)+(minute*60));
+		String attLate=String.format("%02d:%02d:%02d", hour,minute,second);
+		 
+		 
+			attend.setAtten_attLate(attLate);
+		}else {
+			attend.setAtten_attLate(" ");
+		}
+		
+		 // ************
+		 
 		//2019-07-03 19:30:00.0
 		 InetAddress local;
 		 String ip = null;
@@ -79,6 +122,9 @@ public class AttendanceController {
 		mv.addObject("list",calendar); 
 		System.out.println("mv 들 : "+mv);
 		mv.setViewName("../index");
+		
+		  
+			
 	  return mv;
 	
 	}
@@ -86,7 +132,7 @@ public class AttendanceController {
 	
 	
 	@RequestMapping("/mypage/attendanceleave.do") 
-	public void insertAttendaceLeave(HttpServletRequest request,HttpServletResponse response,@RequestParam() String atten_no,Model model) throws IOException { 
+	public void insertAttendaceLeave(HttpServletRequest request,HttpServletResponse response,@RequestParam() String atten_no,Model model) throws IOException, ParseException { 
 		System.out.println("atten_no값 : "+atten_no);
 		HttpSession session=request.getSession(false);
 		Employee employee=(Employee) session.getAttribute("employee"); 
@@ -96,6 +142,40 @@ public class AttendanceController {
 		 Time time=new Time(cal.getTimeInMillis());
 		 Date date=new Date(cal.getTimeInMillis());
 		  
+		 //** 조퇴 및 총근무시간 계산
+		 String str1 = new SimpleDateFormat("yyyyMMdd").format(date);
+		 String str2 = new SimpleDateFormat("HHmm").format(time);
+		 System.out.println(str2);
+		 String reqDateStr=str1+"180000";	//최소 출근시간 기준
+		 System.out.println(reqDateStr);
+		  
+		//현재시간 Date
+		java.util.Date curDate = new java.util.Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
+		
+		//요청시간을 Date로 parsing 후 time가져오기
+		java.util.Date reqDate = dateFormat.parse(reqDateStr);
+		System.out.println("reqDate : "+reqDate);
+		long reqDateTime = reqDate.getTime();
+		System.out.println("longreqDate : "+reqDateTime);
+		//현재시간을 요청시간의 형태로 format 후 time 가져오기
+		curDate = dateFormat.parse(dateFormat.format(curDate));
+		long curDateTime = curDate.getTime();
+		System.out.println("curDate : "+curDateTime);
+		//분으로 표현
+		if(curDateTime-reqDateTime<0) {
+		long hour= (curDateTime - reqDateTime) / (1000*60*60);
+		long minute = (curDateTime - reqDateTime) / 60000-(hour*60);
+		long second=(curDateTime - reqDateTime) / 1000-((hour*60*60)+(minute*60));
+		String leaveEarly=String.format("%02d:%02d:%02d", hour,minute,second);
+		  System.out.println("leaveEarly : "+leaveEarly); 
+			attend.setAtten_leaveEarly(leaveEarly);
+		}else {
+			attend.setAtten_leaveEarly(" ");	
+		}
+		 
+		 
+		 
 		 InetAddress local;
 		 String ip = null;
 		 
@@ -107,16 +187,64 @@ public class AttendanceController {
 		     e1.printStackTrace();
 		 }
 		 
-		 
 		attend.setAtten_leaveIP(ip);	
 		attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
 		attend.setAtten_leaveTime(time); 	// 퇴근찍은 시간	 
 		int no=Integer.parseInt(atten_no);
-		attend.setAtten_no(no);
+		attend.setAtten_no(no); 
+		Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
+		
+		// 총 근무시간
+		Date datee=new Date(cal.getTimeInMillis());
+		 
+		 //**** 지각 계산
+		 String hourstr = new SimpleDateFormat("yyyyMMdd").format(datee);
+		 
+		 System.out.println(reqDateStr);
+
+		 String all2 = new SimpleDateFormat("HHmmss").format(list.getAtten_attTime().getTime());
+		 String a= hourstr+all2;
+		  
+			
+			//요청시간을 Date로 parsing 후 time가져오기
+			java.util.Date hours = dateFormat.parse(a); 
+			long atten_attTime = hours.getTime();
+			//System.out.println("longatten_hours는??"+atten_hours);
+			
+			java.util.Date current = dateFormat.parse(dateFormat.format(curDate));
+			long atten_leaveTime = current.getTime();
+			
+			
+		System.out.println(atten_leaveTime);
+		System.out.println(atten_attTime);
+		if(atten_leaveTime-atten_attTime>0) {
+			long hour= (atten_leaveTime-atten_attTime) / (1000*60*60);
+			long minute = (atten_leaveTime-atten_attTime) / 60000-(hour*60);
+			long second=(atten_leaveTime-atten_attTime) / 1000-((hour*60*60)+(minute*60));
+			 
+			String hours2=String.format("%02d:%02d:%02d", hour,minute,second);
+			 
+				attend.setAtten_hours(hours2);
+			}else {
+				attend.setAtten_leaveEarly(" ");	
+			}
+			 
+		
+		System.out.println(list.getAtten_attLate());
+		System.out.println(attend.getAtten_leaveEarly());
+		//System.out.println("long1 : "+long1+" long2 :"+long2);
+		System.out.println(attend.getAtten_leaveTime());
+		
+		
+		
+		
+		
+		
+		
+		
 		System.out.println("attendance 값 : "+attend);
 		int result=attendanceService.updateAttendanceLeave(attend);
 		System.out.println("result값 :"+result);
-		//Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
 		response.getWriter().print(true);
 		
 	
@@ -134,6 +262,45 @@ public class AttendanceController {
 		mv.setViewName("mypage/attendancetable");
 		return mv;
 	}
+	
 	 
+	  @RequestMapping("/attendance/selectTypeAttendance.do") 
+	  public ModelAndView selectOneAttendance(HttpServletRequest request,@RequestParam("select_date") String select_date ) throws ParseException { 
+		  ModelAndView mv=new ModelAndView(); 
+		  HttpSession session=request.getSession(false); 
+		  Employee employee=(Employee) session.getAttribute("employee");
+		  
+		  System.out.println("select_date");
+		  
+		  String year=select_date.substring(2,4);
+		  int y=Integer.parseInt(year);
+		  String month=select_date.substring(6,8);
+		  int m=Integer.parseInt(month);
+		  System.out.println("m:"+m);
+		  System.out.println("year : "+year);
+		  System.out.println("month : "+month);
+		  String date1="20"+year+month+"01"; 
+		  System.out.println("Date1 : "+date1);
+		  Attendance attend=new Attendance();
+		  attend.setEmp_no(employee.getEmp_no());
+		    
+		  SimpleDateFormat dt = new SimpleDateFormat("yyyyMMdd"); 
+		  java.util.Date date = dt.parse(date1);  
+		  java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		 // DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+	   //     System.out.println("dateFormated date is : " + df.format(utilDate));
+		  attend.setAtten_date(sqlDate);
+		  System.out.println();
+		  System.out.println(attend.getAtten_date());
+			   
+		  List<Attendance> list=attendanceService.selectTypeAttendance(attend);
+	  
+	  mv.addObject("list",list); 
+	  mv.setViewName("mypage/attendancetable");
+	  return mv; 
+	  
+	  }
 
+
+ 
 }

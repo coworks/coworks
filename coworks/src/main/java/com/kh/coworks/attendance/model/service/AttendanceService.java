@@ -1,6 +1,7 @@
 package com.kh.coworks.attendance.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.coworks.attendance.model.vo.Attendance;
 import com.kh.coworks.calendar.model.vo.Calendar;
@@ -17,6 +18,8 @@ public interface AttendanceService {
 	int updateAttendanceLeave(Attendance attendance);
 
 	List<Attendance> selectListAttendance(int emp_no);
+
+	List<Attendance> selectTypeAttendance(Attendance attendance);
 	
 	 
 }

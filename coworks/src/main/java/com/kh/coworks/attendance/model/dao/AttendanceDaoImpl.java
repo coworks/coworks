@@ -1,6 +1,7 @@
 package com.kh.coworks.attendance.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,13 @@ public class AttendanceDaoImpl implements AttendanceDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("attendance.selectListAttendance",emp_no);
 	}
-
+ 
+	@Override
+	public List<Attendance> selectTypeAttendance(Attendance attendance) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("attendance.selectTypeAttendance",attendance);
+	}
+ 
 	
 
 }

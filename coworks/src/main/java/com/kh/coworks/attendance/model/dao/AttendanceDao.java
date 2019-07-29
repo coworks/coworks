@@ -1,6 +1,7 @@
 package com.kh.coworks.attendance.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.coworks.attendance.model.vo.Attendance;
 
@@ -16,4 +17,6 @@ public interface AttendanceDao {
 	int updateAttendanceLeave(Attendance attendance);
 	
 	List<Attendance> selectListAttendance(int emp_no);
+	
+	List<Attendance> selectTypeAttendance(Attendance attendance);
 }
