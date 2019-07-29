@@ -1,10 +1,11 @@
 package com.kh.coworks.mail.controller;
 
-import java.io.BufferedInputStream;
+import java.awt.FileDialog;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,28 +13,37 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.FileDataSource;
 import javax.mail.Address;
+import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.servlet.ServletOutputStream;
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.EmailAttachment;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.MultiPartEmail;
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.coworks.common.util.Utils;
@@ -48,20 +58,135 @@ public class MailController {
 	MailSetting mailSetting = new MailSetting();
 	MailSetting mailReceive = new MailSetting();
 	ArrayList<Mail> mailList = new ArrayList<>();
+	int remain;
 
 	@Autowired
 	MailService mailService;
 
-	@RequestMapping("/mail/app-mail.do")
-	public String selectInnerMail(Model model,
-			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage) {
+//	@RequestMapping("/mail/sendingMailMulti.do")
+//	public void sendingMailMulti(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request,
+//			HttpSession session) {
+//		String saveDir = session.getServletContext().getRealPath("/resources/mail/attach");
+//
+//		try {
+//			EmailAttachment attachment = new EmailAttachment();
+//			attachment.setURL(new URL("https://www.bloter.net/wp-content/uploads/2016/08/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0-%EC%82%AC%EC%A7%84.jpg"));
+//			attachment.setDisposition(EmailAttachment.ATTACHMENT);
+//			attachment.setDescription("test");
+//			attachment.setName(list.get(0).getAttach_rename());
+//
+//			MultiPartEmail email = new MultiPartEmail();
+//			email.addTo("mail_0318@naver.com");
+//			email.setFrom("Testing <test@test.com>");
+//			email.setSubject("Testing email");
+//			email.attach(attachment);
+//			email.setMsg("test email");
+//			email.send();
+//		} catch (EmailException ex) {
+//			System.out.println(ex.getMessage());
+//		} catch (MalformedURLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 
+	@RequestMapping("/mail/sendingMail.do")
+	public void sendingMail(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+
+		MimeMessage msg = mailSetting.sendingSetting(request);
+		try {
+
+			// ----------------------------------------
+			// ----------------------------------------
+			msg.setSentDate(new Date());
+			msg.setFrom(new InternetAddress(emp.getEmp_email(), "COWORKS : " + emp.getEmp_name()));
+			InternetAddress to = new InternetAddress(mail.getMail_to_email());
+			msg.setRecipient(Message.RecipientType.TO, to);
+			msg.setSubject(mail.getMail_subject(), "UTF-8");
+
+			msg.setText(mail.getMail_content(), "UTF-8");
+
+			if (msg != null)
+				Transport.send(msg);
+		} catch (AddressException ae) {
+			System.out.println("AddressException : " + ae.getMessage());
+		} catch (MessagingException me) {
+			System.out.println("MessageException : " + me.getMessage());
+			me.printStackTrace();
+			// 메일 계정 인증 관련 예외 처리
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping("/mail/authCheck.do")
+	public String authCheck(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+
+		if (emp.getEmp_email() == null || emp.getEmp_emailpassword() == null) {
+			return "mail/auth-check";
+		} else
+			return "redirect:innerMail.do";
+	}
+
+	@RequestMapping(value = "/mail/authCheckEnd.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int authCheckEnd(@RequestParam("emp_email") String emp_email,
+			@RequestParam("emp_emailpassword") String emp_emailpassword) {
+		MimeMessage msg = mailSetting.sendingSetting(emp_email, emp_emailpassword);
+		System.out.println("email : " + emp_email);
+		System.out.println("password : " + emp_emailpassword);
+		int rnd = (int) (Math.random() * 1000);
+		System.out.println("random : " + rnd);
+		try {
+			msg.setSentDate(new Date());
+			msg.setFrom(new InternetAddress("mail_0318@naver.com", "COWORKS"));
+			InternetAddress to = new InternetAddress(emp_email);
+			msg.setRecipient(Message.RecipientType.TO, to);
+			msg.setSubject("coworks 이메일 인증 메일입니다", "UTF-8");
+			msg.setText("해당 값을 입력해주세요 : " + rnd, "UTF-8");
+			if (msg != null)
+				Transport.send(msg);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return rnd;
+	}
+
+	@RequestMapping("/mail/saveEmail.do")
+	public String saveEmail(@RequestParam("emp_email") String emp_email,
+			@RequestParam("emp_emailpassword") String emp_emailpassword, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		emp.setEmp_email(emp_email);
+		emp.setEmp_emailpassword(emp_emailpassword);
+		int result = mailService.updateEmail(emp);
+		if (result > 0)
+			System.out.println("emp email 등록 성공");
+		else
+			System.out.println("실패");
+		return "redirect:innerMail.do";
+	}
+
+	@RequestMapping("/mail/innerMail.do") // 내부 메일 조회
+	public String selectInnerMail(Model model,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
 		int limit = 10;
-		List<Map<String, String>> mails = mailService.selectMailList(cPage, limit);
-		int totalContents = mailService.selectMailTotalContents();
+
+		List<Map<String, String>> mails = mailService.selectReceiveMailList(cPage, limit, emp.getEmp_email());
+		int totalContents = mailService.selectReceiveMailTotalContents();
 		// 이너 메일 조회
 
-		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "app-mail.do");
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "innerMail.do");
 
 		model.addAttribute("mails", mails).addAttribute("totalContents", totalContents)
 				.addAttribute("numPerPage", limit).addAttribute("pageBar", pageBar).addAttribute("type", "mail");
@@ -71,40 +196,85 @@ public class MailController {
 
 	}
 
-	@RequestMapping("/mail/app-email.do")
-	public String receiveEmail(Model model) {
+	@RequestMapping("/mail/deleteMail.do") // 휴지통 보기
+	public String selectDeleteMail(Model model,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			HttpServletRequest request) {
 
-//		ArrayList<Mail> mails = new ArrayList<>();
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		int limit = 10;
+
+		List<Map<String, String>> mails = mailService.selectDeleteMailList(cPage, limit, emp.getEmp_email());
+		int totalContents = mailService.selectDeleteMailTotalContents();
+		// 이너 메일 조회
+
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "innerMail.do");
+
+		model.addAttribute("mails", mails).addAttribute("totalContents", totalContents)
+				.addAttribute("numPerPage", limit).addAttribute("pageBar", pageBar).addAttribute("type", "mail");
+		return "mail/app-mail";
+	}
+
+	@RequestMapping("/mail/readCount") // 안읽은 메일 개수
+	public String readCount(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		System.out.println("readCount");
+		System.out.println(mailService.readCount(emp.getEmp_email()));
+		model.addAttribute("readCount", mailService.readCount(emp.getEmp_email()));
+		return "mail/mail-common";
+	}
+
+	@RequestMapping("/mail/outerMail.do") // 외부 메일 조회
+	public String selectOuterMail(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
 		Mail mail;
-		/*------------------------------------*/
-		Employee emp = new Employee();
-		emp.setEmp_email("mail_0318@naver.com");
-		emp.setEmp_email_password("*cjfjas2");
-		emp.setEmp_name("안현지");
-		/*------------------------------------*/
 
 		try {
 
-			Message[] messages = mailSetting.receiveSetting();
+			Message[] messages = mailSetting.receiveSetting(request);
 			System.out.println("messages.length---" + messages.length);
-			for (Message message : messages) {
-				mail = new Mail();
-				Address[] address = message.getFrom();
-				InternetAddress ar = (InternetAddress) address[0];
-				mail.setMail_no(message.getMessageNumber() - 1);
-				mail.setMail_sendDate(new Timestamp(message.getSentDate().getTime()));
-				mail.setMail_content(getTextFromMessage(message));
-				mail.setMail_from_email(ar.getAddress());
-				mail.setMail_subject(message.getSubject());
-				mailList.add(mail);
-				System.out.println("---------------------------------");
-				System.out.println("Subject: " + message.getSubject());
-				System.out.println("number : " + message.getMessageNumber());
-				System.out.println("getContentType : " + message.getContentType());
-				System.out.println("From: " + ar.getAddress());
-				System.out.println("Date: " + message.getHeader("Date")[0]);
-				System.out.println("Body: " + getTextFromMessage(message));
+			remain = messages.length - 15;
+			int count = 0;
+			System.out.println("remain : " + remain);
+			System.out.println("message size : " + messages.length);
+			System.out.println("mailList L " + mailList.size());
+			if ((remain + mailList.size()) != messages.length) {
+				mailList = new ArrayList<>();
+				for (int i = messages.length - 1; i > remain; i--) {
+					mail = new Mail();
+					Address[] address = messages[i].getFrom();
+					InternetAddress ar = (InternetAddress) address[0];
+					mail.setMail_no(count++/* messages[i].getMessageNumber() - 1 */);
+					mail.setMail_sendDate(new Timestamp(messages[i].getSentDate().getTime()));
+					System.out.println("메일 받은 시간 " + mail.getMail_sendDate());
+					mail.setMail_content(getTextFromMessage(messages[i]));
+					mail.setMail_from_email(ar.getAddress());
+					mail.setMail_to_email(emp.getEmp_email());
+					mail.setMail_subject(messages[i].getSubject());
+					mail.setMail_name(ar.getPersonal());
+					mailList.add(mail);
+				}
 			}
+
+//			
+//			if (messages.length != mailList.size())
+//				for (Message message : messages) {
+//					mail = new Mail();
+//					Address[] address = message.getFrom();
+//					InternetAddress ar = (InternetAddress) address[0];
+//					mail.setMail_no(message.getMessageNumber() - 1);
+//					mail.setMail_sendDate(new Timestamp(message.getSentDate().getTime()));
+//					System.out.println("메일 받은 시간 " + mail.getMail_sendDate());
+//					mail.setMail_content(getTextFromMessage(message));
+//					mail.setMail_from_email(ar.getAddress());
+//					mail.setMail_to_email(emp.getEmp_email());
+//					mail.setMail_subject(message.getSubject());
+//					mail.setMail_name(ar.getPersonal());
+//					mailList.add(mail);
+//				}
 		} catch (NoSuchProviderException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
@@ -128,6 +298,7 @@ public class MailController {
 	}
 
 	public static String getTextFromMimeMultipart(MimeMultipart mimeMultipart) throws MessagingException, IOException {
+
 		String result = "";
 		int count = mimeMultipart.getCount();
 		for (int i = 0; i < count; i++) {
@@ -145,96 +316,75 @@ public class MailController {
 		return result;
 	}
 
-	@RequestMapping("/mail/app-compose.do")
+	@RequestMapping("/mail/sendMail.do") // 보낸 메일함
+	public String sendMail(Model model, @RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		int limit = 10;
+
+		List<Map<String, String>> mails = mailService.selectSendMailList(cPage, limit, emp.getEmp_email());
+		int totalContents = mailService.selectSendMailTotalContents();
+		// 이너 메일 조회
+
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "sendMail.do");
+
+		model.addAttribute("mails", mails).addAttribute("totalContents", totalContents)
+				.addAttribute("numPerPage", limit).addAttribute("pageBar", pageBar).addAttribute("type", "send");
+		return "mail/app-mail";
+	}
+
+	@RequestMapping("/mail/app-compose.do") // 메일 작성 페이지로 이동
 	public String writeMail() {
 		return "mail/app-compose";
 	}
 
-//	@ResponseBody
 	@RequestMapping(value = "/mail/selectOneMail.do/{mail_no}/{type}", method = RequestMethod.GET)
 	public String selectOneMail(Model model, HttpSession session, @PathVariable("mail_no") int mail_no,
 			@PathVariable("type") String type) {
-
-		if (type.equals("mail")) {
-			model.addAttribute("mail", mailService.selectOneMail(mail_no)).addAttribute("attachList",
-					mailService.selectMailAttachList(mail_no));
+		// 메일 상세보기
+		if (type.equals("email")) {
+			model.addAttribute("mail", mailList.get(mail_no)).addAttribute("type", type);
 		} else {
-			model.addAttribute("mail", mailList.get(mail_no));
+			mailService.readMail(mail_no);
+			model.addAttribute("mail", mailService.selectOneMail(mail_no))
+					.addAttribute("attachList", mailService.selectMailAttachList(mail_no)).addAttribute("type", type);
+			System.out.println(mailService.selectMailAttachList(mail_no));
 		}
-		// 객체가 넘어오지 않음 mail 로 받아 오면 안된다.. 해결법 필요
-//		model.addAttribute(attributeValue)
 		return "mail/app-email-detail";
 	}
 
-//	@ResponseBody
-	/*
-	 * @Override
-	 * 
-	 * @RequestMapping(value = "/mail/selectOneMail.do/{mail_no}/email" ,method =
-	 * RequestMethod.GET) public String selectOneMail( Model model,HttpSession
-	 * session , @PathVariable("mail_no")int mail_no,
-	 * 
-	 * @RequestParam("mail_subject") String mail_subject ) {
-	 */
-	/*
-	 * Mail mail = new Mail(); mail.setMail_content(mail_content);
-	 * mail.setMail_from_email(mail_from_email);
-	 * mail.setMail_to_email(mail_to_email); mail.setMail_subject(mail_subject);
-	 */
-	// 객체가 넘어오지 않음 mail 로 받아 오면 안된다.. 해결법 필요
-//		model.addAttribute(attributeValue)
-	/*
-	 * return "mail/app-email-detail"; }
-	 */
-
-	/*
-	 * // @ResponseBody
-	 * 
-	 * @RequestMapping(value = "/mail/selectOneEMail.do/{mail_no}" ,method =
-	 * RequestMethod.GET) public String selectOneEMail( Model model, HttpSession
-	 * session , @PathVariable("mail_no")int mail_no ) {
-	 * 
-	 * model.addAttribute("mail", mailService.selectOneMail(mail_no))
-	 * .addAttribute("attachList", mailService.selectMailAttachList(mail_no)); //
-	 * 객체가 넘어오지 않음 mail 로 받아 오면 안된다.. 해결법 필요 // model.addAttribute(attributeValue)
-	 * return "mail/app-email-detail"; }
-	 */
-
 	@RequestMapping("/mail/mailFormEnd.do")
-	public String mailFormEnd(Mail mail, Model model, HttpSession session,
-			@RequestParam(value = "upFile", required = false) MultipartFile[] upFile) {
+	public String mailFormEnd(Mail mail, Model model,
+			@RequestParam(value = "upFile", required = false) MultipartFile[] upFile, HttpServletRequest request) {
+		// 메일 전송
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
 		String saveDir = session.getServletContext().getRealPath("/resources/mail/attach");
+//		mail.setMail_name(emp.getEmp_name());
+		if (mail.getMail_sendDate() == null)
+			mail.setMail_sendDate(new Timestamp(new Date().getTime()));
+
 		System.out.println("파일 길이 " + upFile.length);
 		List<MailAttach> list = new ArrayList<>();
-
+		String savePath = "";
 		if (new File(saveDir).exists()) {
-
-			// 3. 파일 업로드 시작
 			for (MultipartFile f : upFile) {
-
 				if (!f.isEmpty()) {
-					// 원본 이름 가져오기
 					String originalName = f.getOriginalFilename();
 					String ext = originalName.substring(originalName.lastIndexOf(".") + 1);
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-
 					int rndNum = (int) (Math.random() * 1000);
-
-					// 서버에 저장하여 관리할 이름
 					String renamedName = sdf.format(new Date()) + "_" + rndNum + "." + ext;
-					// sample.png --> 2019718_145400_123.png
-
-					// 파일 저장
 					try {
-						String savePath = "${pageContext.request.contextPath}/resources/mail/attach/";
-						f.transferTo(new File(savePath + "/" + renamedName));
-
+						f.transferTo(new File(saveDir + "/" + renamedName));
+						System.out.println(f.getName());
+						System.out.println(saveDir + "/" + renamedName);
 					} catch (IllegalStateException | IOException e) {
-
 						e.printStackTrace();
-
 					}
-
+//					savePath = "resources/mail/attach";
 					MailAttach at = new MailAttach();
 					at.setAttach_path(saveDir);
 					at.setAttach_oriname(originalName);
@@ -245,94 +395,177 @@ public class MailController {
 			}
 		}
 		int result = 0;
-		Employee emp = new Employee();
-		emp.setEmp_email("mail_0318@naver.com");
+		System.out.println("mailFormEnd emp.getEmp_email " + emp.getEmp_email());
+		System.out.println("mailFormEnd wqe : ");
 		mail.setMail_from_email(emp.getEmp_email());
 
 		result = mailService.mailFormEnd(mail, list);
 		System.out.println("list size " + list.size());
 
-		String loc = "/mail/app-mail.do";
+		String loc = "/mail/innerMail.do";
 		String msg = "";
 		if (result > 0) {
-			sendingMail(mail, model, session, upFile);
+			sendingMail(mail, model, list, request);
 			msg = "등록 성공!";
 		} else {
 			msg = "메일 전송 실패!";
 		}
 
-		model.addAttribute("loc", loc).addAttribute("msg", msg);
+//		model.addAttribute("loc", loc).addAttribute("msg", msg);
 
-		return "redirect:app-mail.do";
+		return "redirect:innerMail.do";
 	}
 
-//	@RequestMapping("/mail/app-img-delete.do")
-//	public String deleteImg() {
-//		return "redirect:app-email.do";
-//	}
+	@RequestMapping("/mail/readMail.do")
+	public String readMail(@RequestBody String[] chkMails) {
+		// 메일 읽기 표시
+		if (chkMails != null)
+			for (String no : chkMails) {
+				int mail_no = Integer.parseInt(no);
+				mailService.readMail(mail_no);
+			}
+		return "redirect:innerMail.do";
+	}
 
-	@RequestMapping("/mail/deleteMail.do")
-	public String deleteMail(@RequestParam(value = "chkMails", required = false) int[] chkMails) {
-		for (int mail_no : chkMails) {
-			int result = mailService.deleteMail(mail_no);
-			if (result > 0)
-				result = mailService.deleteAttach(mail_no);
+	@RequestMapping("/mail/updateMark.do/{num}")
+	public String updateMark(@RequestBody String[] chkMails, @PathVariable(value = "num") int num) {
+		// mark 추가하기
+		Mail mail;
+		for (String no : chkMails) {
+			mail = new Mail();
+			int mail_no = Integer.parseInt(no);
+			mail.setMail_no(mail_no);
+			mail.setMail_mark(num);
+			System.out.println("mail_no : " + mail_no);
+			int result = mailService.updateMark(mail);
 		}
 		return "mail/app-mail";
 	}
 
-	@RequestMapping("/mail/updateFolder.do/{folder}")
-	public String updateFolder(@RequestParam(value = "chkMails", required = false) int[] chkMails,  @PathVariable(value="mail_no") int folder) {
-		for (int mail_no : chkMails) {
+	@RequestMapping("/mail/updateStar.do/{value}")
+	public String updateStar(@RequestBody String[] chkMails, @PathVariable(value = "value") String value) {
+		// mark 추가하기
+		Mail mail;
+		for (String no : chkMails) {
+			mail = new Mail();
+			int mail_no = Integer.parseInt(no);
+			mail.setMail_no(mail_no);
+			mail.setMail_star(value);
+			System.out.println("mail_no : " + mail_no);
 
-			Mail mail = mailService.selectOneMail(mail_no);
-			if(mail != null)
-					mail.setMfolder_no(folder);
-					mailService.updateMail(mail);
-
-			/*
-			 * for(int mail_no : chkMails) { List list = null; // 나중에 리스트 추가하기
-			 * mailService.mailFormEnd(mailList.get(mail_no), list);
-			 */
+			int result = mailService.updateStar(mail);
 		}
 		return "mail/app-mail";
 	}
 
-	@RequestMapping("/mail/storeMail.do")
-	public String storeMail(@RequestParam(value = "chkMails", required = false) int[] chkMails) {
-		// chkMails 가 아니라 check 한 mail_no 를 가져와야함
-		if(chkMails != null)
-		for (int mail_no : chkMails) {
-			List list = null; // 나중에 리스트 추가하기
-			mailService.mailFormEnd(mailList.get(mail_no), list);
-		}
-		return "redirect:app-mail.do";
+	@RequestMapping("/mail/selectStar.do")
+	public String selectStar(Model model,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			HttpServletRequest request) {
+		// 마크별 메일 보기
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		int limit = 10;
+		Mail mail = new Mail();
+		mail.setMail_to_email(emp.getEmp_email());
+		mail.setMail_star("Y");
+		List<Map<String, String>> mails = mailService.selectStarMailList(cPage, limit, mail);
+		int totalContents = mailService.selectStarMailTotalContents(mail);
+		// 이너 메일 조회
+
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "innerMail.do");
+
+		model.addAttribute("mails", mails).addAttribute("totalContents", totalContents)
+				.addAttribute("numPerPage", limit).addAttribute("pageBar", pageBar).addAttribute("type", "mail");
+
+		return "mail/app-mail";
 	}
 
-	@RequestMapping("/mail/sendingMail.do")
-	public void sendingMail(Mail mail, Model model, HttpSession session,
-			@RequestParam(value = "upFiles", required = false) MultipartFile[] upFile) {
-		Employee emp = new Employee();
+	@RequestMapping("/mail/selectMark.do/{num}")
+	public String selectMark(Model model,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage, HttpServletRequest request,
+			@PathVariable("num") int num) {
+		// 마크별 메일 보기
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		int limit = 10;
+		Mail mail = new Mail();
+		mail.setMail_to_email(emp.getEmp_email());
+		mail.setMail_mark(num);
+		List<Map<String, String>> mails = mailService.selectMarkMailList(cPage, limit, mail);
+		int totalContents = mailService.selectMarkMailTotalContents(mail);
+		// 이너 메일 조회
 
-		MimeMessage msg = mailSetting.sendingSetting();
-		try {
-			msg.setSentDate(new Date());
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "innerMail.do");
 
-			msg.setFrom(new InternetAddress(mail.getMail_to_email()));
-			InternetAddress to = new InternetAddress(mail.getMail_to_email());
-			msg.setRecipient(Message.RecipientType.TO, to);
-			msg.setSubject(mail.getMail_subject(), "UTF-8");
-			msg.setText(mail.getMail_content(), "UTF-8");
-			if (msg != null)
-				Transport.send(msg);
-		} catch (AddressException ae) {
-			System.out.println("AddressException : " + ae.getMessage());
-		} catch (MessagingException me) {
-			System.out.println("MessageException : " + me.getMessage());
-			me.printStackTrace();
-			// 메일 계정 인증 관련 예외 처리
+		model.addAttribute("mails", mails).addAttribute("totalContents", totalContents)
+				.addAttribute("numPerPage", limit).addAttribute("pageBar", pageBar).addAttribute("type", "mail");
+
+		return "mail/app-mail";
+	}
+
+	@RequestMapping(value = "/mail/deleteMail.do/{type}")
+	public String deleteMail(@RequestBody String[] chkMails, @PathVariable("type") String type) {
+		// 메일 휴지통으로 옮기기
+		if (chkMails != null) {
+			if (type.equals("mail")) {
+				for (String no : chkMails) {
+					int mail_no = Integer.parseInt(no);
+					int result = mailService.deleteToMail(mail_no);
+				}
+			} else if (type.equals("send")) {
+				for (String no : chkMails) {
+					System.out.println("send mail delete");
+					int mail_no = Integer.parseInt(no);
+					int result = mailService.deleteFromMail(mail_no);
+				}
+			}
+		}
+		return "mail/app-mail";
+	}
+
+	@RequestMapping(value = "/mail/replyMail.do/{mail_no}/{type}")
+	public String replyMail(Model model, @PathVariable("mail_no") int mail_no, @PathVariable("type") String type) {
+		Mail mail;
+		if (type != null) {
+			if (type.equals("email")) {
+				mail = mailList.get(mail_no);
+			} else {
+				mail = mailService.selectOneMail(mail_no);
+			}
+			model.addAttribute("mail", mail).addAttribute("type", "reply");
+			System.out.println("mail. : " + mail);
 		}
 
+		return "mail/app-compose";
+	}
+
+	@RequestMapping(value = "/mail/forwardMail.do/{mail_no}/{type}")
+	public String forwardMail(Model model, @PathVariable("mail_no") int mail_no, @PathVariable("type") String type) {
+
+		Mail mail;
+		if (type.equals("email")) {
+			mail = mailList.get(mail_no);
+		} else {
+			mail = mailService.selectOneMail(mail_no);
+		}
+		model.addAttribute("mail", mail).addAttribute("type", "forward");
+		System.out.println("mail. : " + mail);
+		return "mail/app-compose";
+	}
+
+	@RequestMapping(value = "/mail/storeMail.do")
+	public String storeMail(@RequestBody String[] chkMails) {
+		// 외부에서 내부로 메일 저장하기
+		System.out.println("Store Mail 실행중");
+		System.out.println(chkMails.getClass());
+		if (chkMails != null)
+			for (String no : chkMails) {
+				List list = new ArrayList<>(); // 나중에 리스트 추가하기
+				int mail_no = Integer.parseInt(no);
+				mailService.mailFormEnd(mailList.get(mail_no), list);
+			}
+		return "redirect:innerMail.do";
 	}
 
 }

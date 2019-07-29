@@ -3,6 +3,7 @@ package com.kh.coworks.mail.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.mail.model.vo.Mail;
 import com.kh.coworks.mail.model.vo.MailAttach;
 
@@ -12,18 +13,39 @@ public interface MailService {
 	static final int MAIL_SRV_COMP=1;
 	
 	/**
-	 * 메일 목록 조회 메소드
+	 * 삭제한 목록 조회 메소드
 	 * @param cPage
 	 * @param limit
 	 * @return
 	 */
-	List<Map<String, String>> selectMailList(int cPage, int limit);
+	List<Map<String, String>> selectDeleteMailList(int cPage,int limit , String emp_email);
+	/**
+	 * 받은 메일 목록 조회 메소드
+	 * @param cPage
+	 * @param limit
+	 * @return
+	 */
+	List<Map<String, String>> selectReceiveMailList(int cPage,int limit , String emp_email);
+	
+	/**
+	 * 보낸 메일 목록 조회 메소드
+	 * @param cPage
+	 * @param limit
+	 * @return
+	 */
+	List<Map<String, String>> selectSendMailList(int cPage,int limit , String emp_email);
 
 	/***
 	 * 페이지 처리
 	 * @return
 	 */
-	int selectMailTotalContents();
+	int selectReceiveMailTotalContents();
+	
+	/***
+	 * 페이지 처리
+	 * @return
+	 */
+	int selectSendMailTotalContents();
 	
 	/***
 	 * 메일 전송 메소드
@@ -59,7 +81,8 @@ public interface MailService {
 	 * @param mail_no
 	 * @return
 	 */
-	int deleteMail(int mail_no);
+	int deleteFromMail(int mail_no);
+	int deleteToMail(int mail_no);
 
 	/***
 	 * 파일 한개 삭제 메소드
@@ -67,6 +90,17 @@ public interface MailService {
 	 * @return
 	 */
 	int deleteAttach(int attach_no);
-
+	
+	int readMail(int mail_no);
+	
+	int readCount(String emp_email);
+	int selectDeleteMailTotalContents();
+	int updateMark(Mail mail);
+	List<Map<String, String>> selectMarkMailList(int cPage, int limit, Mail mail);
+	int selectMarkMailTotalContents(Mail mail);
+	int updateEmail(Employee emp);
+	int updateStar(Mail mail);
+	List<Map<String, String>> selectStarMailList(int cPage, int limit, Mail mail);
+	int selectStarMailTotalContents(Mail mail);
 
 }

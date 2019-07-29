@@ -4,19 +4,12 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mail">
 
-	<!-- <resultMap id="mailMap" type="map">
-		<id property="mail_no" column="mail_no"/>
-		<result property="mail_from" column="mail_from"/>
-		<result property="mail_to" column="mail_to"/>
-		<result property="mail_subject" column="mail_subject"/>
-		<result property="mail_content" column="mail_content"/>
-		<result property="mail_senddate" column="mail_sendDate"/>
-		<result property="mail_to_email" column="mail_to_email"/>
-	</resultMap> -->
 	<resultMap id="mailMap" type="mail"/>
 	<resultMap id="mailAttachMap" type="mailAttach"/>
 	
-	
+	<select id="readCount" resultType="_int">
+		select count(*) from mail where mail_to_email = #{emp_email} and mail_isRead='N'
+	</select>
 	<select id="selectOneMail" resultType="mail">
 		select * from mail where mail_no = #{mail_no}
 	</select>
@@ -24,31 +17,66 @@
 	<select id="selectMailAttachList" resultMap="mailAttachMap">
 		select * from mailattach where mail_no = #{mail_no}
 	</select>
-	<select id="selectMailList" resultMap="mailMap">
-		select * from mail <!-- where mail_from = emp_no -->
+	
+	<select id="selectStarMailList" parameterType="mail" resultMap="mailMap" >
+		select * from mail where mail_to_email = #{mail_to_email} 
+		and mail_todel = 'N' 
+		and mail_star='Y'
+		 order by mail_no desc
 	</select>
 	
-	<select id="selectMailTotalContents" resultType="_int">
-		select count(*) from mail
+	<select id="selectStarMailTotalContents" resultType="_int">
+		select count(*) from mail  where mail_to_email = #{mail_to_email}
+		 and mail_todel = 'N' 
+		 and mail_star='Y'
 	</select>
 	
-	<!-- 게시글 입력 -->
+	<select id="selectMarkMailList" parameterType="mail" resultMap="mailMap" >
+		select * from mail where mail_to_email = #{mail_to_email} and mail_todel = 'N' and mail_mark=#{mail_mark} order by mail_no desc
+	</select>
+	
+	<select id="selectMarkMailTotalContents" resultType="_int">
+		select count(*) from mail  where mail_to_email = #{mail_to_email} and mail_todel = 'N' and mail_mark=#{mail_mark} order by mail_no desc
+	</select>
+	
+	<select id="selectReceiveMailList" parameterType="Map" resultMap="mailMap">
+		select * from mail where mail_to_email = #{mail_to_email} and mail_todel = 'N' order by mail_no desc
+	</select>
+	
+	<select id="selectReceiveMailTotalContents" resultType="_int">
+		select count(*) from mail  where mail_to_email = #{mail_to_email} and mail_todel = 'N' order by mail_no desc
+	</select>
+	
+	<select id="selectDeleteMailList" parameterType="Map" resultMap="mailMap">
+		select * from mail where mail_to_email = #{mail_to_email} and mail_todel = 'Y' order by mail_no desc
+	</select>
+	
+	<select id="selectDeleteMailTotalContents" resultType="_int">
+		select count(*) from mail  where mail_to_email = #{mail_to_email} and mail_todel = 'Y' order by mail_no desc
+	</select>
+	<select id="selectSendMailList" parameterType="Map" resultMap="mailMap">
+		select * from mail where mail_from_email = #{mail_from_email} and mail_fromdel = 'N' order by mail_no desc
+	</select>
+	
+	<select id="selectSendMailTotalContents" resultType="_int">
+		select count(*) from mail  where mail_from_email = #{mail_from_email} and mail_fromdel = 'N' order by mail_no desc  
+	</select>
+
+
 	<insert id="mailFormEnd">
-		INSERT INTO MAIL(MAIL_NO, MAIL_SUBJECT,MAIL_CONTENT, MAIL_SENDDATE ,MAIL_TO_EMAIL , MAIL_FROM_EMAIL)
-		VALUES (SEQ_MAIL.NEXTVAL,#{mail_subject}, #{mail_content}, #{mail_sendDate},#{mail_to_email},#{mail_from_email})
+		INSERT INTO MAIL(MAIL_NO, MAIL_SUBJECT,MAIL_CONTENT, MAIL_SENDDATE ,MAIL_TO_EMAIL , MAIL_FROM_EMAIL,MAIL_NAME)
+		VALUES (SEQ_MAIL.NEXTVAL,#{mail_subject}, #{mail_content}, #{mail_sendDate},#{mail_to_email},#{mail_from_email},#{mail_name})
 		
-		<!-- board 객체를 insert에서 전달하여 SQL을 실행한 뒤,
-			 board 객체에 select한 게시글 번호를 주입받아 돌아온다. -->
-		<!-- 1번) -->
 		<selectKey keyProperty="mail_no" resultType="_int" order="AFTER">
 			SELECT seq_mail.CURRVAL FROM DUAL
 		</selectKey>
-		<!-- selectKey : 특정 쿼리가 끝난 이후에 기본키로 꺼내와야 할 것들을 따로 꺼내오는 부가적인 쿼리를 짤 수 있다. -->
-		<!-- boardNo라는 것을 resultType으로 int꺼내오게 하면서 order(언제수행할거냐, insert가 끝난 후 추가적으로 넣을게요) -->
-		
-		<!-- 위의 쿼리는 하고, 그냥 끝나는게 아니라 부가 쿼리 실행하고 결과는 위의 쿼리만 보여주지만 내부적으로 부가쿼리를 보유하고 있다. -->
 	</insert>
-
+	
+	
+	<update id="readMail" parameterType="_int">
+		update mail set mail_isread ='Y' where mail_no = #{mail_no}
+	</update>
+	
 	<!-- 게시글 -> 첨부파일 넣기 -->
 	<insert id="insertMailAttach">
 		<!-- 2번) 알아서 현재값 찾아 boardNo넣어서 아래의 INSERT의 #{boardNo}로 들고온다. -->
@@ -62,11 +90,26 @@
 		       #{attach_oriname}, #{attach_rename}, #{attach_path})
 	</insert>
 
-	<delete id="deleteMail">
-		delete from mail where mail_no = #{mail_no}
-	</delete>
+	<update id="deleteFromMail">
+		update mail set mail_fromdel='Y' where mail_no = #{mail_no}
+	</update>
 	
-	<delete id="deletmeMailAttach">
+	<update id="deleteToMail">
+		update mail set mail_todel='Y' where mail_no = #{mail_no}
+	</update>
+	
+	<update id="updateMark">
+		update mail set mail_mark=#{mail_mark} where mail_no = #{mail_no}
+	</update>
+	
+	<update id="updateEmail">
+		update employee set emp_email=#{emp_email} , emp_emailpassword=#{emp_emailpassword} where emp_no = #{emp_no}
+	</update>
+	
+	<delete id="deleteMailAttach">
 		delete from mailAttach where mail_no = #{mail_no}
 	</delete>
+	<update id="updateStar">
+		update mail set mail_star = #{mail_star} WHERE mail_no = #{mail_no}
+	</update>
 </mapper>

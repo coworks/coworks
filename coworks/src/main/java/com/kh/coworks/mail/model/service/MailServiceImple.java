@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.mail.model.dao.MailDao;
 import com.kh.coworks.mail.model.exception.MailException;
 import com.kh.coworks.mail.model.vo.Mail;
@@ -15,14 +16,22 @@ public class MailServiceImple implements MailService {
 
 	@Autowired
 	MailDao mailDao ;
-	@Override
-	public List<Map<String, String>> selectMailList(int cPage, int limit) {
-		return mailDao.selectMailList(cPage, limit);
+	public List<Map<String, String>> selectReceiveMailList(int cPage,int limit , String emp_email) {
+		return mailDao.selectReceiveMailList(cPage, limit, emp_email);
 	}
 
 	@Override
-	public int selectMailTotalContents() {
-		return mailDao.selectMailTotalContents();
+	public int selectReceiveMailTotalContents() {
+		return mailDao.selectReceiveMailTotalContents();
+	}
+	@Override
+	public List<Map<String, String>> selectSendMailList(int cPage, int limit, String emp_email) {
+		return mailDao.selectSendMailList(cPage, limit, emp_email);
+	}
+
+	@Override
+	public int selectSendMailTotalContents() {
+		return mailDao.selectSendMailTotalContents();
 	}
 
 	@Override
@@ -58,13 +67,77 @@ public class MailServiceImple implements MailService {
 	}
 
 	@Override
-	public int deleteMail(int mail_no) {
-		return mailDao.deleteMail(mail_no);
+	public int deleteFromMail(int mail_no) {
+		return mailDao.deleteFromMail(mail_no);
+	}
+
+	@Override
+	public int deleteToMail(int mail_no) {
+		return mailDao.deleteToMail(mail_no);
 	}
 
 	@Override
 	public int deleteAttach(int mail_no) {
 		return mailDao.deleteMailAttach(mail_no);
 	}
+
+	@Override
+	public int readMail(int mail_no) {
+		// TODO Auto-generated method stub
+		return mailDao.readMail(mail_no);
+	}
+
+	@Override
+	public int readCount(String emp_email) {
+		return mailDao.readCount(emp_email);
+	}
+
+	@Override
+	public List<Map<String, String>> selectDeleteMailList(int cPage, int limit, String emp_email) {
+		return mailDao.selectDeleteMailList(cPage,limit,emp_email);
+	}
+
+	@Override
+	public int selectDeleteMailTotalContents() {
+		return mailDao.selectDeleteMailTotalContents();
+	}
+
+	@Override
+	public int updateMark(Mail mail) {
+		return mailDao.updateMark(mail);
+	}
+
+	@Override
+	public List<Map<String, String>> selectMarkMailList(int cPage, int limit, Mail mail) {
+		return mailDao.selectMarkMailList(cPage,limit,mail);
+	}
+
+	@Override
+	public int selectMarkMailTotalContents(Mail mail) {
+		return mailDao.selectMarkMailTotalContents(mail);
+	}
+
+	@Override
+	public int updateEmail(Employee emp) {
+		return mailDao.updateEmail(emp);
+	}
+
+	@Override
+	public int updateStar(Mail mail) {
+		return mailDao.updateStar(mail);
+	}
+
+	@Override
+	public List<Map<String, String>> selectStarMailList(int cPage, int limit, Mail mail) {
+		return mailDao.selectStarMailList(cPage, limit, mail);
+	}
+
+	@Override
+	public int selectStarMailTotalContents(Mail mail) {
+		return mailDao.selectStarMailTotalContents(mail);
+	}
+
+
+
 
 }
