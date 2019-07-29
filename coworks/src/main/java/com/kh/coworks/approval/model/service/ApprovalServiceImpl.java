@@ -90,4 +90,15 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalDao.selectApprovalYet(emp_no);
 	}
 
+	@Override
+	public List<ApprovalDoc> selectApprovalPending(int emp_no) {
+		return approvalDao.selectApprovalPending(emp_no);
+	}
+
+	@Override
+	public void updateApprovalStatus(ApprovalStatus st) {
+		approvalDao.updateApprovalStatus(st);
+		
+	}
+
 }

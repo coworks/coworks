@@ -148,11 +148,8 @@
 				function(start, end, label) {
 					console.log(start.format('YYYY-MM-DD') + ' to '
 							+ end.format('YYYY-MM-DD'));
-					console.log(Math
-							.ceil((end - start) / (1000 * 60 * 60 * 24)));
-					period
-							.val(Math.ceil((end - start)
-									/ (1000 * 60 * 60 * 24)));
+					console.log(Math.ceil((end - start) / (1000 * 60 * 60 * 24)));
+					period.val(Math.ceil((end - start)	/ (1000 * 60 * 60 * 24)));
 				});
 	</script>
 </body>

@@ -54,6 +54,12 @@
 											</c:forEach>
 										</tbody>
 									</table>
+									<c:if test="${docList.size() == 0 }">
+										<div align="center">
+											<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 150px; vertical-align: middle; border: 0" />
+											<h4 style="font-weight: bold;">결재 진행 중인 문서가 없습니다.</h4>
+										</div>
+									</c:if>
 								</div>
 							</div>
 						</div>

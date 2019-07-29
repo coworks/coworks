@@ -31,4 +31,8 @@ public interface ApprovalDao {
 
 	List<ApprovalDoc> selectApprovalYet(int emp_no);
 
+	List<ApprovalDoc> selectApprovalPending(int emp_no);
+
+	void updateApprovalStatus(ApprovalStatus st);
+
 }

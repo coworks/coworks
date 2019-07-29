@@ -13,6 +13,8 @@
 	padding: .4rem;
 	vertical-align: middle;
 }
+
+
 </style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
@@ -29,6 +31,17 @@
 
 								<input type="button" value="일괄 결재하기" class="btn btn-warning mb-3 float-right" />
 
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-outline-secondary active">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" checked=""> ALL
+                                  </label>
+                                  <label class="btn btn-outline-secondary">
+                                    <input type="radio" name="options" id="option2" autocomplete="off"> 승인
+                                  </label>
+                                  <label class="btn btn-outline-secondary ">
+                                    <input type="radio" name="options" id="option3" autocomplete="off"> 반려
+                                  </label>
+                                </div>
 								<div class="table-responsive">
 									<table class="table no-wrap table-bordered" style="text-align: center;">
 										<thead class="bg-info text-white">
@@ -43,7 +56,9 @@
 										</thead>
 										<tbody class="border border-info">
 											<tr>
-												<td><input type="checkbox" name="checkApproval" /></td>
+												<td>
+													<input type="checkbox" name="checkApproval" />
+												</td>
 												<td>김둘리 휴가 신청합니다!</td>
 												<td>휴가신청서</td>
 												<td>2019-06-30</td>
@@ -57,6 +72,12 @@
 
 										</tbody>
 									</table>
+									<c:if test="${docList.size() == 0 }">
+										<div align="center">
+											<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 150px; vertical-align: middle; border: 0" />
+											<h4 style="font-weight: bold;">결재가 완료된 문서가 없습니다.</h4>
+										</div>
+									</c:if>
 								</div>
 							</div>
 						</div>

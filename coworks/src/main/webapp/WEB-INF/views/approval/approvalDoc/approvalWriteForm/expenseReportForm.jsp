@@ -31,9 +31,11 @@
 										<div class="table-responsive mt-2">
 											<c:import url="./common/approvalHeader.jsp" />
 
-											<input type="hidden" name="colNum" value="5" /> <input type="hidden" name="colTitle1" value="품명" /> <input type="hidden" name="colTitle2" value="규격" /> <input type="hidden" name="colTitle3" value="수량" /> <input type="hidden" name="colTitle4" value="단가" /> <input type="hidden" name="colTitle5" value="금액" />
+											<input type="hidden" name="colNum" value="5" /> <input type="hidden" name="colTitle1" value="품명" /> <input type="hidden" name="colTitle2" value="규격" /> <input type="hidden"
+												name="colTitle3" value="수량"
+											/> <input type="hidden" name="colTitle4" value="단가" /> <input type="hidden" name="colTitle5" value="금액" />
 
-											<table class="table table-bordered no-wrap">
+											<table class="table table-bordered no-wrap" id="dataTable">
 												<colgroup>
 													<col width="10%" />
 													<col width="18%" />
@@ -53,15 +55,26 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="index" begin="1" end="15" step="1">
+													<c:forEach var="row" begin="1" end="15" step="1">
 														<tr>
-															<c:set var="row" value="1" />
-															<td><input type="number" value="${index }" readonly="readonly" class="form-control" /></td>
-															<td><input type="text" name="col${index }/row${row}" class="form-control" /></td>
-															<td><input type="text" name="col${index }/row${row+1}" class="form-control" /></td>
-															<td><input type="number" name="col${index }/row${row+2}" class="form-control" /></td>
-															<td><input type="number" name="col${index }/row${row+3}" class="form-control" /></td>
-															<td><input type="number" name="col${index }/row${row+4}" class="form-control" /></td>
+															<td>
+																<input type="number" value="${row}" readonly="readonly" class="form-control" row="${row }" />
+															</td>
+															<td>
+																<input type="text" class="form-control" row="${row }" col="1" />
+															</td>
+															<td>
+																<input type="text" class="form-control" row="${row }" col="2" />
+															</td>
+															<td>
+																<input type="number" class="form-control" row="${row }" col="3" />
+															</td>
+															<td>
+																<input type="number" class="form-control" row="${row }" col="4" />
+															</td>
+															<td>
+																<input type="number" class="form-control" row="${row }" col="5" />
+															</td>
 														</tr>
 													</c:forEach>
 												</tbody>
@@ -70,7 +83,7 @@
 										</div>
 										<c:import url="./common/approvalAttachAdd.jsp" />
 										<div align="right">
-											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
+											<input type="button" value="dsklfjsajfk" onclick="check()" /> <input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
 										</div>
 									</form>
 								</div>
@@ -87,6 +100,8 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 	<script>
+		
+
 		$("#treeview").hummingbird();
 
 		function applySelect() {
@@ -110,8 +125,7 @@
 					table.append('<td>' + index.dataset.dept + '</td>');
 					table.append('<td>' + index.dataset.job + '</td>');
 
-					table
-							.append("<input type='hidden' name='signList' value="+index.value+">");
+					table.append("<input type='hidden' name='signList' value="+index.value+">");
 
 					$('#signTable tbody').append(table);
 

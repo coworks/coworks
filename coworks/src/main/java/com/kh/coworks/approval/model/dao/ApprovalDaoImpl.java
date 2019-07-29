@@ -72,4 +72,15 @@ public class ApprovalDaoImpl implements ApprovalDao {
 		return sqlSession.selectList("approval.selectApprovalYet", emp_no);
 	}
 
+	@Override
+	public List<ApprovalDoc> selectApprovalPending(int emp_no) {
+		return sqlSession.selectList("approval.selectApprovalPending", emp_no);
+	}
+
+	@Override
+	public void updateApprovalStatus(ApprovalStatus st) {
+		sqlSession.update("approval.updateApprovalStatus", st);
+
+	}
+
 }

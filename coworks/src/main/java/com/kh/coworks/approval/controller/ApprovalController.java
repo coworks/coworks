@@ -73,7 +73,12 @@ public class ApprovalController {
 	}
 
 	@RequestMapping("/approval/approvalPending.do")
-	public String approvalPending() {
+	public String approvalPending(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Employee employee = (Employee) session.getAttribute("employee");
+		List<ApprovalDoc> list = approvalService.selectApprovalPending(employee.getEmp_no());
+
+		model.addAttribute("docList", list);
 		return "approval/approvalPending";
 	}
 
@@ -109,22 +114,21 @@ public class ApprovalController {
 	}
 
 	@RequestMapping(value = "/approval/writeApprovalDone", method = RequestMethod.POST)
-	public String approveCreate(@RequestParam Map<String, Object> body,@RequestParam(value="signList") int[] sign,
+	public String approveCreate(@RequestParam Map<String, Object> body, @RequestParam(value = "signList") int[] sign,
 			@RequestParam(value = "upFiles", required = false) MultipartFile[] upFiles, Model model,
 			HttpSession session) {
 
 		ApprovalDoc doc = new ApprovalDoc();
 		List<ApprovalStatus> signList = new ArrayList<ApprovalStatus>();
-		
-		for(int i:sign) {
-			ApprovalStatus as=new ApprovalStatus();
+
+		for (int i : sign) {
+			ApprovalStatus as = new ApprovalStatus();
 			as.setEmp_no(i);
-			
+
 			signList.add(as);
 		}
-		
-		
-		List<ApprovalAttach> fileList = new ArrayList<ApprovalAttach>();		
+
+		List<ApprovalAttach> fileList = new ArrayList<ApprovalAttach>();
 
 		String savePath = "/resources/approval/attach";
 		String saveDir = session.getServletContext().getRealPath(savePath);
@@ -254,5 +258,23 @@ public class ApprovalController {
 		mv.setViewName("approval/approvalDocDetail");
 
 		return mv;
+	}
+
+	@RequestMapping(value = "/approval/{approvalAct}/{docNo}")
+	public String approvalStatusUpdate(@PathVariable("approvalAct") String approvalAct,
+			@PathVariable("docNo") int adoc_no, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee employee = (Employee) session.getAttribute("employee");
+
+		int status = (approvalAct.equals("approve") ? 1 : 2);
+		
+		ApprovalStatus st=new ApprovalStatus();
+		st.setAdoc_no(adoc_no);
+		st.setEmp_no(employee.getEmp_no());
+		st.setAs_status(status);
+		
+		approvalService.updateApprovalStatus(st);
+		
+		return "redirect:/approval/approvalPending.do";
 	}
 }

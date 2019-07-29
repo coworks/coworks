@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>CO-WORKS : ERROR</title>
-<c:import url="../common/header.jsp" />
+<c:import url="header.jsp" />
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<section id="wrapper" class="error-page">
@@ -18,9 +18,9 @@
 				<p class="text-muted mt-4 mb-4"><%= exception.getMessage() %></p>
 				<a href="javascript:history.back();" class="btn btn-info btn-rounded waves-effect waves-light mb-5">Back</a>
 			</div>
-			<c:import url="../common/footer.jsp" />
+			<c:import url="footer.jsp" />
 		</div>
 	</section>
-	<c:import url="../common/bottomJquery.jsp" />
+	<c:import url="bottomJquery.jsp" />
 </body>
 </html>
