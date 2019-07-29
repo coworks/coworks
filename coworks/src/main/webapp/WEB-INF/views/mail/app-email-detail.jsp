@@ -52,43 +52,35 @@
                                                         <a href="javascript:void(0)"><img src="#" alt="user" width="40" class="img-circle" /></a>
                                                     </div> -->
                                                     <div class="pl-2">
-                                                        <h4 class="mb-0">이름</h4>
-                                                        <small class="text-muted">From: 이메일</small>
+                                                        <h4 class="mb-0">From : ${mail.getMail_name() } <small class="text-muted"> &lt;${mail.getMail_from_email() } &gt;</small></h4>
+                                                        <small class="text-muted">Date: ${mail.getMail_sendDate()}</small>
                                                     </div>
                                                 </div>
-                                                <p><b>Dear USer</b></p>
-                                                ${mail.getMail_content()}
-                                           <!--      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
-                                                <p>enean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,</p>
-                                            --> </div>
+                                                <p><b>Content : </b></p>
+                                                <p>${mail.getMail_content()}</p>
+                                          		</div>
                                             <div>
                                                 <hr class="mt-0">
                                             </div>
                                             <div class="card-body">
                                                 <h4><i class="fa fa-paperclip mr-2 mb-2"></i> Attachments <span>${attachList.size() }</span></h4>
                                                 <div class="row">
-                                                   
-                                                   
                                                     <c:forEach items="${attachList}" var="at">
                                                      <div class="col-md-2">
-                                                        <a href="${at.getAttach_path }${at.getAttach_rename()}" download="${at.getAttach_oriname()}">
+                                                        <a href="${pageContext.request.contextPath}${at.getAttach_path()}/${at.getAttach_rename()}" download="${at.getAttach_oriname()}">
                                                         
-                                                        <div class="img-thumbnail img-responsive">${at.getAttach_oriname() }
+                                                        <div class="">${at.getAttach_oriname() }
                                                         </div>
                                                           <!-- <img border="1" src="" alt="W3Schools" width="104" height="142"> -->
                                                          </a>
   <%--  <img class="img-thumbnail img-responsive" alt="${at.attach_oriname }" src="${at.getAttach_path()}/${at.getAttach_rename()}" download> --%> 
-                                                   	 </div>
+                                                   	 </div><br>
                                                     </c:forEach>
-                                                    
-                                                    
                                                 </div>
                                                 
-                                                
-                                                
-                                                
                                                 <div class="b-all mt-3 p-3">
-                                                    <p class="pb-3">click here to <a href="#">Reply</a> or <a href="#">Forward</a></p>
+                                                    <p class="pb-3">click here to <a href="${pageContext.request.contextPath}/mail/replyMail.do/${mail.getMail_no()}/${type}">Reply</a>
+                                                     or <a href="${pageContext.request.contextPath}/mail/forwardMail.do/${mail.getMail_no()}/${type}">Forward</a></p>
                                                 </div>
                                             </div>
                                         </div>

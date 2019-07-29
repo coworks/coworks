@@ -15,6 +15,9 @@
    .m-center{
       margin: 0 auto;
    }
+   .notRead{ 
+   	  color : red;
+   }
 </style>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -55,40 +58,91 @@
                                                 <table class="table table-hover no-wrap">
                                                     <tbody>
                                                     <c:forEach items="${mails}" var="m"> 
+                                                   
                                                         <%-- <a href="/mail/selectOneMail.do/${m.getMail_no()}">  --%>
                                                     	<input type="text" name="mail_no" value="${m.getMail_no()}" id="mail_no" hidden/>
+                                                    	
                                                         <tr class="unread mailRow" >
                                                             <td style="width:40px">
+                                                            
                                                                 <div class="checkbox">
-                                                                    <input type="checkbox" id="checkbox${m.getMail_no() }" name="chkMails" value="check${m.getMail_no() }">
+                                                                    <input type="checkbox" id="checkbox${m.getMail_no() }" name="chkMail" value="${m.getMail_no() }">
                                                                     <label for="checkbox${m.getMail_no() }"></label>
                                                                 </div>
                                                             </td>
-                                                            <td style="width:40px" class="hidden-xs-down"><i class="fa fa-star-o"></i></td>
-                                                           	
-                                                            <td class="hidden-xs-down"> 
+                                                            <td style="width:20px" class="hidden-xs-down ">
+                                                            	<c:if test="${m.getMail_isRead() eq 'N' }" >
+                                                    			<i class="mdi mdi-checkbox-blank-circle-outline"></i>
+                                                    			</c:if>
+                                                    			<c:if test="${m.getMail_isRead() eq 'Y' }" >
+                                                    			<i class="mdi mdi-check-circle-outline"></i>
+                                                    			</c:if>
+                                                    		</td>
+                                                    		<td style="width:20px" class="hidden-xs-down ">
+                                                            	<c:if test="${m.getMail_star() eq 'Y' }" >
+                                                    			<i class="mdi  mdi-star"></i>
+                                                    			</c:if>
+                                                    			<c:if test="${m.getMail_star() eq 'N' }" >
+                                                    			<i class="mdi mdi-star-outline"></i>
+                                                    			</c:if>
+                                                    		</td>
                                                             
+                                                            <!-- <td style="width:40px" class="hidden-xs-down notRead"><i class="fa fa-star-o"></i></td> -->
+                                                           	
+                                                            <td class="hidden-xs-down " > 
+                                                            <c:if test="${m.getMail_name() eq null }">
 															<c:if test="${m.getMail_from_email().length() gt 30}">
                                                             	${m.getMail_from_email().substring(0,30) } ...
                                                             </c:if>
                                                           	<c:if test="${m.getMail_from_email().length() le 30}">
                                                           		${m.getMail_from_email() }
-                                                          	</c:if></td><!-- <a href="app-email-detail.do"/> -->
-                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}/${type}'"> <span class="label label-info mr-2">Work</span> 
+                                                          	</c:if>
+                                                          	</c:if>
+                                                          	<c:if test="${m.getMail_name() ne null }">
+                                                          		${m.getMail_name() }
+                                                          	</c:if>
+                                                          	</td><!-- <a href="app-email-detail.do"/> -->
+                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}/${type}'"> 
+                                                          	<c:if test="${m.getMail_mark() != null }">
+                                                            <c:choose>
+                                                            	<c:when test="${m.getMail_mark()==1}">
+                                                            	<span class="label label-info mr-2">COMP</span> 
+                                                            	</c:when>
+                                                            	<c:when test="${m.getMail_mark()==2}">
+                                                            	<span class="label label-warning mr-2">DEPT</span> 
+                                                            	</c:when>
+                                                            	<c:when test="${m.getMail_mark()==3}">
+                                                            	<span class="label label-purple mr-2">INDI</span> 
+                                                            	</c:when>
+                                                            	<c:when test="${m.getMail_mark()==4}">
+                                                            	<span class="label label-danger mr-2">WORK</span> 
+                                                            	</c:when>
+                                                            	<c:when test="${m.getMail_mark()==5}">
+                                                            	<span class="label label-success mr-2">SOCI</span> 
+                                                            	</c:when>
+                                                            	<c:when test="${m.getMail_mark()==6}">
+                                                            	<span class=""></span> 
+                                                            	</c:when>
+                                                            </c:choose>
+                                                            </c:if>
                                                           	<c:if test="${m.getMail_subject().length() gt 30}">
                                                             	${m.getMail_subject().substring(0,10) } ...
                                                             </c:if>
                                                           	<c:if test="${m.getMail_subject().length()le 30}">
                                                           		${m.getMail_subject() }
                                                           	</c:if> 
-                                                          	
                                                             </td>
                                                            
-                                                            <td class="hidden-xs-down"><i class="fa fa-paperclip"></i></td>
-                                                            <td class="text-right"><%-- <fmt:formatDate value=" ${m.getMail_sendDate()}" pattern="MM/dd/yyyy" /> --%> </td>
+                                                            <td class="hidden-xs-down">
+                                                            	<fmt:formatDate value="${m.getMail_sendDate()}" pattern="yyyy-MM-dd : HH시" />
+                                                            </td>
+                                                            <!-- <i class="fa fa-paperclip"></i> -->
+                                                           <%--  <fmt:parseDate value='${m.getMail_sendDate()}' var='sendDate' pattern='yyyymmdd'/> --%>
+                                                            <td class="text-right"><%-- <fmt:formatDate value=" ${sendDate}" pattern="MM-dd-yyyy" /> --%></td>
                                                         </tr>  
                                                       <!--   </a>  -->
-                                                        </c:forEach>
+                                                     
+                                                      </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -96,25 +150,6 @@
                                     </div>
                                     <!-- 페이지네이션 -->
                                     <c:out value="${pageBar}" escapeXml="false"/>
-                                    <!-- <nav aria-label="Page navigation example m-center">
-                                            <ul class="pagination">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0)" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                        <span class="sr-only">Previous</span>
-                                                    </a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="javascript:void(0)" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                        <span class="sr-only">Next</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav> -->
                                 </div>
                             </div>
                         </div>
@@ -133,46 +168,10 @@
                         <div class="r-panel-body">
                             <ul id="themecolors" class="mt-3">
                                 <li><b>With Light sidebar</b></li>
-                                <!-- <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
-                                <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
-                                <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
-                                <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
-                                <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
-                                <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
-                                <li class="d-block mt-4"><b>With Dark sidebar</b></li>
-                                <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
-                                <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
-                                <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
-                                <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
-                                <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
-                                <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li> -->
                             </ul>
                             <ul class="mt-3 chatonline">
                                 <li><b>Chat option</b></li>
-                               <!--  <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/7.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><img src="../assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
-                                </li> -->
+                           
                             </ul>
                         </div>
                     </div>
@@ -187,6 +186,107 @@
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<script>
+	
+	 var chkMails = [];
+	 function chk(){
+	    $("input[name='chkMail']:checked").each(function(i) {
+	        chkMails.push($(this).val());
+	    });
+	 }
+	    /* var allData = { "mail_no": mail_no, "chkMails": chkMail }; */
+	     /*  onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}/${type}' */
+	    
+	    function storeMail(){
+	    	chkMails=[];
+	    	chk();
+	    	console.log(chkMails);
+		    $.ajax({
+		        url:"${pageContext.request.contextPath}/mail/storeMail.do",
+		        type:'POST',
+	    		contentType : 'application/json; charset=UTF-8',
+		        data: JSON.stringify(chkMails),
+		        success:function(data){
+		            alert("내부 메일로 저장이 완료 되었습니다.!");
+		            location.href="${pageContext.request.contextPath}/mail/innerMail.do"; 
+		        },
+		        error:function(){
+		            alert("내부 메일로 저장하는데 문제가 발생하였습니다! ㅜㅜ");
+		        }
+		    });
+		}
+	    function deleteMail(){
+	    	chkMails=[];
+	    	chk();
+	    	console.log(chkMails);
+		    $.ajax({
+		        url:"${pageContext.request.contextPath}/mail/deleteMail.do/${type}",
+		        type:'POST',
+	    		contentType : 'application/json; charset=UTF-8',
+		        data: JSON.stringify(chkMails),
+		        success:function(data){
+		            alert("완료!");
+		            /* location.href="${pageContext.request.contextPath}/mail/innerMail.do"; */
+		        },
+		        error:function(){
+		            alert("메일 삭제 실패");
+		        }
+		    });
+		}
+	    function readMail(){
+	    	chkMails=[];
+	    	chk();
+	    	console.log(chkMails);
+		    $.ajax({
+		        url:"${pageContext.request.contextPath}/mail/readMail.do",
+		        type:'POST',
+	    		contentType : 'application/json; charset=UTF-8',
+		        data: JSON.stringify(chkMails),
+		        success:function(data){
+		            alert("완료!");
+		        },
+		        error:function(){
+		            alert();
+		        }
+		    });
+		}
+	    function updateStar(value){
+	    	chkMails=[];
+	    	chk();
+	    	console.log(chkMails);
+		    $.ajax({
+		        url:"${pageContext.request.contextPath}/mail/updateStar.do/"+value,
+		        type:'POST',
+	    		contentType : 'application/json; charset=UTF-8',
+		        data: JSON.stringify(chkMails),
+		        success:function(data){
+		            alert("완료!");
+		        },
+		        error:function(){
+		            alert();
+		        }
+		    });
+		}
+	    function updateMark(num){
+	    	chkMails=[];
+	    	chk();
+	    	console.log(chkMails);
+	    	console.log(num);
+		    $.ajax({
+		        url:"${pageContext.request.contextPath}/mail/updateMark.do/"+num,
+		        type:'POST',
+	    		contentType : 'application/json; charset=UTF-8',
+		        data: JSON.stringify(chkMails),
+		        success:function(data){
+		            alert("완료!");
+		        },
+		        error:function(){
+		            alert();
+		        }
+		    });
+		}
+	
+	</script>
 	<!-- <script>
 		$(".mailRow").on("click",function(){
 			var m = $(this).val();

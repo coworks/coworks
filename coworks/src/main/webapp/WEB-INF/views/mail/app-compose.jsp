@@ -48,13 +48,35 @@
                                     <div class="card-body">
                                         <h3 class="card-title">메일 작성하기</h3>
                                         <div class="form-group">
+                                          <c:if test="${type eq 'reply'}">
+                                          	<input class="form-control" name="mail_to_email" value="${mail.getMail_from_email() }">
+                                          </c:if>
+                                          <c:if test="${type ne 'reply' }">
                                             <input class="form-control" name="mail_to_email" placeholder="받는 사람 :">
+                                           </c:if>
                                         </div>
                                         <div class="form-group">
+                                        <c:if test="${type eq 'forward'}">
+                                        	<input class="form-control" name="mail_subject" value="${mail.getMail_subject() }">
+                                         </c:if>
+                                          <c:if test="${type ne 'forward'}">
                                             <input class="form-control" name="mail_subject" placeholder="제목 : ">
+                                           </c:if>
                                         </div>
                                         <div class="form-group">
-                                            <textarea class="textarea_editor form-control" name="mail_content" rows="15" placeholder=""></textarea>
+                                            <textarea class="textarea_editor form-control" name="mail_content" rows="15" placeholder="">
+                                            
+                                            <c:if test="${mail !=null }">
+                                            <br/><br/><br/><br/><br/>
+-----Original Message-----<br/>
+From: ${mail.getMail_from_email() }<br/>
+To: ${mail.getMail_to_email() } <br/>
+
+Sent: ${mail.getMail_sendDate() }<br/>
+Subject: ${mail.getMail_subject() }<br/>
+content :${mail.getMail_content() }<br/>
+                                            </c:if>
+                                            </textarea>
                                         </div>
                                         <h4><i class="ti-link"></i>첨부파일</h4>
                                        <!--  <div id="myDropzone" name="dropzone">
@@ -113,7 +135,6 @@
     function deleteBtn(obj) {
        $(obj).parent().remove();
     }
-
   /*   Dropzone.autoDiscover = false;
     var myDropzone = new Dropzone("#myDropzone",{
    		url :"#",
