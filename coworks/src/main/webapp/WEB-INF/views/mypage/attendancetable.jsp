@@ -32,8 +32,8 @@
 				                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">날짜 선택</button>
 				                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
 				                            	<input type="button" class="dropdown-item" id="month1" name="month1" onclick="fnonclick($('input[name=month1]').val())"/>
-				                            	<input type="button" class="dropdown-item" id="month2" name="month2"/>
-				                            	<input type="button" class="dropdown-item" id="month3" name="month3"/> 
+				                            	<input type="button" class="dropdown-item" id="month2" name="month2" onclick="fnonclick($('input[name=month2]').val())"/>
+				                            	<input type="button" class="dropdown-item" id="month3" name="month3" onclick="fnonclick($('input[name=month3]').val())"/> 
 				                            </div>
 				                      </div>
 				                    </div>
