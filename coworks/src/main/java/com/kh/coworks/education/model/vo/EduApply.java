@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class EduApply implements Serializable {
 
-	private int eapp_no;// ÀÎµ¦½º
-	private int emp_no;// »ç¹ø
-	private int edu_no;// ±³À°ÀÎµ¦½º
+	private int eapp_no;// êµìœ¡ ì‹ ì²­í•œ ìˆœì„œ
+	private int emp_no;// ì‚¬ë²ˆ
+	private int edu_no;// êµìœ¡ ë²ˆí˜¸
 
 	public EduApply() {
 		super();

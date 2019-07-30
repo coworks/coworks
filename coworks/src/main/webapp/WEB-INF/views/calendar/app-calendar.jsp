@@ -80,10 +80,10 @@
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div id="calendar-events" class="mt-3">
-                                            <div class="calendar-events" data-class="bg-info"><i class="fa fa-circle mb-3 text-info"></i>회의</div>
-                                            <div class="calendar-events" data-class="bg-success"><i class="fa fa-circle mb-3 text-success"></i>휴가</div>
-                                            <div class="calendar-events" data-class="bg-danger"><i class="fa fa-circle mb-3 text-danger"></i>또머있죠</div>
-                                            <div class="calendar-events" data-class="bg-warning"><i class="fa fa-circle mb-3 text-warning"></i>추천받음</div>
+                                            <div class="calendar-events" data-class="bg-info"><i class="fa fa-circle mb-3 text-info"></i>&nbsp;회의</div>
+                                            <div class="calendar-events" data-class="bg-success"><i class="fa fa-circle mb-3 text-success"></i>&nbsp;휴가</div>
+                                            <div class="calendar-events" data-class="bg-danger"><i class="fa fa-circle mb-3 text-danger"></i>&nbsp;출장</div>
+                                            <div class="calendar-events" data-class="bg-warning"><i class="fa fa-circle mb-3 text-warning"></i>&nbsp;외근</div>
                                         </div> 
                                         <!-- 
                                         	-- 나중에 생각해보기 -- 필요없을것같음
@@ -569,7 +569,11 @@
            
            $this.$calendarObj = $this.$calendar.fullCalendar({
         	   nextDayThreshold:'00:00:00',	//0시이후로 하루로치기
-           
+        	  
+              	 daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
+      				monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
+      						"7월", "8월", "9월", "10월", "11월", "12월" ],
+        	   
                slotDuration: '00:30:00', /* If we want to split day time each 15minutes */
                minTime: '06:00:00',
                maxTime: '24:30:00',  
@@ -632,6 +636,10 @@
          startDate: moment().startOf('day'),
          endDate :moment().endOf('day'),
          locale: {
+        	 daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
+				monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
+						"7월", "8월", "9월", "10월", "11월", "12월" ],
+       
              format: 'YY/MM/DD HH:mm'
          }
      }, 

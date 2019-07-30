@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="education">
+	
+	<select id="selectListEducation" resultType="education">
+		SELECT * FROM EDUCATION
+	</select>
+	
+	<select id="selectOneEducation" parameterType="_int" resultType="education">
+		SELECT * FROM EDUCATION WHERE EDU_NO=#{edu_no}
+	</select>
+	<insert id="insertEduApply" parameterType="eduapply">
+		INSERT INTO EDUAPPLY SELECT SEQ_EAAP_NO.NEXTVAL,#{emp_no},#{edu_no} FROM DUAL 
+		WHERE NOT EXISTS(SELECT EMP_NO FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no})
+	</insert>	
+	 
+</mapper>
