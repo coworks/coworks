@@ -39,46 +39,48 @@ public class AttendanceController {
 		private AttendanceService attendanceService;
 	@Autowired 
 	private CalendarService calendarSerivce;
-
-
 	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
+	Calendar cal=new GregorianCalendar();
+	 Time time=new Time(cal.getTimeInMillis());
+	 Date date=new Date(cal.getTimeInMillis());
+	 
+	 //**** 지각 계산
+	 String str1 = new SimpleDateFormat("yyyyMMdd").format(date);
+	 String str2 = new SimpleDateFormat("HHmm").format(time);
+	 //System.out.println(str2);
+	 String reqDateStr1=str1+"090000";	//최소 출근시간 기준
+	 String reqDateStr2=str1+"180000";
+	 
 	@RequestMapping("/attendancecome.do") 
 	public ModelAndView insertAttendaceCome( HttpServletRequest request,Model model) throws ParseException { 
 		HttpSession session=request.getSession(false);
 		Employee employee=(Employee) session.getAttribute("employee"); 
 		//
 		 ModelAndView mv=new ModelAndView(); 
-		Calendar cal=new GregorianCalendar();
+		
 		Attendance attend=new Attendance();
 		
-		 Time time=new Time(cal.getTimeInMillis());
-		 Date date=new Date(cal.getTimeInMillis());
-		 
-		 //**** 지각 계산
-		 String str1 = new SimpleDateFormat("yyyyMMdd").format(date);
-		 String str2 = new SimpleDateFormat("HHmm").format(time);
-		 System.out.println(str2);
-		 String reqDateStr=str1+"090000";	//최소 출근시간 기준
-		 System.out.println(reqDateStr);
 		  
 		//현재시간 Date
-		java.util.Date curDate = new java.util.Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
+		java.util.Date curDate = new java.util.Date(); 
 		
 		//요청시간을 Date로 parsing 후 time가져오기
-		java.util.Date reqDate = dateFormat.parse(reqDateStr);
-		System.out.println("reqDate : "+reqDate);
-		long reqDateTime = reqDate.getTime();
-		System.out.println("longreqDate : "+reqDateTime);
+		java.util.Date reqDate1 = dateFormat.parse(reqDateStr1);
+		java.util.Date reqDate2 = dateFormat.parse(reqDateStr2);
+		System.out.println("reqDate : "+reqDate1);
+		long reqDateTime1 = reqDate1.getTime();
+		long reqDateTime2 = reqDate2.getTime(); 
+		
 		//현재시간을 요청시간의 형태로 format 후 time 가져오기
 		curDate = dateFormat.parse(dateFormat.format(curDate));
 		long curDateTime = curDate.getTime();
 		System.out.println("curDate : "+curDateTime);
 		//분으로 표현
-		if(curDateTime-reqDateTime>0) {
-		long hour= (curDateTime - reqDateTime) / (1000*60*60);
-		long minute = (curDateTime - reqDateTime) / 60000-(hour*60);
-		long second=(curDateTime - reqDateTime) / 1000-((hour*60*60)+(minute*60));
+		if(curDateTime>reqDateTime1  ) {
+		long hour= (curDateTime - reqDateTime1) / (1000*60*60);
+		long minute = (curDateTime - reqDateTime1) / 60000-(hour*60);
+		long second=(curDateTime - reqDateTime1) / 1000-((hour*60*60)+(minute*60));
 		String attLate=String.format("%02d:%02d:%02d", hour,minute,second);
 		 
 		 
@@ -154,19 +156,20 @@ public class AttendanceController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
 		
 		//요청시간을 Date로 parsing 후 time가져오기
-		java.util.Date reqDate = dateFormat.parse(reqDateStr);
+		java.util.Date reqDate = dateFormat.parse(reqDateStr2);
 		System.out.println("reqDate : "+reqDate);
 		long reqDateTime = reqDate.getTime();
 		System.out.println("longreqDate : "+reqDateTime);
 		//현재시간을 요청시간의 형태로 format 후 time 가져오기
 		curDate = dateFormat.parse(dateFormat.format(curDate));
+		
 		long curDateTime = curDate.getTime();
 		System.out.println("curDate : "+curDateTime);
 		//분으로 표현
-		if(curDateTime-reqDateTime<0) {
-		long hour= (curDateTime - reqDateTime) / (1000*60*60);
-		long minute = (curDateTime - reqDateTime) / 60000-(hour*60);
-		long second=(curDateTime - reqDateTime) / 1000-((hour*60*60)+(minute*60));
+		if(curDateTime<reqDateTime) {
+		long hour= (reqDateTime-curDateTime) / (1000*60*60);
+		long minute = (reqDateTime-curDateTime) / 60000-(hour*60);
+		long second=(reqDateTime-curDateTime) / 1000-((hour*60*60)+(minute*60));
 		String leaveEarly=String.format("%02d:%02d:%02d", hour,minute,second);
 		  System.out.println("leaveEarly : "+leaveEarly); 
 			attend.setAtten_leaveEarly(leaveEarly);
