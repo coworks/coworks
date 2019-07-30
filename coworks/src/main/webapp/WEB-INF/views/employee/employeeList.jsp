@@ -13,6 +13,11 @@
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.css">
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
+	
+	<style type="text/css">
+	td th{
+	vertical-align: center;}
+	</style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -134,8 +139,7 @@
 												<c:forEach items="${departmentList}" var="de">
 													<option value="${de.dept_code}">${de.dept_name}</option>
 												</c:forEach>
-											</select> <small class="form-control-feedback"> Select your
-												dept </small>
+											</select> 
 										</div>
 									</div>
 									<!--/span-->
@@ -147,10 +151,9 @@
 											<label class="control-label">Gender</label> <select
 												id="emp_gender" name="emp_gender"
 												class="form-control custom-select">
-												<option value="Male">Male</option>
-												<option value="Female">Female</option>
-											</select> <small class="form-control-feedback"> Select your
-												gender </small>
+												<option value="M">Male</option>
+												<option value="F">Female</option>
+											</select> 
 										</div>
 									</div>
 									<!--/span-->
@@ -162,8 +165,7 @@
 												<c:forEach items="${jobList}" var="j">
 													<option value="${j.job_code}">${j.job_title}</option>
 												</c:forEach>
-											</select> <small class="form-control-feedback"> Select your
-												level </small>
+											</select> 
 										</div>
 									</div>
 									<!--/span-->
@@ -204,25 +206,31 @@
 														value="회사일정"> <label class="custom-control-label"
 														for="emp_authority3">회사일정</label>
 												</div>
+												<div class="custom-control custom-checkbox">
+													<input type="checkbox" name="emp_authority"
+														class="custom-control-input" id="emp_authority4"
+														value="급여"> <label class="custom-control-label"
+														for="emp_authority4">급여</label>
+												</div>
 											</div>
 											<div class="col-sm-6">
 												<div class="custom-control custom-checkbox">
 													<input type="checkbox" name="emp_authority"
-														class="custom-control-input" id="emp_authority4"
-														value="게시판"> <label class="custom-control-label"
-														for="emp_authority4">게시판</label>
-												</div>
-												<div class="custom-control custom-checkbox">
-													<input type="checkbox" name="emp_authority"
 														class="custom-control-input" id="emp_authority5"
-														value="결재서류"> <label class="custom-control-label"
-														for="emp_authority5">결재서류</label>
+														value="게시판"> <label class="custom-control-label"
+														for="emp_authority5">게시판</label>
 												</div>
 												<div class="custom-control custom-checkbox">
 													<input type="checkbox" name="emp_authority"
 														class="custom-control-input" id="emp_authority6"
+														value="결재서류"> <label class="custom-control-label"
+														for="emp_authority6">결재서류</label>
+												</div>
+												<div class="custom-control custom-checkbox">
+													<input type="checkbox" name="emp_authority"
+														class="custom-control-input" id="emp_authority7"
 														value="권한관리"> <label class="custom-control-label"
-														for="emp_authority6">권한관리</label>
+														for="emp_authority7">권한관리</label>
 												</div>
 											</div>
 										</div>
@@ -279,7 +287,7 @@
 
 
 						<div
-							style="position: absolute; margin-top: 155px; margin-left: 1200px;">
+							style="float:right;" class="mt-5 pt-5">
 							<div class="input-group">
 								<button data-toggle="modal" data-target="#updatedepart"
 									class="btn btn-info" type="button">부서수정</button>
@@ -293,10 +301,10 @@
 								</td>
 							</div>
 						</div>
-						<div id="basicgrid" class="jsgrid"
-							style="position: relative; height: 500px; width: 100%; margin-top: 200px;">
+						<div id="basicgrid" class="jsgrid pt-5"
+							style="position: relative; height: 500px; width: 100%; ">
 							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
-								<table class="jsgrid-table table table-striped table-hover">
+								<table class="jsgrid-table ">
 									<tr class="jsgrid-header-row">
 										<th
 											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
@@ -338,11 +346,7 @@
 													class="jsgrid-cell jsgrid-control-field jsgrid-align-center"
 													style="width: 43px;">
 													<button class="jsgrid-button jsgrid-edit-button"
-														type="button" title="Edit"></button>
-													<button alt="default" data-toggle="modal"
-														data-target=".bs-example-modal-lg"
-														class="model_img img-fluid" type="button" title="Delete"></button>
-												</td>
+														type="button" onclick="employeemove('${e.emp_no}');"></button>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -388,6 +392,10 @@
 	<script>
 		function search(){
 			location.href="${pageContext.request.contextPath}/employee/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
+		}
+		
+		function employeemove(index){
+			location.href="${pageContext.request.contextPath}/employee/employeeMove.do?index="+index;
 		}
 	</script>
 	<%-- 	<script

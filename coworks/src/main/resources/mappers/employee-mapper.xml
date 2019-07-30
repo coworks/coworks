@@ -12,9 +12,15 @@
 		parameterType="_int">
 		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
 	</select>
+	
+	<select id="selectOneEmployee" resultType="employee"
+		parameterType="_int">
+		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
+	</select>
+	
 
 	<select id="selectEmployeeList" resultType="employee">
-		SELECT EMP_NAME,
+		SELECT EMP_NO , EMP_NAME,
 		JOB_TITLE, DEPT_NAME, EMP_PHONE
 		FROM EMPLOYEE E, DEPARTMENT D, JOB J
 		WHERE E.JOB_CODE = J.Job_Code
@@ -46,8 +52,9 @@
 		#{emp_phone}, #{emp_email}, #{emp_birth},
 		#{emp_gender}, DEFAULT,
 		DEFAULT, DEFAULT,
-		DEFAULT,#{emp_authority,typeHandler=strArrTypeHandler}
+		DEFAULT,#{emp_authority,typeHandler=strArrTypeHandler},DEFAULT,DEFAULT
 		)
+		
 	</insert>
 
 
@@ -56,7 +63,14 @@
 		VALUES(
 		SEQ_DEPARTMENT.NEXTVAL, #{dept_name}, 1
 		)
-
+	</insert>
+	
+	<insert id="insertAuthority" parameterType="authority">
+		INSERT INTO AUTHORITY
+		VALUES(
+		SEQ_EMPLOYEE.CURRVAL, #{auth_personnal}, #{auth_data} , #{auth_schedule} , #{auth_board} 
+		, #{auth_approval} , #{auth_authority} , #{auth_pay}
+		)
 	</insert>
 
 	<update id="updateDeptName" parameterType="department">
@@ -68,7 +82,7 @@
 
 	<select id="selectSerachEmployee" parameterType="hashmap"
 		resultType="employee">
-		SELECT EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
+		SELECT EMP_NO, EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
 		FROM EMPLOYEE E,
 		DEPARTMENT D, JOB J
 		<bind name="mySQLPattern" value="'%' + keyword + '%'" />
@@ -85,6 +99,21 @@
 			AND E.JOB_CODE = J.Job_Code
 			AND E.Dept_Code = D.Dept_Code
 		</where>
+	</select>
+	
+	<select id="selectSearchEmployeeTotalContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEE <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		WHERE EMP_NAME LIKE #{mySQLPattern}
+	</select>
+	
+	<select id="selectSearchJobTotalContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM JOB <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		WHERE JOB_TITLE LIKE #{mySQLPattern}
+	</select>
+	
+	<select id="selectSearchDepartmentTotalContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM DEPARTMENT <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		WHERE DEPT_NAME LIKE #{mySQLPattern}
 	</select>
 
 	<select id="selectEmpList" resultType="employee">
