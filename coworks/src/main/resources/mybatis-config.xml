@@ -13,6 +13,8 @@
 		<typeAlias type="com.kh.coworks.attendance.model.vo.Attendance" alias="attendance" />
 		<typeAlias type="com.kh.coworks.employee.model.vo.Department" alias="department"/>
 		<typeAlias type="com.kh.coworks.authority.model.vo.Authority" alias="authority"/>
+		<typeAlias type="com.kh.coworks.employee.model.vo.Job" alias="job"/>
+		
 
 		
 		<typeAlias type="com.kh.coworks.board.model.vo.Board" alias="board" />
