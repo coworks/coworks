@@ -27,7 +27,7 @@
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">휴가 신청서</h2>
 									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype="multipart/form-data">
-										<div class="table-responsive mt-2">
+										<div class="mt-2">
 
 											<c:import url="./common/approvalHeader.jsp" />
 
@@ -36,11 +36,20 @@
 												<tr>
 													<th scope="col" class="border">휴가 종류</th>
 													<td colspan="5">
-														<div class="radio radio-info">
-															<input type="radio" name="vacation_type" id="vacation_type1" value="연차" checked> <label for="vacation_type1"> 연차 </label> <input type="radio" name="vacation_type" id="vacation_type2" value="월차"> <label for="vacation_type2"> 월차 </label> <input type="radio" name="vacation_type" id="vacation_type3" value="반차"> <label for="vacation_type3"> 반차 </label> <input type="radio" name="vacation_type" id="vacation_type4" value="병가"> <label for="vacation_type4">
-																병가 </label> <input type="radio" name="vacation_type" id="vacation_type5" value="기타"> <label for="vacation_type5"> 기타 </label>
-
-														</div> <input type="text" id="gitar" readonly="readonly" class="form-control" />
+														<div class="row">
+															<div class="col-md-4 col-12">
+																<select name="vacation_type" class="form-control custom-select">
+																	<option value="연차">연차</option>
+																	<option value="월차">월차</option>
+																	<option value="반차">반차</option>
+																	<option value="병가">병가</option>
+																	<option value="기타">기타</option>
+																</select>
+															</div>
+															<div class="col-md-8 col-12">
+																<input type="text" name="vacation_type" readonly="readonly" class="form-control" />
+															</div>
+														</div>
 													</td>
 												</tr>
 												<tr>
@@ -93,37 +102,38 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 
 	<script>
-	$("#treeview").hummingbird();
+		$("#treeview").hummingbird();
 
-	function applySelect() {
-		var signList = $('input[name=signList]:checked');
-		console.log(signList);
+		function applySelect() {
+			var signList = $('input[name=signList]:checked');
+			console.log(signList);
 
-		if (signList.length != 2) {
-			alert("결재자는 2명을 선택해야합니다.");
-		} else {
-			$('.modal').modal("hide");
-			$('#signTable tbody').children().remove();
+			if (signList.length != 2) {
+				alert("결재자는 2명을 선택해야합니다.");
+			} else {
+				$('.modal').modal("hide");
+				$('#signTable tbody').children().remove();
 
-			for (var i = 0, len = signList.length; i < len; i++) {
-				var index = signList[i];
-				
-				console.log(index.dataset);
+				for (var i = 0, len = signList.length; i < len; i++) {
+					var index = signList[i];
 
-				var table = $('<tr>');
-				table.append('<td>' + (i + 1) + '</td>');
-				table.append('<td>'+index.dataset.name+'</td>');
-				table.append('<td>'+index.dataset.dept+'</td>');
-				table.append('<td>'+index.dataset.job+'</td>');
-				
-				table.append("<input type='hidden' name='signList' value="+index.value+">");
+					console.log(index.dataset);
 
-				$('#signTable tbody').append(table);
+					var table = $('<tr>');
+					table.append('<td>' + (i + 1) + '</td>');
+					table.append('<td>' + index.dataset.name + '</td>');
+					table.append('<td>' + index.dataset.dept + '</td>');
+					table.append('<td>' + index.dataset.job + '</td>');
 
+					table
+							.append("<input type='hidden' name='signList' value="+index.value+">");
+
+					$('#signTable tbody').append(table);
+
+				}
 			}
-		}
-	};
-	
+		};
+
 		var period = $('input[name=vacation_period]');
 
 		$('.vacation-range').daterangepicker(
@@ -148,8 +158,11 @@
 				function(start, end, label) {
 					console.log(start.format('YYYY-MM-DD') + ' to '
 							+ end.format('YYYY-MM-DD'));
-					console.log(Math.ceil((end - start) / (1000 * 60 * 60 * 24)));
-					period.val(Math.ceil((end - start)	/ (1000 * 60 * 60 * 24)));
+					console.log(Math
+							.ceil((end - start) / (1000 * 60 * 60 * 24)));
+					period
+							.val(Math.ceil((end - start)
+									/ (1000 * 60 * 60 * 24)));
 				});
 	</script>
 </body>

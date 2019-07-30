@@ -28,10 +28,14 @@ public interface ApprovalService {
 
 	ApprovalForm selectApprovalDocForm(int aform_no);
 
-	List<ApprovalDoc> approvalWait(int emp_no);
-
 	List<ApprovalDoc> selectApprovalReceive(int emp_no);
 
 	void updateApprovalStatus(ApprovalStatus st);
+
+	List<ApprovalDoc> selectApprovalWait(int emp_no);
+
+	List<ApprovalDoc> selectApprovalSubmit(int emp_no);
+
+	List<ApprovalDoc> selectApprovalComplete(int emp_no);
 
 }

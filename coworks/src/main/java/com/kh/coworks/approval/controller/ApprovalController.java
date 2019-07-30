@@ -87,19 +87,29 @@ public class ApprovalController {
 	public String approvalWait(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		Employee employee = (Employee) session.getAttribute("employee");
-		List<ApprovalDoc> list = approvalService.approvalWait(employee.getEmp_no());
+		List<ApprovalDoc> list = approvalService.selectApprovalWait(employee.getEmp_no());
 
 		model.addAttribute("docList", list);
 		return "approval/approvalWait";
 	}
 
 	@RequestMapping("/approval/approvalSubmit.do")
-	public String approvalSubmit() {
+	public String approvalSubmit(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Employee employee = (Employee) session.getAttribute("employee");
+		List<ApprovalDoc> list = approvalService.selectApprovalSubmit(employee.getEmp_no());
+
+		model.addAttribute("docList", list);
 		return "approval/approvalSubmit";
 	}
 
 	@RequestMapping("/approval/approvalComplete.do")
-	public String approvalComplete() {
+	public String approvalComplete(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Employee employee = (Employee) session.getAttribute("employee");
+		List<ApprovalDoc> list = approvalService.selectApprovalComplete(employee.getEmp_no());
+
+		model.addAttribute("docList", list);
 		return "approval/approvalComplete";
 	}
 

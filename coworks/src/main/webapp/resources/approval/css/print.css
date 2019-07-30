@@ -1,0 +1,13 @@
+@media print {
+	.table td, .table th {
+		padding: 1rem;
+		vertical-align: middle;
+	}
+	.table th {
+		background: lightgray;
+		text-align: center;
+	}
+	div p {
+		white-space: normal;
+	}
+}

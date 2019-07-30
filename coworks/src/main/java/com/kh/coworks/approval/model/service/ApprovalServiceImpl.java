@@ -86,8 +86,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public List<ApprovalDoc> approvalWait(int emp_no) {
-		return approvalDao.approvalWait(emp_no);
+	public List<ApprovalDoc> selectApprovalWait(int emp_no) {
+		return approvalDao.selectApprovalWait(emp_no);
 	}
 
 	@Override
@@ -99,6 +99,16 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public void updateApprovalStatus(ApprovalStatus st) {
 		approvalDao.updateApprovalStatus(st);
 		
+	}
+
+	@Override
+	public List<ApprovalDoc> selectApprovalSubmit(int emp_no) {
+		return approvalDao.selectApprovalSubmit(emp_no);
+	}
+
+	@Override
+	public List<ApprovalDoc> selectApprovalComplete(int emp_no) {
+		return approvalDao.selectApprovalComplete(emp_no);
 	}
 
 }
