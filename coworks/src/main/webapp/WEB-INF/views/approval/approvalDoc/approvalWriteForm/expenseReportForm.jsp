@@ -27,15 +27,10 @@
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">지출 품의서</h2>
 
-									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype="multipart/form-data">
+									<form action="${pageContext.request.contextPath }/approval/writeTableApprovalDone" method="post" enctype="multipart/form-data" id="tableForm" onsubmit="return check()">
 										<div class="table-responsive mt-2">
 											<c:import url="./common/approvalHeader.jsp" />
-
-											<input type="hidden" name="colNum" value="5" /> <input type="hidden" name="colTitle1" value="품명" /> <input type="hidden" name="colTitle2" value="규격" /> <input type="hidden"
-												name="colTitle3" value="수량"
-											/> <input type="hidden" name="colTitle4" value="단가" /> <input type="hidden" name="colTitle5" value="금액" />
-
-											<table class="table table-bordered no-wrap" id="dataTable">
+											<table class="table table-bordered no-wrap">
 												<colgroup>
 													<col width="10%" />
 													<col width="18%" />
@@ -45,7 +40,7 @@
 													<col width="18%" />
 												</colgroup>
 												<thead>
-													<tr>
+													<tr id="header">
 														<th scope="col" class="border">순번</th>
 														<th scope="col" class="border">품명</th>
 														<th scope="col" class="border">규격</th>
@@ -56,24 +51,24 @@
 												</thead>
 												<tbody>
 													<c:forEach var="row" begin="1" end="15" step="1">
-														<tr>
+														<tr id="row${row }">
 															<td>
-																<input type="number" value="${row}" readonly="readonly" class="form-control" row="${row }" />
+																<input type="number" value="${row}" readonly="readonly" class="form-control" />
 															</td>
 															<td>
-																<input type="text" class="form-control" row="${row }" col="1" />
+																<input type="text" class="form-control" />
 															</td>
 															<td>
-																<input type="text" class="form-control" row="${row }" col="2" />
+																<input type="text" class="form-control" />
 															</td>
 															<td>
-																<input type="number" class="form-control" row="${row }" col="3" />
+																<input type="number" class="form-control" />
 															</td>
 															<td>
-																<input type="number" class="form-control" row="${row }" col="4" />
+																<input type="number" class="form-control" />
 															</td>
 															<td>
-																<input type="number" class="form-control" row="${row }" col="5" />
+																<input type="number" class="form-control" />
 															</td>
 														</tr>
 													</c:forEach>
@@ -83,7 +78,7 @@
 										</div>
 										<c:import url="./common/approvalAttachAdd.jsp" />
 										<div align="right">
-											<input type="button" value="dsklfjsajfk" onclick="check()" /> <input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
+											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
 										</div>
 									</form>
 								</div>
@@ -100,7 +95,51 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 	<script>
-		
+		function check() {
+			var myForm = $('#tableForm')[0];
+			var formData = new FormData(myForm);
+			event.preventDefault();
+
+			var header = new Array;
+			$('#header').children().each(function() {
+				header.push($(this).html());
+			});
+			formData.append('header', header);
+			
+			for (var i = 1; i <= 15; i++) {
+				var row = $('#row' + i).children().children();
+				if (row.eq(1).val() != "") {
+					var obj = new Array;
+					row.each(function(i) {
+						obj.push($(this).val());
+					});
+					formData.append('row'+i,obj);
+				}
+			}
+
+
+	
+			for(value of formData.entries()){ 
+			    console.log(value); 
+			}
+			$.ajax({
+	            type: "POST",
+	            enctype: 'multipart/form-data',
+	            url: "/document/upload",
+	            data: formData,
+	            success: function (data) {
+	                alert("complete");
+	                $("#btnSubmit").prop("disabled", false);
+	            },
+	            error: function (e) {
+	                console.log("ERROR : ", e);
+	                $("#btnSubmit").prop("disabled", false);
+	                alert("fail");
+	            }
+	        });
+
+			return false;
+		};
 
 		$("#treeview").hummingbird();
 
@@ -125,7 +164,8 @@
 					table.append('<td>' + index.dataset.dept + '</td>');
 					table.append('<td>' + index.dataset.job + '</td>');
 
-					table.append("<input type='hidden' name='signList' value="+index.value+">");
+					table
+							.append("<input type='hidden' name='signList' value="+index.value+">");
 
 					$('#signTable tbody').append(table);
 

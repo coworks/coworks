@@ -186,6 +186,73 @@ public class ApprovalController {
 		return "redirect:/approval/approvalYet.do";
 	}
 
+	@RequestMapping(value = "/approval/writeTableApprovalDone", method = RequestMethod.POST)
+	public String tableApproveCreate(@RequestParam int adoc_writerno, @RequestParam int aform_no,
+			@RequestParam int adoc_security, @RequestParam int expiration, @RequestParam String adoc_subject,
+			@RequestParam(value = "signList") int[] sign,
+			@RequestParam(value = "upFiles", required = false) MultipartFile[] upFiles, Model model,
+			HttpSession session) {
+
+		ApprovalDoc doc = new ApprovalDoc();
+		List<ApprovalStatus> signList = new ArrayList<ApprovalStatus>();
+
+		for (int i : sign) {
+			ApprovalStatus as = new ApprovalStatus();
+			as.setEmp_no(i);
+
+			signList.add(as);
+		}
+
+		List<ApprovalAttach> fileList = new ArrayList<ApprovalAttach>();
+
+		String savePath = "/resources/approval/attach";
+		String saveDir = session.getServletContext().getRealPath(savePath);
+		if (new File(saveDir).exists()) {
+
+			for (MultipartFile f : upFiles) {
+				if (!f.isEmpty()) {
+					String originalName = f.getOriginalFilename();
+					String ext = originalName.substring(originalName.lastIndexOf(".") + 1);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+
+					int rndNum = (int) (Math.random() * 1000);
+
+					String renamedName = sdf.format(new java.util.Date()) + "_" + rndNum + "." + ext;
+
+					try {
+						f.transferTo(new File(saveDir + "/" + renamedName));
+					} catch (IllegalStateException | IOException e) {
+						e.printStackTrace();
+					}
+
+					ApprovalAttach attach = new ApprovalAttach();
+					attach.setApAtt_oriname(originalName);
+					attach.setApAtt_rename(renamedName);
+					attach.setApAtt_path(savePath);
+
+					fileList.add(attach);
+				}
+			}
+		}
+
+		doc.setAdoc_security(adoc_security);
+		doc.setAdoc_subject(adoc_subject);
+		doc.setAdoc_writerno(adoc_writerno);
+		doc.setAform_no(aform_no);
+
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.YEAR, expiration);
+		doc.setAdoc_expiration(new Date(cal.getTimeInMillis()));
+
+		doc.setAdoc_content(null);
+
+		System.out.println(doc);
+
+		approvalService.insertApprovalDoc(doc, signList, fileList);
+
+		return "redirect:/approval/approvalYet.do";
+	}
+
 	@RequestMapping(value = "/approval/approvalAttachDown")
 	public void fileDownload(HttpServletResponse response, HttpServletRequest request, @RequestParam String path,
 			@RequestParam String name) {
@@ -267,14 +334,14 @@ public class ApprovalController {
 		Employee employee = (Employee) session.getAttribute("employee");
 
 		int status = (approvalAct.equals("approve") ? 1 : 2);
-		
-		ApprovalStatus st=new ApprovalStatus();
+
+		ApprovalStatus st = new ApprovalStatus();
 		st.setAdoc_no(adoc_no);
 		st.setEmp_no(employee.getEmp_no());
 		st.setAs_status(status);
-		
+
 		approvalService.updateApprovalStatus(st);
-		
+
 		return "redirect:/approval/approvalPending.do";
 	}
 }
