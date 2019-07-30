@@ -13,11 +13,12 @@
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.css">
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
-	
-	<style type="text/css">
-	td th{
-	vertical-align: center;}
-	</style>
+
+<style type="text/css">
+td th {
+	vertical-align: center;
+}
+</style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -31,29 +32,28 @@
 				<form method="post" action="deptupdate.do" name="deptUpdate">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h2 class="modal-title" id="myModalLabel">부서명 변경하기 </h2>
+							<h2 class="modal-title" id="myModalLabel">부서명 변경하기</h2>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
 						</div>
 						<div class="col-md-12">
-										<div class="form-group has-success">
-											<label class="control-label">부서명</label> <select
-												id="dept_code" name="dept_code"
-												class="form-control custom-select">
-												<option value="0"></option>
-												<c:forEach items="${departmentList}" var="de">
-													<option value="${de.dept_code}">${de.dept_name}</option>
-												</c:forEach>
-											</select> 
-										</div>
-									</div>
+							<div class="form-group has-success">
+								<label class="control-label">부서명</label> <select id="dept_code"
+									name="dept_code" class="form-control custom-select">
+									<option value="0"></option>
+									<c:forEach items="${departmentList}" var="de">
+										<option value="${de.dept_code}">${de.dept_name}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
 
 						<div class="modal-body">
 							<div class="col-md-13">
 								<div class="form-group">
-									<label class="control-label">변경할 부서명 </label> <input type="text"
-										id="dept_name" name="dept_name" class="form-control"
-										placeholder="부서명을 입력하세요">
+									<label class="control-label">변경할 부서명 </label> <input
+										type="text" id="dept_name" name="dept_name"
+										class="form-control" placeholder="부서명을 입력하세요">
 								</div>
 							</div>
 						</div>
@@ -139,7 +139,7 @@
 												<c:forEach items="${departmentList}" var="de">
 													<option value="${de.dept_code}">${de.dept_name}</option>
 												</c:forEach>
-											</select> 
+											</select>
 										</div>
 									</div>
 									<!--/span-->
@@ -153,7 +153,7 @@
 												class="form-control custom-select">
 												<option value="M">Male</option>
 												<option value="F">Female</option>
-											</select> 
+											</select>
 										</div>
 									</div>
 									<!--/span-->
@@ -165,7 +165,7 @@
 												<c:forEach items="${jobList}" var="j">
 													<option value="${j.job_code}">${j.job_title}</option>
 												</c:forEach>
-											</select> 
+											</select>
 										</div>
 									</div>
 									<!--/span-->
@@ -272,22 +272,22 @@
 						<h2 class="card-title">인사관리</h2>
 						<div class="row" style="margin-left: 250px; margin-top: 30px;">
 							<select class="form-control custom-select" style="width: 15%"
-							id="searchCondition" name="searchCondition">
+								id="searchCondition" name="searchCondition">
 								<option value="">----</option>
 								<option value="empname">이름</option>
 								<option value="jobtitle">직급</option>
 								<option value="deptname">부서</option>
 							</select>
 							<div class="input-group" style="width: 60%; margin-left: 20px;">
-								<input type="search" id="keyword" class="form-control" style="width: 70%">
+								<input type="search" id="keyword" class="form-control"
+									style="width: 70%">
 								<button class="btn btn-info" type="button" onclick="search();">검색</button>
 							</div>
 						</div>
 
 
 
-						<div
-							style="float:right;" class="mt-5 pt-5">
+						<div style="float: right;" class="mt-5 pt-5">
 							<div class="input-group">
 								<button data-toggle="modal" data-target="#updatedepart"
 									class="btn btn-info" type="button">부서수정</button>
@@ -302,7 +302,7 @@
 							</div>
 						</div>
 						<div id="basicgrid" class="jsgrid pt-5"
-							style="position: relative; height: 500px; width: 100%; ">
+							style="position: relative; height: 500px; width: 100%;">
 							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
 								<table class="jsgrid-table ">
 									<tr class="jsgrid-header-row">
