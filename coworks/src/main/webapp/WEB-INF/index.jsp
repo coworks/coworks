@@ -469,8 +469,10 @@
 	                     
 	                    success:function(){
 	                       //alert("succes drag");
+	                       console.log("success");
 	                    },error:function(){ 
-	                       // alert("error drag !!!!");
+	                        //alert("error drag !!!!");
+		                       console.log("fail");
 	                    }
 	                });
 	                   

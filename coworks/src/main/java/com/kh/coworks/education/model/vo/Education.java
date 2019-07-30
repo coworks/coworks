@@ -7,124 +7,122 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Education implements Serializable {
-	private int edu_no;// ÀÎµ¦½º
-	private String edu_title;// ÇÁ·Î±×·¥¸í
-	private String edu_instructor;// °­»ç¸í
-	private String edu_type;// ºĞ·ù
-	private int edu_limitCnt;// Á¤¿ø
-	private int edu_curCnt;// ½ÅÃ»ÀÎ¿ø
-	private Timestamp edu_applyBgDate;// ½ÅÃ»½ÃÀÛÀÏ
-	private Timestamp edu_applyEndDate;// ½ÅÃ»¸¶°¨ÀÏ
-	private String edu_applyState;// ½ÅÃ»°¡´É¿©ºÎ
-	private String edu_image;// »ó¼¼¼³¸íÀÌ¹ÌÁö
-
+	private int edu_no;// êµìœ¡ ì‹œí€€ìŠ¤ë²ˆí˜¸
+	private String edu_title;// êµìœ¡ëª… ì´ë¦„
+	private String edu_instructor;// ê°•ì‚¬
+	private String edu_type; // "ì¸ì„±" "ë§ˆì¼€íŒ…" "íšŒê³„" 
+	private int edu_limitCnt;// ì •ì›
+	private int edu_curCnt;// í˜„ì¬ì •ì›
+	private Timestamp edu_eduDate;	// êµìœ¡ì¼
+	private Timestamp edu_applyBgDate;// ì‹œì‘ì¼
+	private Timestamp edu_applyEndDate;// ì¢…ë£Œì¼
+	private String edu_applyState;// ì‹ ì²­ ê°€ëŠ¥ ì—¬ë¶€
+	private String edu_color; //ìƒ‰ìƒ
+	private String edu_image;// ìƒì„¸ ì„¤ëª… ì´ë¯¸ì§€
+	public int getEdu_no() {
+		return edu_no;
+	}
+	public void setEdu_no(int edu_no) {
+		this.edu_no = edu_no;
+	}
+	public String getEdu_title() {
+		return edu_title;
+	}
+	public void setEdu_title(String edu_title) {
+		this.edu_title = edu_title;
+	}
+	public String getEdu_instructor() {
+		return edu_instructor;
+	}
+	public void setEdu_instructor(String edu_instructor) {
+		this.edu_instructor = edu_instructor;
+	}
+	public String getEdu_type() {
+		return edu_type;
+	}
+	public void setEdu_type(String edu_type) {
+		this.edu_type = edu_type;
+	}
+	public int getEdu_limitCnt() {
+		return edu_limitCnt;
+	}
+	public void setEdu_limitCnt(int edu_limitCnt) {
+		this.edu_limitCnt = edu_limitCnt;
+	}
+	public int getEdu_curCnt() {
+		return edu_curCnt;
+	}
+	public void setEdu_curCnt(int edu_curCnt) {
+		this.edu_curCnt = edu_curCnt;
+	}
+	public Timestamp getEdu_eduDate() {
+		return edu_eduDate;
+	}
+	public void setEdu_eduDate(Timestamp edu_eduDate) {
+		this.edu_eduDate = edu_eduDate;
+	}
+	public Timestamp getEdu_applyBgDate() {
+		return edu_applyBgDate;
+	}
+	public void setEdu_applyBgDate(Timestamp edu_applyBgDate) {
+		this.edu_applyBgDate = edu_applyBgDate;
+	}
+	public Timestamp getEdu_applyEndDate() {
+		return edu_applyEndDate;
+	}
+	public void setEdu_applyEndDate(Timestamp edu_applyEndDate) {
+		this.edu_applyEndDate = edu_applyEndDate;
+	}
+	public String getEdu_applyState() {
+		return edu_applyState;
+	}
+	public void setEdu_applyState(String edu_applyState) {
+		this.edu_applyState = edu_applyState;
+	}
+	public String getEdu_color() {
+		return edu_color;
+	}
+	public void setEdu_color(String edu_color) {
+		this.edu_color = edu_color;
+	}
+	public String getEdu_image() {
+		return edu_image;
+	}
+	public void setEdu_image(String edu_image) {
+		this.edu_image = edu_image;
+	}
+	public Education(int edu_no, String edu_title, String edu_instructor, String edu_type, int edu_limitCnt,
+			int edu_curCnt, Timestamp edu_eduDate, Timestamp edu_applyBgDate, Timestamp edu_applyEndDate,
+			String edu_applyState, String edu_color, String edu_image) {
+		super();
+		this.edu_no = edu_no;
+		this.edu_title = edu_title;
+		this.edu_instructor = edu_instructor;
+		this.edu_type = edu_type;
+		this.edu_limitCnt = edu_limitCnt;
+		this.edu_curCnt = edu_curCnt;
+		this.edu_eduDate = edu_eduDate;
+		this.edu_applyBgDate = edu_applyBgDate;
+		this.edu_applyEndDate = edu_applyEndDate;
+		this.edu_applyState = edu_applyState;
+		this.edu_color = edu_color;
+		this.edu_image = edu_image;
+	}
 	public Education() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Education(int edu_no, String edu_title, String edu_instructor, String edu_type, int edu_limitCnt,
-			int edu_curCnt, Timestamp edu_applyBgDate, Timestamp edu_applyEndDate, String edu_applyState,
-			String edu_image) {
-		super();
-		this.edu_no = edu_no;
-		this.edu_title = edu_title;
-		this.edu_instructor = edu_instructor;
-		this.edu_type = edu_type;
-		this.edu_limitCnt = edu_limitCnt;
-		this.edu_curCnt = edu_curCnt;
-		this.edu_applyBgDate = edu_applyBgDate;
-		this.edu_applyEndDate = edu_applyEndDate;
-		this.edu_applyState = edu_applyState;
-		this.edu_image = edu_image;
-	}
-
-	public int getEdu_no() {
-		return edu_no;
-	}
-
-	public void setEdu_no(int edu_no) {
-		this.edu_no = edu_no;
-	}
-
-	public String getEdu_title() {
-		return edu_title;
-	}
-
-	public void setEdu_title(String edu_title) {
-		this.edu_title = edu_title;
-	}
-
-	public String getEdu_instructor() {
-		return edu_instructor;
-	}
-
-	public void setEdu_instructor(String edu_instructor) {
-		this.edu_instructor = edu_instructor;
-	}
-
-	public String getEdu_type() {
-		return edu_type;
-	}
-
-	public void setEdu_type(String edu_type) {
-		this.edu_type = edu_type;
-	}
-
-	public int getEdu_limitCnt() {
-		return edu_limitCnt;
-	}
-
-	public void setEdu_limitCnt(int edu_limitCnt) {
-		this.edu_limitCnt = edu_limitCnt;
-	}
-
-	public int getEdu_curCnt() {
-		return edu_curCnt;
-	}
-
-	public void setEdu_curCnt(int edu_curCnt) {
-		this.edu_curCnt = edu_curCnt;
-	}
-
-	public Timestamp getEdu_applyBgDate() {
-		return edu_applyBgDate;
-	}
-
-	public void setEdu_applyBgDate(Timestamp edu_applyBgDate) {
-		this.edu_applyBgDate = edu_applyBgDate;
-	}
-
-	public Timestamp getEdu_applyEndDate() {
-		return edu_applyEndDate;
-	}
-
-	public void setEdu_applyEndDate(Timestamp edu_applyEndDate) {
-		this.edu_applyEndDate = edu_applyEndDate;
-	}
-
-	public String getEdu_applyState() {
-		return edu_applyState;
-	}
-
-	public void setEdu_applyState(String edu_applyState) {
-		this.edu_applyState = edu_applyState;
-	}
-
-	public String getEdu_image() {
-		return edu_image;
-	}
-
-	public void setEdu_image(String edu_image) {
-		this.edu_image = edu_image;
-	}
-
 	@Override
 	public String toString() {
 		return "Education [edu_no=" + edu_no + ", edu_title=" + edu_title + ", edu_instructor=" + edu_instructor
 				+ ", edu_type=" + edu_type + ", edu_limitCnt=" + edu_limitCnt + ", edu_curCnt=" + edu_curCnt
-				+ ", edu_applyBgDate=" + edu_applyBgDate + ", edu_applyEndDate=" + edu_applyEndDate
-				+ ", edu_applyState=" + edu_applyState + ", edu_image=" + edu_image + "]";
+				+ ", edu_eduDate=" + edu_eduDate + ", edu_applyBgDate=" + edu_applyBgDate + ", edu_applyEndDate="
+				+ edu_applyEndDate + ", edu_applyState=" + edu_applyState + ", edu_color=" + edu_color + ", edu_image="
+				+ edu_image + "]";
 	}
 
+	
+	
+
+	
 }
