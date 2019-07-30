@@ -258,7 +258,7 @@ public class ApprovalController {
 		mv.addObject("doc", doc).addObject("signList", approvalService.selectApprovalStatus(adoc_no))
 				.addObject("attachList", approvalService.selectApprovalAttach(adoc_no))
 				.addObject("form", approvalService.selectApprovalDocForm(doc.getAform_no()))
-				.addObject("writer", employeeService.selectEmployee(doc.getAdoc_writerno()));
+				.addObject("writer", employeeService.selectOneEmployee(doc.getAdoc_writerno()));
 
 		mv.setViewName("approval/approvalDocDetail");
 

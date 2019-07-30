@@ -13,7 +13,7 @@
 		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
 	</select>
 	
-	<select id="selectOneEmployee" resultMap="resultEmployee">
+	<select id="selectOneEmployee" resultType="employee">
 		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
 	</select>
 	
