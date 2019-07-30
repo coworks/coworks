@@ -53,10 +53,16 @@
 				                              </tr>  
 				                              </tbody>
 				                
-				               		 </table>
+				               		 </table> 
+				               		 <input type="hidden" id="edu_curCnt" value="${edu.edu_curCnt}"/>
+				               		 <input type="hidden" id="edu_limitCnt" value="${edu.edu_limitCnt}"/>				              
+				               		 <input type="hidden" id="edu_applyBgDate" value="${edu.edu_applyBgDate}"/>
+				               		 <input type="hidden" id="edu_applyEndDate" value="${edu.edu_applyEndDate}"/>
 				                </div>
 				                 <div class="float-right">
-				                 	<input type="button" class="btn btn-secondary" id="apply" name="apply" value="신청하기"/>
+				                 	<input type="button" class="btn btn-info" id="apply" name="apply" value="신청하기"/>
+				                 	<input type="button" class="btn btn-secondary" id="finished" name="finished" style="display:none" value="마감"/>
+				                 
 				                 </div>
 								
 							</div>
@@ -65,7 +71,7 @@
 				<div class="card">
 				
 				<br>
-					<h3 class=" mb-0 mt-0">&nbsp; [${edu.edu_type}] 교육 안내</h3><br> 
+					<h3 class=" mb-0 mt-0">&nbsp;&nbsp; 교육 안내</h3><br> 
 					<div style="margin:0 auto;">
 				     <img id="aaa" src="${pageContext.request.contextPath}/resources/images/educationImg/${edu.edu_image}"/>
 					</div>
@@ -77,5 +83,30 @@
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	
+	
+	<script> 
+		$(function(){
+			var bg=new Date($('#edu_applyBgDate').val());
+			var end=new Date($('#edu_applyEndDate').val());
+			var limit=$('#edu_limitCnt').val();
+			var curr=$('#edu_curCnt').val();
+			console.log(bg);
+			
+			var $this = this;  
+	    	 var now = new Date(); 
+			
+			if((now.getTime()>=bg.getTime() && now.getTime()<=end.getTime())
+					&& limit-curr>0){
+				//location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+calEvent.no; 
+	              
+			}else{
+				alert("신청 인원이 마감되었습니다."); 
+				$('#apply').hide();
+				$('#finished').show();
+				
+			}
+		});
+	</script>
 </body>
 </html>

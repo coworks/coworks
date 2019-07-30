@@ -126,26 +126,15 @@
 	    
 	    /* on click on event */
 	    CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-	    	 var $this = this;  
-	    	 var now = new Date();   
- 			 
-			var start=new Date(calEvent.start);
-			var end=new Date(calEvent.end);  
-			
-			if((now.getTime()>=start.getTime() && now.getTime()<=end.getTime())
-					&& calEvent.limitCnt-calEvent.curCnt>0){
+	    	  
 				location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+calEvent.no; 
-	              
-			}else{
-				alert("신청 인원이 마감되었습니다.");
-			}
-			 
+	       
 		
 	             
 	              
 	    },
 	    /* on select */
-	    CalendarApp.prototype.onSelect = function (start, end, allDay) {
+	    CalendarApp.prototype.onSelect = function (start, allDay) {
            var $this = this;
            
                $this.$calendarObj.fullCalendar('unselect');
@@ -194,9 +183,9 @@
 	              title   :  '${edu.edu_title}', 
 	              limitCnt :  '${edu.edu_limitCnt}',   // 일정 내용
 	              curCnt: '${edu.edu_curCnt}',
-	              eduDate:'${edu.edu_eduDate}',
-	               start   :  '${edu.edu_applyBgDate}',   // 시작일
-	               end   :  '${edu.edu_applyEndDate}',
+	              start:'${edu.edu_eduDate}',
+	               bgDate   :  '${edu.edu_applyBgDate}',   // 시작일
+	               endDate   :  '${edu.edu_applyEndDate}',
 	               state   :  '${edu.edu_applyState}', 
 	               className : '${edu.edu_color}',   // 색상변경(탬플릿적용 색)
 	               edu_image:'${edu.edu_image}' 
