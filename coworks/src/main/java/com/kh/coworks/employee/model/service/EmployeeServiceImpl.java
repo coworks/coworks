@@ -93,5 +93,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.insertAuthority(ah);
 	}
 
+	@Override
+	public int employeeMoveUpdate(Employee employee) {
+		return employeeDao.employeeMoveUpdate(employee);
+	}
+
+	@Override
+	public int updateAuthority(Authority ah) {
+		return employeeDao.updateAuthority(ah);
+	}
+
 
 }

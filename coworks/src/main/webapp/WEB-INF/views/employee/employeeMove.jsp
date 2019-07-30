@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, com.kh.coworks.employee.model.vo.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -28,14 +29,16 @@
 					<div class="card-body">
 						<h2 class="card-title">인사이동관리</h2>
 						<div class="form-body">
-							<form method="get" action="employeeEnroll.do"
+							<form method="post" action="employeeMoveUpdate.do"
 								name="employeeEnroll">
+									<input type="hidden" name="emp_no" id="emp_no" value="${employee.emp_no}" >
 								<div class="card-body">
 									<div class="row pt-3">
 										<div class="col-md-3">
 											<div class="form-group">
 												<label class="control-label">이름</label> <input type="text"
-													id="emp_name" name="emp_name" class="form-control" value="${employee.emp_name}">
+													id="emp_name" name="emp_name" class="form-control"
+													value="${employee.emp_name}">
 												<!-- <small class="form-control-feedback"> This is inline help </small> -->
 											</div>
 										</div>
@@ -69,8 +72,10 @@
 												<label class="control-label">Gender</label> <select
 													id="emp_gender" name="emp_gender"
 													class="form-control custom-select">
-													<option value="M" ${employee.emp_gender=='M'?'selected':'' }>Male</option>
-													<option value="F" ${employee.emp_gender=='F'?'selected':'' }>Female</option>
+													<option value="M"
+														${employee.emp_gender=='M'?'selected':'' }>Male</option>
+													<option value="F"
+														${employee.emp_gender=='F'?'selected':'' }>Female</option>
 												</select>
 											</div>
 										</div>
@@ -107,43 +112,56 @@
 											<label>권한 <span class="help"> </span></label>
 											<div class="form-group row pt-4">
 												<div class="col-sm-6">
+												<% 
+													/* List.contains메소드를 사용하기 위해 String[] => List로 형변환함.  */
+													List<String> auList = null;
+													String[] authority = ((Employee)session.getAttribute("employee")).getEmp_authority();
+													if(authority != null)//이 조건이 없다면,취미체크박스에 하나도 체크하지 않았다면, Array.asList(null)=>NullPointerException 
+														auList = Arrays.asList(authority); 
+												%>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority1"
-															value="인사"> <label class="custom-control-label"
-															for="emp_authority1">인사</label>
+															value="인사" <%=auList!=null && auList.contains("인사")?"checked":""%>> <label class="custom-control-label"
+															for="emp_authority1" >인사</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority2"
-															value="자료실"> <label class="custom-control-label"
-															for="emp_authority2">자료실</label>
+															value="자료실" <%=auList!=null && auList.contains("자료실")?"checked":""%>> <label class="custom-control-label"
+															for="emp_authority2" >자료실</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority3"
-															value="회사일정"> <label class="custom-control-label"
-															for="emp_authority3">회사일정</label>
+															value="회사일정" <%=auList!=null && auList.contains("회사일정")?"checked":""%>> <label class="custom-control-label"
+															for="emp_authority3" >회사일정</label>
+													</div>
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" name="emp_authority"
+															class="custom-control-input" id="emp_authority4"
+															value="급여" <%=auList!=null && auList.contains("급여")?"checked":""%>> <label class="custom-control-label"
+															for="emp_authority4" >급여</label>
 													</div>
 												</div>
 												<div class="col-sm-6">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
-															class="custom-control-input" id="emp_authority4"
-															value="게시판"> <label class="custom-control-label"
-															for="emp_authority4">게시판</label>
-													</div>
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority5"
-															value="결재서류"> <label class="custom-control-label"
-															for="emp_authority5">결재서류</label>
+															value="게시판" <%=auList!=null && auList.contains("게시판")?"checked":""%>> <label class="custom-control-label"
+															for="emp_authority5" >게시판</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority6"
-															value="권한관리"> <label class="custom-control-label"
-															for="emp_authority6">권한관리</label>
+															value="결재서류" <%=auList!=null && auList.contains("결재서류")?"checked":""%>> <label class="custom-control-label"
+															for="emp_authority6" >결재서류</label>
+													</div>
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" name="emp_authority"
+															class="custom-control-input" id="emp_authority7"
+															value="권한관리" <%=auList!=null && auList.contains("권한관리")?"checked":""%>> <label class="custom-control-label"
+															for="emp_authority7" >권한관리</label>
 													</div>
 												</div>
 											</div>
@@ -157,7 +175,8 @@
 												<div class="form-group">
 													<label for="example-tel-input" class="col-form-label">Telephone</label>
 													<input class="form-control" id="emp_phone" name="emp_phone"
-														type="tel" id="example-tel-input" value="${employee.emp_phone }">
+														type="tel" id="example-tel-input"
+														value="${employee.emp_phone }">
 												</div>
 											</div>
 										</div>
@@ -179,11 +198,9 @@
 
 	<c:import url="../common/bottomJquery.jsp" />
 	<script>
-		function cancel(){
-			location.href="${pageContext.request.contextPath}/employee/employeeList.do";
+		function cancel() {
+			location.href = "${pageContext.request.contextPath}/employee/employeeList.do";
 		}
-		
-		
 	</script>
 	<%-- 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/db.js"></script>

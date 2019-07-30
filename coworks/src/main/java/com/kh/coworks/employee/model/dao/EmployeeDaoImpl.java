@@ -110,4 +110,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public int insertAuthority(Authority ah) {
 		return sqlSession.insert("employee.insertAuthority",ah);
 	}
+
+	@Override
+	public int employeeMoveUpdate(Employee employee) {
+		return sqlSession.update("employee.employeeMoveUpdate",employee);
+	}
+
+	@Override
+	public int updateAuthority(Authority ah) {
+		return sqlSession.update("employee.updateAuthority",ah);
+	}
 }

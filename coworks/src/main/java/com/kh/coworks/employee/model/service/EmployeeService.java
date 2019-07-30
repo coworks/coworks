@@ -40,5 +40,9 @@ public interface EmployeeService {
 
 	int insertAuthority(Authority ah);
 
+	int employeeMoveUpdate(Employee employee);
+
+	int updateAuthority(Authority ah);
+
 	
 }

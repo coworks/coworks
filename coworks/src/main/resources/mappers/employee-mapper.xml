@@ -13,8 +13,7 @@
 		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
 	</select>
 	
-	<select id="selectOneEmployee" resultType="employee"
-		parameterType="_int">
+	<select id="selectOneEmployee" resultMap="resultEmployee">
 		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
 	</select>
 	
@@ -68,7 +67,7 @@
 	<insert id="insertAuthority" parameterType="authority">
 		INSERT INTO AUTHORITY
 		VALUES(
-		SEQ_EMPLOYEE.CURRVAL, #{auth_personnal}, #{auth_data} , #{auth_schedule} , #{auth_board} 
+		SEQ_EMPLOYEE.CURRVAL, #{auth_personnal}, #{auth_data} , #{auth_cal} , #{auth_board} 
 		, #{auth_approval} , #{auth_authority} , #{auth_pay}
 		)
 	</insert>
@@ -123,6 +122,35 @@
 	<select id="selectDeptEmpCount" resultType="hashmap">
 	select dept_name,count(*) count from empview group by dept_name order by dept_name
 	</select>
-
-
+	
+	<update id="employeeMoveUpdate" parameterType="employee" >
+		UPDATE EMPLOYEE
+		SET
+			EMP_NAME = #{emp_name},
+			JOB_CODE = #{job_code},
+			DEPT_CODE = #{dept_code},
+			EMP_PHONE = #{emp_phone},
+			EMP_EMAIL = #{emp_email},
+			EMP_BIRTH = #{emp_birth},
+			EMP_GENDER = #{emp_gender},
+			EMP_AUTHORITY = #{emp_authority, typeHandler=strArrTypeHandler}
+			
+		WHERE EMP_NO = #{emp_no}
+	</update>
+	
+	<update id="updateAuthority" parameterType="authority" >
+		UPDATE AUTHORITY
+		SET
+			AUTH_PERSONNAL = #{auth_personnal},
+			AUTH_DATA = #{auth_data},
+			AUTH_CAL = #{auth_cal},
+			AUTH_BOARD = #{auth_board},
+			AUTH_APPROVAL = #{auth_approval},
+			AUTH_AUTHORITY = #{auth_authority},
+			AUTH_PAY = #{auth_pay}
+		WHERE EMP_NO = #{emp_no}
+	</update>
+	
+	
+	
 </mapper>
