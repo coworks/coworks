@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.coworks.education.model.vo.EduApply;
 import com.kh.coworks.education.model.vo.Education;
 
 @Repository
@@ -25,5 +26,13 @@ public class EducationDaoImpl implements EducationDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("education.selectOneEducation",edu_no);
 	}
+
+	@Override
+	public int insertEduApply(EduApply ea) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("education.insertEduApply",ea);
+	}
+	
+	
 
 }

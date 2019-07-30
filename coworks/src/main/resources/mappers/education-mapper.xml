@@ -11,7 +11,9 @@
 	<select id="selectOneEducation" parameterType="_int" resultType="education">
 		SELECT * FROM EDUCATION WHERE EDU_NO=#{edu_no}
 	</select>
-	
-		
+	<insert id="insertEduApply" parameterType="eduapply">
+		INSERT INTO EDUAPPLY SELECT SEQ_EAAP_NO.NEXTVAL,#{emp_no},#{edu_no} FROM DUAL 
+		WHERE NOT EXISTS(SELECT EMP_NO FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no})
+	</insert>	
 	 
 </mapper>

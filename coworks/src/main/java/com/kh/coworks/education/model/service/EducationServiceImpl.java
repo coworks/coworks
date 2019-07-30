@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.coworks.education.model.dao.EducationDao;
+import com.kh.coworks.education.model.vo.EduApply;
 import com.kh.coworks.education.model.vo.Education;
 
 @Service
@@ -25,5 +26,13 @@ public class EducationServiceImpl implements EducationService {
 		// TODO Auto-generated method stub
 		return eduDao.selectOneEducation(edu_no);
 	}
+
+	@Override
+	public int insertEduApply(EduApply ea) {
+		// TODO Auto-generated method stub
+		return eduDao.insertEduApply(ea);
+	}
+	
+	
 
 }

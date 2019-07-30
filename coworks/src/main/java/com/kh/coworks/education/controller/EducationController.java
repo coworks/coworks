@@ -1,8 +1,10 @@
 package com.kh.coworks.education.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.coworks.education.model.service.EducationService;
+import com.kh.coworks.education.model.vo.EduApply;
 import com.kh.coworks.education.model.vo.Education;
 import com.kh.coworks.employee.model.vo.Employee;
 
@@ -48,5 +51,19 @@ public class EducationController {
 		// 만약 인원 다차면 마감 띄우기~~
 		return mv;
 	
+	}
+	
+	@RequestMapping("/education/insertEduApply.do")
+	public void insertEduApply(HttpServletResponse resp,@RequestParam("edu_no") String edu_no, ModelAndView mv,HttpServletRequest request) throws IOException {
+		 
+	    
+		Employee employee=(Employee) request.getSession().getAttribute("employee");
+		EduApply ea=new EduApply();
+		ea.setEdu_no(Integer.parseInt(edu_no));
+		ea.setEmp_no(employee.getEmp_no());
+		
+		int result=educationService.insertEduApply(ea);
+		 
+		resp.getWriter().print(true);
 	}
 }

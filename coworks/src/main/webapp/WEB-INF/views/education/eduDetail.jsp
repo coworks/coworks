@@ -53,7 +53,9 @@
 				                              </tr>  
 				                              </tbody>
 				                
-				               		 </table> 
+				               		 </table>  
+				               		 <!-- 바꿀꺼야... -->
+				               		 <input type="hidden" id="edu_no" value="${edu.edu_no}"/>				               		
 				               		 <input type="hidden" id="edu_curCnt" value="${edu.edu_curCnt}"/>
 				               		 <input type="hidden" id="edu_limitCnt" value="${edu.edu_limitCnt}"/>				              
 				               		 <input type="hidden" id="edu_applyBgDate" value="${edu.edu_applyBgDate}"/>
@@ -61,7 +63,7 @@
 				                </div>
 				                 <div class="float-right">
 				                 	<input type="button" class="btn btn-info" id="apply" name="apply" value="신청하기"/>
-				                 	<input type="button" class="btn btn-secondary" id="finished" name="finished" style="display:none" value="마감"/>
+				                 	<input type="button" class="btn btn-secondary" id="finished" name="finished" style="display:none" value="마 감"/>
 				                 
 				                 </div>
 								
@@ -85,8 +87,9 @@
 	<c:import url="../common/bottomJquery.jsp" />
 	
 	
-	<script> 
-		$(function(){
+	<script>  
+			$('#apply').on("click",	function(){
+			var no=($('#edu_no').val());
 			var bg=new Date($('#edu_applyBgDate').val());
 			var end=new Date($('#edu_applyEndDate').val());
 			var limit=$('#edu_limitCnt').val();
@@ -98,15 +101,28 @@
 			
 			if((now.getTime()>=bg.getTime() && now.getTime()<=end.getTime())
 					&& limit-curr>0){
-				//location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+calEvent.no; 
-	              
+				$.ajax({
+					  url : "${pageContext.request.contextPath}/education/insertEduApply.do",
+	                  data : {edu_no : no},
+	                  type:"post",
+	                  dataType : "json",
+	                  async:false,
+	                  success : function(data){
+	                      alert("신청 완료!");
+	                      location.href="${pageContext.request.contextPath}/education/edcationview.do";
+	                  },error: function(data){
+	                      alert("신청 실패");
+	                  }
+				});
 			}else{
 				alert("신청 인원이 마감되었습니다."); 
 				$('#apply').hide();
 				$('#finished').show();
 				
 			}
-		});
+			
+			});
+		 
 	</script>
 </body>
 </html>
