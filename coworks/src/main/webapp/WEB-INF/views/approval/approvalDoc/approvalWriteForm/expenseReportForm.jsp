@@ -27,7 +27,7 @@
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">지출 품의서</h2>
 
-									<form action="${pageContext.request.contextPath }/approval/writeTableApprovalDone" method="post" enctype="multipart/form-data" id="tableForm" onsubmit="return check()">
+									<form id="tableForm">
 										<div class="table-responsive mt-2">
 											<c:import url="./common/approvalHeader.jsp" />
 											<table class="table table-bordered no-wrap">
@@ -78,7 +78,7 @@
 										</div>
 										<c:import url="./common/approvalAttachAdd.jsp" />
 										<div align="right">
-											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
+											<input type="button" id="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
 										</div>
 									</form>
 								</div>
@@ -95,17 +95,17 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 	<script>
-		function check() {
+		$('#submit').on('click', function() {
 			var myForm = $('#tableForm')[0];
 			var formData = new FormData(myForm);
-			event.preventDefault();
 
+			var adoc_content=new Array;
 			var header = new Array;
 			$('#header').children().each(function() {
 				header.push($(this).html());
 			});
 			formData.append('header', header);
-			
+
 			for (var i = 1; i <= 15; i++) {
 				var row = $('#row' + i).children().children();
 				if (row.eq(1).val() != "") {
@@ -113,33 +113,26 @@
 					row.each(function(i) {
 						obj.push($(this).val());
 					});
-					formData.append('row'+i,obj);
+					formData.append('row' + i, obj);
 				}
 			}
 
-
-	
-			for(value of formData.entries()){ 
-			    console.log(value); 
-			}
 			$.ajax({
-	            type: "POST",
-	            enctype: 'multipart/form-data',
-	            url: "/document/upload",
-	            data: formData,
-	            success: function (data) {
-	                alert("complete");
-	                $("#btnSubmit").prop("disabled", false);
-	            },
-	            error: function (e) {
-	                console.log("ERROR : ", e);
-	                $("#btnSubmit").prop("disabled", false);
-	                alert("fail");
-	            }
-	        });
-
-			return false;
-		};
+				type : "post",
+				url : "/coworks/approval/writeApprovalDone",
+				data : formData,
+				enctype : "multipart/form-data",
+				processData : false,
+				async : false,
+				contentType : false,
+				success : function(data) {
+					console.log(data);
+				},
+				error : function(e) {
+					console.log("ERROR : ", e);
+				}
+			});
+		});
 
 		$("#treeview").hummingbird();
 
@@ -164,8 +157,7 @@
 					table.append('<td>' + index.dataset.dept + '</td>');
 					table.append('<td>' + index.dataset.job + '</td>');
 
-					table
-							.append("<input type='hidden' name='signList' value="+index.value+">");
+					table.append("<input type='hidden' name='signList' value="+index.value+">");
 
 					$('#signTable tbody').append(table);
 

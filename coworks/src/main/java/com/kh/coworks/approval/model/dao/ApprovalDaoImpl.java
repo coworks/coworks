@@ -68,13 +68,13 @@ public class ApprovalDaoImpl implements ApprovalDao {
 	}
 
 	@Override
-	public List<ApprovalDoc> selectApprovalYet(int emp_no) {
-		return sqlSession.selectList("approval.selectApprovalYet", emp_no);
+	public List<ApprovalDoc> approvalWait(int emp_no) {
+		return sqlSession.selectList("approval.approvalWait", emp_no);
 	}
 
 	@Override
-	public List<ApprovalDoc> selectApprovalPending(int emp_no) {
-		return sqlSession.selectList("approval.selectApprovalPending", emp_no);
+	public List<ApprovalDoc> selectApprovalReceive(int emp_no) {
+		return sqlSession.selectList("approval.selectApprovalReceive", emp_no);
 	}
 
 	@Override

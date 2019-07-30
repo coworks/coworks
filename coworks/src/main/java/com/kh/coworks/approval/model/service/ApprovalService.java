@@ -28,9 +28,9 @@ public interface ApprovalService {
 
 	ApprovalForm selectApprovalDocForm(int aform_no);
 
-	List<ApprovalDoc> selectApprovalYet(int emp_no);
+	List<ApprovalDoc> approvalWait(int emp_no);
 
-	List<ApprovalDoc> selectApprovalPending(int emp_no);
+	List<ApprovalDoc> selectApprovalReceive(int emp_no);
 
 	void updateApprovalStatus(ApprovalStatus st);
 

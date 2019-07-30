@@ -61,7 +61,7 @@
 		approvalForm where aform_no=#{aform_no}
 	</select>
 
-	<select id="selectApprovalYet" parameterType="_int" resultType="approvalDoc">
+	<select id="approvalWait" parameterType="_int" resultType="approvalDoc">
 		select doc.*,form.aform_title from approvalDoc doc,
 		approvalForm form where
 		doc.aform_no=form.aform_no and adoc_status=0
@@ -69,7 +69,7 @@
 		adoc_writerno=#{emp_no} order by adoc_no desc
 	</select>
 
-	<select id="selectApprovalPending" parameterType="_int" resultType="approvalDoc">
+	<select id="selectApprovalReceive" parameterType="_int" resultType="approvalDoc">
 		SELECT
 		DOC.*,
 		EMP_NAME WRITERNAME,
