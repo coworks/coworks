@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.coworks.authority.model.vo.Authority;
 import com.kh.coworks.employee.model.dao.EmployeeDao;
 import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Employee;
@@ -47,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	
 	@Override
-	public Employee selectEmployee(int emp_no) {
+	public List<Employee> selectEmployee(int emp_no) {
 		// TODO Auto-generated method stub
 		return employeeDao.selectEmployee(emp_no);
 	}
@@ -80,6 +81,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<Map<String, Object>> selectDeptEmpCount() {
 		return employeeDao.selectDeptEmpCount();
+	}
+
+	@Override
+	public Employee selectOneEmployee(int emp_no) {
+		return  employeeDao.selectOneEmployee(emp_no);
+	}
+
+	@Override
+	public int insertAuthority(Authority ah) {
+		return employeeDao.insertAuthority(ah);
 	}
 
 

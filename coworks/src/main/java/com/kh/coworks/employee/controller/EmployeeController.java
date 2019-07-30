@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 
+import com.kh.coworks.authority.model.vo.Authority;
 import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Department;
@@ -73,6 +74,50 @@ public class EmployeeController {
 		// 1. 비즈니스 로직 실행
 		int result = employeeService.insertEmployee(employee);
 
+		String[] splitAuthority = employee.getEmp_authority();
+
+		System.out.println(splitAuthority.length);
+		
+		for(int i=0; i<splitAuthority.length; i++) {
+			System.out.println(splitAuthority[i]);
+		}
+		
+		Authority ah = new Authority();
+		
+		ah.setAuth_personnal("N");
+		ah.setAuth_data("N");
+		ah.setAuth_schedule("N");
+		ah.setAuth_board("N");
+		ah.setAuth_approval("N");
+		ah.setAuth_authority("N");
+		ah.setAuth_pay("N");
+		
+		for(int i=0; i<splitAuthority.length;i++) {
+			
+			if(splitAuthority[i].equals("인사"))
+				ah.setAuth_personnal("Y");
+				
+			if(splitAuthority[i].equals("자료실"))
+				ah.setAuth_data("Y");
+			
+			if(splitAuthority[i].equals("회사일정"))
+				ah.setAuth_schedule("Y");
+			
+			if(splitAuthority[i].equals("게시판"))
+				ah.setAuth_board("Y");
+			
+			if(splitAuthority[i].equals("결재서류"))
+				ah.setAuth_approval("Y");
+			
+			if(splitAuthority[i].equals("권한관리"))
+				ah.setAuth_authority("Y");
+			
+			if(splitAuthority[i].equals("급여"))
+				ah.setAuth_pay("Y");
+		}
+		
+		int auResult = employeeService.insertAuthority(ah);
+		
 		// 2. 실행 결과에 따른 화면 처리
 		String loc = "/";
 		String msg = "";
@@ -133,5 +178,21 @@ public class EmployeeController {
 		return "employee/employeeList";
 	}
 	
-	
+	@RequestMapping("employee/employeeMove.do")
+	public String employeeMove(String index , Model model) {
+		
+		Employee employee = employeeService.selectOneEmployee(Integer.parseInt(index));
+
+		// 사원추가 SELECT 부서 목록
+		ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+
+		// 사원추가 SELECT 사원 목록
+		ArrayList<Job> jobList = new ArrayList<>(employeeService.selectJobList());
+		
+		model.addAttribute("employee",employee).addAttribute("departmentList",departmentList)
+		.addAttribute("jobList",jobList);
+		
+		return "employee/employeeMove";
+	}
+
 }

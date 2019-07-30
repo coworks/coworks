@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.coworks.authority.model.vo.Authority;
 import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.employee.model.vo.Job;
@@ -21,7 +22,9 @@ public interface EmployeeService {
 	
 	List<Job> selectJobList();
 	
-	Employee selectEmployee(int emp_no);
+	List<Employee> selectEmployee(int emp_no);
+	
+	Employee selectOneEmployee(int emp_no);
 
 	int insertDeptName(Department dept);
 
@@ -34,4 +37,8 @@ public interface EmployeeService {
 	List<Employee> selectEmployeeList();
 
 	List<Map<String, Object>> selectDeptEmpCount();
+
+	int insertAuthority(Authority ah);
+
+	
 }

@@ -13,6 +13,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.coworks.authority.model.vo.Authority;
 import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.employee.model.vo.Job;
@@ -52,7 +53,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 	
 	@Override
-	public Employee selectEmployee(int emp_no) {
+	public List<Employee> selectEmployee(int emp_no) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("employee.selectEmployee",emp_no);
 	}
@@ -98,5 +99,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<Map<String,Object>> selectDeptEmpCount(){
 		return sqlSession.selectList("employee.selectDeptEmpCount");
+	}
+
+	@Override
+	public Employee selectOneEmployee(int emp_no) {
+		return  sqlSession.selectOne("employee.selectOneEmployee",emp_no);
+	}
+
+	@Override
+	public int insertAuthority(Authority ah) {
+		return sqlSession.insert("employee.insertAuthority",ah);
 	}
 }
