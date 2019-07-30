@@ -42,7 +42,7 @@ public class CommonController {
       
        
       try {
-      Employee e=employeeService.selectEmployee(emp_no);
+      Employee e=employeeService.selectOneEmployee(emp_no);
       
       String rawPassword=emp_password;   // 암호화x 나중에 암호화 할것임돠
       System.out.println("암호화 전 : "+rawPassword);
