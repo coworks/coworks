@@ -66,7 +66,9 @@
 				
 				<br>
 					<h3 class=" mb-0 mt-0">&nbsp; [${edu.edu_type}] 교육 안내</h3><br> 
+					<div style="margin:0 auto;">
 				     <img id="aaa" src="${pageContext.request.contextPath}/resources/images/educationImg/${edu.edu_image}"/>
+					</div>
 				</div>
 				</div>
 				
