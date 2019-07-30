@@ -15,5 +15,9 @@
 		INSERT INTO EDUAPPLY SELECT SEQ_EAAP_NO.NEXTVAL,#{emp_no},#{edu_no} FROM DUAL 
 		WHERE NOT EXISTS(SELECT EMP_NO FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no})
 	</insert>	
-	 
+	
+	<delete id="deleteEduApply" parameterType="eduapply">
+		DELETE FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no}
+	</delete>
+
 </mapper>

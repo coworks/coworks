@@ -28,11 +28,17 @@ public class EducationDaoImpl implements EducationDao {
 	}
 
 	@Override
-	public int insertEduApply(EduApply ea) {
+	public int insertEduApply(EduApply eduApply) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("education.insertEduApply",ea);
+		return sqlSession.insert("education.insertEduApply",eduApply);
+	}
+
+	@Override
+	public int deleteEduApply(EduApply eduApply) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("education.deleteEduApply",eduApply);
 	}
 	
 	
-
+	
 }

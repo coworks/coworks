@@ -64,6 +64,23 @@ public class EducationController {
 		
 		int result=educationService.insertEduApply(ea);
 		 
-		resp.getWriter().print(true);
+		resp.getWriter().print(result);
 	}
+	
+	
+	@RequestMapping("/education/deleteEduApply.do")
+	public void deleteEduApply(HttpServletResponse resp,@RequestParam("edu_no") String edu_no, ModelAndView mv,HttpServletRequest request) throws IOException {
+		 
+	    
+		Employee employee=(Employee) request.getSession().getAttribute("employee");
+		EduApply ea=new EduApply();
+		ea.setEdu_no(Integer.parseInt(edu_no));
+		ea.setEmp_no(employee.getEmp_no());
+		
+		int result=educationService.deleteEduApply(ea);
+		 
+		resp.getWriter().print(result);
+	}
+	
+	
 }

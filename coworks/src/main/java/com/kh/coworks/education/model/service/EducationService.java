@@ -10,5 +10,7 @@ public interface EducationService {
 	
 	Education selectOneEducation(int edu_no);
 
-	int insertEduApply(EduApply ea);
+	int insertEduApply(EduApply eduApply);
+
+	int deleteEduApply(EduApply eduApply);
 }

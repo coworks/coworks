@@ -28,9 +28,15 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public int insertEduApply(EduApply ea) {
+	public int insertEduApply(EduApply eduApply) {
 		// TODO Auto-generated method stub
-		return eduDao.insertEduApply(ea);
+		return eduDao.insertEduApply(eduApply);
+	}
+
+	@Override
+	public int deleteEduApply(EduApply eduApply) {
+		// TODO Auto-generated method stub
+		return eduDao.deleteEduApply(eduApply);
 	}
 	
 	

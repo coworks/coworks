@@ -63,6 +63,7 @@
 				                </div>
 				                 <div class="float-right">
 				                 	<input type="button" class="btn btn-info" id="apply" name="apply" value="신청하기"/>
+				                 	<input type="button" class="btn btn-danger" id="delete" name="delete"  value="취 소"/>
 				                 	<input type="button" class="btn btn-secondary" id="finished" name="finished" style="display:none" value="마 감"/>
 				                 
 				                 </div>
@@ -88,6 +89,27 @@
 	
 	
 	<script>  
+		$('#delete').on("click",function(){
+			var no=($('#edu_no').val());
+			
+			$.ajax({
+				  url : "${pageContext.request.contextPath}/education/deleteEduApply.do",
+                data : {edu_no : no},
+                type:"post",
+                dataType : "json",
+                async:false,
+                success : function(data){
+                    if(data>0) alert("취소 완료!!");
+                    else alert("취소 실패!!");
+                    location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+${edu.edu_no};
+                },error: function(data){
+                    alert("취소 실패");
+                }
+			});
+			
+			
+			
+		});
 			$('#apply').on("click",	function(){
 			var no=($('#edu_no').val());
 			var bg=new Date($('#edu_applyBgDate').val());
@@ -108,8 +130,10 @@
 	                  dataType : "json",
 	                  async:false,
 	                  success : function(data){
-	                      alert("신청 완료!");
-	                      location.href="${pageContext.request.contextPath}/education/edcationview.do";
+	                      if(data>0) alert("신청 완료!!");
+	                      else alert("신청 실패!!");  
+	                      location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+${edu.edu_no};
+	                      
 	                  },error: function(data){
 	                      alert("신청 실패");
 	                  }
@@ -117,6 +141,7 @@
 			}else{
 				alert("신청 인원이 마감되었습니다."); 
 				$('#apply').hide();
+				$('#delete').hide();
 				$('#finished').show();
 				
 			}
