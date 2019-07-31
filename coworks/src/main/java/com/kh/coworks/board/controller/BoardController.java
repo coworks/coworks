@@ -228,7 +228,7 @@ public class BoardController {
 			if (!f.isEmpty()) {
 				if (list.size() > idx) {
 					boolean idDeleted = new File(saveDir_bo + "/" + list.get(idx).getAttach_rename()).delete();
-
+ 
 					at = list.get(idx);
 				} else {
 					at = new Attach();
