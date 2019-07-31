@@ -61,7 +61,9 @@
 												<td>${list.edu_type}</td>
 												<td>${list.edu_title}</td>
 												<td>${list.edu_instructor}</td>
-												<td>${list.edu_eduDate}</td>
+												<td>
+													<fmt:formatDate value="${list.edu_eduDate}" pattern="yyyy-MM-dd" />
+												</td>
 												<td> <button id="cancel" name="cancel"  class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button></td>
 											</tr>
 										</c:forEach>

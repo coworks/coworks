@@ -37,7 +37,7 @@
 				                              <tbody>
 				                              <tr>
 				                              	<th>교육일</th>
-				                              	<td>${edu.edu_eduDate}</td>
+				                              	<td><fmt:formatDate value="${edu.edu_eduDate}" pattern="yyyy-MM-dd" /></td>
 				                              </tr> 
 				                              <tr>
 				                              	<th>교육명</th>
@@ -53,8 +53,7 @@
 				                              </tr>  
 				                              </tbody>
 				                
-				               		 </table>  
-				               		 <!-- 바꿀꺼야... -->
+				               		 </table>   
 				               		 
 				                </div>
 				                 <div class="float-right">
@@ -85,6 +84,7 @@
 	
 	
 	<script>  
+	 
 		$('#delete').on("click",function(){ 
 			var edu_no="${edu.edu_no}";
 			var limit="${edu.edu_limitCnt}";
@@ -103,7 +103,7 @@
                   
                     location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+${edu.edu_no};
                 	
-                	$('#count').text(curr+" / "+limit);
+                	//	$('#count').text(curr+" / "+limit);
                 },error: function(data){
                     alert("취소 실패");
                 }

@@ -365,7 +365,7 @@
                // timestamp포맷 형식 맞춰서 보내주기
                var start= $.fullCalendar.formatDate(copiedEventObject.start, "YYYY-MM-DD HH:mm:ss.SSSSSSSSS");
                var end=$.fullCalendar.formatDate(copiedEventObject.start, "YYYY-MM-DD HH:30:ss.SSSSSSSSS");
-               alert(end);
+               //alert(end);
                $.ajax({
             	   url: "${pageContext.request.contextPath}/calendar/insertCalendar2.do",
                    dataType : "json",
@@ -395,7 +395,7 @@
            }
            var startdate=moment(calEvent.start,'YYYY-MM-DD  HH:mm');
            var enddate=moment(calEvent.end,'YYYY-MM-DD  HH:mm');
-        //   alert(startdate+","+enddate+","+calEvent.content+","+calEvent.title); 확인용
+        //   (startdate+","+enddate+","+calEvent.content+","+calEvent.title); 확인용
                var form = $("<form></form>");
               /*  form.append("<div><label>기간 :&nbsp;&nbsp;</label><span>"+startdate.format('YYYY-MM-DD  HH:mm')+" - "+enddate.format('YYYY-MM-DD  HH:mm')+"</span></div>")
                */ 
