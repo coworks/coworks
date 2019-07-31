@@ -24,7 +24,7 @@
             <li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-package-variant-closed"></i><span class="hide-menu">자료실</span></a>
 					<ul aria-expanded="false" class="collapse">
-						<li><a href="${pageContext.request.contextPath}/documentboard/D50">사규</a></li>
+						<li><a href="${pageContext.request.contextPath}/documentboard/D50">사규 </a></li>
 						<li><a href="#" class="has-arrow">통합자료실</a>
 							<ul aria-expanded="false" class="collapse">
 								<li><a href="${pageContext.request.contextPath}/documentboard/D51">업무문서</a></li>
