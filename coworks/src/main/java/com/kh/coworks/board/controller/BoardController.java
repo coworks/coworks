@@ -24,6 +24,8 @@ import com.kh.coworks.board.model.service.BoardService;
 import com.kh.coworks.board.model.vo.Attach;
 import com.kh.coworks.board.model.vo.Board;
 import com.kh.coworks.common.util.Utils;
+import com.kh.coworks.employee.model.service.EmployeeService;
+import com.kh.coworks.employee.model.vo.Department;
 
 @Controller
 public class BoardController {
@@ -33,11 +35,14 @@ public class BoardController {
 	@Autowired 
 	BoardService boardService;
 	
+	@Autowired
+	EmployeeService employeeService;
+	
 	
 	///////////////////////////////////////////////////////////(documentboard폴더)
 	
-	// (게시판 보기)
-	@RequestMapping(value="/documentboard/{boardCode}",method=RequestMethod.GET)
+	// (게시판 보기) ☆
+	@RequestMapping(value= "/documentboard/{boardCode}",method=RequestMethod.GET)
 	public String selectBusinessdoc(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@PathVariable("boardCode") String boardCode,
@@ -61,41 +66,71 @@ public class BoardController {
 		return "documentboard/businessdoclist";
 	}
 	
-	// (글쓰기)
+	// (글쓰기) ☆
 	@RequestMapping("/documentboard/businessdocForm.do")
-	public String insertBusinessdocForm() {
+	public String insertBusinessdocForm(Model model) {
+		
+		ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+		
+		model.addAttribute("departmentList", departmentList);
+		
 		return "documentboard/businessdocForm";
 	}
 	
-	// (글쓰기 등록)
-	@RequestMapping(value="/documentboard/docboard", method=RequestMethod.POST)
+	// (글쓰기 등록) ☆
+	@RequestMapping(value="/documentboard/insert", method=RequestMethod.POST)
 	public String insertBusinessdoc(Board board, Model model, HttpSession session,
-				@RequestParam(value="upFile", required=false) MultipartFile[] upFile,
-				@RequestBody Board inboard) {
+				@RequestParam(value="upFile", required=false) MultipartFile[] upFiles) {
+		
 		
 		List<Attach> list = new ArrayList<>();
-		System.out.println("컨트롤러에 도착했닝?");
-		int result = boardService.insertBusinessdoc(inboard, list);
 		
-		String boardCode = inboard.getBo_code();
-		int boardNo = inboard.getBo_no();
+		String savePath = "/resources/board/attach";
 		
-		String loc = "/documentboard/{boardCode}/{boardNo}"; //성공시 여기로 가도록 잡아준다.
-		String msg = "";
+		String saveDir = session.getServletContext().getRealPath(savePath);
+		if (new File(saveDir).exists()) {
+
+			for (MultipartFile f : upFiles) {
+				if (!f.isEmpty()) {
+					String originalName = f.getOriginalFilename();
+					String ext = originalName.substring(originalName.lastIndexOf(".") + 1);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+
+					int rndNum = (int) (Math.random() * 1000);
+
+					String renamedName = sdf.format(new java.util.Date()) + "_" + rndNum + "." + ext;
+					try {
+						f.transferTo(new File(saveDir + "/" + renamedName));
+					} catch (IllegalStateException | IOException e) {
+						e.printStackTrace();
+					}
+					
+					Attach attach = new Attach();
+					attach.setAttach_oriname(originalName);
+					attach.setAttach_rename(renamedName);
+					attach.setAttach_path(savePath);
+					
+					list.add(attach);
+				}
+			}
+			int result = boardService.insertBusinessdoc(board, list);
 		
 		if(result > 0) {
-			msg = "등록 성공!";
+			System.out.println("게시글 등록 성공");
 		} else {
-			msg = "게시글 등록 실패!";
+			System.out.println("게시글 등록 실패");
 		}
 		
-		model.addAttribute("loc", loc)
-		.addAttribute("msg", msg);
+		model.addAttribute("bo_code", board.getBo_code());
+		System.out.println(" 완료된 BOARD : " + board);
 		
-		return "documentboard/businessdoclist";
+		
+		
+		}
+		return "documentboard/businessdocdetail";
 	}
 	
-	// (게시글 한 개 조회)
+	// (게시글 한 개 조회) ☆
 	@RequestMapping(value="/documentboard/{boardCode}/{boardNo}", method=RequestMethod.GET)
 	public String selectOnebusinessdocdetail(
 			@PathVariable("boardCode") String boardCode,
@@ -116,7 +151,7 @@ public class BoardController {
 		return "documentboard/businessdocdetail";
 	}
 	
-	// (수정 하기 위해 값 가져오기 - 수정 화면)
+	// (수정 하기 위해 값 가져오기 - 수정 화면) ☆
 	@RequestMapping(value="/documentboard/{boardCode}/{boardNo}/{bo_emp_no}", method=RequestMethod.GET)
 	public String updateBusinessdocview(
 			@PathVariable("boardCode") String boardCode,
@@ -134,23 +169,15 @@ public class BoardController {
 		return "documentboard/businessdocUpdateView";
 	}
 	
-	// (수정 등록)
-	@RequestMapping(value="/documentboard/{boardCode}", method=RequestMethod.PUT)
+	// (수정 등록) ☆
+	@RequestMapping(value="/documentboard/edit", method=RequestMethod.POST)
 	public String updateBusinessdoc(
 			HttpSession session, Board board, Model model,
-			@PathVariable("boardCode") String boardCode,
-			@PathVariable("boardNo") int boardNo,
 			@RequestParam(value="upFile", required=false)
 			MultipartFile[] upFiles	) {
-		System.out.println("컨트롤러 도착");
+		System.out.println(board);
 		int bo_no = board.getBo_no();
-		
-		// 원본 게시글 조회
-		Board originBoard = boardService.selectOnebusinessdocdetail(board);
-		originBoard.setBo_title(board.getBo_title());
-		originBoard.setBo_content(board.getBo_content());
-		
-//		List<Attach> list = boardService.selectBusinessdocAttachList(board);
+
 		
 		String saveDir_bo = session.getServletContext().getRealPath("resources/boardUpload");
 
@@ -293,9 +320,9 @@ public class BoardController {
 	//부서별 게시판 목록
 	@RequestMapping("/documentboard/deptdocSelect.do")
 	public String deptdocSelect(Model model) {
-		List<String> list = boardService.selectDeptList();
-
-		model.addAttribute("folder", list);
+		ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+		
+		model.addAttribute("departmentList", departmentList);
 
 		return "documentboard/deptdoclist";
 	}

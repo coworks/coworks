@@ -66,12 +66,7 @@
 											</textarea>
 											
 											</div>
-										<h4>
-											<i class="ti-link"></i> 첨부 파일
-										</h4>
-										 <div id='file-list'>
-                                  		  <input type="button" id='button-add-file' value='파일 추가' class="btn  btn-outline-warning" />
-                                		</div>
+										<c:import url="../approval/approvalDoc/approvalWriteForm/common/approvalAttachAdd.jsp" />
                                         
                                         <div style="float:right;">
 										<button type="submit" class="btn btn-success mt-3">
@@ -106,14 +101,6 @@
        $('.textarea_editor').wysihtml5();
    });
     
-   var count = 0;
-   $('#button-add-file').on("click",function(){
-      var html = "<div id='item_"+count+"'>";
-      html += "<input type='file' name='upFile' multiple/>";
-      html += "<input type='button' onclick='deleteBtn(this)' class='btn btn-danger' value='삭제'/></div>";
-      count++;
-      $("#file-list").append(html);
-   });
    
    function deleteBtn(obj) {
       $(obj).parent().remove();

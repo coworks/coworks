@@ -68,13 +68,12 @@
                                             
                                         </div>
                                         
-                                        
-                                        <!-- 세션에서 id를 가져와서 등록한 사람이랑 일치하는 경우에만 보이도록 한다. -->
+                                        <c:if test="${ sessionScope.employee.emp_no eq board.getEmp_no() }">
                                          <div style="text-align : right;">
                                             	<a class="btn btn-warning waves-effect waves-light" onclick="updateView();" style="color:white;"><i class="ti-pencil"></i>수정</a> &nbsp;
                                             	<a href="#" class="btn btn-danger waves-effect waves-light" onclick="deleteboard();"><i class="fa fa-times"></i>삭제</a>
                                             </div>
-                                            
+                                        </c:if>
                                             
                                     </div>								
 							</div>

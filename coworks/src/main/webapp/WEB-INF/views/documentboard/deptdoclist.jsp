@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -6,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : 부서 게시판</title>
+<title>CO-WORKS : 부서 자료실</title>
 <c:import url="../common/header.jsp" />
 <style type="text/css">
 .table td, .table th {
@@ -14,8 +15,8 @@
 }
 
 .over {
-		color : #009999;
-	}
+	color: #009999;
+}
 </style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
@@ -39,26 +40,17 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:if test="${folder != null}">
-												<c:forEach var="folderList" items="${folder }" varStatus="status">
-													<tr>
-														<td class="title" onclick="selectFolder('${folderList}');"><i class="mdi mdi-folder"></i> ${folderList }</td>
-													</tr>
-												</c:forEach>
-											</c:if>
-
-
-<%-- 
-											<c:if test="${forms != null}">
+											
+											<c:forEach items="${departmentList}" var="de">
 												<tr>
-													<td onclick="javascript:history.back();"><i class="mdi mdi-folder"></i> ../</td>
+													<td class="title" onclick="selectFolder('${de.dept_code}');"
+														value="${de.dept_code}"><i class="mdi mdi-label"></i>
+														${de.dept_name }</td>
 												</tr>
-												<c:forEach var="formList" items="${forms }" varStatus="status">
-													<tr>
-														<td onclick="selectForm('${formList.aform_formPage}',${formList.aform_no })"><i class="mdi mdi-file-outline"></i> ${formList.aform_title }</td>
-													</tr>
-												</c:forEach>
-											</c:if> --%>
+												
+											</c:forEach>
+
+											
 
 										</tbody>
 									</table>
@@ -73,28 +65,26 @@
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	<script>
-		function selectFolder(folderName) {
-			location.href = "${pageContext.request.contextPath}/documentboard/deptdocSelect.do?folderName="
-					+ folderName;
+		function selectFolder(deptcode) {
+			location.href = "${pageContext.request.contextPath}/documentboard/"+deptcode;
 		}
 		/* function selectForm(formPage, formNo) {
 			location.href = "${pageContext.request.contextPath}/approval/write/"
 					+ formPage + "/" + formNo;
 		} */
-		
-		
-		$(function(){
+
+		$(function() {
 			$('.title').addClass('out')
-			$('.title').hover(function(){
+			$('.title').hover(function() {
 				$('tr').has('td').css('cursor', 'pointer');
 				$(this).addClass('over');
-			}, function(){
+			}, function() {
 				$(this).removeClass('over');
 			});
 		});
 	</script>
-	
-	
+
+
 
 </body>
 </html>

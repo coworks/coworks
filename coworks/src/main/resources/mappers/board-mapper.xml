@@ -13,12 +13,14 @@
 		SELECT B.*
 		FROM BOARD B
 		WHERE BO_CODE = #{bo_code}
+		AND BO_STATUS='y'
 		ORDER BY BO_NO DESC 
 	</select>
 	
 	<!-- 게시글 개수 카운트 -->
 	<select id="selectBusinessdocTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM BOARD WHERE BO_CODE = #{bo_code}
+		AND BO_STATUS='Y'
 	</select>
 	
 	<!-- 게시글 한 개 조회 -->
@@ -46,13 +48,13 @@
 		UPDATE BOARD 
 		SET BO_CONTENT = #{bo_content}
 		WHERE BO_NO = #{bo_no}
-		  AND BO_CODE = #{bo_code}
+		AND BO_STATUS='y'
 	</update>
 	
 	<!-- 게시글 등록 -->
-	<insert id="insertBusinessdoc">
-		INSERT INTO BOARD(BO_NO, BO_CODE, BO_TITLE, BO_CONTENT, EMP_NO)
-		VALUES (#{bo_no}, #{bo_code}, #{bo_title}, #{bo_content}, #{emp_no})
+	<insert id="insertBusinessdoc" parameterType="board">
+		INSERT INTO BOARD(BO_NO, BO_CODE, BO_TITLE, BO_CONTENT, EMP_NO, BO_DATE, BO_STATUS)
+		VALUES (SEQ_BNO.NEXTVAL, #{bo_code}, #{bo_title}, #{bo_content}, #{emp_no}, default, default)
 <!-- 		
 		(SEQ_BO_NO.NEXTVAL, #{bo_title}, 
 		        #{emp_no}, #{bo_content}) -->
@@ -60,9 +62,9 @@
 		<!-- board 객체를 insert에서 전달하여 SQL을 실행한 뒤,
 			 board 객체에 select한 게시글 번호를 주입받아 돌아온다. -->
 		<!-- 1번) -->
-		<selectKey keyProperty="boardNo" resultType="_int" order="AFTER">
-			<!-- SELECT SEQ_BO_NO.CURRVAL FROM DUAL -->
-			SELECT BO_NO FROM BOARD;
+		<selectKey keyProperty="bo_no" resultType="_int" order="AFTER">
+			SELECT SEQ_BNO.CURRVAL FROM DUAL
+			<!-- SELECT SEQ_BNO FROM BOARD; -->
 		</selectKey>
 		<!-- selectKey : 특정 쿼리가 끝난 이후에 기본키로 꺼내와야 할 것들을 따로 꺼내오는 부가적인 쿼리를 짤 수 있다. -->
 		<!-- boardNo라는 것을 resultType으로 int꺼내오게 하면서 order(언제수행할거냐, insert가 끝난 후 추가적으로 넣을게요) -->

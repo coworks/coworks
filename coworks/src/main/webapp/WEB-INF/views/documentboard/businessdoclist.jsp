@@ -45,10 +45,10 @@
 
 				<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
-						<h3 class="text-themecolor mb-0 mt-0">COWORKS 통합자료실</h3>
+						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="javascript:void(0)">메인페이지</a></li>
-							<li class="breadcrumb-item active">업무자료</li>
+							<li class="breadcrumb-item"><a href="javascript:void(0)">자료실 / 게시판</a></li>
+							<!-- <li class="breadcrumb-item active">업무자료</li> -->
 						</ol>
 					</div>
 				</div>
@@ -96,9 +96,9 @@
 								<tbody class="text-al-ct">
 								<c:forEach items="${list}" var="b">
 									<tr id="${b.bo_no}">
-										<td>${b.bo_no }</td>
+										<td class="title">${b.bo_no }</td>
 										<td class="text-al-left title">${b.bo_title } <span class="badge badge-danger ml-auto">new</span></td>
-										<td>
+										<td class="title">
 										<fmt:formatDate value="${b.bo_date }" pattern="yyyy/MM/dd"/> <%--yyyy/MM/dd HH:mm --%>
 										</td>
 										<td>
