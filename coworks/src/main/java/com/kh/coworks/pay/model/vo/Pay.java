@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 public class Pay implements Serializable {
 	private int pay_no; // 급여 번호
 	private int emp_no; // 사원번호
+	private String pay_emp_name; // 사원dl이름
+	private String pay_emp_job; // 사원번호
+
 	private int pay_basepay;// �⺻��
 	private int pay_jobtitle;// ��å����
 	private int pay_overtime;// �������
@@ -29,7 +32,22 @@ public class Pay implements Serializable {
 	private Date pay_date;// ������
 	
 	
-	
+
+	public String getPay_emp_name() {
+		return pay_emp_name;
+	}
+
+	public void setPay_emp_name(String pay_emp_name) {
+		this.pay_emp_name = pay_emp_name;
+	}
+
+	public String getPay_emp_job() {
+		return pay_emp_job;
+	}
+
+	public void setPay_emp_job(String string) {
+		this.pay_emp_job = string;
+	}
 	public int getPay_income() {
 		return pay_income;
 	}

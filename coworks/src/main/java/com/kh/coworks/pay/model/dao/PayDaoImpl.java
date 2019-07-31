@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.pay.model.vo.Pay;
 
 @Repository
@@ -28,14 +29,18 @@ public class PayDaoImpl implements PayDao {
 
 	@Override
 	public Pay selectOnePay(int pay_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("pay.selectOnePay",pay_no);
 	}
 
 	@Override
 	public int updatePay(Pay pay) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Pay> empListPay(int emp_no) {
+		return sqlSession.selectList("pay.empListPay",emp_no);
 	}
 
 }

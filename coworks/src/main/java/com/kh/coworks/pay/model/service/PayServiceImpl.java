@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.pay.model.dao.PayDao;
 import com.kh.coworks.pay.model.vo.Pay;
 
@@ -28,14 +29,18 @@ public class PayServiceImpl implements PayService{
 
 	@Override
 	public Pay selectOnePay(int pay_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return payDao.selectOnePay(pay_no);
 	}
 
 	@Override
 	public int updatePay(Pay pay) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Pay> empListPay(int emp_no) {
+		return payDao.empListPay(emp_no);
 	}
 
 }

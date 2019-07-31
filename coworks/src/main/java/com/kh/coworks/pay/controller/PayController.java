@@ -14,15 +14,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Department;
@@ -40,8 +44,9 @@ public class PayController {
 
 	@Autowired
 	PayService payService;
-	
-	String filename="";
+
+	String filename = "";
+
 	@RequestMapping("/pay/employeeList.do")
 	public String selectEmployeeList(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			Model model) {
@@ -63,18 +68,18 @@ public class PayController {
 		return "pay/payInputForm";
 	}
 
-	@RequestMapping(value="/pay/inputPayRoll.do",method = RequestMethod.POST)
+	@RequestMapping(value = "/pay/inputPayRoll.do", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Map<String,String>> inputPayRoll(Model model,
-			@RequestParam("payRoll") MultipartFile payRoll, HttpServletRequest request) {
+	public List<Map<String, String>> inputPayRoll(Model model, @RequestParam("payRoll") MultipartFile payRoll,
+			HttpServletRequest request) {
 		ExcelReadOption excel = new ExcelReadOption();
 		ExcelRead er = new ExcelRead();
 		System.out.println(payRoll);
-		String renamedName ="";
+		String renamedName = "";
 		HttpSession session = request.getSession();
 //		Employee emp = (Employee) session.getAttribute("employee");
 		String saveDir = session.getServletContext().getRealPath("/resources/pay/payroll");
-		System.out.println("saveDIr : "+saveDir);
+		System.out.println("saveDIr : " + saveDir);
 		if (new File(saveDir).exists()) {
 			if (!payRoll.isEmpty()) {
 				String originalName = payRoll.getOriginalFilename();
@@ -92,11 +97,11 @@ public class PayController {
 			}
 		}
 		String savePath = saveDir.replace("\\", "/");
-		excel.setFilePath(savePath+"/"+renamedName);
-		filename =savePath+"/"+renamedName;
-		excel.setOutputColumns("A","B","C","D","F","L","S","T");
+		excel.setFilePath(savePath + "/" + renamedName);
+		filename = savePath + "/" + renamedName;
+		excel.setOutputColumns("A", "B", "C", "D", "F", "L", "S", "T");
 		excel.setStartRow(0);
-		List<Map<String,String>> list = er.read(excel);
+		List<Map<String, String>> list = er.read(excel);
 		System.out.println(list.get(0).get("A"));
 //		JSONArray json = new JSONArray();
 //		json.addAll(list);
@@ -105,24 +110,25 @@ public class PayController {
 	}
 
 	@RequestMapping("/pay/savePayRoll.do")
-	public String savePayRoll(Model model,
-			@RequestParam("payRoll") MultipartFile payRoll, HttpServletRequest request) {
+	public String savePayRoll(Model model, @RequestParam("payRoll") MultipartFile payRoll, HttpServletRequest request) {
 		ExcelReadOption excel = new ExcelReadOption();
 		ExcelRead er = new ExcelRead();
 		excel.setFilePath(filename);
-		excel.setOutputColumns("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T");
+		excel.setOutputColumns("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+				"S", "T");
 		excel.setStartRow(0);
 		Pay pay;
 
-		List<Map<String,String>> list = er.read(excel);
+		List<Map<String, String>> list = er.read(excel);
 
 		SimpleDateFormat transFormat = new SimpleDateFormat("yy-MM-dd");
 		Date date = null;
-	
-		
-		for(int i = 3 ;i <list.size()-1;i++) {
+
+		for (int i = 3; i < list.size() - 1; i++) {
 			pay = new Pay();
 			pay.setEmp_no(Integer.parseInt(list.get(i).get("A")));
+			pay.setPay_emp_name(list.get(i).get("B"));
+			pay.setPay_emp_job(list.get(i).get("C"));
 			pay.setPay_basepay(Integer.parseInt(list.get(i).get("D")));
 			pay.setPay_jobtitle(Integer.parseInt(list.get(i).get("E")));
 			pay.setPay_overtime(Integer.parseInt(list.get(i).get("F")));
@@ -146,4 +152,33 @@ public class PayController {
 		}
 		return "redirect:employeeList.do";
 	}
+
+	@RequestMapping(value = "/pay/empListPay.do/{emp_no}", method = RequestMethod.GET)
+	public String empListPay(@PathVariable("emp_no") String emp_no, Model model) {
+		System.out.println("emp_no  " + emp_no);
+		List<Pay> list = payService.empListPay(Integer.parseInt(emp_no));
+
+		System.out.println("list " + list);
+		System.out.println("list getClass " + list.getClass());
+
+		model.addAttribute("list", list);
+
+//		JSONArray json = new JSONArray();
+//		json.addAll(list);
+//		System.out.println("json : " + json);
+		return "pay/empListPay";
+	}
+
+	@RequestMapping(value = "/pay/detailPay.do/{pay_no}", method = RequestMethod.GET)
+//	@ResponseBody
+	public String detailPay(@PathVariable("pay_no") String pay_no, Model model) {
+		System.out.println("pay_no  " + pay_no);
+		Pay pay = payService.selectOnePay(Integer.parseInt(pay_no));
+//		JSONArray json = new JSONArray();
+//		json.addAll(list);
+//		System.out.println("json : " + json);
+		model.addAttribute("pay", pay);
+		return "pay/payDetail";
+	}
+
 }

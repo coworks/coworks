@@ -37,7 +37,7 @@
 				<!-- Column -->
 				<div class="card">
 					<div class="card-body">
-						<h2 class="card-title">급여관리</h2>
+						<h2 class="card-title">인사관리</h2>
 						<div class="row mb-3 col-5" style="margin-left: 30%; margin-top: 30px;">
 							<select class="form-control custom-select" style="width: 20%"
 							id="searchCondition" name="searchCondition">
@@ -70,18 +70,16 @@
 									<tr class="jsgrid-header-row">
 										<th
 											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
+											style="width: 70px;">사번</th>
+										<th
+											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
 											style="width: 70px;">이름</th>
 										<th
 											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
 											style="width: 70px;">직급</th>
 										<th
-											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-											style="width: 70px;">부서</th>
-										<th
 											class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-											style="width: 100px;">연락처</th>
-										<!-- <th class="jsgrid-header-cell jsgrid-align-center"
-												style="width: 100px;">관리</th> -->
+											style="width: 100px;">지급일</th>
 										<th
 											class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center"
 											style="width: 50px;">상세보기 
@@ -89,32 +87,28 @@
 											type="button" title=""></button> -->
 										</th>
 									</tr>
-								</table>
-							</div>
-							<div class="jsgrid-grid-body" style="height: 297.2px;">
-								<table class="jsgrid-table table table-striped table-hover">
+								
 									<tbody>
-										<c:forEach items="${list}" var="e">
-											<tr class="jsgrid-row" id="${e.emp_no}" value="${e.emp_no}" name="emp_no">
+										<c:forEach items="${list}" var="p">
+											<tr class="jsgrid-row"  name="emp_no" id="${p.pay_no}">
+											
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 62px;">${e.emp_name}</td>
+													style="width: 70px;">${p.pay_no}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 63px;">${e.job_title}</td>
+													style="width: 70px;">${p.pay_emp_name}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 63px;">${e.dept_name}</td>
+													style="width: 70px;">${p.pay_emp_job}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 89px;">${e.emp_phone}</td>
-												<td
-													class="jsgrid-cell jsgrid-control-field jsgrid-align-center"
-													style="width: 43px;">
+													style="width: 100px;">${p.pay_date}</td>
+												<td class="jsgrid-cell jsgrid-align-center"> 
 													<!-- <button class="jsgrid-button jsgrid-edit-button"
 														type="button" title="Edit"></button> -->
-												<button alt="default"
-												onclick="location.href='${pageContext.request.contextPath}/pay/empListPay.do/${e.emp_no }'"
-														id="empListPay"
-														class="mdi mdi-note-outline btn waves-effect waves-light btn-block btn-outline-info" type="button">
+												<button 
+													id="detailPay"
+													onclick="detailPay(${p.pay_no});"
+													class="mdi mdi-note-outline btn waves-effect waves-light btn-block btn-outline-info" type="button">
 													<!-- <i class="mdi mdi-note-outline"></i>	 -->
-													</button>
+												</button>
 												</td>
 											</tr>
 										</c:forEach>
@@ -127,12 +121,33 @@
 				</div>
 			</div>
 		</div>
+		
 		<c:import url="../common/footer.jsp" />
 	</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	<script>
-	  
+	function detailPay(pay_no){
+		console.log("asdasd");
+		window.open("${pageContext.request.contextPath}/pay/detailPay.do/"+pay_no,"급여 명세서",
+				"width=700px,height=600px,left=100px,top=100px, location=no");
+			
+	}
+		
+	  /* 
+		$("#detailPay").on("click",function(){
+			alert("asd");
+			var pay_no = $("#empListPay").parent().parent().attr("id");
+			console.log(typeof(pay_no))
+	  		$.ajax({
+	  			url:"${pageContext.request.contextPath}/pay/detailPay.do",
+	  			data:{pay_no:pay_no},
+	  			success:function(){
+	  				alert("성공")
+	  			}
+	  		});
+		});
+	   */
 
 	/* 	function search(){
 			location.href="${pageContext.request.contextPath}/employee/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
