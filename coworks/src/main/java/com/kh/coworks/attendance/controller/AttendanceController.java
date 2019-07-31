@@ -70,13 +70,18 @@ public class AttendanceController {
 		//요청시간을 Date로 parsing 후 time가져오기
 		java.util.Date reqDate1 = dateFormat.parse(reqDateStr1);
 		java.util.Date reqDate2 = dateFormat.parse(reqDateStr2);
+		java.util.Date reqDate3 = dateFormat.parse(reqDateStr3);
 		System.out.println("reqDate : "+reqDate1);
-		long reqDateTime1 = reqDate1.getTime();
-		long reqDateTime2 = reqDate2.getTime(); 
+		long reqDateTime1 = reqDate1.getTime();	// 9시
+		long reqDateTime2 = reqDate2.getTime(); // 18시
+		long reqDateTime3 = reqDate3.getTime(); // 7시
 		
 		//현재시간을 요청시간의 형태로 format 후 time 가져오기
 		curDate = dateFormat.parse(dateFormat.format(curDate));
 		long curDateTime = curDate.getTime();
+		System.out.println(" reqDateTime1 : "+ reqDateTime1);
+		System.out.println(" reqDateTime2 : "+ reqDateTime2);
+		System.out.println(" reqDateTime3 : "+ reqDateTime3);
 		System.out.println("curDate : "+curDateTime);
 		
 		//분으로 표현 (직원이 출근한 시간대는 07:00~ 18:00 사이어야함)
@@ -91,34 +96,38 @@ public class AttendanceController {
 			attend.setAtten_attTime(time);
 		
 		
-		 // ************
 		 
-		//2019-07-03 19:30:00.0
-		 InetAddress local;
-		 String ip = null;
-		 try {
-		     local = InetAddress.getLocalHost();
-		    ip = local.getHostAddress();
-		     System.out.println("local ip : "+ip);
-		 } catch (UnknownHostException e1) {
-		     e1.printStackTrace();
-		 }
- 
-		 
-		 System.out.println("ip :" +ip);
-		 attend.setAtten_attIP(ip);	//나중에 세션 ip 받아오기
-		 attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
-		 //attend.setAtten_attTime(time);
-		 attend.setAtten_date(date);
-		 
-		int result=attendanceService.insertAttendanceCome(attend);
 		
 		
+		}else if(reqDateTime3<curDateTime) {
+			attend.setAtten_attLate(null);
+			attend.setAtten_attTime(time);
 		}else {
+
 			attend.setAtten_attLate(null);
 			attend.setAtten_attTime(null);
 		}
-		
+		// ************
+		 
+				//2019-07-03 19:30:00.0
+				 InetAddress local;
+				 String ip = null;
+				 try {
+				     local = InetAddress.getLocalHost();
+				    ip = local.getHostAddress();
+				     System.out.println("local ip : "+ip);
+				 } catch (UnknownHostException e1) {
+				     e1.printStackTrace();
+				 }
+		 
+				 
+				 System.out.println("ip :" +ip);
+				 attend.setAtten_attIP(ip);	//나중에 세션 ip 받아오기
+				 attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
+				 //attend.setAtten_attTime(time);
+				 attend.setAtten_date(date);
+				 
+		int result=attendanceService.insertAttendanceCome(attend);
 		Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
 		
 		com.kh.coworks.calendar.model.vo.Calendar cal1=new com.kh.coworks.calendar.model.vo.Calendar();
