@@ -35,19 +35,27 @@
 
 												<tr>
 													<th scope="col" class="border">회의 일자</th>
-													<td colspan="5"><input type="date" name="meeting_date" class="form-control"/></td>
+													<td colspan="5">
+														<input type="date" name="meeting_date" class="form-control" required="required"/>
+													</td>
 												</tr>
 												<tr>
 													<th scope="col" class="border">참석자</th>
-													<td colspan="5"><textarea class="form-control" rows="3" name="meeting_attendee"></textarea></td>
+													<td colspan="5">
+														<textarea class="form-control" rows="3" name="meeting_attendee" required="required"></textarea>
+													</td>
 												</tr>
 												<tr>
 													<th scope="col" class="border">회의 목적</th>
-													<td colspan="5"><textarea class="form-control" rows="5" name="meeting_purpose"></textarea></td>
+													<td colspan="5">
+														<textarea class="form-control" rows="5" name="meeting_purpose" required="required"></textarea>
+													</td>
 												</tr>
 												<tr>
 													<th scope="col" class="border">회의 내용</th>
-													<td colspan="5"><textarea class="form-control" rows="5" name="meeting_content"></textarea></td>
+													<td colspan="5">
+														<textarea class="form-control" rows="5" name="meeting_content" required="required"></textarea>
+													</td>
 												</tr>
 												</tbody>
 											</table>
@@ -77,39 +85,6 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
-
-	<script>
-		$("#treeview").hummingbird();
-
-		function applySelect() {
-			var signList = $('input[name=signList]:checked');
-			console.log(signList);
-
-			if (signList.length != 2) {
-				alert("결재자는 2명을 선택해야합니다.");
-			} else {
-				$('.modal').modal("hide");
-				$('#signTable tbody').children().remove();
-
-				for (var i = 0, len = signList.length; i < len; i++) {
-					var index = signList[i];
-
-					console.log(index.dataset);
-
-					var table = $('<tr>');
-					table.append('<td>' + (i + 1) + '</td>');
-					table.append('<td>' + index.dataset.name + '</td>');
-					table.append('<td>' + index.dataset.dept + '</td>');
-					table.append('<td>' + index.dataset.job + '</td>');
-
-					table
-							.append("<input type='hidden' name='signList' value="+index.value+">");
-
-					$('#signTable tbody').append(table);
-
-				}
-			}
-		};
-	</script>
+	<script src="${pageContext.request.contextPath }/resources/approval/js/signListApply.js"></script>
 </body>
 </html>

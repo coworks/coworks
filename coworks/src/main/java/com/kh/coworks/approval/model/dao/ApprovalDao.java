@@ -39,4 +39,8 @@ public interface ApprovalDao {
 
 	List<ApprovalDoc> selectApprovalSubmit(int emp_no);
 
+	void updateApprovalDocStatus(ApprovalDoc doc);
+
+	int selectCountApprovalStatus(int adoc_no);
+
 }

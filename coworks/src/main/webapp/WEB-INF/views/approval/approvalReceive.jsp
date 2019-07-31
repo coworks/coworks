@@ -31,13 +31,12 @@
 							<div class="card-body">
 								<h4 class="card-title mb-3">결재 대기 문서</h4>
 
-								<input type="button" value="일괄 결재하기" class="btn btn-warning mb-3 float-right" />
-
-								<div class="">
+								<form action="${pageContext.request.contextPath }/approval/approveList" method="post">
+									<input type="submit" value="일괄 결재하기" class="btn btn-warning mb-3 float-right" />
 									<table class="table no-wrap table-hover mt-5" style="text-align: center;">
 										<thead class="bg-info text-white">
 											<tr>
-												<th><input type="checkbox" name="allck" /></th>
+												<th><input type="checkbox" id="allck" /></th>
 												<th>제목</th>
 												<th>결재 양식</th>
 												<th>작성일시</th>
@@ -50,7 +49,7 @@
 												<c:forEach var="doc" items="${docList }" varStatus="vs">
 													<tr onclick="location.href='${pageContext.request.contextPath}/approval/approvalDoc/v/${doc.adoc_no}'">
 														<td onclick="event.cancelBubble=true">
-															<input type="checkbox" value="${doc.adoc_no }" name="checkApproval" />
+															<input type="checkbox" value="${doc.adoc_no }" name="docNo" />
 														</td>
 														<td>${doc.adoc_subject }</td>
 														<td>${doc.aform_title }</td>
@@ -76,7 +75,7 @@
 											<h4 style="font-weight: bold;">결재 대기 중인 문서가 없습니다.</h4>
 										</div>
 									</c:if>
-								</div>
+								</form>
 							</div>
 						</div>
 
@@ -88,6 +87,23 @@
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	<script type="text/javascript">
+	
+	$(function(){
+		$('#allck').on('click',function(){
+			var check=$(this).prop("checked");
+			$('input[name=docNo]').each(function(){
+				$(this).prop('checked',check);
+			});
+		});
+		$('input[name=docNo]').on('click',function(){
+		if($('#allck').prop("checked")){
+			console.log($(this));
+			$('#allck').prop('checked',false);
+		
+		}});
+	});
+	
+	
 	function approve(docNo) {
 		if(confirm("해당 결재를 승인하시겠습니까?")){
 			location.href="${pageContext.request.contextPath}/approval/approve/"+docNo;

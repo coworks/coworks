@@ -47,7 +47,7 @@
 																</select>
 															</div>
 															<div class="col-md-8 col-12">
-																<input type="text" name="vacation_type" readonly="readonly" class="form-control" />
+																<input type="text" name="vacation_Etc" readonly="readonly" class="form-control" placeholder="기타 종류 : " />
 															</div>
 														</div>
 													</td>
@@ -68,7 +68,9 @@
 													<th colspan="6">휴가 사유</th>
 												</tr>
 												<tr>
-													<td colspan="6"><textarea class="form-control" rows="10" name="vacation_reason"></textarea></td>
+													<td colspan="6">
+														<textarea class="form-control" rows="10" name="vacation_reason" required="required"></textarea>
+													</td>
 												</tr>
 												</tbody>
 
@@ -100,39 +102,20 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/approval/js/signListApply.js"></script>
 
 	<script>
-		$("#treeview").hummingbird();
-
-		function applySelect() {
-			var signList = $('input[name=signList]:checked');
-			console.log(signList);
-
-			if (signList.length != 2) {
-				alert("결재자는 2명을 선택해야합니다.");
-			} else {
-				$('.modal').modal("hide");
-				$('#signTable tbody').children().remove();
-
-				for (var i = 0, len = signList.length; i < len; i++) {
-					var index = signList[i];
-
-					console.log(index.dataset);
-
-					var table = $('<tr>');
-					table.append('<td>' + (i + 1) + '</td>');
-					table.append('<td>' + index.dataset.name + '</td>');
-					table.append('<td>' + index.dataset.dept + '</td>');
-					table.append('<td>' + index.dataset.job + '</td>');
-
-					table
-							.append("<input type='hidden' name='signList' value="+index.value+">");
-
-					$('#signTable tbody').append(table);
-
+		$(function() {
+			$('select[name=vacation_type]').on('change', function() {
+				console.log($(this).val());
+				if ($(this).val() == '기타') {
+					$('input[name=vacation_Etc]').removeAttr('readonly');
+				} else {
+					$('input[name=vacation_Etc]').val("");
+					$('input[name=vacation_Etc]').attr('readonly', 'readonly');
 				}
-			}
-		};
+			});
+		});
 
 		var period = $('input[name=vacation_period]');
 

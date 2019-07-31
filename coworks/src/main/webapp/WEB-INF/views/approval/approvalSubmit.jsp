@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : 결재 완료함</title>
+<title>CO-WORKS : 결재 승인 / 반려함</title>
 <c:import url="../common/header.jsp" />
 <style type="text/css">
 .table td, .table th {
@@ -29,7 +29,7 @@
 					<div class="col-lg-12">
 						<div class="card p-3 pb-5">
 							<div class="card-body">
-								<h4 class="card-title mb-3">결재 완료 문서</h4>
+								<h4 class="card-title mb-3">결재 승인 / 반려함</h4>
 
 								<ul class="nav nav-tabs customtab" role="tablist">
 									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#all" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">All</span></a></li>
@@ -39,9 +39,14 @@
 								<div class="tab-content mt-3">
 									<div class="tab-pane active" id="all" role="tabpanel">
 										<table class="table no-wrap table-hover " style="text-align: center;">
+											<colgroup>
+												<col width="30%" />
+												<col width="25%" />
+												<col width="25%" />
+												<col width="20%" />
+											</colgroup>
 											<thead class="bg-info text-white">
 												<tr>
-
 													<th>제목</th>
 													<th>결재 양식</th>
 													<th>작성일시</th>
@@ -78,6 +83,12 @@
 									</div>
 									<div class="tab-pane" id="approve" role="tabpanel">
 										<table class="table no-wrap table-hover " style="text-align: center;">
+											<colgroup>
+												<col width="30%" />
+												<col width="25%" />
+												<col width="25%" />
+												<col width="20%" />
+											</colgroup>
 											<thead class="bg-info text-white">
 												<tr>
 
@@ -114,6 +125,12 @@
 									</div>
 									<div class="tab-pane" id="reject" role="tabpanel">
 										<table class="table no-wrap table-hover " style="text-align: center;">
+											<colgroup>
+												<col width="30%" />
+												<col width="25%" />
+												<col width="25%" />
+												<col width="20%" />
+											</colgroup>
 											<thead class="bg-info text-white">
 												<tr>
 

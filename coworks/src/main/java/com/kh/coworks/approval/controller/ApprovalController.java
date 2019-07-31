@@ -290,6 +290,23 @@ public class ApprovalController {
 
 		approvalService.updateApprovalStatus(st);
 
-		return "redirect:/approval/approvalPending.do";
+		return "redirect:/approval/approvalReceive.do";
+	}
+
+	@RequestMapping(value="/approval/approveList",method = RequestMethod.POST)
+	public String approvalListApprove(@RequestParam("docNo") int[] docNoArr, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee employee = (Employee) session.getAttribute("employee");
+
+		for (int docNo : docNoArr) {
+			ApprovalStatus st = new ApprovalStatus();
+			st.setAdoc_no(docNo);
+			st.setEmp_no(employee.getEmp_no());
+			st.setAs_status(1);
+
+			approvalService.updateApprovalStatus(st);
+		}
+		
+		return "redirect:/approval/approvalReceive.do";
 	}
 }

@@ -10,9 +10,6 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 			</div>
 			<div class="modal-body">
-				<div class="form-group">
-					<label for="recipient-name" class="control-label">검색하기</label> <input type="text" class="form-control" id="recipient-name">
-				</div>
 				<div id="treeview_container" class="hummingbird-treeview p-3" style="overflow: auto; height: 300px;">
 					<c:set var="index" value="0" />
 					<ul id="treeview" class="hummingbird-base">

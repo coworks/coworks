@@ -8,7 +8,7 @@
 			<th scope="col" class="border">보존년한</th>
 			<td>
 				<div class="input-group mb-3">
-					<input type="number" class="form-control" name="expiration" aria-describedby="expiration_post" required="required">
+					<input type="number" class="form-control" name="expiration" aria-describedby="expiration_post" required="required" min="1" max="10">
 					<div class="input-group-append">
 						<span class="input-group-text" id="expiration_post">년</span>
 					</div>
@@ -17,7 +17,7 @@
 			<th scope="col" class="border">보안등급</th>
 			<td>
 				<div class="input-group mb-3">
-					<input type="number" class="form-control" name="adoc_security" aria-describedby="security_post" required="required">
+					<input type="number" class="form-control" name="adoc_security" aria-describedby="security_post" required="required" min="1" max="5">
 					<div class="input-group-append">
 						<span class="input-group-text" id="security_post">등급</span>
 					</div>
@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<th scope="col" class="border">문서 제목</th>
-			<td colspan="5"><input type="text" class="form-control" name="adoc_subject" /></td>
+			<td colspan="5"><input type="text" class="form-control" name="adoc_subject" required="required" /></td>
 		</tr>
 	</tbody>
 </table>

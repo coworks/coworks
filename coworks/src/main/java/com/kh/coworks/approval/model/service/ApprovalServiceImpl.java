@@ -98,7 +98,21 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public void updateApprovalStatus(ApprovalStatus st) {
 		approvalDao.updateApprovalStatus(st);
-		
+
+		if (st.getAs_status() == 2) {
+			ApprovalDoc doc = new ApprovalDoc();
+			doc.setAdoc_no(st.getAdoc_no());
+			doc.setAdoc_status(2);
+			approvalDao.updateApprovalDocStatus(doc);
+		} else {
+			int result = approvalDao.selectCountApprovalStatus(st.getAdoc_no());
+			if (result == 2) {
+				ApprovalDoc doc = new ApprovalDoc();
+				doc.setAdoc_no(st.getAdoc_no());
+				doc.setAdoc_status(1);
+				approvalDao.updateApprovalDocStatus(doc);
+			}
+		}
 	}
 
 	@Override

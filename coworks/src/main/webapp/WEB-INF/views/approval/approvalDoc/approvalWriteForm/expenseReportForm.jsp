@@ -52,12 +52,24 @@
 												<tbody>
 													<c:forEach var="row" begin="1" end="15" step="1">
 														<tr id="row${row }">
-															<td><input type="number" value="${row}" readonly="readonly" class="form-control" /></td>
-															<td><input type="text" class="form-control" /></td>
-															<td><input type="text" class="form-control" /></td>
-															<td><input type="number" class="form-control" /></td>
-															<td><input type="number" class="form-control" /></td>
-															<td><input type="number" class="form-control" /></td>
+															<td>
+																<input type="number" value="${row}" readonly="readonly" class="form-control" />
+															</td>
+															<td>
+																<input type="text" class="form-control" />
+															</td>
+															<td>
+																<input type="text" class="form-control" />
+															</td>
+															<td>
+																<input type="number" class="form-control" />
+															</td>
+															<td>
+																<input type="number" class="form-control" />
+															</td>
+															<td>
+																<input type="number" class="form-control" />
+															</td>
 														</tr>
 													</c:forEach>
 												</tbody>
@@ -82,77 +94,51 @@
 	<c:import url="../../../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/approval/js/signListApply.js"></script>
+
 	<script>
-		$('#submit').on('click', function() {
-			var myForm = $('#tableForm')[0];
-			var formData = new FormData(myForm);
+		$('#submit')
+				.on(
+						'click',
+						function() {
+							var myForm = $('#tableForm')[0];
+							var formData = new FormData(myForm);
 
-			var adoc_content = new Array;
-			var header = new Array;
-			$('#header').children().each(function() {
-				header.push($(this).html());
-			});
-			formData.append('header', header);
+							var adoc_content = new Array;
+							var header = new Array;
+							$('#header').children().each(function() {
+								header.push($(this).html());
+							});
+							formData.append('header', header);
 
-			for (var i = 1; i <= 15; i++) {
-				var row = $('#row' + i).children().children();
-				if (row.eq(1).val() != "") {
-					var obj = new Array;
-					row.each(function(i) {
-						obj.push($(this).val());
-					});
-					formData.append('row' + i, obj);
-				}
-			}
+							for (var i = 1; i <= 15; i++) {
+								var row = $('#row' + i).children().children();
+								if (row.eq(1).val() != "") {
+									var obj = new Array;
+									row.each(function(i) {
+										obj.push($(this).val());
+									});
+									formData.append('row' + i, obj);
+								}
+							}
 
-			$.ajax({
-				type : "post",
-				url : "${pageContext.request.contextPath}/approval/writeApprovalDone",
-				data : formData,
-				enctype : "multipart/form-data",
-				processData : false,
-				async : false,
-				contentType : false,
-				success : function(data) {
-					window.location.href = "${pageContext.request.contextPath}/approval/approvalWait.do";
-				},
-				error : function(e) {
-					console.log("ERROR : ", e);
-				}
-			});
-		});
-
-		$("#treeview").hummingbird();
-
-		function applySelect() {
-			var signList = $('input[name=signList]:checked');
-			console.log(signList);
-
-			if (signList.length != 2) {
-				alert("결재자는 2명을 선택해야합니다.");
-			} else {
-				$('.modal').modal("hide");
-				$('#signTable tbody').children().remove();
-
-				for (var i = 0, len = signList.length; i < len; i++) {
-					var index = signList[i];
-
-					console.log(index.dataset);
-
-					var table = $('<tr>');
-					table.append('<td>' + (i + 1) + '</td>');
-					table.append('<td>' + index.dataset.name + '</td>');
-					table.append('<td>' + index.dataset.dept + '</td>');
-					table.append('<td>' + index.dataset.job + '</td>');
-
-					table
-							.append("<input type='hidden' name='signList' value="+index.value+">");
-
-					$('#signTable tbody').append(table);
-
-				}
-			}
-		};
+							$
+									.ajax({
+										type : "post",
+										url : "${pageContext.request.contextPath}/approval/writeApprovalDone",
+										data : formData,
+										enctype : "multipart/form-data",
+										processData : false,
+										async : false,
+										contentType : false,
+										success : function(data) {
+											window.location.href = "${pageContext.request.contextPath}/approval/approvalWait.do";
+										},
+										error : function(e) {
+											console.log("ERROR : ", e);
+										}
+									});
+						});
 	</script>
 </body>
 </html>

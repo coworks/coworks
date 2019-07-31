@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : 결재 진행함</title>
+<title>CO-WORKS : 결재 상신 / 기안함</title>
 <c:import url="../common/header.jsp" />
 <style type="text/css">
 .table td, .table th {
@@ -29,7 +29,7 @@
 					<div class="col-lg-12">
 						<div class="card p-3 pb-5">
 							<div class="card-body">
-								<h4 class="card-title mb-5">결재 진행 문서</h4>
+								<h4 class="card-title mb-5">결재 상신 / 기안함</h4>
 
 								<div class="">
 									<table class="table no-wrap  table-hover mt-5" style="text-align: center;">
@@ -49,7 +49,7 @@
 													<td>${doc.adoc_subject }</td>
 													<td>${doc.aform_title }</td>
 													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" /></td>
-													<td>결재 진행 중</td>
+													<td><span class="label label-warning">진행중</span></td>
 												</tr>
 											</c:forEach>
 										</tbody>
