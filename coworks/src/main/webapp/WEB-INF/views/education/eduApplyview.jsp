@@ -77,6 +77,7 @@
 												</td>
 												<td> 
 													<button id="report" name="report"  class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');">보고서 작성</button>
+													<button id="reportView"  class="btn btn-secondary" onclick="fnReportView('${list.edu_no}');" style="display: none;">보고서 보기</button>
 													<button id="cancel" name="cancel"  class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button>
 												</td>
 											</tr>
@@ -127,6 +128,7 @@
 		
 		if(startReport.getTime()>today.getTime() || today.getTime()>endReport.getTime()){
 			$('#report').hide(); 
+			$('#reportView').show();
 		}
 		if(d2.getTime()<today){
 			$('#cancel').hide();
@@ -136,6 +138,11 @@
 	
 	function fnWriteReport(edu_no){
 		location.href="${pageContext.request.contextPath}/education/insertEduReport.do?edu_no="+edu_no;
+		
+	}
+	
+	function fnReportView(edu_no){
+		location.href="${pageContext.request.contextPath}/education/eduReportView.do?edu_no="+edu_no;
 		
 	}
 	function fnCancel(edu_no){

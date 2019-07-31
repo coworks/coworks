@@ -50,6 +50,16 @@ public class EducationServiceImpl implements EducationService {
 	public void insertEduReport(EduReport erep) {
 		eduDao.insertEduReport(erep);
 	}
+
+	@Override
+	public List<EduReport> selectEduRep(int emp_no) {
+		return  eduDao.selectEduRep(emp_no);
+	}
+
+	@Override
+	public EduReport selectOneEduRep(int edurep_no) {
+		return  eduDao.selectOneEduRep(edurep_no);
+	}
 	
 	
 	

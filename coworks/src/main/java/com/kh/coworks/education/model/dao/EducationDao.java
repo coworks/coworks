@@ -18,4 +18,8 @@ public interface EducationDao {
 	List<Education> selectEduApply(int emp_no);
 
 	void insertEduReport(EduReport erep);
+
+	List<EduReport> selectEduRep(int emp_no);
+
+	EduReport selectOneEduRep(int edurep_no);
 }

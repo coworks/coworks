@@ -50,6 +50,16 @@ public class EducationDaoImpl implements EducationDao {
 	public void insertEduReport(EduReport erep) {
 		sqlSession.insert("education.insertEduReport", erep);
 	}
+
+	@Override
+	public List<EduReport> selectEduRep(int emp_no) {
+		return sqlSession.selectList("education.selectEduRep",emp_no);
+	}
+
+	@Override
+	public EduReport selectOneEduRep(int edurep_no) {
+		return sqlSession.selectOne("education.selectOneEduRep", edurep_no);
+	}
 	
 	
 	

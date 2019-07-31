@@ -30,9 +30,16 @@
 		insert into eduReport (EDUREP_NO, EDU_NO,
 		EMP_NO,
 		EDUREP_TITLE, EDUREP_CONTENT, EDUREP_DATE) values
-		(seq_eduRep.nextval,#{edu_no},#{edu_title},#{edurep_content},SYSDATE)
+		(seq_eduRep.nextval,#{edu_no},#{emp_no},#{edurep_title},#{edurep_content},SYSDATE)
 	</insert>
-
+	
+	<select id="selectEduRep" resultType="edureport" parameterType="_int">
+		SELECT * FROM eduReport WHERE EMP_NO=#{emp_no}
+	</select>
+	
+	<select id="selectOneEduRep" resultType="edureport" parameterType="_int">
+		SELECT * FROM eduReport WHERE edurep_no=#{eduprep_no}
+	</select>
 
 
 </mapper>
