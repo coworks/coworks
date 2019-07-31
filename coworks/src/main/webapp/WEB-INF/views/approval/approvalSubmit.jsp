@@ -55,9 +55,9 @@
 													<td>${doc.adoc_subject }</td>
 													<td>${doc.aform_title }</td>
 													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" /></td>
-													<td>${doc.adoc_status}<c:if test="${doc.adoc_status == '1'} ">
+													<td><c:if test="${doc.adoc_status == '1'}">
 															<span class="label label-success">승인</span>
-														</c:if> <c:if test="${doc.adoc_status eq '2'} ">
+														</c:if> <c:if test="${doc.adoc_status eq '2'}">
 															<span class="label label-danger">반려</span>
 														</c:if></td>
 												</tr>
