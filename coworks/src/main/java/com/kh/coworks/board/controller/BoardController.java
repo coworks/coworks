@@ -155,7 +155,7 @@ public class BoardController {
 		System.out.println(" 완료된 BOARD : " + board);
 		
 		
-		return "documentboard/businessdocdetail";
+		return "redirect:/documentboard/"+board.getBo_code()+"/"+board.getBo_no();
 	}
 	
 	// (게시글 한 개 조회) ★
