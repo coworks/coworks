@@ -8,13 +8,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.coworks.board.model.service.BoardService;
 import com.kh.coworks.board.model.vo.Attach;
 import com.kh.coworks.board.model.vo.Board;
+import com.kh.coworks.board.model.vo.BoardGroup;
 import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Department;
+import com.kh.coworks.employee.model.vo.Employee;
 
 @Controller
 public class BoardController {
@@ -41,7 +43,7 @@ public class BoardController {
 	
 	///////////////////////////////////////////////////////////(documentboard폴더)
 	
-	// (게시판 보기) ☆
+	// (게시판 보기) ★
 	@RequestMapping(value= "/documentboard/{boardCode}",method=RequestMethod.GET)
 	public String selectBusinessdoc(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
@@ -66,7 +68,7 @@ public class BoardController {
 		return "documentboard/businessdoclist";
 	}
 	
-	// (글쓰기) ☆
+	// (글쓰기) ★
 	@RequestMapping("/documentboard/businessdocForm.do")
 	public String insertBusinessdocForm(Model model) {
 		
@@ -77,43 +79,55 @@ public class BoardController {
 		return "documentboard/businessdocForm";
 	}
 	
-	// (글쓰기 등록) ☆
+	// (글쓰기 등록) ★
 	@RequestMapping(value="/documentboard/insert", method=RequestMethod.POST)
-	public String insertBusinessdoc(Board board, Model model, HttpSession session,
-				@RequestParam(value="upFile", required=false) MultipartFile[] upFiles) {
+	public String insertBusinessdoc(Board board, Model model, HttpServletRequest request,
+				@RequestParam(value="upFiles", required=false) MultipartFile[] upFiles,
+				@RequestParam(value="dep_code")String dep_code) {
 		
+		if(board.getBo_code().equals("DD")) {
+			board.setBo_code(dep_code);
+			
+		}
+		
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		String saveDir = session.getServletContext().getRealPath("/resources/board/attach");
+		
+		
+		System.out.println("파일 길이 " + upFiles.length);
 		
 		List<Attach> list = new ArrayList<>();
+		String savePath = "";
 		
-		String savePath = "/resources/board/attach";
-		
-		String saveDir = session.getServletContext().getRealPath(savePath);
 		if (new File(saveDir).exists()) {
-
 			for (MultipartFile f : upFiles) {
 				if (!f.isEmpty()) {
 					String originalName = f.getOriginalFilename();
 					String ext = originalName.substring(originalName.lastIndexOf(".") + 1);
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-
 					int rndNum = (int) (Math.random() * 1000);
-
-					String renamedName = sdf.format(new java.util.Date()) + "_" + rndNum + "." + ext;
+					String renamedName = sdf.format(new Date()) + "_" + rndNum + "." + ext;
 					try {
 						f.transferTo(new File(saveDir + "/" + renamedName));
+						System.out.println(f.getName());
+						System.out.println(saveDir + "/" + renamedName);
 					} catch (IllegalStateException | IOException e) {
 						e.printStackTrace();
 					}
-					
-					Attach attach = new Attach();
-					attach.setAttach_oriname(originalName);
-					attach.setAttach_rename(renamedName);
-					attach.setAttach_path(savePath);
-					
-					list.add(attach);
+					Attach at = new Attach();
+					at.setAttach_path(saveDir);
+					at.setAttach_oriname(originalName);
+					at.setAttach_rename(renamedName);
+
+					list.add(at);
 				}
 			}
-			int result = boardService.insertBusinessdoc(board, list);
+		}
+		
+		int result = boardService.insertBusinessdoc(board, list);
+		System.out.println("list size : " + list.size());
+		
 		
 		if(result > 0) {
 			System.out.println("게시글 등록 성공");
@@ -122,25 +136,29 @@ public class BoardController {
 		}
 		
 		model.addAttribute("bo_code", board.getBo_code());
+		
+		board.setFileCount(list.size());
+		board.setFiles(list);
+		
 		System.out.println(" 완료된 BOARD : " + board);
 		
 		
-		
-		}
 		return "documentboard/businessdocdetail";
 	}
 	
-	// (게시글 한 개 조회) ☆
+	// (게시글 한 개 조회) ☆(부서별 조회가 안됨...8ㅅ8 아 왜!!!)
 	@RequestMapping(value="/documentboard/{boardCode}/{boardNo}", method=RequestMethod.GET)
 	public String selectOnebusinessdocdetail(
 			@PathVariable("boardCode") String boardCode,
 			@PathVariable("boardNo") int boardNo,
-			Model model) {
+			Model model, Board board) {
 		
 		
 		Board b = new Board();
 		b.setBo_code(boardCode);
 		b.setBo_no(boardNo);
+		System.out.println("bbbbbbbbbbbb : " + b);
+		
 		
 
 		model.addAttribute("board", boardService.selectOnebusinessdocdetail(b))
@@ -151,7 +169,7 @@ public class BoardController {
 		return "documentboard/businessdocdetail";
 	}
 	
-	// (수정 하기 위해 값 가져오기 - 수정 화면) ☆
+	// (수정 하기 위해 값 가져오기 - 수정 화면) ★
 	@RequestMapping(value="/documentboard/{boardCode}/{boardNo}/{bo_emp_no}", method=RequestMethod.GET)
 	public String updateBusinessdocview(
 			@PathVariable("boardCode") String boardCode,
@@ -164,8 +182,12 @@ public class BoardController {
 		b.setBo_no(boardNo);
 		b.setEmp_no(bo_emp_no);
 		b.setBo_content(b.getBo_content());
+		
+		
 		model.addAttribute("board", boardService.selectOnebusinessdocdetail(b))
 		.addAttribute("attachmentList", boardService.selectBusinessdocAttachList(b));
+		
+		System.out.println("bbbbbbb : " + b);
 		return "documentboard/businessdocUpdateView";
 	}
 	
@@ -173,16 +195,14 @@ public class BoardController {
 	@RequestMapping(value="/documentboard/edit", method=RequestMethod.POST)
 	public String updateBusinessdoc(
 			HttpSession session, Board board, Model model,
-			@RequestParam(value="upFile", required=false)
+			@RequestParam(value="upFiles", required=false)
 			MultipartFile[] upFiles	) {
-		System.out.println(board);
 		int bo_no = board.getBo_no();
 
 		
-		String saveDir_bo = session.getServletContext().getRealPath("resources/boardUpload");
+		String saveDir_bo = session.getServletContext().getRealPath("/resources/board/attach");
 
 		List<Attach> list = boardService.selectBusinessdocAttachList(board);
-		System.out.println("여기 와유??????");
 		if (list == null)
 			list = new ArrayList<Attach>();
 
@@ -192,7 +212,6 @@ public class BoardController {
 			dir.mkdirs();
 
 		int idx = 0;
-		System.out.println("여기와유22222222????????");
 		for (MultipartFile f : upFiles) {
 			Attach at = null;
 
@@ -228,16 +247,9 @@ public class BoardController {
 			idx++;
 		}
 		 
-		System.out.println("여긴와유44444444444444?????");
 		int result = boardService.updateBusinessdocview(board, list);
 		
-		
-		
-		if(result > 0) {
-			System.out.println("게시글 수정 성공------------------------------------");
-		} else {
-			System.out.println("게시글 수정 실패!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");		}
-		
+				
 		return "documentboard/businessdocdetail";
 		
 		
@@ -300,21 +312,6 @@ public class BoardController {
 
 	
 	
-	
-	/* 세션 샘플
-	@RequestMapping("/mypage/attendanceview.do")
-	   public ModelAndView selectListAttendance(HttpServletRequest request) {
-	       ModelAndView mv=new ModelAndView();
-	      HttpSession session=request.getSession(false);
-	      Employee employee=(Employee) session.getAttribute("employee");
-	      
-	      List<Attendance> list=attendanceService.selectListAttendance(employee.getEmp_no());
-	      
-	      mv.addObject("list",list);
-	      mv.setViewName("mypage/attendancetable");
-	      return mv;
-	   }
-	*/
 
 	
 	//부서별 게시판 목록
@@ -326,6 +323,18 @@ public class BoardController {
 
 		return "documentboard/deptdoclist";
 	}
+	
+	
+	//부서별 게시판 목록
+		@RequestMapping("/documentboard/deptboardSelect.do")
+		public String deptboardSelect(Model model) {
+			ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+			
+			model.addAttribute("departmentList", departmentList);
+
+			return "documentboard/deptdoclist";
+		}
+		
 	
 	//※첨부파일 다운로드! (만약을 위해 알려줌)※
 		// download 태그로 대체 가능하나

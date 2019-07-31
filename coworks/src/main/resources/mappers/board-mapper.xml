@@ -27,20 +27,25 @@
 	<select id="selectOneBusinessdocdetail" 
 	        parameterType="Map" 
 	        resultType="board">
-	        SELECT B.*
-	        FROM BOARD B
-	        WHERE BO_NO = #{bo_no}
-	        AND BO_CODE = #{bo_code}	
+	        SELECT B.*, BG.*
+	        FROM BOARD B, BOARDGROUP BG
+	        WHERE B.BO_NO = #{bo_no}
+	        AND B.BO_CODE = #{bo_code}
+	        AND B.BO_CODE = BG.BG_CODE	
 	</select>
 	
 	<!-- 게시글 한 개 조회 시 첨부파일 리스트 보여주는 부분 -->
-	<select id="selectBusinessdocAttachList" parameterType="Map" resultMap="attachmentMap">
+	<select id="selectBusinessdocAttachList" resultMap="attachmentMap">
 									<!-- 글번호를 받아서 attachmentMap으로 맨 위에 등록된 resultMap으로 결과를 받는다?담는다? -->
-		SELECT A.*
+		<!-- SELECT A.*, B.*
 		FROM BOARDATTACH A, BOARD B
 		WHERE A.BO_NO = B.BO_NO 
 		AND B.BO_NO = #{bo_no}
-	    AND B.BO_CODE = #{bo_code}
+	    AND B.BO_CODE = #{bo_code} -->
+	    SELECT *
+	    FROM BOARDATTACH
+	    WHERE BO_NO=#{bo_no}
+	    
 	</select>
 	
 	<!-- 게시글 수정 -->
@@ -77,6 +82,41 @@
 		DELETE FROM BOARD
 		WHERE BO_NO = #{bo_no}
 		AND BO_CODE = #{bo_code}
+	</delete>
+	
+	
+	<!-- 게시글 -> 첨부파일 넣기  --> 
+	<insert id="insertBusinessdocAttach" parameterType="attachment">
+		<!-- 2번) 알아서 현재값 찾아 boardNo넣어서 아래의 INSERT의 #{boardNo}로 들고온다. -->
+<!-- 		<selectKey keyProperty="bo_no" resultType="_int" order="BEFORE">
+			SELECT SEQ_BNO.CURRVAL FROM DUAL
+		</selectKey> -->
+	
+		INSERT INTO BOARDATTACH(ATTACH_NO, BO_NO, 
+		                       ATTACH_ORINAME, ATTACH_RENAME, ATTACH_PATH)
+		VALUES(SEQ_ATTACH_NO.NEXTVAL, #{bo_no}, 
+		       #{attach_oriname}, #{attach_rename}, #{attach_path})
+	</insert>
+	
+	
+	<!-- 첨부파일 수정(이전의 파일 삭제 후 새로운 파일 추가) -->
+	<insert id="updateBusinessdocAttach" parameterType="attachment">
+		INSERT INTO BOARDATTACH(ATTACH_NO, BO_NO, 
+		                       ATTACH_ORINAME, ATTACH_RENAME, ATTACH_PATH)
+		VALUES(SEQ_ATTACH_NO.NEXTVAL, #{bo_no}, 
+		       #{attach_oriname}, #{attach_rename}, #{attach_path})
+	</insert>
+	
+	<!-- 첨부파일 모두 삭제(글 삭제 시) -->
+	<delete id="deleteBusinessdocAttachment">
+		DELETE FROM BOARDATTACH
+		WHERE BO_NO = #{bo_no}
+	</delete>
+	
+	<!-- 첨부파일 하나 삭제 -->
+	<delete id="deleteBusinessdocFile">
+		DELETE FROM BOARDATTACH
+		WHERE ATTACH_NO = #{attach_no}
 	</delete>
 	
 	

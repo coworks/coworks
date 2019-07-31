@@ -17,6 +17,19 @@ public class Attach implements Serializable {
 	private String attach_oriname;// ���ϱ����̸�
 	private String attach_rename;// ���Ϻ����̸�
 	private String attach_path;// ���ϰ��
+	
+	private String status;
+
+	public Attach(int attach_no, int bo_no, String attach_oriname, String attach_rename, String attach_path,
+			String status) {
+		super();
+		this.attach_no = attach_no;
+		this.bo_no = bo_no;
+		this.attach_oriname = attach_oriname;
+		this.attach_rename = attach_rename;
+		this.attach_path = attach_path;
+		this.status = status;
+	}
 
 	public Attach() {
 		super();
@@ -72,10 +85,18 @@ public class Attach implements Serializable {
 		this.attach_path = attach_path;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "Attach [attach_no=" + attach_no + ", bo_no=" + bo_no + ", attach_oriname=" + attach_oriname
-				+ ", attach_rename=" + attach_rename + ", attach_path=" + attach_path + "]";
+				+ ", attach_rename=" + attach_rename + ", attach_path=" + attach_path + ", status=" + status + "]";
 	}
 
 }

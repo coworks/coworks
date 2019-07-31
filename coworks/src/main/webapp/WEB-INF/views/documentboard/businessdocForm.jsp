@@ -51,20 +51,21 @@
 							<div class="col-xlg-9 col-lg-8 col-md-7 align-self-center">
 								<div class="card-body" style="margin-bottom: 7%;">
 									<h3 class="card-title text-primary">새 글 등록</h3>
-									<div class="form-group">
-										<form class="all-form" id="docEnrollFrm" action="${pageContext.request.contextPath}/documentboard/insert"
+									<form class="all-form" id="docEnrollFrm" action="${pageContext.request.contextPath}/documentboard/insert"
 											method="post" enctype="multipart/form-data">
+									<div class="form-group">
+										
 											<select class="form-control custom-select" id="select1"
 												name="bo_code" style="width: 18%;">
 												<!-- onchange="itemChange(this)" -->
 												<option value="0">자료실 선택</option>
-												<option value="CD">사내규정</option>
-												<option value="BD">업무문서</option>
-												<option value="ED">교육문서</option>
+												<option value="D50">사내규정</option>
+												<option value="D51">업무문서</option>
+												<option value="D52">교육문서</option>
 												<option value="DD">부서</option>
-											</select> <select class="form-control custom-select" id="select2"
-												name="sel2" style='display: none; width: 18%;'>
-
+											</select>
+											<select class="form-control custom-select" id="select2"
+												name="dep_code" style='display: none; width: 18%;'>
 												<c:forEach items="${departmentList}" var="de">
 													<option value="${de.dept_code}">${de.dept_name}</option>
 												</c:forEach>
@@ -163,6 +164,7 @@
 			}
 			
 			alert("딩동댕!!!!!!!!! 글을 등록하겠냐고 모달 뜨게 하장1!! (취소=닫기),(등록)");
+			
 			return true;
 		}
 

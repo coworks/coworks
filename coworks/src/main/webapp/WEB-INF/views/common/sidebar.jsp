@@ -39,7 +39,7 @@
 						<li><a href="${pageContext.request.contextPath}/documentboard/D54">경조사</a></li>
 						<li><a href="${pageContext.request.contextPath}/documentboard/D56">NEWS</a></li>
 						<li><a href="${pageContext.request.contextPath}/documentboard/D57">자유게시판</a></li>
-						<li><a href="${pageContext.request.contextPath}/documentboard/DB">부서별 게시판</a></li>
+						<li><a href="${pageContext.request.contextPath}/documentboard/deptboardSelect.do">부서별 게시판</a></li>
 					</ul></li>
             <li><a class="has-arrow " href="#" aria-expanded="false"><i
                   class="mdi mdi-book-open-variant"></i><span class="hide-menu">교육</span></a>

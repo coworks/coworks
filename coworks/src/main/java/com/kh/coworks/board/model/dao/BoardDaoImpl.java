@@ -35,6 +35,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int insertBusinessdocAttach(Attach att) {
+		System.out.println("dao boardAttach");
 		return sqlSession.insert("board.insertBusinessdocAttach", att);
 	}
 

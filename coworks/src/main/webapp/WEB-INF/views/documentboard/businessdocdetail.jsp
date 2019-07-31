@@ -53,28 +53,28 @@
                                             <div class="card-body">
                                                 <h4><i class="fa fa-paperclip mr-2 mb-2"></i> 첨부파일 <span>[${attachmentList.size()}]</span></h4>
                                                 <div class="row">
-                                                    <div class="col-md-2">
-                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img1.jpg"> </a>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img2.jpg"> </a>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <a href="#"> <img class="img-thumbnail img-responsive" alt="attachment" src="../assets/images/big/img3.jpg"> </a>
-                                                    </div>
+                                                    <c:forEach items="${attachmentList}" var="at">
+                                                     <div class="col-md-2">
+                                                        <a href="${pageContext.request.contextPath}/${at.getAttach_path()}/${at.getAttach_rename()}" download="${at.getAttach_oriname()}">
+                                                        <div class="">${at.getAttach_oriname() }
+                                                        </div>
+                                                         </a>
+                                                   	 </div><br>
+                                                    </c:forEach>
                                                 </div>
                                                
                                             </div>
                                             
                                         </div>
-                                        
+                                        <div style="text-align : right;">
+                                        <c:if test="${board.bo_code ne null}">
+                                        <a class="btn btn-info waves-effect waves-light" onclick="listView();" style="color:white;"><i class="fas fa-list-ul"></i>목록</a> &nbsp;
+                                        </c:if>
                                         <c:if test="${ sessionScope.employee.emp_no eq board.getEmp_no() }">
-                                         <div style="text-align : right;">
                                             	<a class="btn btn-warning waves-effect waves-light" onclick="updateView();" style="color:white;"><i class="ti-pencil"></i>수정</a> &nbsp;
                                             	<a href="#" class="btn btn-danger waves-effect waves-light" onclick="deleteboard();"><i class="fa fa-times"></i>삭제</a>
-                                            </div>
                                         </c:if>
-                                            
+                                        </div> 
                                     </div>								
 							</div>
 						</div>
@@ -105,6 +105,10 @@
 			console.log("bo_no=${board.bo_no}");
 			console.log("emp_no=${board.bo_content}");
 			location.href="${pageContext.request.contextPath}/documentboard/${bo_code}/${board.bo_no}/${board.bo_content}";		
+		}
+		
+		function listView(){
+			location.href="${pageContext.request.contextPath}/documentboard/${board.bo_code}";
 		}
 	</script>
 </body>

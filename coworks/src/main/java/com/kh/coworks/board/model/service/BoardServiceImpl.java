@@ -37,9 +37,10 @@ public class BoardServiceImpl implements BoardService {
 		
 		if(attachList.size() > 0) {
 			for(Attach at : attachList) {
+				at.setBo_no(board.getBo_no());
 				result = boardDao.insertBusinessdocAttach(at);
-				
-				throw new BoardException("트랜잭션 처리");
+				if(result == BOARD_SRV_ERROR)
+				throw new BoardException("게시판 첨부파일 처리 에러");
 			}
 		}
 		

@@ -7,8 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class BoardGroup implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5005L;
+	
+	
 	private int bg_no; // �ε���
-	private int bg_code; // �Խ����ڵ�
+	private String bg_code; // �Խ����ڵ�
 	private String bg_title; // �Խ��� �̸�
 
 	public BoardGroup() {
@@ -16,7 +22,7 @@ public class BoardGroup implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardGroup(int bg_no, int bg_code, String bg_title) {
+	public BoardGroup(int bg_no, String bg_code, String bg_title) {
 		super();
 		this.bg_no = bg_no;
 		this.bg_code = bg_code;
@@ -31,11 +37,11 @@ public class BoardGroup implements Serializable {
 		this.bg_no = bg_no;
 	}
 
-	public int getBg_code() {
+	public String getBg_code() {
 		return bg_code;
 	}
 
-	public void setBg_code(int bg_code) {
+	public void setBg_code(String bg_code) {
 		this.bg_code = bg_code;
 	}
 

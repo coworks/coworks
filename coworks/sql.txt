@@ -47,30 +47,80 @@ DROP TABLE TODO CASCADE CONSTRAINTS;
    ) ;
 
    
-   
-   
-   
+      
      CREATE TABLE "BOARD" --게시판
    (	"BO_NO" NUMBER, 
 	"BO_CODE" VARCHAR2(100), 
 	"BO_TITLE" VARCHAR2(1000), 
 	"BO_CONTENT" VARCHAR2(4000), 
 	"EMP_NO" NUMBER, 
-	"BO_DATE" TIMESTAMP (6), 
-	"BO_STATUS" VARCHAR2(100)
+	"BO_DATE" TIMESTAMP default sysdate, 
+	"BO_STATUS" VARCHAR2(100) default 'y',
+    "BO_TYPE" NUMBER
    ) ;
    
-      
       CREATE SEQUENCE SEQ_BNO
 START WITH 1
 INCREMENT BY 1
 NOCYCLE
 NOCACHE;
+
+
+
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내1', '사내1내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내2', '사내2내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내3', '사내3내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내4', '사내4내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내5', '사내5내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내6', '사내6내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실1', '업무자료실1내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실2', '업무자료실2내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실3', '업무자료실3내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실4', '업무자료실4내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실5', '업무자료실5내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실6', '업무자료실6내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실1', '교육자료실1내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실2', '교육자료실2내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실3', '교육자료실3내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실4', '교육자료실4내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실5', '교육자료실5내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실6', '교육자료실6내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판1', '공지게시판1내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판2', '공지게시판2내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판3', '공지게시판3내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판4', '공지게시판4내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판5', '공지게시판5내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판6', '공지게시판6내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판1', '경조사게시판1내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판2', '경조사게시판2내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판3', '경조사게시판3내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판4', '경조사게시판4내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판5', '경조사게시판5내용', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판6', '경조사게시판6내용', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판1', '조직개편 및 인사이동 게시판1', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판2', '조직개편 및 인사이동 게시판2', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판3', '조직개편 및 인사이동 게시판3', 12345679, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판4', '조직개편 및 인사이동 게시판4', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판5', '조직개편 및 인사이동 게시판5', 12345679, default, default,1);
+   
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D01', '부서별 자료실', '부서별 자료실', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D02', '부서별 자료실', '부서별 자료실', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D03', '부서별 자료실', '부서별 자료실', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D04', '부서별 자료실', '부서별 자료실', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D05', '부서별 자료실', '부서별 자료실', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D06', '부서별 자료실', '부서별 자료실', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D01', '부서별 자료실', '부서별 자료실', 12345678, default, default,1);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D02', '부서별 자료실', '부서별 자료실', 12345678, default, default,1);
    
    
    
-   
-     CREATE TABLE "BOARDGROUP" --게시판그룹
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D01', '부서별 게시판', '부서별 자료실ㅇ러ㅏㅣ너라ㅣㅁㄴㅇ', 12345678, default, default,2);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D01', 'ㅜㅍㅊㅍ', '부서별 게시판ㅁㄴㅇㅁㄴ어마어ㅏㅁ너ㅏ', 12345678, default, default,2);
+
+
+
+
+CREATE TABLE "BOARDGROUP" --게시판그룹
    (	"BG_NO" NUMBER, 
 	"BG_CODE" VARCHAR2(100), 
 	"BG_TITLE" VARCHAR2(1000)
@@ -101,18 +151,21 @@ NOCACHE;
    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D57', '자유게시판');
 --   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'DB', '부서별 게시판');
    
-   
-   
-   
-  CREATE TABLE "BOARDATTACH"  --게시판 첨부파일
-   (	"BDATTACH_NO" NUMBER, 
+      
+   CREATE TABLE "BOARDATTACH"  --게시판 첨부파일
+   (	"ATTACH_NO" NUMBER, 
 	"BO_NO" NUMBER, 
-	"ORIGINALFILENAME" VARCHAR2(255), 
-	"RENAMEDFILENAME" VARCHAR2(255), 
-	"DOWNLOADCOUNT" NUMBER DEFAULT 0, 
-	"STATUS" VARCHAR2(20) DEFAULT 'Y'
+	"ATTACH_ORINAME" VARCHAR2(255), 
+	"ATTACH_RENAME" VARCHAR2(255), 
+	"ATTACH_PATH" NUMBER DEFAULT 0
    ) ;
    
+   
+      CREATE SEQUENCE SEQ_ATTACH_NO
+START WITH 1
+INCREMENT BY 1
+NOCYCLE
+NOCACHE;
    
    
  
@@ -137,7 +190,13 @@ NOCACHE;
    CREATE SEQUENCE  "COWORKS"."SEQ_MAIL"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 110 NOCACHE  NOORDER  NOCYCLE ;
    CREATE SEQUENCE  "COWORKS"."SEQ_MAIL_ATTACH"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 110 NOCACHE  NOORDER  NOCYCLE ;
   
-   
+     CREATE TABLE "MAILATTACH" --메일 첨부파일
+   (   "ATTACH_NO" NUMBER, 
+   "MAIL_NO" NUMBER, 
+   "ATTACH_ORINAME" VARCHAR2(400), 
+   "ATTACH_RENAME" VARCHAR2(400), 
+   "ATTACH_PATH" VARCHAR2(1000)
+   )
    
    
      CREATE TABLE "NOTIFICATION" --공지
