@@ -20,6 +20,8 @@
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
 	</div>
+	
+	
 
 	<div class="page-wrapper">
 		<div class="container-fluid">
@@ -45,7 +47,7 @@
 										<div class="col-md-3">
 											<div class="form-group">
 												<label class="control-label">생년월일 </label> <input
-													type="text" id="emp_birth" name="emp_birth"
+													type="date" id="emp_birth" name="emp_birth"
 													class="form-control" value="${employee.emp_birth}">
 												<!-- <small class="form-control-feedback"> This is inline help </small> -->
 											</div>

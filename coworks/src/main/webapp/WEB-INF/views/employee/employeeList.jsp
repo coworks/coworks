@@ -123,7 +123,7 @@ td th {
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label class="control-label">생년월일 </label> <input type="text"
+											<label class="control-label">생년월일 </label> <input type="date"
 												id="emp_birth" name="emp_birth" class="form-control"
 												placeholder="1992-08-31">
 											<!-- <small class="form-control-feedback"> This is inline help </small> -->
