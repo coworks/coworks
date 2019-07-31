@@ -31,8 +31,8 @@
                         <div class="card">
                             <div class="card-body""> 
                  				<div class="table-responsive"> 
-                 					<table class="table no-wrap" style="text-align: center;">
-                 						<thead>
+                 					<table class="table" style="text-align: center;">
+                 						<thead class="bg-warning text-white">
                  							<tr>
                  								<th>인덱스</th> 
                  								<th>교육유형</th>
@@ -44,8 +44,7 @@
                  							</tr>
                  						</thead>
                  						
-                 						 <tbody> 
-                 						
+                 						 <tbody>  	
                                        	 <c:forEach items="${list}" var="list" varStatus="idx">
                                          
 											<tr>

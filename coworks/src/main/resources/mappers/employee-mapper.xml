@@ -3,10 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="employee">
-	<resultMap id="resultEmployee" type="employee">
-		<result property="emp_authority" column="emp_authority"
-			typeHandler="strArrTypeHandler" />
-	</resultMap>
+	
 	
 	<select id="selectEmployee" resultType="employee"
 		parameterType="_int">

@@ -106,6 +106,8 @@
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
      <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<!-- 한글화 -->
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar//lang-all.js"></script>
        
  	<script>
 	!function($) {
@@ -209,6 +211,7 @@
 	                center: 'title',
 	                right: 'month'
 	            },
+	        	lang : 'ko',
 	            events: defaultEvents,	//이벤트 불러오기
 	            editable: true,
 	            droppable: true, // this allows things to be dropped onto the calendar !!!
