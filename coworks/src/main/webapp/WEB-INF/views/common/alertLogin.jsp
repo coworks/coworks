@@ -57,7 +57,7 @@
 		$('#okBtn')
 				.click(
 						function() {
-							location.href = "${pageContext.request.contextPath}/common/goLogin.do";
+							location.href = "${pageContext.request.contextPath}";
 						});
 	</script>
 	<c:import url="./bottomJquery.jsp" />

@@ -83,7 +83,15 @@
          <beans:bean id="loggerInterceptor" class="com.kh.coworks.common.interceptor.LoggerInterceptor"/>
       </interceptor>
       <interceptor> 
-         <mapping path="/calendar/*.do"/> 
+         <mapping path="/calendar/**/*"/> 
+         <mapping path="/approval/**/*"/>
+         <mapping path="/authority/**/*"/>
+         <mapping path="/bulletinboard/**/*"/> 
+         <mapping path="/documentboard/**/*"/> 
+         <mapping path="/education/**/*"/> 
+         <mapping path="/employee/**/*"/> 
+         <mapping path="/mail/**/*"/> 
+         <mapping path="/mypage/**/*"/>  
          
          <mapping path="/common/gomain.do"/> 
          <!-- ★★★★★ 추가해주세요 여러분 ~ (세션없이 넘어갈수 없게)★★★★★★ -->
