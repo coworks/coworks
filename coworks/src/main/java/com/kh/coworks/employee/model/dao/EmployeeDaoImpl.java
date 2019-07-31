@@ -81,7 +81,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		String key = "";
 
 		if (con.equals("empname")) {
-			System.out.println("체크");
 			searchType = "employee.selectSearchEmployeeTotalContents";
 		} else if (con.equals("jobtitle")) {
 			searchType = "employee.selectSearchJobTotalContents";

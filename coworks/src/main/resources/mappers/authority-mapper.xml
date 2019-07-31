@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="authority">
+	<select id="selectAuthorityList" resultType="authority">
+		SELECT A.EMP_NO , EMP_NAME,
+		JOB_TITLE, DEPT_NAME , AUTH_PERSONNAL , AUTH_DATA , AUTH_CAL,
+        AUTH_BOARD, AUTH_APPROVAL, AUTH_AUTHORITY, AUTH_PAY
+		FROM EMPLOYEE E, DEPARTMENT D, JOB J, AUTHORITY A
+		WHERE E.JOB_CODE = J.Job_Code
+		AND E.Dept_Code = D.Dept_Code
+        AND E.EMP_NO = A.EMP_NO
+		ORDER BY A.EMP_NO DESC
+	</select>
+	
+	<select id="selectAuthorityTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEE E, DEPARTMENT D, JOB J, AUTHORITY A
+		WHERE E.JOB_CODE = J.Job_Code
+		AND E.Dept_Code = D.Dept_Code
+        AND E.EMP_NO = A.EMP_NO
+		ORDER BY A.EMP_NO DESC
+	</select>
+	
+	<select id="selectSerachAuthority" parameterType="hashmap"
+		resultType="authority">
+		SELECT A.EMP_NO , EMP_NAME,
+		JOB_TITLE, DEPT_NAME , AUTH_PERSONNAL , AUTH_DATA , AUTH_CAL,
+        AUTH_BOARD, AUTH_APPROVAL, AUTH_AUTHORITY, AUTH_PAY
+		FROM EMPLOYEE E, DEPARTMENT D, JOB J, AUTHORITY A
+		<bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		<where>
+			<if test="con == 'empname'">
+				EMP_NAME LIKE #{mySQLPattern}
+			</if>
+			<if test="con == 'jobtitle'">
+				JOB_TITLE LIKE #{mySQLPattern}
+			</if>
+			<if test="con == 'deptname'">
+				DEPT_NAME LIKE #{mySQLPattern}
+			</if>
+			AND  E.JOB_CODE = J.Job_Code
+			AND E.Dept_Code = D.Dept_Code
+       		AND E.EMP_NO = A.EMP_NO
+			ORDER BY A.EMP_NO DESC
+		</where>
+	</select>
+	
+	<select id="selectSearchEmployeeTotalContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEE <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		WHERE EMP_NAME LIKE #{mySQLPattern}
+	</select>
+	
+	<select id="selectSearchJobTotalContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM JOB <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		WHERE JOB_TITLE LIKE #{mySQLPattern}
+	</select>
+	
+	<select id="selectSearchDepartmentTotalContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM DEPARTMENT <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+		WHERE DEPT_NAME LIKE #{mySQLPattern}
+	</select>
+	
+	<update id="updateAuthority" parameterType="authority" >
+		UPDATE AUTHORITY
+		SET
+			AUTH_PERSONNAL = #{auth_personnal},
+			AUTH_DATA = #{auth_data},
+			AUTH_CAL = #{auth_cal},
+			AUTH_BOARD = #{auth_board},
+			AUTH_APPROVAL = #{auth_approval},
+			AUTH_AUTHORITY = #{auth_authority},
+			AUTH_PAY = #{auth_pay}
+		WHERE EMP_NO = #{emp_no}
+	</update>
+	
+
+</mapper>
