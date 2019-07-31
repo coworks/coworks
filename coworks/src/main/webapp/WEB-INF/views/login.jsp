@@ -32,7 +32,7 @@
 							<div class="col-xs-12">
 								<input class="form-control" name="emp_no" type="text" required="" placeholder="사원번호">
 							</div>
-						</div>
+						</div> 
 						<div class="form-group">
 							<div class="col-xs-12">
 								<input class="form-control" name="emp_password" type="password" required="" placeholder="비밀번호">
