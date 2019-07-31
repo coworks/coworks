@@ -38,6 +38,14 @@ public class EducationServiceImpl implements EducationService {
 		// TODO Auto-generated method stub
 		return eduDao.deleteEduApply(eduApply);
 	}
+
+	@Override
+	public List<Education> selectEduApply(int emp_no) {
+		// TODO Auto-generated method stub
+		return eduDao.selectEduApply(emp_no);
+	}
+	
+	
 	
 	
 

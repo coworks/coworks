@@ -49,17 +49,13 @@
 				                              </tr> 
 				                              <tr>
 				                              	<th>정원</th>
-				                              	<td>${edu.edu_curCnt} / ${edu.edu_limitCnt}</td>
+				                              	<td id="count">${edu.edu_curCnt} / ${edu.edu_limitCnt}</td>
 				                              </tr>  
 				                              </tbody>
 				                
 				               		 </table>  
 				               		 <!-- 바꿀꺼야... -->
-				               		 <input type="hidden" id="edu_no" value="${edu.edu_no}"/>				               		
-				               		 <input type="hidden" id="edu_curCnt" value="${edu.edu_curCnt}"/>
-				               		 <input type="hidden" id="edu_limitCnt" value="${edu.edu_limitCnt}"/>				              
-				               		 <input type="hidden" id="edu_applyBgDate" value="${edu.edu_applyBgDate}"/>
-				               		 <input type="hidden" id="edu_applyEndDate" value="${edu.edu_applyEndDate}"/>
+				               		 
 				                </div>
 				                 <div class="float-right">
 				                 	<input type="button" class="btn btn-info" id="apply" name="apply" value="신청하기"/>
@@ -89,19 +85,25 @@
 	
 	
 	<script>  
-		$('#delete').on("click",function(){
-			var no=($('#edu_no').val());
-			
+		$('#delete').on("click",function(){ 
+			var edu_no="${edu.edu_no}";
+			var limit="${edu.edu_limitCnt}";
+			var curr="${edu.edu_curCnt}";
 			$.ajax({
 				  url : "${pageContext.request.contextPath}/education/deleteEduApply.do",
-                data : {edu_no : no},
+                data : {edu_no : edu_no},
                 type:"post",
                 dataType : "json",
                 async:false,
                 success : function(data){
-                    if(data>0) alert("취소 완료!!");
+                    if(data>0){
+                    	alert("취소 완료!!");
+                    }
                     else alert("취소 실패!!");
+                  
                     location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+${edu.edu_no};
+                	
+                	$('#count').text(curr+" / "+limit);
                 },error: function(data){
                     alert("취소 실패");
                 }
@@ -111,12 +113,17 @@
 			
 		});
 			$('#apply').on("click",	function(){
-			var no=($('#edu_no').val());
-			var bg=new Date($('#edu_applyBgDate').val());
-			var end=new Date($('#edu_applyEndDate').val());
-			var limit=$('#edu_limitCnt').val();
-			var curr=$('#edu_curCnt').val();
+			var no="${edu.edu_no}";
+			var bg=new Date("${edu.edu_applyBgDate}");
+			var end=new Date("${edu.edu_applyEndDate}");
+			var limit="${edu.edu_limitCnt}";
+			var curr="${edu.edu_curCnt}";
+			console.log("시작");
+			console.log(no);
 			console.log(bg);
+			console.log(end);
+			console.log(limit);
+			console.log(curr);
 			
 			var $this = this;  
 	    	 var now = new Date(); 
@@ -139,7 +146,7 @@
 	                  }
 				});
 			}else{
-				alert("신청 인원이 마감되었습니다."); 
+				alert("마감되었습니다."); 
 				$('#apply').hide();
 				$('#delete').hide();
 				$('#finished').show();
