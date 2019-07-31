@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pay">
+	<insert id="insertPay" parameterType="pay">
+		insert into pay values(
+			#{pay_no},#{emp_no},#{pay_basepay},#{pay_jobtitle},#{pay_overtime},
+			#{pay_hollyday},#{pay_bonus},#{pay_meal},#{pay_transport},
+			#{pay_welfare},#{pay_income},
+			#{pay_resident},#{pay_empins},#{pay_nation},#{pay_healins},
+			#{pay_others},#{pay_ptotal},#{pay_mtotal},#{pay_total},sysdate
+		)
+		
+	</insert>
+
+</mapper>

@@ -1,8 +1,149 @@
 package com.kh.coworks.pay.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.kh.coworks.common.util.Utils;
+import com.kh.coworks.employee.model.service.EmployeeService;
+import com.kh.coworks.employee.model.vo.Department;
+import com.kh.coworks.employee.model.vo.Employee;
+import com.kh.coworks.employee.model.vo.Job;
+import com.kh.coworks.mail.model.vo.MailAttach;
+import com.kh.coworks.pay.model.service.PayService;
+import com.kh.coworks.pay.model.vo.Pay;
 
 @Controller
 public class PayController {
 
+	@Autowired
+	EmployeeService employeeService;
+
+	@Autowired
+	PayService payService;
+	
+	String filename="";
+	@RequestMapping("/pay/employeeList.do")
+	public String selectEmployeeList(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
+			Model model) {
+
+		int limit = 5; // 한 페이지 당 게시글 수
+		ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.selectEmployeeList(cPage, limit));
+		int totalContents = employeeService.selectEmployeeTotalContents();
+		ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+		ArrayList<Job> jobList = new ArrayList<>(employeeService.selectJobList());
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "employeeList.do");
+		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
+				.addAttribute("pageBar", pageBar).addAttribute("departmentList", departmentList)
+				.addAttribute("jobList", jobList);
+		return "pay/payEmpList";
+	}
+
+	@RequestMapping("/pay/payInputForm.do")
+	public String goInput() {
+		return "pay/payInputForm";
+	}
+
+	@RequestMapping(value="/pay/inputPayRoll.do",method = RequestMethod.POST)
+	@ResponseBody
+	public List<Map<String,String>> inputPayRoll(Model model,
+			@RequestParam("payRoll") MultipartFile payRoll, HttpServletRequest request) {
+		ExcelReadOption excel = new ExcelReadOption();
+		ExcelRead er = new ExcelRead();
+		System.out.println(payRoll);
+		String renamedName ="";
+		HttpSession session = request.getSession();
+//		Employee emp = (Employee) session.getAttribute("employee");
+		String saveDir = session.getServletContext().getRealPath("/resources/pay/payroll");
+		System.out.println("saveDIr : "+saveDir);
+		if (new File(saveDir).exists()) {
+			if (!payRoll.isEmpty()) {
+				String originalName = payRoll.getOriginalFilename();
+				String ext = originalName.substring(originalName.lastIndexOf(".") + 1);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+				int rndNum = (int) (Math.random() * 1000);
+				renamedName = sdf.format(new Date()) + "_" + rndNum + "." + ext;
+				try {
+					payRoll.transferTo(new File(saveDir + "/" + renamedName));
+					System.out.println(payRoll.getName());
+					System.out.println(saveDir + "/" + renamedName);
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		String savePath = saveDir.replace("\\", "/");
+		excel.setFilePath(savePath+"/"+renamedName);
+		filename =savePath+"/"+renamedName;
+		excel.setOutputColumns("A","B","C","D","F","L","S","T");
+		excel.setStartRow(0);
+		List<Map<String,String>> list = er.read(excel);
+		System.out.println(list.get(0).get("A"));
+//		JSONArray json = new JSONArray();
+//		json.addAll(list);
+//		System.out.println("json : " + json);
+		return list;
+	}
+
+	@RequestMapping("/pay/savePayRoll.do")
+	public String savePayRoll(Model model,
+			@RequestParam("payRoll") MultipartFile payRoll, HttpServletRequest request) {
+		ExcelReadOption excel = new ExcelReadOption();
+		ExcelRead er = new ExcelRead();
+		excel.setFilePath(filename);
+		excel.setOutputColumns("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T");
+		excel.setStartRow(0);
+		Pay pay;
+
+		List<Map<String,String>> list = er.read(excel);
+
+		SimpleDateFormat transFormat = new SimpleDateFormat("yy-MM-dd");
+		Date date = null;
+	
+		
+		for(int i = 3 ;i <list.size()-1;i++) {
+			pay = new Pay();
+			pay.setEmp_no(Integer.parseInt(list.get(i).get("A")));
+			pay.setPay_basepay(Integer.parseInt(list.get(i).get("D")));
+			pay.setPay_jobtitle(Integer.parseInt(list.get(i).get("E")));
+			pay.setPay_overtime(Integer.parseInt(list.get(i).get("F")));
+			pay.setPay_hollyday(Integer.parseInt(list.get(i).get("G")));
+			pay.setPay_bonus(Integer.parseInt(list.get(i).get("H")));
+			pay.setPay_meal(Integer.parseInt(list.get(i).get("I")));
+			pay.setPay_transport(Integer.parseInt(list.get(i).get("J")));
+			pay.setPay_welfare(Integer.parseInt(list.get(i).get("K")));
+			pay.setPay_income(Integer.parseInt(list.get(i).get("M")));
+			pay.setPay_resident(Integer.parseInt(list.get(i).get("N")));
+			pay.setPay_empins(Integer.parseInt(list.get(i).get("O")));
+			pay.setPay_nation(Integer.parseInt(list.get(i).get("P")));
+			pay.setPay_healins(Integer.parseInt(list.get(i).get("Q")));
+			pay.setPay_others(Integer.parseInt(list.get(i).get("R")));
+			pay.setPay_ptotal(Integer.parseInt(list.get(i).get("L")));
+			pay.setPay_mtotal(Integer.parseInt(list.get(i).get("S")));
+			pay.setPay_total(Integer.parseInt(list.get(i).get("T")));
+//			pay.setPay_date((java.sql.Date) date);
+
+			payService.insertPay(pay);
+		}
+		return "redirect:employeeList.do";
+	}
 }

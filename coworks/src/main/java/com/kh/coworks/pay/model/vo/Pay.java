@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Pay implements Serializable {
-	private int emp_no;// ���
+	private int pay_no; // 급여 번호
+	private int emp_no; // 사원번호
 	private int pay_basepay;// �⺻��
 	private int pay_jobtitle;// ��å����
 	private int pay_overtime;// �������
@@ -16,30 +17,96 @@ public class Pay implements Serializable {
 	private int pay_meal;// �Ĵ�
 	private int pay_transport;// �����
 	private int pay_welfare;// �����Ļ�
+	private int pay_income;
+	private int pay_resident;
+	private int pay_empins;
+	private int pay_nation;
+	private int pay_healins;
 	private int pay_others;// ��Ÿ
+	private int pay_ptotal;// �Ѿ�
+	private int pay_mtotal;// �Ѿ�
 	private int pay_total;// �Ѿ�
 	private Date pay_date;// ������
+	
+	
+	
+	public int getPay_income() {
+		return pay_income;
+	}
+
+	public void setPay_income(int pay_income) {
+		this.pay_income = pay_income;
+	}
+
+	public int getPay_resident() {
+		return pay_resident;
+	}
+
+	public void setPay_resident(int pay_resident) {
+		this.pay_resident = pay_resident;
+	}
+
+	public int getPay_empins() {
+		return pay_empins;
+	}
+
+	public void setPay_empins(int pay_empins) {
+		this.pay_empins = pay_empins;
+	}
+
+	public int getPay_nation() {
+		return pay_nation;
+	}
+
+	public void setPay_nation(int pay_nation) {
+		this.pay_nation = pay_nation;
+	}
+
+	public int getPay_healins() {
+		return pay_healins;
+	}
+
+	public void setPay_healins(int pay_healins) {
+		this.pay_healins = pay_healins;
+	}
+
+	public int getPay_ptotal() {
+		return pay_ptotal;
+	}
+
+	public void setPay_ptotal(int pay_ptotal) {
+		this.pay_ptotal = pay_ptotal;
+	}
+
+	public int getPay_mtotal() {
+		return pay_mtotal;
+	}
+
+	public void setPay_mtotal(int pay_mtotal) {
+		this.pay_mtotal = pay_mtotal;
+	}
+
 
 	public Pay() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pay(int emp_no, int pay_basepay, int pay_jobtitle, int pay_overtime, int pay_hollyday, int pay_bonus,
-			int pay_meal, int pay_transport, int pay_welfare, int pay_others, int pay_total, Date pay_date) {
-		super();
-		this.emp_no = emp_no;
-		this.pay_basepay = pay_basepay;
-		this.pay_jobtitle = pay_jobtitle;
-		this.pay_overtime = pay_overtime;
-		this.pay_hollyday = pay_hollyday;
-		this.pay_bonus = pay_bonus;
-		this.pay_meal = pay_meal;
-		this.pay_transport = pay_transport;
-		this.pay_welfare = pay_welfare;
-		this.pay_others = pay_others;
-		this.pay_total = pay_total;
-		this.pay_date = pay_date;
+	@Override
+	public String toString() {
+		return "Pay [pay_no=" + pay_no + ", emp_no=" + emp_no + ", pay_basepay=" + pay_basepay + ", pay_jobtitle="
+				+ pay_jobtitle + ", pay_overtime=" + pay_overtime + ", pay_hollyday=" + pay_hollyday + ", pay_bonus="
+				+ pay_bonus + ", pay_meal=" + pay_meal + ", pay_transport=" + pay_transport + ", pay_welfare="
+				+ pay_welfare + ", pay_others=" + pay_others + ", pay_total=" + pay_total + ", pay_date=" + pay_date
+				+ "]";
+	}
+
+	public int getPay_no() {
+		return pay_no;
+	}
+
+	public void setPay_no(int pay_no) {
+		this.pay_no = pay_no;
 	}
 
 	public int getEmp_no() {
@@ -137,13 +204,5 @@ public class Pay implements Serializable {
 	public void setPay_date(Date pay_date) {
 		this.pay_date = pay_date;
 	}
-
-	@Override
-	public String toString() {
-		return "Pay [emp_no=" + emp_no + ", pay_basepay=" + pay_basepay + ", pay_jobtitle=" + pay_jobtitle
-				+ ", pay_overtime=" + pay_overtime + ", pay_hollyday=" + pay_hollyday + ", pay_bonus=" + pay_bonus
-				+ ", pay_meal=" + pay_meal + ", pay_transport=" + pay_transport + ", pay_welfare=" + pay_welfare
-				+ ", pay_others=" + pay_others + ", pay_total=" + pay_total + ", pay_date=" + pay_date + "]";
-	}
-
+	
 }
