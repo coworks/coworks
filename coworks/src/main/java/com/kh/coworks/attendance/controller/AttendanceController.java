@@ -56,9 +56,10 @@ public class AttendanceController {
 	public ModelAndView insertAttendaceCome( HttpServletRequest request,Model model) throws ParseException { 
 		HttpSession session=request.getSession(false);
 		Employee employee=(Employee) session.getAttribute("employee"); 
-		//
+
+		Calendar cal=new GregorianCalendar();
 		 ModelAndView mv=new ModelAndView(); 
-		
+		 Time time=new Time(cal.getTimeInMillis());
 		Attendance attend=new Attendance();
 		
 		  
@@ -217,9 +218,7 @@ public class AttendanceController {
 			java.util.Date current = dateFormat.parse(dateFormat.format(curDate));
 			long atten_leaveTime = current.getTime();
 			
-			
-		System.out.println(atten_leaveTime);
-		System.out.println(atten_attTime);
+		 
 		if(atten_leaveTime-atten_attTime>0) {
 			long hour= (atten_leaveTime-atten_attTime) / (1000*60*60);
 			long minute = (atten_leaveTime-atten_attTime) / 60000-(hour*60);
