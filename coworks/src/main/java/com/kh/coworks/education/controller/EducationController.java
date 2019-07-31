@@ -82,5 +82,17 @@ public class EducationController {
 		resp.getWriter().print(result);
 	}
 	
+	@RequestMapping("/education/eduApplyview.do")
+	public ModelAndView eduApplyview(ModelAndView mv,HttpServletRequest request) {
+		Employee employee=(Employee) request.getSession().getAttribute("employee");
+		
+		List<Education> edu=educationService.selectEduApply(employee.getEmp_no());
+		
+		mv.addObject("list",edu);
+		mv.setViewName("education/eduApplyview");
+		
+		return mv;
+	}
+	
 	
 }

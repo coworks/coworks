@@ -8,6 +8,10 @@
 		SELECT * FROM EDUCATION
 	</select>
 	
+	<select id="selectEduApply" resultType="education">
+		SELECT * FROM EDUCATION EDU ,EDUAPPLY EDUA WHERE EDU.EDU_NO=EDUA.EDU_NO AND EMP_NO=#{emp_no}
+	</select>
+	
 	<select id="selectOneEducation" parameterType="_int" resultType="education">
 		SELECT * FROM EDUCATION WHERE EDU_NO=#{edu_no}
 	</select>
@@ -19,5 +23,7 @@
 	<delete id="deleteEduApply" parameterType="eduapply">
 		DELETE FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no}
 	</delete>
+	
+	
 
 </mapper>

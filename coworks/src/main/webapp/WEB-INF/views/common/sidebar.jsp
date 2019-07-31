@@ -45,7 +45,7 @@
                   class="mdi mdi-book-open-variant"></i><span class="hide-menu">교육</span></a>
                <ul aria-expanded="false" class="collapse">
                   <li><a href="${pageContext.request.contextPath}/education/edcationview.do">일정 & 신청</a></li>
-                  <li><a href="${pageContext.request.contextPath}/education/eduapplyview.do">교육 신청 현황</a></li>
+                  <li><a href="${pageContext.request.contextPath}/education/eduApplyview.do">교육 신청 현황</a></li>
                   <li><a href="#">보고서 작성하기</a></li>
 
                </ul></li>

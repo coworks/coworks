@@ -38,6 +38,14 @@ public class EducationDaoImpl implements EducationDao {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("education.deleteEduApply",eduApply);
 	}
+
+	@Override
+	public List<Education> selectEduApply(int emp_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("education.selectEduApply",emp_no);
+	}
+	
+	
 	
 	
 	

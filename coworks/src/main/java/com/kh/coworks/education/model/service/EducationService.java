@@ -13,4 +13,6 @@ public interface EducationService {
 	int insertEduApply(EduApply eduApply);
 
 	int deleteEduApply(EduApply eduApply);
+
+	List<Education> selectEduApply(int emp_no);
 }
