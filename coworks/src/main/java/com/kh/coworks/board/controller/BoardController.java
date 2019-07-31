@@ -1,14 +1,19 @@
 package com.kh.coworks.board.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.coworks.board.model.service.BoardService;
@@ -48,7 +54,7 @@ public class BoardController {
 	public String selectBusinessdoc(
 			@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 			@PathVariable("boardCode") String boardCode,
-			Model model) {
+			Model model, Board board) {
 		
 		int limit = 10;
 		
@@ -63,7 +69,9 @@ public class BoardController {
 		.addAttribute("totalContents", totalContents)
 		.addAttribute("numPerPage", limit)
 		.addAttribute("pageBar", pageBar)
-		.addAttribute("bo_code", boardCode);
+		.addAttribute("bo_code", boardCode)
+		.addAttribute(board);
+		
 		
 		return "documentboard/businessdoclist";
 	}
@@ -125,8 +133,12 @@ public class BoardController {
 			}
 		}
 		
+		
+		
 		int result = boardService.insertBusinessdoc(board, list);
 		System.out.println("list size : " + list.size());
+		board.setFiles(list);
+		board.setFileCount(list.size());
 		
 		
 		if(result > 0) {
@@ -135,10 +147,10 @@ public class BoardController {
 			System.out.println("게시글 등록 실패");
 		}
 		
-		model.addAttribute("bo_code", board.getBo_code());
 		
-		board.setFileCount(list.size());
-		board.setFiles(list);
+		
+		model.addAttribute("bo_code", board.getBo_code())
+		.addAttribute(board);
 		
 		System.out.println(" 완료된 BOARD : " + board);
 		
@@ -146,19 +158,17 @@ public class BoardController {
 		return "documentboard/businessdocdetail";
 	}
 	
-	// (게시글 한 개 조회) ☆(부서별 조회가 안됨...8ㅅ8 아 왜!!!)
+	// (게시글 한 개 조회) ★
 	@RequestMapping(value="/documentboard/{boardCode}/{boardNo}", method=RequestMethod.GET)
 	public String selectOnebusinessdocdetail(
 			@PathVariable("boardCode") String boardCode,
 			@PathVariable("boardNo") int boardNo,
-			Model model, Board board) {
-		
+			Model model) {
 		
 		Board b = new Board();
 		b.setBo_code(boardCode);
 		b.setBo_no(boardNo);
-		System.out.println("bbbbbbbbbbbb : " + b);
-		
+		b.setBg_code(boardCode);
 		
 
 		model.addAttribute("board", boardService.selectOnebusinessdocdetail(b))
@@ -169,7 +179,7 @@ public class BoardController {
 		return "documentboard/businessdocdetail";
 	}
 	
-	// (수정 하기 위해 값 가져오기 - 수정 화면) ★
+	// (수정 하기 위해 값 가져오기 - 수정 화면)  ☆첨부파일 리셋되던데 어카지
 	@RequestMapping(value="/documentboard/{boardCode}/{boardNo}/{bo_emp_no}", method=RequestMethod.GET)
 	public String updateBusinessdocview(
 			@PathVariable("boardCode") String boardCode,
@@ -277,7 +287,7 @@ public class BoardController {
 		List<Attach> list 
 		= boardService.selectBusinessdocAttachList(b);
 		
-		String saveDir = session.getServletContext().getRealPath("resources/boardUpload");
+		String saveDir = session.getServletContext().getRealPath("/resources/board/attach");
 		
 		if(list != null) {
 			for (Attach at : list) { // 첨부파일 하나씩 꺼내서
@@ -309,7 +319,25 @@ public class BoardController {
 	
 	
 	// (파일 한 개 삭제)
-
+	@RequestMapping("/board/fileDelete.do")
+	@ResponseBody //ajax로 구현. 파일 하나만 삭제할거면 굳이 새로고침할 필요가 없다. (id 중복체크 했던 것과 구조가 동일하다.)
+	public boolean fileDelete(@RequestParam int attNo, @RequestParam String rName,
+						HttpSession session) { //session : 파일 삭제를 위해 필요 / rName : 파일이름
+			
+		// 저장 경로 가져오기
+		String saveDir 
+				= session.getServletContext().getRealPath("/resources/board/attach");
+			
+		// 파일 삭제와 실행 여부
+		boolean check = boardService.deleteBusinessdocFile(attNo) != 0? true : false;
+						//삭제한 것이 0이 아니면? 참: 거짓;
+			
+		if(check) new File(saveDir + "/" + rName).delete();
+					//파일 이름 가져와서 삭제
+			
+		return check;
+			
+	}
 	
 	
 
@@ -339,14 +367,14 @@ public class BoardController {
 	//※첨부파일 다운로드! (만약을 위해 알려줌)※
 		// download 태그로 대체 가능하나
 		// 만약을 위해 구현하는 방법도 익히고 있어야 한다. 
-	/*	@RequestMapping("/board/fileDownload.do")
+		@RequestMapping("/board/fileDownload.do")
 		public void fileDownload(@RequestParam String oName,
 								   @RequestParam String rName,
 								   HttpServletRequest request,
 								   HttpServletResponse response){
 			
 			//파일저장디렉토리
-			String saveDirectory = request.getSession().getServletContext().getRealPath("/resources/upload");	
+			String saveDirectory = request.getSession().getServletContext().getRealPath("/resources/board/attach");	
 		
 			BufferedInputStream bis = null;
 			ServletOutputStream sos = null;
@@ -403,5 +431,5 @@ public class BoardController {
 				
 			}
 
-		} */
+		} 
 }

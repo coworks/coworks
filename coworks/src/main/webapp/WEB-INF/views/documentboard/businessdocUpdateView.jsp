@@ -70,13 +70,21 @@
 											</textarea>
 											
 											</div>
-										<h4>
-											<i class="ti-link"></i> 첨부 파일
-										</h4>
-										 <div id='file-list'>
-                                  		  <input type="button" id='button-add-file' value='파일 추가' class="btn  btn-outline-warning" />
-                                		</div>
+										<c:import url="../approval/approvalDoc/approvalWriteForm/common/approvalAttachAdd.jsp" />
                                         
+                                        <c:forEach items="${attachmentList}" var="a" varStatus="vs">
+				<div class="row" style="display: block;">
+					<button type="button" 
+							class="btn btn-outline-success col-3"
+							onclick="fileDownload('${a.attach_oriname}','${a.attach_rename }');">
+						첨부파일<%-- ${vs.count} - --%> ${a.attach_oriname }
+					</button>&nbsp;
+					<button type="button" class="btn btn-outline-danger col-3"
+							onclick="fileDelete(this, '${a.attach_no}', '${a.attach_rename }');">파일 삭제</button>
+				</div>
+				</c:forEach>
+                                        
+                                                                           
                                         <div style="float:right;">
 										<button class="btn btn-success mt-3" type="submit">
 										
@@ -113,15 +121,7 @@
        $('.textarea_editor').wysihtml5();
    });
     
-   var count = 0;
-   $('#button-add-file').on("click",function(){
-      var html = "<div id='item_"+count+"'>";
-      html += "<input type='file' name='upFile' multiple/>";
-      html += "<input type='button' onclick='deleteBtn(this)' class='btn btn-danger' value='삭제'/></div>";
-      count++;
-      $("#file-list").append(html);
-   });
-   
+      
    function deleteBtn(obj) {
       $(obj).parent().remove();
    }
@@ -143,8 +143,40 @@
 		console.log('check');
 		return true;
 	}
+    $(function(){
+		$('[name=upFile]').on('change',function(){
+		    //var fileName = $(this).val();//C:\fakepath\파일명
+		    //var fileName = this.files[0].name;//파일명(javascript)
+		    //var fileName = $(this)[0].files[0].name;//파일명(jquery)
+		    var fileName = $(this).prop('files')[0].name;//파일명(jquery)
+			//console.log($(this).prop('files'));//FileList {0: File(54955), length: 1}
+		    console.log($(this).val());
+		    $(this).next('.custom-file-label').html(fileName);
+		})
+	});
     
-
+    function fileDelete(obj, attNo, rName){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/board/fileDelete.do",
+			data : {attNo : attNo, rName : rName},
+			dataType: "json",
+			success : function(data){
+				if(data == true){
+					alert("첨부파일 삭제 완료!");
+					$(obj).parent().remove();
+					
+				} else alert("첨부파일 삭제 실패!");
+			}, error : function(request,status,error){
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+    }
+    
+    function fileDownload(oName, rName){
+		//한글파일명이 있을 수 있으므로, 명시적으로 encoding
+		oName = encodeURIComponent(oName);
+		location.href="${pageContext.request.contextPath}/board/fileDownload.do?oName="+oName+"&rName="+rName;
+	}
     
 	</script>
 	

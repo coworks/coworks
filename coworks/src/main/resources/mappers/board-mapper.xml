@@ -10,7 +10,9 @@
 	<!-- ********************자료실 업무자료 ******************** -->
 	<!-- 게시글 목록 조회 -->
 	<select id="selectBusinessdocList" resultType="board">
-		SELECT B.*
+		SELECT B.*, (SELECT COUNT(*) 
+		             FROM BOARDATTACH 
+		             WHERE B.BO_NO = BO_NO) FILECOUNT
 		FROM BOARD B
 		WHERE BO_CODE = #{bo_code}
 		AND BO_STATUS='y'

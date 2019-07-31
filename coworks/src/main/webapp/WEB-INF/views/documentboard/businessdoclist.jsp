@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import ="java.util.Date" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,7 +98,22 @@
 								<c:forEach items="${list}" var="b">
 									<tr id="${b.bo_no}">
 										<td class="title">${b.bo_no }</td>
-										<td class="text-al-left title">${b.bo_title } <span class="badge badge-danger ml-auto">new</span></td>
+										<td class="text-al-left title">${b.bo_title } 
+											<div hidden>
+												<c:set var="now" value="<%=new java.util.Date()%>" />
+												<c:set var="today"><fmt:formatDate value="${now}" pattern="yyyy/MM/dd" /></c:set> 
+												<c:set var="after3days" value="<%=new Date(new Date().getTime() + 60*60*24*1000*3) %>" />
+												<fmt:formatDate value="${after3days }" type="DATE" pattern="yyyy/MM/dd"/>
+												<fmt:formatDate var="now" value="${b.bo_date }" pattern="yyyy/MM/dd"/>
+											</div>
+										<c:choose>
+											<c:when test="${now <= after3days && now >= today}">
+												<span class="badge badge-danger ml-auto">new</span>
+											</c:when>
+										</c:choose>
+										
+										
+										</td>
 										<td class="title">
 										<fmt:formatDate value="${b.bo_date }" pattern="yyyy/MM/dd"/> <%--yyyy/MM/dd HH:mm --%>
 										</td>
