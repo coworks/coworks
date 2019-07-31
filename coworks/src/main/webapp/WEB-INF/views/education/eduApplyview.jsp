@@ -150,7 +150,7 @@
                 if(data>0){
                 	alert("취소 완료!!");
                 
-                }
+                } 
                 else alert("취소 실패!!");
               
                 location.href="${pageContext.request.contextPath}/education/eduApplyview.do";

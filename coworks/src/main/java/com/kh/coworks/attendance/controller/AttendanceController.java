@@ -125,7 +125,7 @@ public class AttendanceController {
 		cal1.setCal_holder(Integer.toString(employee.getEmp_no()));
 		cal1.setCal_type(employee.getDept_code());
 
-		// 나중에 수정해야함 꼮!!! calendar list뽑기
+		// 나중에 수정해야함 꼮!!! calendar list뽑기 
 		List<com.kh.coworks.calendar.model.vo.Calendar> calendar=calendarSerivce.selectListAllCalendar(cal1);
 		 System.out.println("calendar : "+calendar);
 		mv.addObject("atten",list);	// index에 출근시간, ip시간 보여주기!!!! 나중에~~~
