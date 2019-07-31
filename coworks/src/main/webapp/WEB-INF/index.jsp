@@ -54,12 +54,15 @@
 										<c:out value="${today}" />
 									</h4>
 									<p class="card-text" id="time">
-									
+									<p>출근가능시간 : 07:00 이후
+									    
+									<c:if test="${atten.atten_attTime!=null && atten.atten_date!=null}" >
+										 
 										<span id="span1"> 
 											출근 시간 : ${atten.atten_attTime} &nbsp; &nbsp; &nbsp; &nbsp;
 											출근 IP : ${atten.atten_attIP}
 										</span>
-										
+									</c:if>	
 									<c:if test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}" >
 										<br><span id="span2">
 											퇴근 시간 : ${atten.atten_leaveTime} &nbsp; &nbsp; &nbsp; &nbsp;
@@ -67,9 +70,12 @@
 										</span><br>
 									 </c:if>
 										
-									 
+									  
 									 </p> 
 									 <c:choose>
+									 	<c:when test="${atten.atten_attTime==null && atten.atten_date==null}" >
+											<button type="button" id="attendFail" class="btn waves-effect waves-light btn-block btn-outline-warning">출근하기</button>
+										 </c:when>
 										 <c:when test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}" >
 											<button type="button" id="leaveSucess" class="btn waves-effect waves-light btn-block btn-outline-info" disabled="true">퇴근완료</button>
 										 </c:when>
@@ -82,6 +88,12 @@
 						</div>
 						
 						<script>
+						 
+						$('#attendFail').on("click",function(){
+							alert("출근 시간대가 아닙니다.");
+						});
+						 
+						
 						function onclick1(atten_no){ 
 							$.ajax({
 								url : "${pageContext.request.contextPath}/mypage/attendanceleave.do",

@@ -50,7 +50,8 @@ public class AttendanceController {
 	 String str2 = new SimpleDateFormat("HHmm").format(time);
 	 //System.out.println(str2);
 	 String reqDateStr1=str1+"090000";	//최소 출근시간 기준
-	 String reqDateStr2=str1+"180000";
+	 String reqDateStr2=str1+"180000";	//정규 퇴근시작시간
+	 String reqDateStr3=str1+"070000";	// 출근찍을수있는시간 7시~6시사이!
 	 
 	@RequestMapping("/attendancecome.do") 
 	public ModelAndView insertAttendaceCome( HttpServletRequest request,Model model) throws ParseException { 
@@ -77,8 +78,9 @@ public class AttendanceController {
 		curDate = dateFormat.parse(dateFormat.format(curDate));
 		long curDateTime = curDate.getTime();
 		System.out.println("curDate : "+curDateTime);
-		//분으로 표현
-		if(curDateTime>reqDateTime1  ) {
+		
+		//분으로 표현 (직원이 출근한 시간대는 07:00~ 18:00 사이어야함)
+		if(curDateTime>reqDateTime1 && curDateTime<reqDateTime2) {
 		long hour= (curDateTime - reqDateTime1) / (1000*60*60);
 		long minute = (curDateTime - reqDateTime1) / 60000-(hour*60);
 		long second=(curDateTime - reqDateTime1) / 1000-((hour*60*60)+(minute*60));
@@ -86,9 +88,8 @@ public class AttendanceController {
 		 
 		 
 			attend.setAtten_attLate(attLate);
-		}else {
-			attend.setAtten_attLate(" ");
-		}
+			attend.setAtten_attTime(time);
+		
 		
 		 // ************
 		 
@@ -107,18 +108,24 @@ public class AttendanceController {
 		 System.out.println("ip :" +ip);
 		 attend.setAtten_attIP(ip);	//나중에 세션 ip 받아오기
 		 attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
-		 attend.setAtten_attTime(time);
+		 //attend.setAtten_attTime(time);
 		 attend.setAtten_date(date);
 		 
 		int result=attendanceService.insertAttendanceCome(attend);
 		
+		
+		}else {
+			attend.setAtten_attLate(null);
+			attend.setAtten_attTime(null);
+		}
+		
 		Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
 		
-		// 나중에 수정해야함 꼮!!!
 		com.kh.coworks.calendar.model.vo.Calendar cal1=new com.kh.coworks.calendar.model.vo.Calendar();
 		cal1.setCal_holder(Integer.toString(employee.getEmp_no()));
 		cal1.setCal_type(employee.getDept_code());
-		
+
+		// 나중에 수정해야함 꼮!!! calendar list뽑기
 		List<com.kh.coworks.calendar.model.vo.Calendar> calendar=calendarSerivce.selectListAllCalendar(cal1);
 		 System.out.println("calendar : "+calendar);
 		mv.addObject("atten",list);	// index에 출근시간, ip시간 보여주기!!!! 나중에~~~
@@ -157,7 +164,7 @@ public class AttendanceController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
 		
 		//요청시간을 Date로 parsing 후 time가져오기
-		java.util.Date reqDate = dateFormat.parse(reqDateStr2);
+		java.util.Date reqDate = dateFormat.parse(reqDateStr2);	// 18:00
 		System.out.println("reqDate : "+reqDate);
 		long reqDateTime = reqDate.getTime();
 		System.out.println("longreqDate : "+reqDateTime);
@@ -175,7 +182,7 @@ public class AttendanceController {
 		  System.out.println("leaveEarly : "+leaveEarly); 
 			attend.setAtten_leaveEarly(leaveEarly);
 		}else {
-			attend.setAtten_leaveEarly(" ");	
+			attend.setAtten_leaveEarly(null);	
 		}
 		 
 		 
@@ -228,7 +235,7 @@ public class AttendanceController {
 			 
 				attend.setAtten_hours(hours2);
 			}else {
-				attend.setAtten_leaveEarly(" ");	
+				
 			}
 			 
 		

@@ -72,9 +72,13 @@
 												</td>
 												<td>${list.edu_instructor}</td>
 												<td>
+													<input type="hidden" id="eduDate" name="eduDate" value="${list.edu_eduDate}"/>
 													<fmt:formatDate value="${list.edu_eduDate}" pattern="yyyy-MM-dd" />
 												</td>
-												<td> <button id="cancel" name="cancel"  class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button></td>
+												<td> 
+													<button id="report" name="report"  class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');">보고서 작성</button>
+													<button id="cancel" name="cancel"  class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button>
+												</td>
 											</tr>
 										</c:forEach>
                  						</tbody>
@@ -106,9 +110,34 @@
 	
 	
 	<script>
- 
+	$( function(){
+		$('#cancel').show(); 
+		var edu=$('#eduDate').val();
+		var edudate=new Date(edu);  
+		var today=new Date();  
+		console.log(today.getTime());	//오늘
+		var d=new Date(edudate.getFullYear(),edudate.getMonth(),edudate.getDate());	// 교육일
+		var startReport=new Date(d.setDate(d.getDate()+1));
+		console.log(startReport.getTime()); // 교육 다음날
+		var endReport=new Date(d.setDate(d.getDate()+7));
+		console.log(endReport.getTime()); //교육 일주일 후
+		
+		var d2=new Date(edudate.getFullYear(),edudate.getMonth(),edudate.getDate()); // 교육날
+		console.log(startReport.getTime()<=today.getTime() && today.getTime()<=endReport.getTime());
+		
+		if(startReport.getTime()>today.getTime() || today.getTime()>endReport.getTime()){
+			$('#report').hide(); 
+		}
+		if(d2.getTime()<today){
+			$('#cancel').hide();
+		}
+		 
+ 	});
 	
-	
+	function fnWriteReport(edu_no){
+		location.href="${pageContext.request.contextPath}/education/insertEduReport.do?edu_no="+edu_no;
+		
+	}
 	function fnCancel(edu_no){
 		 
 		$.ajax({

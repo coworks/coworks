@@ -62,7 +62,9 @@
 				                 	<input type="button" class="btn btn-secondary" id="finished" name="finished" style="display:none" value="마 감"/>
 				                 
 				                 </div>
-								
+								</h4>
+								<!-- sample modal content -->
+							 
 							</div>
 							
 				</div>
@@ -140,7 +142,7 @@
 	                      if(data>0) alert("신청 완료!!");
 	                      else alert("신청 실패!!");  
 	                      location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+${edu.edu_no};
-	                      
+	                       
 	                  },error: function(data){
 	                      alert("신청 실패");
 	                  }
