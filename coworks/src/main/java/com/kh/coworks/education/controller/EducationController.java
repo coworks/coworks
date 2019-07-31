@@ -1,19 +1,24 @@
-	package com.kh.coworks.education.controller;
+package com.kh.coworks.education.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.coworks.education.model.service.EducationService;
 import com.kh.coworks.education.model.vo.EduApply;
+import com.kh.coworks.education.model.vo.EduReport;
 import com.kh.coworks.education.model.vo.Education;
 import com.kh.coworks.employee.model.vo.Employee;
 
@@ -93,6 +98,23 @@ public class EducationController {
 		
 		return mv;
 	}
-	
+	@RequestMapping(value = "/education/writeEduReport", method = RequestMethod.POST)
+	public String writeEduReport(@RequestParam Map<String, String> body, HttpServletRequest request) {
+		System.out.println(body);
+
+		EduReport erep = new EduReport();
+		erep.setEdu_no(Integer.valueOf(body.get("edu_no")));
+		erep.setEmp_no(((Employee) request.getSession().getAttribute("employee")).getEmp_no());
+		erep.setedurep_title(body.get("edurep_title"));
+
+		body.remove("edu_no");
+		body.remove("edurep_title");
+
+		erep.setedurep_content(new JSONObject(body).toJSONString());
+		
+		educationService.insertEduReport(erep);
+
+		return null;
+	}
 	
 }

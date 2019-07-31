@@ -68,27 +68,21 @@
 													<th colspan="6">휴가 사유</th>
 												</tr>
 												<tr>
-													<td colspan="6">
-														<textarea class="form-control" rows="10" name="vacation_reason" required="required"></textarea>
-													</td>
+													<td colspan="6"><textarea class="form-control" rows="10" name="vacation_reason" required="required"></textarea></td>
 												</tr>
 												</tbody>
-
-
 											</table>
 
 										</div>
 
 										<c:import url="./common/approvalAttachAdd.jsp" />
+										<c:import url="./common/approvalSignModal.jsp" />
 										<div align="right">
 											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
 										</div>
 									</form>
 								</div>
 							</div>
-
-							<c:import url="./common/approvalSignModal.jsp" />
-
 						</div>
 					</div>
 				</div>

@@ -27,7 +27,7 @@
 							<div class="card-body">
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">기안서</h2>
-									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype="multipart/form-data">
+									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype="multipart/form-data" onsubmit="return check()">
 										<div class="table-responsive mt-2">
 											<c:import url="./common/approvalHeader.jsp" />
 											<table class="table table-bordered no-wrap">
@@ -41,13 +41,14 @@
 											</table>
 										</div>
 										<c:import url="./common/approvalAttachAdd.jsp" />
+										<c:import url="./common/approvalSignModal.jsp" />
+
 										<div align="right">
 											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
 										</div>
 									</form>
 								</div>
 							</div>
-							<c:import url="./common/approvalSignModal.jsp" />
 						</div>
 					</div>
 				</div>
@@ -60,8 +61,8 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
-		<script src="${pageContext.request.contextPath }/resources/approval/js/signListApply.js"></script>
-	
+	<script src="${pageContext.request.contextPath }/resources/approval/js/signListApply.js"></script>
+
 	<script>
 		$(function() {
 			$('.summernote').summernote({
@@ -71,7 +72,6 @@
 				focus : false
 			});
 		});
-		
 	</script>
 
 </body>

@@ -3,7 +3,7 @@ $("#treeview").hummingbird();
 $(function() {
 	var empno = $('input[name=adoc_writerno]').val();
 	console.log(empno);
-	$('input[value=' + empno + ']').attr('disabled', 'disabled');
+	$('.modal').$('input[value=' + empno + ']').attr('disabled', 'disabled');
 });
 
 function applySelect() {
@@ -27,11 +27,15 @@ function applySelect() {
 			table.append('<td>' + index.dataset.dept + '</td>');
 			table.append('<td>' + index.dataset.job + '</td>');
 
-			table.append("<input type='hidden' name='signList' value="
-					+ index.value + ">");
-
 			$('#signTable tbody').append(table);
 
 		}
 	}
 };
+
+function check() {
+	if ($('input[name=signList]:checked').length != 2) {
+		alert("결재자를 선택해주세요");
+		return false;
+	}
+}

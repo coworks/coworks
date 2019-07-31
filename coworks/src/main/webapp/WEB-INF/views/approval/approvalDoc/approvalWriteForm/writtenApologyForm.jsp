@@ -26,7 +26,7 @@
 							<div class="card-body">
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">시말서</h2>
-									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype="multipart/form-data">
+									<form action="${pageContext.request.contextPath }/approval/writeApprovalDone" method="post" enctype="multipart/form-data" onsubmit="return check()">
 										<div class="table-responsive mt-2">
 											<c:import url="./common/approvalHeader.jsp" />
 											<table class="table table-bordered no-wrap">
@@ -34,21 +34,19 @@
 													<th>위반 내용</th>
 												</tr>
 												<tr>
-													<td>
-														<textarea class="form-control" rows="10" name="apology_reason" required="required"></textarea>
-													</td>
+													<td><textarea class="form-control" rows="10" name="apology_reason" required="required"></textarea></td>
 												</tr>
 												</tbody>
 											</table>
 										</div>
 										<c:import url="./common/approvalAttachAdd.jsp" />
+										<c:import url="./common/approvalSignModal.jsp" />
 										<div align="right">
 											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
 										</div>
 									</form>
 								</div>
 							</div>
-							<c:import url="./common/approvalSignModal.jsp" />
 						</div>
 					</div>
 				</div>

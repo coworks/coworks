@@ -27,7 +27,7 @@
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">출장여비청구서</h2>
 
-									<form id="tableForm">
+									<form id="tableForm" onsubmit="return check()">
 										<div class="table-responsive mt-2">
 											<c:import url="./common/approvalHeader.jsp" />
 											<table class="table table-bordered no-wrap">
@@ -43,21 +43,11 @@
 												<tbody>
 													<c:forEach var="row" begin="1" end="15" step="1">
 														<tr id="row${row }">
-															<td>
-																<input type="date" class="form-control" />
-															</td>
-															<td>
-																<input type="number" class="form-control" />
-															</td>
-															<td>
-																<input type="number" class="form-control" />
-															</td>
-															<td>
-																<input type="number" class="form-control" />
-															</td>
-															<td>
-																<input type="number" class="form-control" />
-															</td>
+															<td><input type="date" class="form-control" /></td>
+															<td><input type="number" class="form-control" /></td>
+															<td><input type="number" class="form-control" /></td>
+															<td><input type="number" class="form-control" /></td>
+															<td><input type="number" class="form-control" /></td>
 														</tr>
 													</c:forEach>
 												</tbody>
@@ -65,13 +55,13 @@
 
 										</div>
 										<c:import url="./common/approvalAttachAdd.jsp" />
+										<c:import url="./common/approvalSignModal.jsp" />
 										<div align="right">
 											<input type="button" id="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
 										</div>
 									</form>
 								</div>
 							</div>
-							<c:import url="./common/approvalSignModal.jsp" />
 						</div>
 					</div>
 				</div>
@@ -127,8 +117,6 @@
 										}
 									});
 						});
-
-		
 	</script>
 </body>
 </html>

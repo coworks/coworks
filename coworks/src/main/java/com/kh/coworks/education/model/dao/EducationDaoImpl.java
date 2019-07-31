@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.coworks.education.model.vo.EduApply;
+import com.kh.coworks.education.model.vo.EduReport;
 import com.kh.coworks.education.model.vo.Education;
 
 @Repository
@@ -43,6 +44,11 @@ public class EducationDaoImpl implements EducationDao {
 	public List<Education> selectEduApply(int emp_no) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("education.selectEduApply",emp_no);
+	}
+
+	@Override
+	public void insertEduReport(EduReport erep) {
+		sqlSession.insert("education.insertEduReport", erep);
 	}
 	
 	

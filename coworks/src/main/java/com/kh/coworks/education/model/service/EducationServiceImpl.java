@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.coworks.education.model.dao.EducationDao;
 import com.kh.coworks.education.model.vo.EduApply;
+import com.kh.coworks.education.model.vo.EduReport;
 import com.kh.coworks.education.model.vo.Education;
 
 @Service
@@ -43,6 +44,11 @@ public class EducationServiceImpl implements EducationService {
 	public List<Education> selectEduApply(int emp_no) {
 		// TODO Auto-generated method stub
 		return eduDao.selectEduApply(emp_no);
+	}
+
+	@Override
+	public void insertEduReport(EduReport erep) {
+		eduDao.insertEduReport(erep);
 	}
 	
 	

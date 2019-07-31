@@ -26,4 +26,13 @@
 	
 	
 
+	<insert id="insertEduReport">
+		insert into eduReport (EDUREP_NO, EDU_NO,
+		EMP_NO,
+		EDUREP_TITLE, EDUREP_CONTENT, EDUREP_DATE) values
+		(seq_eduRep.nextval,#{edu_no},#{edu_title},#{edurep_content},SYSDATE)
+	</insert>
+
+
+
 </mapper>
