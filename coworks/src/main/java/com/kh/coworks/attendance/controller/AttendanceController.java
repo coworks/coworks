@@ -132,7 +132,7 @@ public class AttendanceController {
 		mv.addObject("list",calendar); 
 		System.out.println("mv 들 : "+mv);
 		mv.setViewName("../index");
-		
+		 
 		  
 			
 	  return mv;
