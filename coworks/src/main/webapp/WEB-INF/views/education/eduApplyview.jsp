@@ -24,7 +24,9 @@
 	                            <div class=" align-self-center">
 	                            		<div class="float-left">
 	                            		<h3 class="card-title mb-7">교육 신청 현황</h3>
+	                            		
 	                            		</div>
+	                            		</br></br></br>
 		                      			  <div class="dropdown float-right ">
 					                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">교육 유형</button>
 					                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
@@ -66,6 +68,13 @@
                  						</tbody>
                  						
                  					</table>
+                 					<c:if test="${list.size() == 0 }">
+										<div align="center">
+										</br>
+											<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 150px; vertical-align: middle; border: 0" />
+											</br><h4 style="font-weight: bold;">신청한 교육이 없습니다.</h4>
+										</div>
+									</c:if>
                  				</div>
                  				<div style="height:100px;">
                  				
