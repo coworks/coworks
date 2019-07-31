@@ -8,6 +8,10 @@
 	</settings>
 
 	<typeAliases>
+	      <typeAlias type="com.kh.coworks.authority.model.vo.Authority" alias="authority" />
+      <typeAlias type="com.kh.coworks.education.model.vo.Education" alias="education" />
+      <typeAlias type="com.kh.coworks.education.model.vo.EduApply" alias="eduapply" />
+      <typeAlias type="com.kh.coworks.education.model.vo.EduReport" alias="edureport" />
 		<typeAlias type="com.kh.coworks.employee.model.vo.Employee" alias="employee" />
 		<typeAlias type="com.kh.coworks.calendar.model.vo.Calendar" alias="calendar" />
 		<typeAlias type="com.kh.coworks.attendance.model.vo.Attendance" alias="attendance" />
