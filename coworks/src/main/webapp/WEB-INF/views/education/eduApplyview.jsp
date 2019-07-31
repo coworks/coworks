@@ -9,6 +9,12 @@
 <meta charset="UTF-8">
 <title>CO-WORKS : 교육 신청 현황</title>
 <c:import url="../common/header.jsp" />
+<style>
+	a:hover{
+		text-decoration:underline;
+		text-color:blue;
+	}
+</style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -59,7 +65,11 @@
 											<tr>
 												<td>${idx.count}</td>
 												<td>${list.edu_type}</td>
-												<td>${list.edu_title}</td>
+												<td id="title" >
+													<a href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no=${list.edu_no}" style="color:black;">
+														${list.edu_title}
+													</a>
+												</td>
 												<td>${list.edu_instructor}</td>
 												<td>
 													<fmt:formatDate value="${list.edu_eduDate}" pattern="yyyy-MM-dd" />
@@ -96,7 +106,9 @@
 	
 	
 	<script>
-	 
+ 
+	
+	
 	function fnCancel(edu_no){
 		 
 		$.ajax({
