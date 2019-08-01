@@ -85,20 +85,18 @@ div p {
 												<tr align="center">
 													<td><img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${writer.emp_signature}" width="50em" ></td>
 													<td><c:if test="${signList[0].as_status == 1}">
-															<img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[0].emp_signature}" width="50em" >
+															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[0].emp_signature}" width="50em" >
+														</c:if><c:if test="${signList[0].as_status == 2}">
+															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em" >
 														</c:if></td>
-													<td><c:if test="${signList[1].as_status == 1}">
-															<img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[1].emp_signature}" width="50em">
+													<td><c:if test="${signList[1].as_status == 2}">
+															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em" >
 														</c:if></td>
 												</tr>
 												<tr align="center">
 													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yy/MM/dd" /></td>
-													<td><c:if test="${signList[0].as_status == 1}">
-															<fmt:formatDate value="${signList[0].as_date}" pattern="yy/MM/dd" />
-														</c:if></td>
-													<td><c:if test="${signList[1].as_status == 1}">
-															<fmt:formatDate value="${signList[1].as_date}" pattern="yy/MM/dd" />
-														</c:if></td>
+													<td><fmt:formatDate value="${signList[0].as_date}" pattern="yy/MM/dd" /></td>
+													<td><fmt:formatDate value="${signList[1].as_date}" pattern="yy/MM/dd" /></td>
 												</tr>
 											</table>
 										</div>

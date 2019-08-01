@@ -19,7 +19,7 @@
 	EDUCATION EDU
 	WHERE
 	EAPP.EDU_NO = REP.EDU_NO (+)
-	AND EDU.EDU_NO = EAPP.EDU_NO AND EMP_NO=#{emp_no}
+	AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no}
 	</select>
 	
 	<select id="selectOneEducation" parameterType="_int" resultType="education">
@@ -50,6 +50,10 @@
 	<select id="selectOneEduRep" resultType="edureport" parameterType="_int">
 		SELECT * FROM eduReport WHERE edurep_no=#{eduprep_no}
 	</select>
+	
+	<update id="updateEduReport" parameterType="edureport">
+		update edureport set edurep_title=#{edurep_title}, edurep_content=#{edurep_content} where edurep_no=#{edurep_no}
+	</update>
 
 
 </mapper>

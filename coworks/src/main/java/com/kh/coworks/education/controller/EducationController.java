@@ -148,5 +148,45 @@ public class EducationController {
 
 		return "education/eduReportView";
 	}
+	
+	@RequestMapping(value = "/education/eduReport/edit/{edurep_no}")
+	public String eduReportEdit(@PathVariable int edurep_no, Model model) {
+		model.addAttribute("eduRep", educationService.selectOneEduRep(edurep_no));
+
+		return "education/eduReportEditView";
+	}
+	
+	@RequestMapping(value = "/education/editEduReport", method = RequestMethod.POST)
+	public String editEduReport(@RequestParam Map<String, String> body, HttpServletRequest request) {
+		System.out.println(body);
+
+		EduReport erep = new EduReport();
+		
+		erep.setedurep_no(Integer.valueOf(body.get("edurep_no")));
+		erep.setEdu_no(Integer.valueOf(body.get("edu_no")));
+		Employee emp = (Employee) request.getSession().getAttribute("employee");
+
+		erep.setedurep_title(body.get("edurep_title"));
+
+		body.remove("edurep_no");
+		body.remove("edurep_title");
+
+		employeeService.selectOneEmployee(emp.getEmp_no());
+		body.put("dept_name", emp.getDept_name());
+		body.put("job_title", emp.getJob_title());
+		body.put("writerName", emp.getEmp_name());
+
+		Education edu = educationService.selectOneEducation(erep.getEdu_no());
+		body.put("edu_instructor", edu.getEdu_instructor());
+		body.put("edu_title", edu.getEdu_title());
+		String edu_date = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm").format((edu.getEdu_eduDate()));
+		body.put("edu_date", edu_date);
+
+		erep.setedurep_content(new JSONObject(body).toJSONString());
+
+		educationService.updateEduReport(erep);
+
+		return "redirect:/education/eduApplyview.do";
+	}
 
 }

@@ -60,6 +60,11 @@ public class EducationServiceImpl implements EducationService {
 	public EduReport selectOneEduRep(int edurep_no) {
 		return  eduDao.selectOneEduRep(edurep_no);
 	}
+
+	@Override
+	public void updateEduReport(EduReport erep) {
+		eduDao.updateEduReport(erep);
+	}
 	
 	
 	

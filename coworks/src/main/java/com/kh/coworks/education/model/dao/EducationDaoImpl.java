@@ -60,6 +60,11 @@ public class EducationDaoImpl implements EducationDao {
 	public EduReport selectOneEduRep(int edurep_no) {
 		return sqlSession.selectOne("education.selectOneEduRep", edurep_no);
 	}
+
+	@Override
+	public void updateEduReport(EduReport erep) {
+		sqlSession.update("education.updateEduReport", erep);
+	}
 	
 	
 	

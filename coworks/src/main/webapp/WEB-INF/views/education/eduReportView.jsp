@@ -41,6 +41,12 @@ div p {
 								</h2>
 								<div class="row">
 									<table class="no-wrap table-bordered table ">
+										<colgroup>
+											<col width="10%">
+											<col width="30%">
+											<col width="10%">
+											<col width="30%">
+										</colgroup>
 										<tr>
 											<th scope="col" class="border">소 속</th>
 											<td id="dept_name"></td>
@@ -51,11 +57,19 @@ div p {
 											<th scope="col" class="border">성 명</th>
 											<td id="writerName"></td>
 											<th scope="col" class="border">작성일</th>
-											<td><fmt:formatDate value="${eduRep.edurep_date }" pattern="yyyy-MM-dd HH:mm" /></td>
+											<td>
+												<fmt:formatDate value="${eduRep.edurep_date }" pattern="yyyy-MM-dd HH:mm" />
+											</td>
 										</tr>
 									</table>
 
 									<table class="no-wrap table-bordered table ">
+									<colgroup>
+											<col width="10%">
+											<col width="30%">
+											<col width="10%">
+											<col width="30%">
+										</colgroup>
 										<tr>
 											<th scope="col" class="border">교육명</th>
 											<td id="edu_title"></td>
@@ -68,11 +82,19 @@ div p {
 										</tr>
 										<tr>
 											<th scope="col" class="border">교육 내용</th>
-											<td colspan="3"><div style="height: 500px"><p id="edu_content"></p></div></td>
+											<td colspan="3">
+												<div style="height: 500px">
+													<p id="edu_content"></p>
+												</div>
+											</td>
 										</tr>
 										<tr>
 											<th scope="col" class="border">교육 소감</th>
-											<td colspan="3"><div style="height: 200px"><p id="edu_thoughts"></p></div></td>
+											<td colspan="3">
+												<div style="height: 200px">
+													<p id="edu_thoughts"></p>
+												</div>
+											</td>
 										</tr>
 									</table>
 								</div>
@@ -86,9 +108,9 @@ div p {
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	<script type="text/javascript">
-	$(function(){
-		var content=${eduRep.edurep_content};
-		for ( var key in content) {
+		$(function() {
+			var content = ${eduRep.edurep_content};
+			for ( var key in content) {
 				$('#' + key).html(content[key].replace(/\r\n/gi, "<br>"));
 			}
 

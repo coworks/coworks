@@ -22,4 +22,6 @@ public interface EducationService {
 	List<EduReport> selectEduRep(int emp_no);
 
 	EduReport selectOneEduRep(int edurep_no);
+
+	void updateEduReport(EduReport erep);
 }

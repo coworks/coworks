@@ -10,7 +10,7 @@
 <c:import url="../common/header.jsp" />
 <style type="text/css">
 .table td, .table th {
-	padding: .5rem;
+	padding: .75rem;
 	vertical-align: middle;
 }
 
@@ -77,7 +77,7 @@
 										<c:if test="${docList.size() == 0 }">
 											<div align="center">
 												<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 150px; vertical-align: middle; border: 0" />
-												<h4 style="font-weight: bold;">결재가 완료된 문서가 없습니다.</h4>
+												<h4 style="font-weight: bold;" class="text-info mt-2">결재가 완료된 문서가 없습니다.</h4>
 											</div>
 										</c:if>
 									</div>
@@ -100,7 +100,9 @@
 											</thead>
 											<tbody class="border-info">
 												<c:forEach items="${docList}" var="doc" varStatus="vs">
+													<c:set var="approveIndex" value="0" />
 													<c:if test="${doc.adoc_status == '1'}">
+														<c:set var="approveIndex" value="${approveIndex }+1" />
 														<tr onclick="location.href='${pageContext.request.contextPath}/approval/approvalDoc/v/${doc.adoc_no}'">
 
 															<td>${doc.adoc_subject }</td>
@@ -116,10 +118,10 @@
 												</c:forEach>
 											</tbody>
 										</table>
-										<c:if test="${docList.size() == 0 }">
+										<c:if test="${approveIndex==0}">
 											<div align="center">
 												<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 150px; vertical-align: middle; border: 0" />
-												<h4 style="font-weight: bold;">결재가 승인된 문서가 없습니다.</h4>
+												<h4 style="font-weight: bold;" class="text-info mt-2">결재가 승인된 문서가 없습니다.</h4>
 											</div>
 										</c:if>
 									</div>
@@ -142,7 +144,10 @@
 											</thead>
 											<tbody class="border-info">
 												<c:forEach items="${docList}" var="doc" varStatus="vs">
+													<c:set var="rejectIndex" value="0" />
 													<c:if test="${doc.adoc_status eq '2'}">
+														<c:set var="rejectIndex" value="${rejectIndex }+1" />
+
 														<tr onclick="location.href='${pageContext.request.contextPath}/approval/approvalDoc/v/${doc.adoc_no}'">
 
 															<td>${doc.adoc_subject }</td>
@@ -158,10 +163,10 @@
 												</c:forEach>
 											</tbody>
 										</table>
-										<c:if test="${docList.size() == 0 }">
+										<c:if test="${rejectIndex==0}">
 											<div align="center">
 												<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 150px; vertical-align: middle; border: 0" />
-												<h4 style="font-weight: bold;">결재가 반려된 문서가 없습니다.</h4>
+												<h4 style="font-weight: bold;" class="text-info mt-2">결재가 반려된 문서가 없습니다.</h4>
 											</div>
 										</c:if>
 									</div>

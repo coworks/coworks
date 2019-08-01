@@ -10,10 +10,9 @@
 <title>CO-WORKS : 교육 신청 현황</title>
 <c:import url="../common/header.jsp" />
 <style>
-	a:hover{
-		text-decoration:underline;
-		text-color:blue;
-	}
+.table td {
+	cursor: pointer;
+}
 </style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
@@ -46,15 +45,15 @@
 					            
 					            </br></br></br>
                  				<div class="table-responsive"> 
-                 					<table class="table" style="text-align: center;">
+                 					<table class="table table-hover" style="text-align: center;">
                  						<thead class="bg-warning text-white">
                  							<tr>
-                 								<th>인덱스</th> 
+                 								<th></th> 
                  								<th>교육유형</th>
                  								<th>교육명</th>
                  								<th>강사</th>
                  								<th>교육일</th>
-                 								<th>취소</th>
+                 								<th></th>
                  								
                  							</tr>
                  						</thead>
@@ -62,22 +61,27 @@
                  						 <tbody>  	
                                        	 <c:forEach items="${list}" var="list" varStatus="idx">
                                          
-											<tr>
+											<tr onclick="location.href='${pageContext.request.contextPath}/education/eduDetail.do?edu_no=${list.edu_no}'">
 												<td>${idx.count}</td>
 												<td>${list.edu_type}</td>
 												<td id="title" >
-													<a href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no=${list.edu_no}" style="color:black;">
+													
 														${list.edu_title}
-													</a>
+													
 												</td>
 												<td>${list.edu_instructor}</td>
 												<td>
 													<input type="hidden" id="eduDate" name="eduDate" value="${list.edu_eduDate}"/>
 													<fmt:formatDate value="${list.edu_eduDate}" pattern="yyyy-MM-dd" />
 												</td>
-												<td> 
-													<button id="report" name="report"  class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');" >보고서 작성</button>
-													<button id="reportView"  class="btn btn-secondary" onclick="fnReportView('${list.edu_no}');" style="display: none;">보고서 보기</button>
+												<td  onclick="event.cancelBubble=true"> 
+													<c:if test="${list.edurep_no==0}">
+														<button id="report" name="report" class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');">보고서 작성</button>
+													</c:if>
+													<c:if test="${list.edurep_no!=0}">
+														<button id="reportView" class="btn btn-secondary" onclick="fnReportView('${list.edurep_no}');">보고서 보기</button>
+														<button id="reportEdit" name="report" class="btn btn-info" onclick="fnReportEdit('${list.edurep_no}');">보고서 수정</button>
+													</c:if>
 													<button id="cancel" name="cancel"  class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button>
 												</td>
 											</tr>
@@ -128,7 +132,6 @@
 		
 		if(startReport.getTime()>today.getTime() || today.getTime()>endReport.getTime()){
 			$('#report').hide(); 
-			$('#reportView').show();
 		}
 		if(d2.getTime()<today){
 			$('#cancel').hide();
@@ -142,10 +145,15 @@
 		
 	}
 	
-	function fnReportView(edu_no){
-		location.href="${pageContext.request.contextPath}/education/eduReportView.do?edu_no="+edu_no;
-		
+	function fnReportView(edurep_no){
+		location.href="${pageContext.request.contextPath}/education/eduReport/v/"+edurep_no;
 	}
+	
+	function fnReportEdit(edurep_no){
+		location.href="${pageContext.request.contextPath}/education/eduReport/edit/"+edurep_no;
+	}
+	
+	
 	function fnCancel(edu_no){
 		 
 		$.ajax({
