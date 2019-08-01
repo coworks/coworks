@@ -97,7 +97,7 @@
        
  	<script>
 	!function($) {
-	    "use strict";
+	    "use strict"; 
 
 	    var CalendarApp = function() {
 	        this.$body = $("body")
