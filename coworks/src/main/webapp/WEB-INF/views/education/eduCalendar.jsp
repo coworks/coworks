@@ -147,8 +147,19 @@
 	            	   var no=(form.find("input[name=edu_no]")).val();
 	              	 console.log(edu_count);
 	              	 console.log(no);
+
+	    	    	 var now = new Date(); 
+	              	 var begin=new Date((calEvent.bgDate));
+	              	 var end=new Date((calEvent.endDate));
+	              	 console.log(begin.getTime());
 	               //$this.$modal.on('submit', function () { 
-	            	if(edu_count!=0){
+	            	△
+	            		if(edu_count!=0){
+	            			console.log(calEvent.limitCnt-calEvent.curCnt);
+	            		alert("이미 신청하셨습니다!");
+	            	}else if(now.getTime()>=begin.getTime() && now.getTime()<=end.getTime()
+	        					&& calEvent.limitCnt-calEvent.curCnt>0){
+	              
 		                   $.ajax({
 							  url : "${pageContext.request.contextPath}/education/insertEduApply.do",
 			                  data : {edu_no : no},
@@ -167,7 +178,7 @@
 			                  }
 						});
 	            	}else{
-	            		alert("이미 신청하셨습니다!");
+	            		alert("신청할 수 없습니다.");
 	            	}
 	               });
 	       },
@@ -228,7 +239,7 @@
 	               state   :  '${edu.edu_applyState}', 
 	               className : '${edu.edu_color}',   // 색상변경(탬플릿적용 색)
 	               edu_image:'${edu.edu_image}',
-	               edu_count:'${edu.emp_no}'
+	               emp_no:'${edu.emp_no}'
 	               
 	           })
 	          </c:forEach>
