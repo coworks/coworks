@@ -2,6 +2,7 @@ package com.kh.coworks.education.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +44,28 @@ public class EducationController {
 		System.out.println("아이디 : " + employee.getEmp_no());
 
 		List<Education> list = educationService.selectListEducation(employee.getEmp_no());
-
+		Date today=new Date();
+		System.out.println(today);
+		System.out.println(today.getTime());
+		System.out.println("시작일 : "+list.get(0).getEdu_applyBgDate());
+		System.out.println("종료일 : "+list.get(0).getEdu_applyEndDate());
+		System.out.println("시작일 : "+list.get(0).getEdu_applyBgDate().getTime());
+		System.out.println("종료일 : "+list.get(0).getEdu_applyEndDate().getTime());
+		 
+		
+ 		for(int i=0;i<list.size();i++) {
+ 			if(list.get(i).getEdu_applyBgDate().getTime()>today.getTime()){
+ 				list.get(i).setEdu_color("bg-info");
+ 			}else if(list.get(i).getEdu_applyBgDate().getTime()<today.getTime() && 
+					list.get(i).getEdu_applyEndDate().getTime()>today.getTime()) {
+				list.get(i).setEdu_color("bg-success");
+			}else if((double)(list.get(i).getEdu_curCnt() / list.get(i).getEdu_limitCnt())>0.8) {
+				list.get(i).setEdu_color("bg-warning");
+			}else if(list.get(i).getEdu_applyEndDate().getTime()<today.getTime()) {
+				list.get(i).setEdu_color("bg-danger");
+			}
+		} 
+		
 		mv.addObject("list", list);
 		mv.setViewName("education/eduCalendar");
 

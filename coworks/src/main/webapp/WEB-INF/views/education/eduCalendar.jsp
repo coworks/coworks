@@ -83,17 +83,17 @@
 	<c:import url="../common/bottomJquery.jsp" />
 	
 	<!-- Calendar JavaScript -->
-	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
+   	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
 	<script src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
 	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
 	 <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
-    
+    	
      <!-- Date range Plugin JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
      <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<!-- 한글화 -->
-	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar//lang-all.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/lang-all.js"></script>
        
  	<script>
 	!function($) {
@@ -114,17 +114,26 @@
 	    
 	    /* on click on event */
 	    CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-	    	  console.log(calEvent.count);
+	    	/*var begin2 = $.fullCalendar.formatDate(calEvent.bgDate, "yyyy-MM-dd HH:mm:ss");
+	    	var end2 = $.fullCalendar.formatDate(calEvent.endDate, "yyyy-MM-dd HH:mm:ss");
+	    	console.log(calEvent.bgDate());*/
+	    	var begin=moment(calEvent.bgDate).format('YYYY/MM/DD HH:mm');
+	    	var end=moment(calEvent.endDate).format('YYYY/MM/DD HH:mm');
+	    	console.log(calEvent);
 				 	 var $this = this; 
 	           var today = new Date($.now());
 	           if(calEvent.end==null){ 
 	        	   calEvent.end=today;
 	           }    
-	               var form = $("<form></form>");
+	           
+	           console.log(calEvent.start);
+	           console.log(calEvent.endDate);
+	              var form = $("<form></form>");
 	          
 	               form.append("<div><label>교육명</label><div> <div class='input-group'><span class='form-control' name='title' type='text'>"+calEvent.title+"</span> </div></br>");
-	               form.append("<div><label>강사</label><div> <div class='input-group'><span class='form-control' name='title' type='text' >" + calEvent.instructor + "</span> </div></br>");
-	               form.append("<div><label>교육일시</label><div> <div class='input-group'><span class='form-control' name='title' type='text'>" + $.fullCalendar.formatDate(calEvent.start, 'YYYY년 MM월 DD일 HH시 mm분') + "</span> </div></br>");
+	               form.append("<div><label>강사</label><div> <div class='input-group'><span class='form-control' name='instructor' type='text' >" + calEvent.instructor + "</span> </div></br>");
+	               form.append("<div><label>교육일시</label><div> <div class='input-group'><span class='form-control' name='edudate' type='text'>" + $.fullCalendar.formatDate(calEvent.start, 'YYYY년 MM월 DD일 HH시 mm분') + "</span> </div></br>");
+	               form.append("<div><label>신청가능일</label><div> <div class='input-group'><span class='form-control' name='bgDate' type='text'>" +begin+" ~ "+end+"</span> </div></br>");
 	               form.append("<input type='hidden' name='edu_count' value='"+calEvent.emp_no+"'/>");
 	               form.append("<input type='hidden' name='edu_no' value='"+calEvent.no+"'/>");
 		              
