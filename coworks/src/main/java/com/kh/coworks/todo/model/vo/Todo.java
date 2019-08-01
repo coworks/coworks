@@ -4,60 +4,80 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Todo implements Serializable {
-	private int todo_no;// ÀÎµ¦½º
-	private int emp_no;// »ç¹ø
-	private String todo_content;// ³»¿ë
-	private Date todo_endDate;// ¸¸·áÀÏ
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4020L;
+	
+	
+	private int todo_no;// todo ì¸ë±ìŠ¤
+	private int emp_no;// ì‚¬ì›ë²ˆí˜¸
+	private String todo_content;// ë‚´ìš©
+	private int todo_condition; //ìƒíƒœ 0:ê¸´ê¸‰, 1:ë³´í†µ, 2:ì—¬ìœ  --> default:1
+	private int todo_status;// 0 : í• ì¼, 1 :  ì™„ë£Œ, 2 : ì‚­ì œ --> default:0
+	
+	
 
 	public Todo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Todo(int todo_no, int emp_no, String todo_content, Date todo_endDate) {
+	public Todo(int todo_no, int emp_no, String todo_content, int todo_status, int todo_condition) {
 		super();
 		this.todo_no = todo_no;
 		this.emp_no = emp_no;
 		this.todo_content = todo_content;
-		this.todo_endDate = todo_endDate;
+		this.todo_status = todo_status;
+		this.todo_condition = todo_condition;
 	}
+
+
 
 	public int getTodo_no() {
 		return todo_no;
-	}
-
-	public void setTodo_no(int todo_no) {
-		this.todo_no = todo_no;
 	}
 
 	public int getEmp_no() {
 		return emp_no;
 	}
 
-	public void setEmp_no(int emp_no) {
-		this.emp_no = emp_no;
-	}
-
 	public String getTodo_content() {
 		return todo_content;
+	}
+
+	public int getTodo_condition() {
+		return todo_condition;
+	}
+
+	public int getTodo_status() {
+		return todo_status;
+	}
+
+	public void setTodo_no(int todo_no) {
+		this.todo_no = todo_no;
+	}
+
+	public void setEmp_no(int emp_no) {
+		this.emp_no = emp_no;
 	}
 
 	public void setTodo_content(String todo_content) {
 		this.todo_content = todo_content;
 	}
 
-	public Date getTodo_endDate() {
-		return todo_endDate;
+	public void setTodo_condition(int todo_condition) {
+		this.todo_condition = todo_condition;
 	}
 
-	public void setTodo_endDate(Date todo_endDate) {
-		this.todo_endDate = todo_endDate;
+	public void setTodo_status(int todo_status) {
+		this.todo_status = todo_status;
 	}
 
 	@Override
 	public String toString() {
-		return "Todo [todo_no=" + todo_no + ", emp_no=" + emp_no + ", todo_content=" + todo_content + ", todo_endDate="
-				+ todo_endDate + "]";
+		return "Todo [todo_no=" + todo_no + ", emp_no=" + emp_no + ", todo_content=" + todo_content
+				+ ", todo_condition=" + todo_condition + ", todo_status=" + todo_status + "]";
 	}
 
 }

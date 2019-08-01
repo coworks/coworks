@@ -62,6 +62,7 @@ public class BoardController {
 		int totalContents = boardService.selectBusinessdocTotalContents(boardCode);
 
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "businessdoclist.do");
+		//String pageBar = Utils.getPageBar(totalContents, cPage, limit, "businessdoclist/"+boardCode);
 
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
 				.addAttribute("pageBar", pageBar).addAttribute("bo_code", boardCode).addAttribute(board);

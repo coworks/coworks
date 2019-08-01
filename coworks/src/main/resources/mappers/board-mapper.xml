@@ -22,14 +22,14 @@
 	<!-- 게시글 개수 카운트 -->
 	<select id="selectBusinessdocTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM BOARD WHERE BO_CODE = #{bo_code}
-		AND BO_STATUS='Y'
+		AND BO_STATUS='y'
 	</select>
 	
 	<!-- 게시글 한 개 조회 -->
 	<select id="selectOneBusinessdocdetail" 
 	        parameterType="Map" 
 	        resultType="board">
-	        SELECT B.*, BG.*
+	        SELECT B.*, BG.*, (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = B.EMP_NO) WRITERNAME
 	        FROM BOARD B, BOARDGROUP BG
 	        WHERE B.BO_NO = #{bo_no}
 	        AND B.BO_CODE = #{bo_code}

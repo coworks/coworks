@@ -50,7 +50,7 @@
 												</div>
 												<div class="pl-3" style="padding-top: 6px;">
 													<h4 class="mb-0" name="bo_writerName">작성자 :
-														${board.emp_no }</h4>
+														${board.writerName }</h4>
 													<small class="text-muted" name="bo_date">작성 날짜 : <fmt:formatDate
 															value="${board.bo_date }" pattern="yyyy년MM월dd일 HH:mm" /></small>
 													<input type="text" value="${board.bo_no }" name="bo_no" hidden/>
