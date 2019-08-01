@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.coworks.employee.model.vo.*" %>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.kh.coworks.employee.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- ============================================================== -->
 <!-- Topbar header - style you can find in pages.scss -->
@@ -11,19 +12,9 @@
 		<!-- Logo -->
 		<!-- ============================================================== -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/common/gomain.do"> <!-- Logo icon --> <b>
-					<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-					<!-- Dark Logo icon --> <img
-					src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG"
-					alt="homepage" class="dark-logo" style="width: 33px; height: 34px" /> <!-- Light Logo icon --> <img
-					src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG"
-					alt="homepage" class="light-logo" style="width: 33px; height: 34px" />
-			</b> <!--End Logo icon --> <!-- Logo text --> <span> <!-- dark Logo text -->
-					<img
-					src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG"
-					alt="homepage" class="dark-logo" style="width: 148px; height: 25px" /> <!-- Light Logo text --> <img
-					src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG"
-					class="light-logo" alt="homepage" style="width: 148px; height: 25px" /></span>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/common/gomain.do"> <!-- Logo icon --> <b> <!--You can put here icon as well // <i class="wi wi-sunset"></i> //--> <!-- Dark Logo icon --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" class="dark-logo" style="width: 33px; height: 34px" /> <!-- Light Logo icon --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage"
+					class="light-logo" style="width: 33px; height: 34px" />
+			</b> <!--End Logo icon --> <!-- Logo text --> <span> <!-- dark Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" alt="homepage" class="dark-logo" style="width: 148px; height: 25px" /> <!-- Light Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" class="light-logo" alt="homepage" style="width: 148px; height: 25px" /></span>
 			</a>
 		</div>
 		<!-- ============================================================== -->
@@ -35,80 +26,42 @@
 			<!-- ============================================================== -->
 			<ul class="navbar-nav mr-auto mt-md-0 ">
 				<!-- This is  -->
-				<li class="nav-item"><a
-					class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
-					href="javascript:void(0)"><i class="ti-menu"></i></a></li>
-				<li class="nav-item"><a
-					class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"
-					href="javascript:void(0)"><i class="icon-arrow-left-circle"></i></a>
-				</li>
+				<li class="nav-item"><a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a></li>
+				<li class="nav-item"><a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="icon-arrow-left-circle"></i></a></li>
 				<!-- ============================================================== -->
 				<!-- Comment -->
 				<!-- ============================================================== -->
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark"
-					href="" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> <i class="mdi mdi-message"></i>
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell"></i>
 						<div class="notify">
-							<span class="heartbit"></span> <span class="point"></span>
+							<c:if test="${sessionScope.approvalReceiveList.size() ne '0' }">
+								<span class="heartbit"></span>
+								<span class="point"></span>
+							</c:if>
 						</div>
 				</a>
-					<div class="dropdown-menu mailbox animated bounceInDown">
+					<div class="dropdown-menu mailbox animated slideInDown">
 						<ul>
 							<li>
-								<div class="drop-title">Notifications</div>
+								<div class="drop-title">결재 대기 문서</div>
 							</li>
-							<li>
-								<div class="message-center">
-									<!-- Message -->
-									<a href="#">
-										<div class="btn btn-danger btn-circle">
-											<i class="fa fa-link"></i>
-										</div>
-										<div class="mail-contnet">
-											<h5>Luanch Admin</h5>
-											<span class="mail-desc">Just see the my new admin!</span> <span
-												class="time">9:30 AM</span>
-										</div>
-									</a>
-									<!-- Message -->
-									<a href="#">
-										<div class="btn btn-success btn-circle">
-											<i class="ti-calendar"></i>
-										</div>
-										<div class="mail-contnet">
-											<h5>Event today</h5>
-											<span class="mail-desc">Just a reminder that you have
-												event</span> <span class="time">9:10 AM</span>
-										</div>
-									</a>
-									<!-- Message -->
-									<a href="#">
-										<div class="btn btn-info btn-circle">
-											<i class="ti-settings"></i>
-										</div>
-										<div class="mail-contnet">
-											<h5>Settings</h5>
-											<span class="mail-desc">You can customize this
-												template as you want</span> <span class="time">9:08 AM</span>
-										</div>
-									</a>
-									<!-- Message -->
-									<a href="#">
-										<div class="btn btn-primary btn-circle">
-											<i class="ti-user"></i>
-										</div>
-										<div class="mail-contnet">
-											<h5>Pavan kumar</h5>
-											<span class="mail-desc">Just see the my admin!</span> <span
-												class="time">9:02 AM</span>
-										</div>
-									</a>
-								</div>
-							</li>
-							<li><a class="nav-link text-center"
-								href="javascript:void(0);"> <strong>Check all
-										notifications</strong> <i class="fa fa-angle-right"></i>
+							<li><c:if test="${sessionScope.approvalReceiveList.size() ne '0' }">
+									<div class="message-center">
+										<a href="#">
+											<div class="btn btn-danger btn-circle">
+												<i class="fa fa-link"></i>
+											</div>
+											<div class="mail-contnet">
+												<h5>Luanch Admin</h5>
+												<span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span>
+											</div>
+										</a>
+									</div>
+								</c:if> <c:if test="${sessionScope.approvalReceiveList.size() eq '0' }">
+									<div class="m-3" align="center">
+										<h5 class="text-info">현재 결재 대기 중인 문서가 없습니다</h5>
+									</div>
+								</c:if></li>
+							<li><a class="nav-link text-center" href="javascript:void(0);"> <strong>전자 결재 미결함(${sessionScope.approvalReceiveList.size() })</strong> <i class="fa fa-angle-right"></i>
 							</a></li>
 						</ul>
 					</div></li>
@@ -118,16 +71,12 @@
 				<!-- ============================================================== -->
 				<!-- Messages -->
 				<!-- ============================================================== -->
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle text-muted waves-effect waves-dark"
-					href="" id="2" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> <i class="mdi mdi-email"></i>
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-email"></i>
 						<div class="notify">
 							<span class="heartbit"></span> <span class="point"></span>
 						</div>
 				</a>
-					<div class="dropdown-menu mailbox animated bounceInDown"
-						aria-labelledby="2">
+					<div class="dropdown-menu mailbox animated bounceInDown" aria-labelledby="2">
 						<ul>
 							<li>
 								<div class="drop-title">You have 4 new messages</div>
@@ -137,89 +86,68 @@
 									<!-- Message -->
 									<a href="#">
 										<div class="user-img">
-											<img
-												src="${pageContext.request.contextPath}/resources/templates/assets/images/users/1.jpg"
-												alt="user" class="img-circle"> <span
-												class="profile-status online float-right"></span>
+											<img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online float-right"></span>
 										</div>
 										<div class="mail-contnet">
 											<h5>Pavan kumar</h5>
-											<span class="mail-desc">Just see the my admin!</span> <span
-												class="time">9:30 AM</span>
+											<span class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span>
 										</div>
 									</a>
 									<!-- Message -->
 									<a href="#">
 										<div class="user-img">
-											<img
-												src="${pageContext.request.contextPath}/resources/templates/assets/images/users/2.jpg"
-												alt="user" class="img-circle"> <span
-												class="profile-status busy float-right"></span>
+											<img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy float-right"></span>
 										</div>
 										<div class="mail-contnet">
 											<h5>Sonu Nigam</h5>
-											<span class="mail-desc">I've sung a song! See you at</span> <span
-												class="time">9:10 AM</span>
+											<span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span>
 										</div>
 									</a>
 									<!-- Message -->
 									<a href="#">
 										<div class="user-img">
-											<img
-												src="${pageContext.request.contextPath}/resources/templates/assets/images/users/3.jpg"
-												alt="user" class="img-circle"> <span
-												class="profile-status away float-right"></span>
+											<img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away float-right"></span>
 										</div>
 										<div class="mail-contnet">
 											<h5>Arijit Sinh</h5>
-											<span class="mail-desc">I am a singer!</span> <span
-												class="time">9:08 AM</span>
+											<span class="mail-desc">I am a singer!</span> <span class="time">9:08 AM</span>
 										</div>
 									</a>
 									<!-- Message -->
 									<a href="#">
 										<div class="user-img">
-											<img
-												src="${pageContext.request.contextPath}/resources/templates/assets/images/users/4.jpg"
-												alt="user" class="img-circle"> <span
-												class="profile-status offline float-right"></span>
+											<img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline float-right"></span>
 										</div>
 										<div class="mail-contnet">
 											<h5>Pavan kumar</h5>
-											<span class="mail-desc">Just see the my admin!</span> <span
-												class="time">9:02 AM</span>
+											<span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
 										</div>
 									</a>
 								</div>
 							</li>
-							<li><a class="nav-link text-center"
-								href="javascript:void(0);"> <strong>See all e-Mails</strong>
-									<i class="fa fa-angle-right"></i>
+							<li><a class="nav-link text-center" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i>
 							</a></li>
 						</ul>
 					</div></li>
 				<!-- ============================================================== -->
 				<!-- End Messages -->
 				<!-- ============================================================== -->
-				
+
 			</ul>
 			<!-- ============================================================== -->
 			<!-- User profile and search -->
 			<!-- ============================================================== -->
 			<ul class="navbar-nav my-lg-0">
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle text-muted waves-effect waves-dark"
-					href="" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">${sessionScope.employee.emp_name}</a>
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${sessionScope.employee.emp_name}</a>
 					<div class="dropdown-menu dropdown-menu-right animated flipInY">
 						<ul class="dropdown-user">
-						
+
 							<li><a href="${pageContext.request.contextPath}/mypage/mypage.do"><i class="ti-user"></i> 마이 페이지</a></li>
 							<li><a href="${pageContext.request.contextPath}/mypage/attendanceview.do"><i class="mdi mdi-calendar-clock"></i> 근태</a></li>
 							<li><a href="${pageContext.request.contextPath}/logout.do"><i class="fa fa-power-off"></i> Logout</a></li>
 						</ul>
 					</div></li>
-			
+
 			</ul>
 		</div>
 	</nav>
