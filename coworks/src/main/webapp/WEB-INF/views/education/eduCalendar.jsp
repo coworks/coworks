@@ -111,7 +111,7 @@
 	    };
 	    
 
-	    
+	     
 	    /* on click on event */
 	    CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
 	    	/*var begin2 = $.fullCalendar.formatDate(calEvent.bgDate, "yyyy-MM-dd HH:mm:ss");
