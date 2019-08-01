@@ -12,9 +12,9 @@
 			<div class="modal-body">
 				<div id="treeview_container" class="hummingbird-treeview p-3" style="overflow: auto; height: 300px;">
 					<c:set var="index" value="0" />
-					<ul id="treeview" class="hummingbird-base">
+					<ul id="treeview" class="hummingbird-base list-group">
 						<c:forEach var="dept" items="${deptList }" varStatus="vs">
-							<li><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
+							<li class="list-group-item"><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
 								<ul>
 									<c:forEach var="deptEmp" begin="1" end="${dept.COUNT }" step="1">
 										<li><label> <input class="hummingbirdNoParent" name="signList" value="${empList[index].emp_no}" type="checkbox" data-name="${empList[index].emp_name }" data-job="${empList[index].job_title }" data-dept="${empList[index].dept_name }"> ${empList[index].emp_name } ( ${empList[index].job_title } )

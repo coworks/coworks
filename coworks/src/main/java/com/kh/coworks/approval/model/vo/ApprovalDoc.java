@@ -27,6 +27,7 @@ public class ApprovalDoc implements Serializable {
 	
 	private String docPage;
 	private String aform_title;
+	private int curApprovalno;
 
 	public ApprovalDoc() {
 		super();
@@ -175,6 +176,14 @@ public class ApprovalDoc implements Serializable {
 
 	public void setAform_title(String aform_title) {
 		this.aform_title = aform_title;
+	}
+
+	public int getCurApprovalno() {
+		return curApprovalno;
+	}
+
+	public void setCurApprovalno(int curApprovalno) {
+		this.curApprovalno = curApprovalno;
 	}
 
 	@Override

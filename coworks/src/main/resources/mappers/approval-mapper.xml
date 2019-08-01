@@ -42,7 +42,7 @@
 	</insert>
 
 	<select id="selectOneApprovalDoc" parameterType="_int" resultType="approvalDoc">
-		SELECT * FROM APPROVALDOC FORM WHERE adoc_no=#{adoc_no}
+		SELECT * FROM APPROVALDOC WHERE adoc_no=#{adoc_no}
 	</select>
 
 	<select id="selectApprovalAttach" parameterType="_int" resultType="approvalAttach">

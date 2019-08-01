@@ -45,23 +45,27 @@
 								<div class="drop-title">결재 대기 문서</div>
 							</li>
 							<li><c:if test="${sessionScope.approvalReceiveList.size() ne '0' }">
+
 									<div class="message-center">
-										<a href="#">
-											<div class="btn btn-danger btn-circle">
-												<i class="fa fa-link"></i>
-											</div>
-											<div class="mail-contnet">
-												<h5>Luanch Admin</h5>
-												<span class="mail-desc">Just see the my new admin!</span> <span class="time">9:30 AM</span>
-											</div>
-										</a>
+										<c:forEach var="appDoc" items="${sessionScope.approvalReceiveList}">
+											<a href="${pageContext.request.contextPath }/approval/approvalDoc/v/${appDoc.adoc_no}">
+												<div class="btn btn-danger btn-circle">
+													<i class="fa fa-link"></i>
+												</div>
+												<div class="mail-contnet">
+													<h5>${appDoc.adoc_subject }</h5>
+													<span class="mail-desc">${appDoc.writerName }</span> <span class="time"><fmt:formatDate value="${appDoc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" /></span>
+												</div>
+											</a>
+										</c:forEach>
 									</div>
+
 								</c:if> <c:if test="${sessionScope.approvalReceiveList.size() eq '0' }">
 									<div class="m-3" align="center">
 										<h5 class="text-info">현재 결재 대기 중인 문서가 없습니다</h5>
 									</div>
 								</c:if></li>
-							<li><a class="nav-link text-center" href="javascript:void(0);"> <strong>전자 결재 미결함(${sessionScope.approvalReceiveList.size() })</strong> <i class="fa fa-angle-right"></i>
+							<li><a class="nav-link text-center" href="${pageContext.request.contextPath }/approval/approvalReceive.do"> <strong>전자 결재 미결함(${sessionScope.approvalReceiveList.size() })</strong> <i class="fa fa-angle-right"></i>
 							</a></li>
 						</ul>
 					</div></li>

@@ -36,9 +36,21 @@ div p {
 					<div class="col-12">
 						<div class="card p-3 pb-5">
 							<div class="card-body col-8 align-self-center">
-								<button id="print" class=" btn btn-outline-info" type="button">
-									<span><i class="fa fa-print"></i> Print</span>
-								</button>
+								<div class="row">
+								<div>
+									<button id="print" class=" btn btn-outline-info" type="button">
+										<span><i class="fa fa-print"></i> Print</span>
+									</button></div>
+									<div align="right" class="ml-auto" id="approvalBtn" style="display: none;">
+										<button class=" btn  btn-success  mr-2" type="button" onclick="approve()">
+											<span><i class="mdi mdi-checkbox-marked-outline"></i> 승인</span>
+										</button>
+										<button class=" btn  btn-danger " type="button" onclick="reject()">
+											<span><i class="mdi mdi-close-box-outline"></i> 반려</span>
+										</button>
+
+									</div>
+								</div>
 								<div class="printArea">
 									<h2 class="card-title mb-5 mt-3" align="center">
 										<b>${form.aform_title }</b>
@@ -83,14 +95,15 @@ div p {
 
 												</tr>
 												<tr align="center">
-													<td><img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${writer.emp_signature}" width="50em" ></td>
+													<td><img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${writer.emp_signature}" width="50em"></td>
 													<td><c:if test="${signList[0].as_status == 1}">
-															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[0].emp_signature}" width="50em" >
-														</c:if><c:if test="${signList[0].as_status == 2}">
-															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em" >
+															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[0].emp_signature}" width="50em">
+														</c:if>
+														<c:if test="${signList[0].as_status == 2}">
+															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em">
 														</c:if></td>
 													<td><c:if test="${signList[1].as_status == 2}">
-															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em" >
+															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em">
 														</c:if></td>
 												</tr>
 												<tr align="center">
@@ -161,7 +174,20 @@ div p {
 	<c:import url="../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath}/resources/templates/resources/js/jquery.PrintArea.js" type="text/JavaScript"></script>
 	<script>
+	function approve() {
+		if(confirm("'${doc.adoc_subject}'을(를) 승인하시겠습니까?")){
+			location.href="${pageContext.request.contextPath}/approval/approve/"+${doc.adoc_no};
+		};
+	};
+	
+	function reject() {
+		if(confirm("'${doc.adoc_subject}'을(를) 반려하시겠습니까?")){
+			location.href="${pageContext.request.contextPath}/approval/reject/"+${doc.adoc_no};
+		};
+	};
+	
 		$(function() {
+			
 			$("#print").click(function() {
 				var mode = 'iframe';
 				var close = mode == "popup";
