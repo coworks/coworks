@@ -223,19 +223,17 @@ public class BoardController {
 
 		int idx = 0;
 		for (MultipartFile f : upFiles) {
-			Attach at = null;
+			Attach at = new Attach();
 
 			if (!f.isEmpty()) {
-				if (list.size() > idx) {
-					boolean idDeleted = new File(saveDir_bo + "/" + list.get(idx).getAttach_rename()).delete();
- 
-					at = list.get(idx);
-				} else {
-					at = new Attach();
-					at.setBo_no(bo_no);
-
-					list.add(at);
-				}
+				/*
+				 * if (list.size() > idx) { boolean idDeleted = new File(saveDir_bo + "/" +
+				 * list.get(idx).getAttach_rename()).delete();
+				 * 
+				 * at = list.get(idx); } else { at = new Attach(); at.setBo_no(bo_no);
+				 * 
+				 * list.add(at); }
+				 */
 				String originName = f.getOriginalFilename();
 				String ext = originName.substring(originName.lastIndexOf(".") + 1);
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -248,11 +246,11 @@ public class BoardController {
 				} catch (IllegalStateException | IOException e) {
 					e.printStackTrace();
 				}
-
+				at.setBo_no(bo_no);
 				at.setAttach_oriname(originName);
 				at.setAttach_rename(renamedName);
 
-				list.set(idx, at);
+				list.add(at);
 			}
 			idx++;
 		}
