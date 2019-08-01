@@ -3,7 +3,7 @@ $("#treeview").hummingbird();
 $(function() {
 	var empno = $('input[name=adoc_writerno]').val();
 	console.log(empno);
-	$('.modal').$('input[value=' + empno + ']').attr('disabled', 'disabled');
+	$('.modal input[value=' + empno + ']').attr('disabled', 'disabled');
 });
 
 function applySelect() {
