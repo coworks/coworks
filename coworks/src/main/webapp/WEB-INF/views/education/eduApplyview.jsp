@@ -76,7 +76,7 @@
 													<fmt:formatDate value="${list.edu_eduDate}" pattern="yyyy-MM-dd" />
 												</td>
 												<td> 
-													<button id="report" name="report"  class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');">보고서 작성</button>
+													<button id="report" name="report"  class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');" >보고서 작성</button>
 													<button id="reportView"  class="btn btn-secondary" onclick="fnReportView('${list.edu_no}');" style="display: none;">보고서 보기</button>
 													<button id="cancel" name="cancel"  class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button>
 												</td>
@@ -133,6 +133,7 @@
 		if(d2.getTime()<today){
 			$('#cancel').hide();
 		}
+		
 		 
  	});
 	

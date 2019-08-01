@@ -19,6 +19,8 @@ public class Education implements Serializable {
 	private String edu_applyState;// 신청 가능 여부
 	private String edu_color; //색상
 	private String edu_image;// 상세 설명 이미지
+	
+	private int edurep_no;
 	public int getEdu_no() {
 		return edu_no;
 	}
@@ -90,6 +92,12 @@ public class Education implements Serializable {
 	}
 	public void setEdu_image(String edu_image) {
 		this.edu_image = edu_image;
+	}
+	public int getEdurep_no() {
+		return edurep_no;
+	}
+	public void setEdurep_no(int edurep_no) {
+		this.edurep_no = edurep_no;
 	}
 	public Education(int edu_no, String edu_title, String edu_instructor, String edu_type, int edu_limitCnt,
 			int edu_curCnt, Timestamp edu_eduDate, Timestamp edu_applyBgDate, Timestamp edu_applyEndDate,

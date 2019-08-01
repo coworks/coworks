@@ -96,10 +96,8 @@ public class EducationController {
 		Employee employee = (Employee) request.getSession().getAttribute("employee");
 
 		List<Education> edu = educationService.selectEduApply(employee.getEmp_no());
-		List<EduReport> eduRep = educationService.selectEduRep(employee.getEmp_no());
 
 		mv.addObject("list", edu);
-		mv.addObject("eduRepList", eduRep);
 		mv.setViewName("education/eduApplyview");
 
 		return mv;
