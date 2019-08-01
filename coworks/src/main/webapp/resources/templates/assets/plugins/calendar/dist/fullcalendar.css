@@ -249,7 +249,7 @@ NOTE: use percentage font sizes or else old IE chokes
 }
 
 .fc-state-disabled {
-	cursor: default;
+	cursor: pointer;
 	background-image: none;
 	opacity: 0.65;
 	filter: alpha(opacity=65);

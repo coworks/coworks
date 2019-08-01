@@ -19,6 +19,35 @@ public class Education implements Serializable {
 	private String edu_applyState;// 신청 가능 여부
 	private String edu_color; //색상
 	private String edu_image;// 상세 설명 이미지
+	private int emp_no;
+	
+	
+	public Education(int edu_no, String edu_title, String edu_instructor, String edu_type, int edu_limitCnt,
+			int edu_curCnt, Timestamp edu_eduDate, Timestamp edu_applyBgDate, Timestamp edu_applyEndDate,
+			String edu_applyState, String edu_color, String edu_image) {
+		super();
+		this.edu_no = edu_no;
+		this.edu_title = edu_title;
+		this.edu_instructor = edu_instructor;
+		this.edu_type = edu_type;
+		this.edu_limitCnt = edu_limitCnt;
+		this.edu_curCnt = edu_curCnt;
+		this.edu_eduDate = edu_eduDate;
+		this.edu_applyBgDate = edu_applyBgDate;
+		this.edu_applyEndDate = edu_applyEndDate;
+		this.edu_applyState = edu_applyState;
+		this.edu_color = edu_color;
+		this.edu_image = edu_image;
+	}
+
+	public int getEmp_no() {
+		return emp_no;
+	}
+
+	public void setEmp_no(int emp_no) {
+		this.emp_no = emp_no;
+	}
+
 	public int getEdu_no() {
 		return edu_no;
 	}
@@ -91,9 +120,12 @@ public class Education implements Serializable {
 	public void setEdu_image(String edu_image) {
 		this.edu_image = edu_image;
 	}
+	
+	
+	
 	public Education(int edu_no, String edu_title, String edu_instructor, String edu_type, int edu_limitCnt,
 			int edu_curCnt, Timestamp edu_eduDate, Timestamp edu_applyBgDate, Timestamp edu_applyEndDate,
-			String edu_applyState, String edu_color, String edu_image) {
+			String edu_applyState, String edu_color, String edu_image, int emp_no) {
 		super();
 		this.edu_no = edu_no;
 		this.edu_title = edu_title;
@@ -107,20 +139,24 @@ public class Education implements Serializable {
 		this.edu_applyState = edu_applyState;
 		this.edu_color = edu_color;
 		this.edu_image = edu_image;
+		this.emp_no = emp_no;
 	}
 	public Education() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	@Override
 	public String toString() {
 		return "Education [edu_no=" + edu_no + ", edu_title=" + edu_title + ", edu_instructor=" + edu_instructor
 				+ ", edu_type=" + edu_type + ", edu_limitCnt=" + edu_limitCnt + ", edu_curCnt=" + edu_curCnt
 				+ ", edu_eduDate=" + edu_eduDate + ", edu_applyBgDate=" + edu_applyBgDate + ", edu_applyEndDate="
 				+ edu_applyEndDate + ", edu_applyState=" + edu_applyState + ", edu_color=" + edu_color + ", edu_image="
-				+ edu_image + "]";
+				+ edu_image + ", emp_no=" + emp_no + "]";
 	}
 
+	
+	
 	
 	
 

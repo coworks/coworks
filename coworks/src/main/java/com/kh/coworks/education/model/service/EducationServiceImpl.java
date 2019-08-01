@@ -17,9 +17,9 @@ public class EducationServiceImpl implements EducationService {
 	private EducationDao eduDao;
 	
 	@Override
-	public List<Education> selectListEducation() {
+	public List<Education> selectListEducation(int emp_no) {
 		// TODO Auto-generated method stub
-		return eduDao.selectListEducation();
+		return eduDao.selectListEducation(emp_no);
 	}
 	
 	@Override

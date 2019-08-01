@@ -49,12 +49,12 @@
 							<div class="card-body">
 								<div class="m-2">
 									<jsp:useBean id="now" class="java.util.Date" />
-									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+									<fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일" var="today" />
 									<h4 class="card-title">
 										<c:out value="${today}" />
 									</h4>
 									<p class="card-text" id="time">
-									<p>출근가능시간 : 07:00 이후
+									<p>출근가능시간 : 07:00 이후<br>
 									    
 									<c:if test="${atten.atten_attTime!=null && atten.atten_date!=null}" >
 										 

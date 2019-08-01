@@ -17,9 +17,9 @@ public class EducationDaoImpl implements EducationDao {
 	SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<Education> selectListEducation() {
+	public List<Education> selectListEducation(int emp_no) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("education.selectListEducation");
+		return sqlSession.selectList("education.selectListEducation",emp_no);
 	}
 
 	@Override
