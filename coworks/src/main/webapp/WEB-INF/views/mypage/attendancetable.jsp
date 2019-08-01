@@ -85,7 +85,7 @@
                                     <table class="table no-wrap">
                                         <thead>
                                         <tr>
-                                                <th>인덱스</th>
+                                                <th></th>
                                                 <th>날짜</th>
                                                 <th>출근</th>
                                                 <th>퇴근</th>
