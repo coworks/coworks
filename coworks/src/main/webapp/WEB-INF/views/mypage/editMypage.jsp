@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>CO-WORKS : 회원정보 수정</title>
+<style>
+	.fontw {
+		font-weight : bold;
+	}
+</style>
 <c:import url="../common/header.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/templates/assets/plugins/dropify/dist/css/dropify.min.css">
 </head>
@@ -19,42 +24,47 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="card">
-							<div class="card-body">
-								<h3 class="box-title">회원정보 수정</h3>
+							<div class="card-body col-8 align-self-center">
+								<h3 class="box-title text-themecolor">회원정보 수정</h3>
 								<form class="form-control-line mt-5" method="post" action="updateEmpInfo.do">
 									<div class="form-group">
-										<label>현재 비밀번호</label> <input type="password" class="form-control" value="password">
+										<label class="fontw"><i class=" ti-help-alt"></i>　현재 비밀번호</label> <input type="password" class="form-control" value="password">
 									</div>
+									<br>
 									<div class="form-group">
-										<label>변경할 비밀번호</label> <input type="password" class="form-control" value="password">
+										<label class="fontw"><i class="ti-info-alt"></i>　변경할 비밀번호</label> <input type="password" class="form-control" value="password">
 									</div>
+									
 									<div class="form-group">
-										<label>비밀번호 확인</label> <input type="password" class="form-control" value="password">
+										<label class="fontw"><i class="ti-info-alt"></i>　비밀번호 확인</label> <input type="password" class="form-control" value="password">
 									</div>
+									<br>
 									<div class="form-group">
-										<label>이메일</label> <input type="email" name="emp_email" class="form-control">
+										<label class="fontw"><i class="ti-email"></i>　이메일</label> <input type="email" name="emp_email" value="${ sessionScope.employee.emp_email }" class="form-control">
 									</div>
+									<br>
 									<div class="form-group">
-										<label>연락처</label> <input type="text" class="form-control phone-inputmask" id="phone-mask" im-insert="true" value="01012341234" placeholder="010-1234-1234">
+										<label class="fontw"><i class=" ti-mobile"></i>　연락처</label> <input type="text" class="form-control phone-inputmask" id="phone-mask" im-insert="true" value="${ sessionScope.employee.emp_phone }" placeholder="010-1234-1234">
 									</div>
+									<br>
 									<div class="form-group">
 										<div class="col-lg-6 col-12 mb-2">
 											<div class="row">
-												<label>주소</label>
+												<label class="fontw"><i class="ti-direction"></i>　주소</label>
 											</div>
 											<div class="row">
 												<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control col-md-9 col-12 mb-2" onclick="sample6_execDaumPostcode()">
-												<div class="col-md-3 col-5 ">
-													<span class="btn btn-warning" onclick="sample6_execDaumPostcode()"> 우편번호 찾기</span>
-												</div>
+												<p  class="btn btn-warning" onclick="sample6_execDaumPostcode()"> 우편번호 찾기 </p>
+												
 											</div>
 										</div>
 										<input type="text" id="sample6_address" placeholder="주소" class="form-control mb-2"> <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> <input
 											type="hidden" id="sample6_extraAddress" class="form-control mb-2" placeholder="참고항목"
 										>
 									</div>
+									<br>
 									<div class="form-group">
-										<label>개인서명</label>
+										<label class="fontw"><i class="ti-stamp"></i>　개인서명</label>
 										<!-- 										<div class="fileinput fileinput-new input-group" data-provides="fileinput">
 											<div class="form-control" data-trigger="fileinput">
 												<i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
@@ -67,9 +77,11 @@
 									</div>
 
 									<div align="center">
-										<input type="submit" value="수정하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" /> <input type="button" value="취소" class="btn btn-secondary"
+										<input type="submit" value="수정하기" class="btn btn-outline-info" /> &nbsp;&nbsp;&nbsp;
+										<input type="reset" value="초기화" class="btn btn-outline-success" /> &nbsp;&nbsp;&nbsp;
+										<input type="button" value="취소" class="btn btn-outline-dark"
 											onclick="javascript:history.back();"
-										/> <input type="button" value="dd" onclick="agg()" />
+										/>
 									</div>
 								</form>
 							</div>

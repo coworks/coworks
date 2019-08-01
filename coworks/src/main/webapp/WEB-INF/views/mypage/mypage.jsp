@@ -25,7 +25,7 @@
 										<div class="form-group row">
 											<label class="control-label text-right col-3">이름 : </label>
 											<div class=" col-9">
-												<p class="form-control-static">홍길동</p>
+												<p class="form-control-static">${ sessionScope.employee.emp_name }</p>
 											</div>
 										</div>
 									</div>
@@ -35,7 +35,7 @@
 										<div class="form-group row">
 											<label class="control-label text-right  col-3">부서 : </label>
 											<div class="col-9">
-												<p class="form-control-static">영업부</p>
+												<p class="form-control-static">${ sessionScope.employee.dept_name }</p>
 											</div>
 										</div>
 									</div>
@@ -43,7 +43,7 @@
 										<div class="form-group row">
 											<label class="control-label text-right  col-3">직급 : </label>
 											<div class=" col-9">
-												<p class="form-control-static">부장</p>
+												<p class="form-control-static">${ sessionScope.employee.job_title }</p>
 											</div>
 										</div>
 									</div>
@@ -53,7 +53,7 @@
 										<div class="form-group row">
 											<label class="control-label text-right col-3">연락처 : </label>
 											<div class="col-9">
-												<p class="form-control-static">010-1234-1234</p>
+												<p class="form-control-static">${ sessionScope.employee.emp_phone }</p>
 											</div>
 										</div>
 									</div>
@@ -61,7 +61,7 @@
 										<div class="form-group row">
 											<label class="control-label text-right col-3">이메일 : </label>
 											<div class=" col-9">
-												<p class="form-control-static">HongGD@naver.com</p>
+												<p class="form-control-static">${ sessionScope.employee.emp_email }</p>
 											</div>
 										</div>
 									</div>
@@ -81,7 +81,7 @@
 										<div class=" row">
 											<label class="control-label text-right col-3">개인서명 : </label>
 											<div class="col-9">
-												<img src="${pageContext.request.contextPath}/resources/images/empSign/stamp.png" alt="개인서명" height="50px" width="50px" />
+												<img src="${pageContext.request.contextPath}/resources/images/empSign/${ sessionScope.employee.emp_signature }" alt="개인서명" height="50px" width="50px" />
 											</div>
 										</div>
 									</div>

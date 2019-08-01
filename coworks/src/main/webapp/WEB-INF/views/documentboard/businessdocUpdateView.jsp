@@ -50,6 +50,7 @@
 									<div class="form-group">
 											<input class="form-control" value="글 위치 : ${board.getBg_title() }" readonly required>
 										</div>
+										<input type="hidden" value="${board.bo_code }" name="bo_code"/>
 									<!-- <select class="form-control custom-select" style="width: 15%">
 										<option value="0"></option>
 										<option value="CD">사내규정</option>
@@ -157,7 +158,7 @@
     
     function fileDelete(obj, attNo, rName){
 		$.ajax({
-			url : "${pageContext.request.contextPath}/board/fileDelete.do",
+			url : "${pageContext.request.contextPath}/documentboard/fileDelete.do",
 			data : {attNo : attNo, rName : rName},
 			dataType: "json",
 			success : function(data){

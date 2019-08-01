@@ -16,11 +16,11 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Autowired
 	SqlSessionTemplate sqlSession;
-	
+
 	@Override
 	public List<Map<String, String>> selectBusinessdocList(int cPage, int limit, String boardCode) {
-		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
-		return sqlSession.selectList("board.selectBusinessdocList",boardCode, rows);
+		RowBounds rows = new RowBounds((cPage - 1) * limit, limit);
+		return sqlSession.selectList("board.selectBusinessdocList", boardCode, rows);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<Attach> selectBusinessdocAttachList(Board b) {
 		return sqlSession.selectList("board.selectBusinessdocAttachList", b);
-		
+
 	}
 
 	@Override
@@ -75,16 +75,11 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.delete("board.deleteBusinessdocFile", attNo);
 	}
 
-	
-
-
-
 	//////////////////////////////////////////////////////////////
 	// 부서 리스트
 	@Override
 	public List<String> selectDeptList() {
 		return sqlSession.selectList("approval.selectApprovalFormFolderList");
 	}
-	
-	
+
 }

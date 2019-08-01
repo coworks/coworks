@@ -13,11 +13,16 @@
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.css">
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
+<link
+	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.min.css"
+	rel="stylesheet">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
+
+
 		<div class="page-wrapper">
 			<div class="container-fluid">
 
@@ -48,6 +53,8 @@
 														${board.emp_no }</h4>
 													<small class="text-muted" name="bo_date">작성 날짜 : <fmt:formatDate
 															value="${board.bo_date }" pattern="yyyy년MM월dd일 HH:mm" /></small>
+													<input type="text" value="${board.bo_no }" name="bo_no" hidden/>
+													<input type="text" value="${board.bo_code }" name="bo_code" hidden/>
 												</div>
 											</div>
 											<p>
@@ -62,26 +69,19 @@
 												<i class="fa fa-paperclip mr-2 mb-2"></i> 첨부파일 <span>[${attachmentList.size()}]</span>
 											</h4>
 											<div class="row">
-													<div class="">
-														<%-- <a href="${pageContext.request.contextPath}/${at.getAttach_path()}/${at.getAttach_rename()}" download="${at.getAttach_oriname()}"> --%>
+												<div class="">
+													<%-- <a href="${pageContext.request.contextPath}/${at.getAttach_path()}/${at.getAttach_rename()}" download="${at.getAttach_oriname()}"> --%>
 
-														<c:forEach items="${attachmentList}" var="a"
-															varStatus="vs">
-															<button type="button"
-																class="btn btn-outline-primary waves-effect waves-light"
-																onclick="fileDownload('${a.attach_oriname}','${a.attach_rename }');">
-																<i class="fas fa-check"></i>
-																<%-- ${vs.count} - --%>${a.attach_oriname }
-															</button>&nbsp; </c:forEach>
-														</a>
-													</div>
-													<br>
-
-
-												
-
-
-
+													<c:forEach items="${attachmentList}" var="a" varStatus="vs">
+														<button type="button"
+															class="btn btn-outline-primary waves-effect waves-light"
+															onclick="fileDownload('${a.attach_oriname}','${a.attach_rename }');">
+															<i class="ti-download" style="color: black"></i>&nbsp;&nbsp;
+															<%-- ${vs.count} - --%>${a.attach_oriname }
+														</button>&nbsp; </c:forEach>
+													</a>
+												</div>
+												<br>
 
 											</div>
 
@@ -90,18 +90,26 @@
 									</div>
 									<div style="text-align: right;">
 										<c:if test="${board.bo_code ne null}">
-											<a class="btn btn-info waves-effect waves-light"
-												onclick="listView();" style="color: white;"><i
-												class="fas fa-list-ul"></i>목록</a> &nbsp;
+											<button class="btn btn-outline-info waves-effect waves-light"
+												onclick="listView();">
+												<i class="fas fa-list-ul"></i>목록
+											</button>	
+											&nbsp;
                                         </c:if>
 										<c:if
 											test="${ sessionScope.employee.emp_no eq board.getEmp_no() }">
-											<a class="btn btn-warning waves-effect waves-light"
-												onclick="updateView();" style="color: white;"><i
-												class="ti-pencil"></i>수정</a> &nbsp;
-                                            	<a href="#"
-												class="btn btn-danger waves-effect waves-light"
-												onclick="deleteboard();"><i class="fa fa-times"></i>삭제</a>
+											<button
+												class="btn btn-outline-warning waves-effect waves-light"
+												onclick="updateView();">
+												<i class="ti-pencil"></i>수정
+											</button>
+                                            	&nbsp;										
+												<button
+												class="btn btn-outline-danger waves-effect waves-light"
+												id="sa-passparameter" alt="alert">
+												<i class="fa fa-times"></i>삭제
+											</button>
+
 										</c:if>
 									</div>
 								</div>
@@ -129,13 +137,6 @@
 			location.href = "${pageContext.request.contextPath}/documentboard/${bo_code}/${board.bo_no}/${board.emp_no}";
 		}
 
-		function deleteboard() {
-			console.log("bo_code=${bo_code}");
-			console.log("bo_no=${board.bo_no}");
-			console.log("emp_no=${board.bo_content}");
-			location.href = "${pageContext.request.contextPath}/documentboard/${bo_code}/${board.bo_no}/${board.bo_content}";
-		}
-
 		function listView() {
 			location.href = "${pageContext.request.contextPath}/documentboard/${board.bo_code}";
 		}
@@ -143,9 +144,52 @@
 		function fileDownload(oName, rName) {
 			//한글파일명이 있을 수 있으므로, 명시적으로 encoding
 			oName = encodeURIComponent(oName);
-			location.href = "${pageContext.request.contextPath}/board/fileDownload.do?oName="
+			location.href = "${pageContext.request.contextPath}/documentboard/fileDownload.do?oName="
 					+ oName + "&rName=" + rName;
 		}
+		
+
+		$("#sa-passparameter").click(function () {
+			
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'mr-2 btn btn-danger'
+                },
+                buttonsStyling: false,
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: '글을 삭제하시겠습니까?',
+                text: '글 제목 : [ ' + "${board.bo_title}" +' ]',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '삭제하기',
+                cancelButtonText: '취소하기',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    swalWithBootstrapButtons.fire(
+                        '삭제완료!',
+                        '게시글이 삭제되었습니다.',
+                        'success'
+                    )
+                    location.href = "${pageContext.request.contextPath}/documentboard/delboard.do?bo_code="+$('[name=bo_code]').val()+"&bo_no="+$('[name=bo_no]').val();
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        '삭제취소',
+                        '게시글 삭제가 취소되었습니다.',
+                        'error'
+                    )
+                }
+            })
+        });
+		
 	</script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

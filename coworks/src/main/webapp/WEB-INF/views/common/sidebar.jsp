@@ -30,7 +30,7 @@
 								<li><a href="${pageContext.request.contextPath}/documentboard/D51">업무문서</a></li>
 								<li><a href="${pageContext.request.contextPath}/documentboard/D52">교육문서</a></li>
 							</ul>
-						<li><a href="${pageContext.request.contextPath}/documentboard/deptdocSelect.do">부서별 자료실</a></li>
+						<li hidden><a href="${pageContext.request.contextPath}/documentboard/deptdocSelect.do">부서별 자료실</a></li>
 					</ul></li>
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu">게시판</span></a>
 					<ul aria-expanded="false" class="collapse">
@@ -39,7 +39,7 @@
 						<li><a href="${pageContext.request.contextPath}/documentboard/D54">경조사</a></li>
 						<li><a href="${pageContext.request.contextPath}/documentboard/D56">NEWS</a></li>
 						<li><a href="${pageContext.request.contextPath}/documentboard/D57">자유게시판</a></li>
-						<li><a href="${pageContext.request.contextPath}/documentboard/deptboardSelect.do">부서별 게시판</a></li>
+						<li><a href="${pageContext.request.contextPath}/documentboard/${ sessionScope.employee.dept_code }">부서게시판</a></li>
 					</ul></li>
             <li><a class="has-arrow " href="#" aria-expanded="false"><i
                   class="mdi mdi-book-open-variant"></i><span class="hide-menu">교육</span></a>

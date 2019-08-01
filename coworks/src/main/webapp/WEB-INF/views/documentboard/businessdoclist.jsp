@@ -48,8 +48,9 @@
 					<div class="col-md-6 col-8 align-self-center">
 						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="javascript:void(0)">자료실 / 게시판</a></li>
-							<!-- <li class="breadcrumb-item active">업무자료</li> -->
+							<li class="breadcrumb-item">
+								<a>자료실 / 게시판</a>
+							</li>
 						</ol>
 					</div>
 				</div>
@@ -106,9 +107,10 @@
 												<fmt:formatDate value="${after3days }" type="DATE" pattern="yyyy/MM/dd"/>
 												<fmt:formatDate var="now" value="${b.bo_date }" pattern="yyyy/MM/dd"/>
 											</div>
+											<%-- <input type="text" value="${b.bo_code}" name="bo_code" hidden/> --%>
 										<c:choose>
 											<c:when test="${now <= after3days && now >= today}">
-												<span class="badge badge-danger ml-auto">new</span>
+												&nbsp;&nbsp;<span class="badge badge-danger ml-auto">new&nbsp;</span>
 											</c:when>
 										</c:choose>
 										
@@ -167,6 +169,8 @@
 				$(this).removeClass('over');
 			});
 		});
+		
+	
 	</script>
 </body>
 </html>
