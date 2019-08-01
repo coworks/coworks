@@ -57,14 +57,17 @@
 				               		 
 				                </div>
 				                 <div class="float-right">
-				                 	<input type="button" class="btn btn-info" id="apply" name="apply" value="신청하기"/>
-				                 	<input type="button" class="btn btn-danger" id="delete" name="delete"  value="취 소"/>
+				                 	<input type="button" class="btn btn-info" id="apply" name="apply" style="display:none"  value="신청하기"/>
+				                 	<input type="button" class="btn btn-success" id="applyExpected" name="applyExpected" style="display:none" style="display:none" value="신청 예정"/>
+				                 
+				                 	<input type="button" class="btn btn-danger" id="delete" name="delete"  style="display:none" value="취 소"/>
 				                 	<input type="button" class="btn btn-secondary" id="finished" name="finished" style="display:none" value="마 감"/>
 				                 
 				                 </div>
 								</h4>
 								<!-- sample modal content -->
-							 
+							 <input type="hidden" id="emp_no" name="emp_no" style="display:none" value="${edu.emp_no}"/>
+				                 
 							</div>
 							
 				</div>
@@ -86,7 +89,46 @@
 	
 	
 	<script>  
-	 
+	 	$(function(){
+	 		var no="${edu.edu_no}";
+			var bg=new Date("${edu.edu_applyBgDate}");
+			var end=new Date("${edu.edu_applyEndDate}");
+			var limit="${edu.edu_limitCnt}";
+			var curr="${edu.edu_curCnt}";
+			var $this = this;  
+	    	 var now = new Date(); 
+			var count=$("#emp_no").val();
+    		
+			console.log("count : "+count);
+			if(count!=0){
+			//	alert("이미신청하셨습니다!");
+	    		 $('#applyExpected').hide();
+	    		 $('#delete').show();
+	    		 $('#apply').hide();
+	    		 $('#finished').hide();
+	 	}else if(now.getTime()<bg.getTime()){	// 교육 신청 시작일 전
+	    		 $('#applyExpected').show();
+	    		 $('#delete').hide();
+	    		 $('#apply').hide();
+	    		 $('#finished').hide();
+	    	 }else if( now.getTime()>end.getTime() || limit-curr<=0){	//교육신청기간이 지났거나 인원이마감된경우
+
+	    		 $('#applyExpected').hide();
+	    		 $('#delete').hide();
+	    		 $('#apply').hide();
+	    		 $('#finished').show();
+	    	 }else{
+	    		 $('#applyExpected').hide();
+	    		 $('#delete').show();
+	    		 $('#apply').show();
+	    		 $('#finished').hide();
+	    	 }
+	    $('#applyExpected').on("click",function(){
+
+	    	var begin=moment(bg).format('YYYY/MM/DD HH:mm');
+	    	alert("교육 신청 시작일은 "+begin +" 입니다.");
+	    	
+	    }); 
 		$('#delete').on("click",function(){ 
 			var edu_no="${edu.edu_no}";
 			var limit="${edu.edu_limitCnt}";
@@ -115,11 +157,7 @@
 			
 		});
 			$('#apply').on("click",	function(){
-			var no="${edu.edu_no}";
-			var bg=new Date("${edu.edu_applyBgDate}");
-			var end=new Date("${edu.edu_applyEndDate}");
-			var limit="${edu.edu_limitCnt}";
-			var curr="${edu.edu_curCnt}";
+			
 			console.log("시작");
 			console.log(no);
 			console.log(bg);
@@ -127,8 +165,7 @@
 			console.log(limit);
 			console.log(curr);
 			
-			var $this = this;  
-	    	 var now = new Date(); 
+			
 			
 			if((now.getTime()>=bg.getTime() && now.getTime()<=end.getTime())
 					&& limit-curr>0){
@@ -156,7 +193,9 @@
 			}
 			
 			});
-		 
+	 	});
 	</script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
+	
 </body>
 </html>

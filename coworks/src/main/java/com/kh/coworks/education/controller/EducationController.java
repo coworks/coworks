@@ -75,7 +75,11 @@ public class EducationController {
 	@RequestMapping("/education/eduDetail.do")
 	public ModelAndView eduApplyView(@RequestParam("edu_no") int edu_no, ModelAndView mv, HttpServletRequest request) {
 
-		Education edu = educationService.selectOneEducation(edu_no);
+		Employee employee = (Employee) request.getSession().getAttribute("employee");
+		EduApply eduapply=new EduApply();
+		eduapply.setEdu_no(edu_no);
+		eduapply.setEmp_no(employee.getEmp_no());
+		Education edu = educationService.selectOneEducation(eduapply);
 
 		mv.addObject("edu", edu);
 		mv.setViewName("education/eduDetail");
@@ -139,7 +143,9 @@ public class EducationController {
 		EduReport erep = new EduReport();
 		erep.setEdu_no(Integer.valueOf(body.get("edu_no")));
 		Employee emp = (Employee) request.getSession().getAttribute("employee");
-
+		EduApply eduapply=new EduApply();
+		eduapply.setEdu_no(erep.getEdu_no());
+		eduapply.setEmp_no(emp.getEmp_no());
 		erep.setEmp_no(emp.getEmp_no());
 		erep.setedurep_title(body.get("edurep_title"));
 
@@ -150,8 +156,8 @@ public class EducationController {
 		body.put("dept_name", emp.getDept_name());
 		body.put("job_title", emp.getJob_title());
 		body.put("writerName", emp.getEmp_name());
-
-		Education edu = educationService.selectOneEducation(erep.getEdu_no());
+		
+		Education edu = educationService.selectOneEducation(eduapply);
 		body.put("edu_instructor", edu.getEdu_instructor());
 		body.put("edu_title", edu.getEdu_title());
 		String edu_date = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm").format((edu.getEdu_eduDate()));
@@ -187,7 +193,10 @@ public class EducationController {
 		erep.setedurep_no(Integer.valueOf(body.get("edurep_no")));
 		erep.setEdu_no(Integer.valueOf(body.get("edu_no")));
 		Employee emp = (Employee) request.getSession().getAttribute("employee");
-
+		EduApply eduapply=new EduApply();
+		eduapply.setEdu_no(erep.getEdu_no());
+		eduapply.setEmp_no(emp.getEmp_no());
+		
 		erep.setedurep_title(body.get("edurep_title"));
 
 		body.remove("edurep_no");
@@ -198,7 +207,7 @@ public class EducationController {
 		body.put("job_title", emp.getJob_title());
 		body.put("writerName", emp.getEmp_name());
 
-		Education edu = educationService.selectOneEducation(erep.getEdu_no());
+		Education edu = educationService.selectOneEducation(eduapply);
 		body.put("edu_instructor", edu.getEdu_instructor());
 		body.put("edu_title", edu.getEdu_title());
 		String edu_date = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm").format((edu.getEdu_eduDate()));

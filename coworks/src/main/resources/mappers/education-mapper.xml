@@ -22,8 +22,10 @@
 	AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no}
 	</select>
 	
-	<select id="selectOneEducation" parameterType="_int" resultType="education">
-		SELECT * FROM EDUCATION WHERE EDU_NO=#{edu_no}
+	<select id="selectOneEducation" parameterType="eduapply" resultType="education">
+		SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
+		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no}) EAPP WHERE EDU.EDU_NO=#{edu_no} and EDU.EDU_NO = EAPP.EDU_NO (+)
+        
 	</select>
 	<insert id="insertEduApply" parameterType="eduapply">
 		INSERT INTO EDUAPPLY SELECT SEQ_EAAP_NO.NEXTVAL,#{emp_no},#{edu_no} FROM DUAL 

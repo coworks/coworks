@@ -9,7 +9,7 @@ import com.kh.coworks.education.model.vo.Education;
 public interface EducationDao {
 	List<Education> selectListEducation(int emp_no);
 	
-	Education selectOneEducation(int edu_no);
+	Education selectOneEducation(EduApply eduApply);
 	
 	int insertEduApply(EduApply eduApply);
 	

@@ -23,9 +23,9 @@ public class EducationDaoImpl implements EducationDao {
 	}
 
 	@Override
-	public Education selectOneEducation(int edu_no) {
+	public Education selectOneEducation(EduApply eduApply) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("education.selectOneEducation",edu_no);
+		return sqlSession.selectOne("education.selectOneEducation",eduApply);
 	}
 
 	@Override
