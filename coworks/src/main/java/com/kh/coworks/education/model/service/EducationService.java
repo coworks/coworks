@@ -7,7 +7,7 @@ import com.kh.coworks.education.model.vo.EduReport;
 import com.kh.coworks.education.model.vo.Education;
 
 public interface EducationService {
-	List<Education> selectListEducation();
+	List<Education> selectListEducation(int emp_no);
 	
 	Education selectOneEducation(int edu_no);
 

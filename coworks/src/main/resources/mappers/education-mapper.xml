@@ -4,8 +4,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="education">
 	
-	<select id="selectListEducation" resultType="education">
-		SELECT * FROM EDUCATION
+	<select id="selectListEducation" parameterType="_int" resultType="education">
+		SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
+		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no} ) EAPP WHERE EDU.EDU_NO = EAPP.EDU_NO (+)
 	</select>
 	
 	<select id="selectEduApply" resultType="education">

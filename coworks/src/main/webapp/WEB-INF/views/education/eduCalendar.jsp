@@ -6,11 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
-<title>CO-WORKS : Insert title here</title>
+<title>CO-WORKS : 교육일정</title>
 
 <!-- Calendar CSS -->
-<link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css?ver=1" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/css/asColorPicker.css" rel="stylesheet">
     <!-- Date picker plugins css -->
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
@@ -20,7 +21,11 @@
    
 <c:import url="../common/header.jsp" />
 
-
+<style>
+.fc-event-container :hover{
+	cursor:pointer;
+}
+</style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -43,47 +48,28 @@
 				
 				<div class="card">
 							<div class="card-body">
-								<div id="calendar"></div>
-								<!-- BEGIN MODAL -->
-								<div class="modal fade none-border" id="my-event">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">
-													<strong>일정 상세보기</strong>
-												</h4>
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											</div>
-											<div class="modal-body"></div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-success save-event waves-effect waves-light">수정</button>
-												<button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">삭제</button>
-											</div>
-										</div>
-									</div>
+								<div id="calendar">
 								</div>
-								<!-- Modal Add Category -->
-								<div class="modal fade none-border" id="add-new-event">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">
-													<strong>Add</strong> a category
-												</h4>
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											</div>
-											<div class="modal-body">
-												
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-												<button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- END MODAL -->
+								
+								
+								 <!-- BEGIN MODAL -->
+				                <div class="modal none-border" id="my-event">
+				                    <div class="modal-dialog">
+				                        <div class="modal-content">
+				                            <div class="modal-header">
+				                                <h4 class="modal-title"><strong>교육 일정</strong></h4>
+				                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				                            </div>
+				                            <div class="modal-body"></div>
+				                            <div class="modal-footer">
+				                                <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
+				                               <button type="button" class='btn btn-success go-event waves-effect waves-light'><i class='fa fa-check'></i> 신청</button>
+				                            <button type="button" class="btn btn-danger detail-event waves-effect waves-light"> 상세보기</button>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+												 
 							</div>
 						</div>
 				
@@ -128,13 +114,74 @@
 	    
 	    /* on click on event */
 	    CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-	    	  
-				location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+calEvent.no; 
-	       
-		
-	             
+	    	  console.log(calEvent.count);
+				 	 var $this = this; 
+	           var today = new Date($.now());
+	           if(calEvent.end==null){ 
+	        	   calEvent.end=today;
+	           }    
+	               var form = $("<form></form>");
+	          
+	               form.append("<div><label>교육명</label><div> <div class='input-group'><span class='form-control' name='title' type='text'>"+calEvent.title+"</span> </div></br>");
+	               form.append("<div><label>강사</label><div> <div class='input-group'><span class='form-control' name='title' type='text' >" + calEvent.instructor + "</span> </div></br>");
+	               form.append("<div><label>교육일시</label><div> <div class='input-group'><span class='form-control' name='title' type='text'>" + $.fullCalendar.formatDate(calEvent.start, 'YYYY년 MM월 DD일 HH시 mm분') + "</span> </div></br>");
+	               form.append("<input type='hidden' name='edu_count' value='"+calEvent.emp_no+"'/>");
+	               form.append("<input type='hidden' name='edu_no' value='"+calEvent.no+"'/>");
+		              
+	                  
+	               
+	               $this.$modal.modal({
+	                   backdrop: 'static'
+	               });
+	               
+	               $this.$modal.find('.detail-event').show().end().find('.go-event').show().end().find('.modal-body').empty().prepend(form).end().find('.detail-event').unbind('click').click(function () {
+	                  
+	            	 location.href="${pageContext.request.contextPath}/education/eduDetail.do?edu_no="+calEvent.no; 
+	            	   
+	               });
+	               
+	               var result;
+	               // 일정 칸 클릭시 해당 일정 내용 수정
+	               $this.$modal.find('.go-event').unbind('click').click(function () {
+	            	   var edu_count=(form.find("input[name=edu_count]")).val();
+	            	   var no=(form.find("input[name=edu_no]")).val();
+	              	 console.log(edu_count);
+	              	 console.log(no);
+
+	    	    	 var now = new Date(); 
+	              	 var begin=new Date((calEvent.bgDate));
+	              	 var end=new Date((calEvent.endDate));
+	              	 console.log(begin.getTime());
+	               //$this.$modal.on('submit', function () { 
+	            	
+	            		if(edu_count!=0){
+	            			console.log(calEvent.limitCnt-calEvent.curCnt);
+	            		alert("이미 신청하셨습니다!");
+	            	}else if(now.getTime()>=begin.getTime() && now.getTime()<=end.getTime()
+	        					&& calEvent.limitCnt-calEvent.curCnt>0){
 	              
-	    },
+		                   $.ajax({
+							  url : "${pageContext.request.contextPath}/education/insertEduApply.do",
+			                  data : {edu_no : no},
+			                  type:"post",
+			                  dataType : "json",
+			                  async:false,
+			                  success : function(data){
+			                      if(data>0) alert("신청 완료!!");
+			                      else if(data=0) alert("마감되었습니다.");  
+			                      else{
+			                    	  alert()
+			                  }
+			                      
+			                  },error: function(data){
+			                      alert("신청 실패");
+			                  }
+						});
+	            	}else{
+	            		alert("신청할 수 없습니다.");
+	            	}
+	               });
+	       },
 	    /* on select */
 	    CalendarApp.prototype.onSelect = function (start, allDay) {
            var $this = this;
@@ -182,7 +229,8 @@
 	            // db넣은것 출력
 	              defaultEvents.push({
 	              no:'${edu.edu_no}',
-	              title   :  '${edu.edu_title}', 
+	              title   :  '${edu.edu_title}',  
+	              instructor   :  '${edu.edu_instructor}', 
 	              limitCnt :  '${edu.edu_limitCnt}',   // 일정 내용
 	              curCnt: '${edu.edu_curCnt}',
 	              start:'${edu.edu_eduDate}',
@@ -190,8 +238,8 @@
 	               endDate   :  '${edu.edu_applyEndDate}',
 	               state   :  '${edu.edu_applyState}', 
 	               className : '${edu.edu_color}',   // 색상변경(탬플릿적용 색)
-	               edu_image:'${edu.edu_image}' 
-	               
+	               edu_image:'${edu.edu_image}',
+	               emp_no:'${edu.emp_no}'
 	               
 	           })
 	          </c:forEach>
@@ -213,7 +261,7 @@
 	            },
 	        	lang : 'ko',
 	            events: defaultEvents,	//이벤트 불러오기
-	            editable: true,
+	            editable: false,
 	            droppable: true, // this allows things to be dropped onto the calendar !!!
 	            eventLimit: true, // allow "more" link when too many events
 	            selectable: true,

@@ -21,6 +21,19 @@ public class Education implements Serializable {
 	private String edu_image;// 상세 설명 이미지
 	
 	private int edurep_no;
+	private int emp_no;
+	
+	
+ 
+
+	public int getEmp_no() {
+		return emp_no;
+	}
+
+	public void setEmp_no(int emp_no) {
+		this.emp_no = emp_no;
+	}
+
 	public int getEdu_no() {
 		return edu_no;
 	}

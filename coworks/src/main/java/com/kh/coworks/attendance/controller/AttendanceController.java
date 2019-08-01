@@ -126,8 +126,10 @@ public class AttendanceController {
 				 attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
 				 //attend.setAtten_attTime(time);
 				 attend.setAtten_date(date);
-				 
-		int result=attendanceService.insertAttendanceCome(attend);
+		int result=0;
+		if(reqDateTime3<curDateTime && reqDateTime2>curDateTime) {		 
+		 result=attendanceService.insertAttendanceCome(attend);
+		} 
 		Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
 		
 		com.kh.coworks.calendar.model.vo.Calendar cal1=new com.kh.coworks.calendar.model.vo.Calendar();
@@ -216,7 +218,7 @@ public class AttendanceController {
 		
 		// 총 근무시간
 		Date datee=new Date(cal.getTimeInMillis());
-		 
+		
 		 //**** 지각 계산
 		 String hourstr = new SimpleDateFormat("yyyyMMdd").format(datee);
 		 
@@ -225,7 +227,7 @@ public class AttendanceController {
 		 String all2 = new SimpleDateFormat("HHmmss").format(list.getAtten_attTime().getTime());
 		 String a= hourstr+all2;
 		  
-			
+			System.out.println("");
 			//요청시간을 Date로 parsing 후 time가져오기
 			java.util.Date hours = dateFormat.parse(a); 
 			long atten_attTime = hours.getTime();
@@ -235,7 +237,19 @@ public class AttendanceController {
 			long atten_leaveTime = current.getTime();
 			
 		 
-		if(atten_leaveTime-atten_attTime>0) {
+			//요청시간을 Date로 parsing 후 time가져오기
+			java.util.Date reqDate1 = dateFormat.parse(reqDateStr1);
+			java.util.Date reqDate2 = dateFormat.parse(reqDateStr2);
+			java.util.Date reqDate3 = dateFormat.parse(reqDateStr3);
+			System.out.println("reqDate : "+reqDate1);
+			long reqDateTime1 = reqDate1.getTime();	// 9시
+			long reqDateTime2 = reqDate2.getTime(); // 18시
+			long reqDateTime3 = reqDate3.getTime(); // 7시	
+			
+			
+		if(reqDateTime3<atten_leaveTime && reqDateTime1>atten_leaveTime) {	// 7시~9시이전 퇴근이면
+			attend.setAtten_hours(null);	//총 근무시간 안찍힘!!!!!!
+		}else if(atten_leaveTime-atten_attTime>0) {	// 출근시간-근무시간>0
 			long hour= (atten_leaveTime-atten_attTime) / (1000*60*60);
 			long minute = (atten_leaveTime-atten_attTime) / 60000-(hour*60);
 			long second=(atten_leaveTime-atten_attTime) / 1000-((hour*60*60)+(minute*60));
@@ -243,9 +257,7 @@ public class AttendanceController {
 			String hours2=String.format("%02d:%02d:%02d", hour,minute,second);
 			 
 				attend.setAtten_hours(hours2);
-			}else {
-				
-			}
+		}
 			 
 		
 		System.out.println(list.getAtten_attLate());

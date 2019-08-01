@@ -42,7 +42,7 @@ public class EducationController {
 		System.out.println("세션값 : " + employee);
 		System.out.println("아이디 : " + employee.getEmp_no());
 
-		List<Education> list = educationService.selectListEducation();
+		List<Education> list = educationService.selectListEducation(employee.getEmp_no());
 
 		mv.addObject("list", list);
 		mv.setViewName("education/eduCalendar");
