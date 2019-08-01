@@ -121,7 +121,7 @@ public class CalendarController {
  
 		calendar.setCal_content("내용없음");
 		
-		calendar.setCal_type("회사");
+		calendar.setCal_type("개인");
 		calendar.setCal_holder(Integer.toString(employee.getEmp_no()));// 아직 부서 설정안했기때문에  null값이라 emp_no넣어줘야함
 		//if(employee!=null) 
 			boolean result = calService.insertCalendar(calendar)>0?true:false;
