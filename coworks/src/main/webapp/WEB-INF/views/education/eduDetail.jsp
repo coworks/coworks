@@ -86,7 +86,7 @@
 	
 	
 	<script>  
-	 /*
+	 
 		$('#delete').on("click",function(){ 
 			var edu_no="${edu.edu_no}";
 			var limit="${edu.edu_limitCnt}";
@@ -113,7 +113,7 @@
 			
 			
 			
-		});*/
+		});
 			$('#apply').on("click",	function(){
 			var no="${edu.edu_no}";
 			var bg=new Date("${edu.edu_applyBgDate}");
