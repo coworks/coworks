@@ -7,13 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : 급여 대장 입력하기</title>
+<title>CO-WORKS : 급여 명세서 </title>
 <c:import url="../common/header.jsp" />
 <style>
 
 #btn{
-    width: 20%;
-    margin-left: 39%;
+    margin-left: 35%;
     margin-right: auto;
     margin-bottom: 5%;
 }
@@ -23,6 +22,13 @@ table{
  table tbody tr{
  	width:53%;
  }
+#print{
+	float:right;
+	width:10%;
+	height:30px;
+    margin-bottom: 1%;
+}
+
 </style>
 </head>
 		<div class="navbar-header">
@@ -43,19 +49,23 @@ table{
 				<!-- Column -->
 				<div class=""><!-- card -->
 					<div class="card-body">
+						
 						<small>성명 : ${pay.pay_emp_name } &nbsp;&nbsp; 직급 : ${pay.pay_emp_job }&nbsp;&nbsp; 지급일 : ${pay.pay_date }</small>
+						<button type="button" id="print" class="btn waves-effect waves-light btn-light" onclick="window.print()">
+							<i class="mdi mdi-printer"></i>
+						</button>
 						<div id="basicgrid" class="jsgrid"
-							style="position: relative; height: 300px; width: 100%; tmargin-top: 200px;">
+							style="position: relative;width: 100%;">
 							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
 								<table class="jsgrid-table table  table-hover ">
 								<thead class="bg-info text-white">
 									<tr class="jsgrid-header-row">
 										<th class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-											style="width: 70px;">지급 항목</th>
+											style="width: 80px;">지급 항목</th>
 										<th class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
 											style="width: 70px;">지급액</th>
 										<th class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-											style="width: 70px;">공제항목</th>
+											style="width: 100px;">공제항목</th>
 										<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
 											style="width: 100px;">공제액</th>
 									
@@ -177,15 +187,14 @@ table{
 													style="width: 100px;">${pay.pay_total }</td>
 											</tr>
 											<tr>
-											<td colspan="4">
+											<td colspan="4" >
 												<p style="text-align:left;">(c)COWORKS. 귀하의 노고에 감사드립니다. </p>
 											</td>
 											</tr>
 									</tbody>
 								</table>
-								<button type="button" id="btn" class="btn btn-info" onclick="widow.close();">확인</button>
+								<button type="button" id="btn" class="btn waves-effect waves-light btn-block btn-light col-4" onclick="window.close();">확인</button>
 							</div>
-							<c:out value="${pageBar}" escapeXml="false" />
 						</div>
 					</div>
 				</div>
@@ -194,7 +203,7 @@ table{
 </body>
 <script>
 		
-	</script>
+</script>
 </html>
 
 

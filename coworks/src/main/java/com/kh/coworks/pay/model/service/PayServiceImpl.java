@@ -11,7 +11,7 @@ import com.kh.coworks.pay.model.dao.PayDao;
 import com.kh.coworks.pay.model.vo.Pay;
 
 @Service
-public class PayServiceImpl implements PayService{
+public class PayServiceImpl implements PayService {
 
 	@Autowired
 	PayDao payDao;
@@ -39,8 +39,12 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public List<Pay> empListPay(int emp_no) {
-		return payDao.empListPay(emp_no);
+	public List<Pay> empListPay(int cPage, int limit, int emp_no) {
+		return payDao.empListPay(cPage, limit, emp_no);
 	}
 
+	@Override
+	public int empPayCount(int emp_no) {
+		return payDao.empPayCount(emp_no);
+	}
 }

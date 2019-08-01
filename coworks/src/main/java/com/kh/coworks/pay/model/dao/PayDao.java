@@ -14,5 +14,6 @@ public interface PayDao {
 	List<Map<String,String>> selectPayList();
 	Pay selectOnePay(int pay_no);
 	int updatePay(Pay pay);
-	List<Pay> empListPay(int emp_no);
+	List<Pay> empListPay(int cPage, int limit, int emp_no);
+	int empPayCount(int emp_no);
 }

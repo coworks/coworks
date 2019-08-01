@@ -14,15 +14,18 @@
 		#{pay_hollyday},#{pay_bonus},#{pay_meal},#{pay_transport},
 		#{pay_welfare},#{pay_income},
 		#{pay_resident},#{pay_empins},#{pay_nation},#{pay_healins},
-		#{pay_others},#{pay_ptotal},#{pay_mtotal},#{pay_total},sysdate
+		#{pay_others},#{pay_ptotal},#{pay_mtotal},#{pay_total},#{pay_date}
 		)
 	</insert>
 
 	<select id="empListPay" resultType="pay">
-		select * from pay where emp_no = #{emp_no}
+		select * from pay where emp_no = #{emp_no} order by pay_date desc
 	</select>
 	
 	<select id="selectOnePay" resultType="pay">
-		select * from pay where pay_no = #{pay_no}
+		select * from pay where pay_no = #{pay_no} 
+	</select>
+	<select id="empPayCount" resultType="_int">
+		select count(*) from pay where emp_no = #{emp_no}
 	</select>
 </mapper>

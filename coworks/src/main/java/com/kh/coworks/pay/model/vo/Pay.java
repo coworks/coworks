@@ -110,12 +110,16 @@ public class Pay implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Pay [pay_no=" + pay_no + ", emp_no=" + emp_no + ", pay_basepay=" + pay_basepay + ", pay_jobtitle="
-				+ pay_jobtitle + ", pay_overtime=" + pay_overtime + ", pay_hollyday=" + pay_hollyday + ", pay_bonus="
-				+ pay_bonus + ", pay_meal=" + pay_meal + ", pay_transport=" + pay_transport + ", pay_welfare="
-				+ pay_welfare + ", pay_others=" + pay_others + ", pay_total=" + pay_total + ", pay_date=" + pay_date
+		return "Pay [pay_no=" + pay_no + ", emp_no=" + emp_no + ", pay_emp_name=" + pay_emp_name + ", pay_emp_job="
+				+ pay_emp_job + ", pay_basepay=" + pay_basepay + ", pay_jobtitle=" + pay_jobtitle + ", pay_overtime="
+				+ pay_overtime + ", pay_hollyday=" + pay_hollyday + ", pay_bonus=" + pay_bonus + ", pay_meal="
+				+ pay_meal + ", pay_transport=" + pay_transport + ", pay_welfare=" + pay_welfare + ", pay_income="
+				+ pay_income + ", pay_resident=" + pay_resident + ", pay_empins=" + pay_empins + ", pay_nation="
+				+ pay_nation + ", pay_healins=" + pay_healins + ", pay_others=" + pay_others + ", pay_ptotal="
+				+ pay_ptotal + ", pay_mtotal=" + pay_mtotal + ", pay_total=" + pay_total + ", pay_date=" + pay_date
 				+ "]";
 	}
 

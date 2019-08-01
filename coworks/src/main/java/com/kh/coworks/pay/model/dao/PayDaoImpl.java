@@ -3,6 +3,7 @@ package com.kh.coworks.pay.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,8 +40,14 @@ public class PayDaoImpl implements PayDao {
 	}
 
 	@Override
-	public List<Pay> empListPay(int emp_no) {
-		return sqlSession.selectList("pay.empListPay",emp_no);
+	public List<Pay> empListPay(int cPage ,int limit, int emp_no) {
+		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
+		return sqlSession.selectList("pay.empListPay",emp_no,rows);
+	}
+
+	@Override
+	public int empPayCount(int emp_no) {
+		return sqlSession.selectOne("pay.empPayCount",emp_no);
 	}
 
 }

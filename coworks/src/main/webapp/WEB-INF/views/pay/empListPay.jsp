@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>co-works : 급여관리</title>
+<title>co-works : 개인 사원 급여 관리</title>
 <c:import url="../common/header.jsp" />
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.css">
@@ -15,30 +15,34 @@
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
 	
 <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script> 
-	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
     <!-- Color Picker Plugin JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColor/dist/jquery-asColor.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asGradient/dist/jquery-asGradient.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
     <!-- Date Picker Plugin JavaScript -->
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <!-- Date range Plugin JavaScript -->
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
+    <style>
+     #page{
+     	padding-left:36%;
+     	margin-top:0;
+     	
+     }
+     #subtitle{
+     	padding-bottom:5%;
+     }
+    </style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
-	</div>
 	<div class="page-wrapper">
 		<div class="container-fluid">
 			<div class="col-12">
 				<!-- Column -->
 				<div class="card">
 					<div class="card-body">
-						<h2 class="card-title">인사관리</h2>
-						<div class="row mb-3 col-5" style="margin-left: 30%; margin-top: 30px;">
+						<h2 class="card-title" id="subtitle">급여 명세서 목록</h2>
+						<!-- <div class="row mb-3 col-5" style="margin-left: 30%; margin-top: 30px;">
 							<select class="form-control custom-select" style="width: 20%"
 							id="searchCondition" name="searchCondition">
 								<option value="">----</option>
@@ -50,18 +54,11 @@
 								<input type="search" id="keyword" class="form-control" >
 								<button class="btn btn-info" type="button"   onclick="search();">검색</button>
 							</div>
-						</div>
-						<div class='input-group mb-3 col-5' style="margin-left: 30%; margin-top: 30px;">
-                            <input type='text' class="form-control shawCalRanges" />
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                	<span class="ti-calendar"></span>
-                            	</span>
-                        	</div>
-                        </div>
+						</div> -->
+					<%-- 
 						<input type="button" class="btn  btn-outline-info" id="payFile" name="payFile" value="급여명세서 입력하기(EXCEL)"
 						onclick="location.href='${pageContext.request.contextPath}/pay/payInputForm.do'	">
-						<div style="height : 20px;"> </div>
+						<div style="height : 20px;"> </div> --%>
 
 						<div id="basicgrid" class="jsgrid"
 							style="position: relative; height: 500px; width: 100%; tmargin-top: 200px;">
@@ -93,7 +90,7 @@
 											<tr class="jsgrid-row"  name="emp_no" id="${p.pay_no}">
 											
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 70px;">${p.pay_no}</td>
+													style="width: 70px;">${p.emp_no}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
 													style="width: 70px;">${p.pay_emp_name}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
@@ -115,7 +112,9 @@
 									</tbody>
 								</table>
 							</div>
+							<div id="page">
 							<c:out value="${pageBar}" escapeXml="false" />
+							</div>
 						</div>
 					</div>
 				</div>
