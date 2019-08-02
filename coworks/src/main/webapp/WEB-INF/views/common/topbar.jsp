@@ -12,9 +12,13 @@
 		<!-- Logo -->
 		<!-- ============================================================== -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/common/gomain.do"> <!-- Logo icon --> <b> <!--You can put here icon as well // <i class="wi wi-sunset"></i> //--> <!-- Dark Logo icon --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" class="dark-logo" style="width: 33px; height: 34px" /> <!-- Light Logo icon --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage"
-					class="light-logo" style="width: 33px; height: 34px" />
-			</b> <!--End Logo icon --> <!-- Logo text --> <span> <!-- dark Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" alt="homepage" class="dark-logo" style="width: 148px; height: 25px" /> <!-- Light Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" class="light-logo" alt="homepage" style="width: 148px; height: 25px" /></span>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/common/gomain.do"> <!-- Logo icon --> <b> <!--You can put here icon as well // <i class="wi wi-sunset"></i> //--> <!-- Dark Logo icon -->
+					<img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" class="dark-logo" style="width: 33px; height: 34px" /> <!-- Light Logo icon --> <img
+					src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" class="light-logo" style="width: 33px; height: 34px"
+				/>
+			</b> <!--End Logo icon --> <!-- Logo text --> <span> <!-- dark Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" alt="homepage" class="dark-logo"
+					style="width: 148px; height: 25px"
+				/> <!-- Light Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" class="light-logo" alt="homepage" style="width: 148px; height: 25px" /></span>
 			</a>
 		</div>
 		<!-- ============================================================== -->
@@ -31,8 +35,9 @@
 				<!-- ============================================================== -->
 				<!-- Comment -->
 				<!-- ============================================================== -->
-				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell"></i>
-						<div class="notify">
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="mdi mdi-bell"></i>
+						<div class="notify" id="approvalHeartbit" style="display: none;">
 							<c:if test="${sessionScope.approvalReceiveList.size() ne '0' }">
 								<span class="heartbit"></span>
 								<span class="point"></span>
@@ -44,28 +49,20 @@
 							<li>
 								<div class="drop-title">결재 대기 문서</div>
 							</li>
-							<li><c:if test="${sessionScope.approvalReceiveList.size() ne '0' }">
+							<li>
 
-									<div class="message-center">
-										<c:forEach var="appDoc" items="${sessionScope.approvalReceiveList}">
-											<a href="${pageContext.request.contextPath }/approval/approvalDoc/v/${appDoc.adoc_no}">
-												<div class="btn btn-danger btn-circle">
-													<i class="fa fa-link"></i>
-												</div>
-												<div class="mail-contnet">
-													<h5>${appDoc.adoc_subject }</h5>
-													<span class="mail-desc">${appDoc.writerName }</span> <span class="time"><fmt:formatDate value="${appDoc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" /></span>
-												</div>
-											</a>
-										</c:forEach>
-									</div>
+								<div class="message-center" id="approvalMSG">
+										
+								</div>
 
-								</c:if> <c:if test="${sessionScope.approvalReceiveList.size() eq '0' }">
-									<div class="m-3" align="center">
-										<h5 class="text-info">현재 결재 대기 중인 문서가 없습니다</h5>
-									</div>
-								</c:if></li>
-							<li><a class="nav-link text-center" href="${pageContext.request.contextPath }/approval/approvalReceive.do"> <strong>전자 결재 미결함(${sessionScope.approvalReceiveList.size() })</strong> <i class="fa fa-angle-right"></i>
+
+								<div class="m-3" align="center" id="approvalNoMSG">
+									<h5 class="text-info">현재 결재 대기 중인 문서가 없습니다</h5>
+								</div>
+							</li>
+							<li><a class="nav-link text-center" href="${pageContext.request.contextPath }/approval/approvalReceive.do"> <strong id="approvalCnt"></strong> <i
+									class="fa fa-angle-right"
+								></i>
 							</a></li>
 						</ul>
 					</div></li>
@@ -75,7 +72,9 @@
 				<!-- ============================================================== -->
 				<!-- Messages -->
 				<!-- ============================================================== -->
-				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-email"></i>
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
+						class="mdi mdi-email"
+					></i>
 						<div class="notify">
 							<span class="heartbit"></span> <span class="point"></span>
 						</div>
