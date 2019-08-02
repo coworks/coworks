@@ -22,10 +22,13 @@
 					href="${pageContext.request.contextPath}/mail/authCheck.do"
 					aria-expanded="false"><i class="mdi mdi-email"></i><span
 						class="hide-menu">메일</span></a></li>
+				<c:set var="aucal" value="${sessionScope.authority.auth_cal}" />
+				<c:if test="${aucal eq 'Y'}">
 				<li><a
 					href="${pageContext.request.contextPath}/calendar/calendarview.do"
 					aria-expanded="false"><i class="mdi mdi-calendar-multiple"></i><span
 						class="hide-menu">일정</span></a></li>
+				</c:if>
 				<li><a
 					href="${pageContext.request.contextPath}/todo/todolist.do"
 					aria-expanded=false"><i
@@ -33,6 +36,8 @@
 						class="hide-menu">TODO</span></a></li>
 				<li><a href="#" aria-expanded="false"><i
 						class="mdi mdi-message-text-outline"></i><span class="hide-menu">메신저</span></a></li>
+				<c:set var="auapproval" value="${sessionScope.authority.auth_approval}" />
+				<c:if test="${auapproval eq 'Y'}">
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-pen"></i><span class="hide-menu">전자결재</span></a>
 					<ul aria-expanded="false" class="collapse">
@@ -53,6 +58,9 @@
 							href="${pageContext.request.contextPath}/approval/approvalComplete.do">완료함</a></li>
 						<!-- 내가 결재서류 올리고 모든 결재가 끝난 문서 -->
 					</ul></li>
+				</c:if>
+				<c:set var="audata" value="${sessionScope.authority.auth_data}" />
+				<c:if test="${audata eq 'Y'}">
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-package-variant-closed"></i><span class="hide-menu">자료실</span></a>
 					<ul aria-expanded="false" class="collapse">
@@ -70,6 +78,9 @@
 							href="${pageContext.request.contextPath}/documentboard/deptdocSelect.do">부서별
 								자료실</a></li>
 					</ul></li>
+				</c:if>
+				<c:set var="auboard" value="${sessionScope.authority.auth_board}" />
+				<c:if test="${auboard eq 'Y'}">
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-bulletin-board"></i><span class="hide-menu">게시판</span></a>
 					<ul aria-expanded="false" class="collapse">
@@ -87,6 +98,7 @@
 						<li><a
 							href="${pageContext.request.contextPath}/documentboard/${ sessionScope.employee.dept_code }">부서게시판</a></li>
 					</ul></li>
+				</c:if>
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-book-open-variant"></i><span class="hide-menu">교육</span></a>
 					<ul aria-expanded="false" class="collapse">
@@ -110,15 +122,20 @@
 							class="mdi mdi-account-settings-variant"></i> <span
 							class="hide-menu">인사 관리</span></a></li>
 				</c:if>
-						
+				<c:set var="auauthor" value="${sessionScope.authority.auth_authority}" />
+				<c:if test="${auauthor eq 'Y'}">		
 				<li><a
 					href="${pageContext.request.contextPath}/authority/authorityList.do"
 					aria-expanded="false"><i class="mdi mdi-account-key"></i> <span
 						class="hide-menu">권한관리</span></a></li>
+				</c:if>
+				<c:set var="aupay" value="${sessionScope.authority.auth_pay}" />
+				<c:if test="${aupay eq 'Y'}">
 				<li><a
 					href="${pageContext.request.contextPath}/pay/employeeList.do"
 					aria-expanded="false"><i class="mdi mdi-account-star"></i> <span
 						class="hide-menu">급여관리</span></a></li>
+				</c:if>
 
 			</ul>
 		</nav>

@@ -122,25 +122,25 @@
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority1"
-															value="인사" <%=authority.getAuth_personnal().equals("Y")?"checked":""%>> <label class="custom-control-label"
+															value="인사" <%=authority != null && authority.getAuth_personnal().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority1" >인사</label>
 													</div>
 												 	<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority2"
-															value="자료실" <%=authority.getAuth_data().equals("Y")?"checked":""%>> <label class="custom-control-label"
+															value="자료실" <%=authority != null && authority.getAuth_data().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority2" >자료실</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority3"
-															value="회사일정" <%=authority.getAuth_cal().equals("Y")?"checked":""%>> <label class="custom-control-label"
+															value="회사일정" <%=authority != null && authority.getAuth_cal().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority3" >회사일정</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority4"
-															value="급여" <%=authority.getAuth_pay().equals("Y")?"checked":""%>> <label class="custom-control-label"
+															value="급여" <%=authority != null && authority.getAuth_pay().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority4" >급여</label>
 													</div> 
 												</div>
@@ -148,19 +148,19 @@
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority5"
-															value="게시판" <%=authority.getAuth_board().equals("Y")?"checked":""%>> <label class="custom-control-label"
+															value="게시판" <%=authority != null && authority.getAuth_board().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority5" >게시판</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority6"
-															value="결재서류" <%=authority.getAuth_approval().equals("Y")?"checked":""%>> <label class="custom-control-label"
+															value="결재서류" <%=authority != null && authority.getAuth_approval().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority6" >결재서류</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority7"
-															value="권한관리" <%=authority.getAuth_authority().equals("Y")?"checked":""%>> <label class="custom-control-label"
+															value="권한관리" <%=authority != null && authority.getAuth_authority().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority7" >권한관리</label>
 													</div>
 												</div> 
