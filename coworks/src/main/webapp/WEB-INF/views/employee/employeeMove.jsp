@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, com.kh.coworks.employee.model.vo.*" %>
+<%@ page import="java.util.*, com.kh.coworks.employee.model.vo.*, com.kh.coworks.authority.model.vo.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -20,8 +20,6 @@
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
 	</div>
-	
-	
 
 	<div class="page-wrapper">
 		<div class="container-fluid">
@@ -58,7 +56,7 @@
 												<label class="control-label">부서</label> <select
 													id="dept_code" name="dept_code"
 													class="form-control custom-select">
-													<option value="0">${employee.dept_name}</option>
+													<option value="${employee.dept_code}">${employee.dept_name}</option>
 													<c:forEach items="${departmentList}" var="de">
 														<option value="${de.dept_code}">${de.dept_name}</option>
 													</c:forEach>
@@ -87,7 +85,7 @@
 												<label class="control-label">직급</label> <select
 													id="job_code" name="job_code"
 													class="form-control custom-select">
-													<option value="0">${employee.job_title}</option>
+													<option value="${employee.job_code}">${employee.job_title}</option>
 													<c:forEach items="${jobList}" var="j">
 														<option value="${j.job_code}">${j.job_title}</option>
 													</c:forEach>
@@ -117,55 +115,55 @@
 												<% 
 													/* List.contains메소드를 사용하기 위해 String[] => List로 형변환함.  */
 													List<String> auList = null;
-													String[] authority = ((Employee)session.getAttribute("employee")).getEmp_authority();
+													Authority authority = ((Authority)request.getAttribute("au"));
 													if(authority != null)//이 조건이 없다면,취미체크박스에 하나도 체크하지 않았다면, Array.asList(null)=>NullPointerException 
-														auList = Arrays.asList(authority); 
+														//auList = Arrays.asList(authority); 
 												%>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority1"
-															value="인사" <%=auList!=null && auList.contains("인사")?"checked":""%>> <label class="custom-control-label"
+															value="인사" <%=authority.getAuth_personnal().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority1" >인사</label>
 													</div>
-													<div class="custom-control custom-checkbox">
+												 	<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority2"
-															value="자료실" <%=auList!=null && auList.contains("자료실")?"checked":""%>> <label class="custom-control-label"
+															value="자료실" <%=authority.getAuth_data().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority2" >자료실</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority3"
-															value="회사일정" <%=auList!=null && auList.contains("회사일정")?"checked":""%>> <label class="custom-control-label"
+															value="회사일정" <%=authority.getAuth_cal().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority3" >회사일정</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority4"
-															value="급여" <%=auList!=null && auList.contains("급여")?"checked":""%>> <label class="custom-control-label"
+															value="급여" <%=authority.getAuth_pay().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority4" >급여</label>
-													</div>
+													</div> 
 												</div>
-												<div class="col-sm-6">
+												 <div class="col-sm-6">
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority5"
-															value="게시판" <%=auList!=null && auList.contains("게시판")?"checked":""%>> <label class="custom-control-label"
+															value="게시판" <%=authority.getAuth_board().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority5" >게시판</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority6"
-															value="결재서류" <%=auList!=null && auList.contains("결재서류")?"checked":""%>> <label class="custom-control-label"
+															value="결재서류" <%=authority.getAuth_approval().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority6" >결재서류</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="emp_authority"
 															class="custom-control-input" id="emp_authority7"
-															value="권한관리" <%=auList!=null && auList.contains("권한관리")?"checked":""%>> <label class="custom-control-label"
+															value="권한관리" <%=authority.getAuth_authority().equals("Y")?"checked":""%>> <label class="custom-control-label"
 															for="emp_authority7" >권한관리</label>
 													</div>
-												</div>
+												</div> 
 											</div>
 										</div>
 										<!--/span-->

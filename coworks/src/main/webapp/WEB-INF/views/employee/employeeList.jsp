@@ -148,7 +148,7 @@ td th {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group has-success">
-											<label class="control-label">Gender</label> <select
+											<label class="control-label">성별</label> <select
 												id="emp_gender" name="emp_gender"
 												class="form-control custom-select">
 												<option value="M">Male</option>
@@ -175,8 +175,8 @@ td th {
 									<div class="col-md-6">
 										<div class="form-group">
 											<div class="form-group">
-												<label for="example-email">Email <span class="help">
-														e.g. "example@gmail.com"</span></label> <input type="email"
+												<label for="example-email">이메일 <span class="help">
+														</span></label> <input type="email"
 													id="emp_email" name="emp_email" class="form-control"
 													placeholder="Email">
 											</div>
@@ -242,7 +242,7 @@ td th {
 									<div class="col-md-6">
 										<div class="form-group">
 											<div class="form-group">
-												<label for="example-tel-input" class="col-form-label">Telephone</label>
+												<label for="example-tel-input" class="col-form-label">연락처</label>
 												<input class="form-control" id="emp_phone" name="emp_phone"
 													type="tel" placeholder="010-1234-5678"
 													id="example-tel-input">

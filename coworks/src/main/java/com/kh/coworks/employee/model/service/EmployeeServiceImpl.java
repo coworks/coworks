@@ -103,5 +103,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.updateAuthority(ah);
 	}
 
+	@Override
+	public Authority selectOneAuthority(int emp_no) {
+		return employeeDao.selectOneAuthority(emp_no);
+	}
+
 
 }
