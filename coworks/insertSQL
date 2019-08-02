@@ -177,4 +177,5 @@ Insert into JOB (JOB_CODE,JOB_TITLE) values ('J1','부장');
 	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J6','사원');
 
 
+
 commit;
