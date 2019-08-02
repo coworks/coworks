@@ -313,7 +313,8 @@ public class AttendanceController {
 		  System.out.println("Date1 : "+date1);
 		  Attendance attend=new Attendance();
 		  attend.setEmp_no(employee.getEmp_no());
-		    
+		  
+		  // uilt.Date를 sql.Date로 변경
 		  SimpleDateFormat dt = new SimpleDateFormat("yyyyMMdd"); 
 		  java.util.Date date = dt.parse(date1);  
 		  java.sql.Date sqlDate = new java.sql.Date(date.getTime());
