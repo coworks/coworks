@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,16 +35,33 @@ public class EmployeeController {
 	public String mypageView() {
 		return "mypage/mypage";
 	}
-	
+
 	@RequestMapping("mypage/editMypage.do")
 	public String editMypageView() {
 		return "mypage/editMypage";
 	}
-	
-	@RequestMapping("mypage/updateEmpInfo.do")
-	public String updateEmployee() {
-		return "redirect:/mypage/mypage.do";
+
+	@RequestMapping("mypage/editMypageEnd.do")
+	public String editMypageEnd(Employee emp, 
+			@RequestParam("address1")String address1, @RequestParam("address2")String address2,	HttpServletRequest request) {
+
+		emp.setEmp_address(address1+" "+address2);
+		HttpSession session = request.getSession();
+		Employee employee = (Employee) session.getAttribute("employee");
+		employee.setEmp_email(emp.getEmp_email());
+		employee.setEmp_emailpassword(emp.getEmp_emailpassword());
+		employee.setEmp_password(emp.getEmp_password());
+		employee.setEmp_address(emp.getEmp_address());
+		employee.setEmp_phone(emp.getEmp_phone());
+		
+		int result = employeeService.updateEmployee(employee);
+		
+		if(result > 0)
+            session.setAttribute("employee",employee);
+		
+		return "redirect:mypage.do";
 	}
+
 	
 	@RequestMapping("/employee/employeeList.do")
 	public String selectEmployeeList(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage, Model model) {

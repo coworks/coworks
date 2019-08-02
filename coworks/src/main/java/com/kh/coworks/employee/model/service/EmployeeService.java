@@ -46,5 +46,8 @@ public interface EmployeeService {
 
 	Authority selectOneAuthority(int emp_no);
 
+	int updateEmployee(Employee emp);
+
+
 	
 }

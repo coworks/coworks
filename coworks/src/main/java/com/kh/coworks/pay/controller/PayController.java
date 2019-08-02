@@ -2,6 +2,7 @@ package com.kh.coworks.pay.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -101,7 +102,8 @@ public class PayController {
 		filename = savePath + "/" + renamedName;
 		excel.setOutputColumns("A", "B", "C", "D", "F", "L", "S", "T");
 		excel.setStartRow(0);
-		List<Map<String, String>> list = er.read(excel);
+		List<Map<String, String>> list = null;
+		list = er.read(excel);
 		System.out.println(list.get(0).get("A"));
 //		JSONArray json = new JSONArray();
 //		json.addAll(list);
@@ -119,12 +121,36 @@ public class PayController {
 		excel.setStartRow(0);
 		Pay pay;
 
-		List<Map<String, String>> list = er.read(excel);
-
-		SimpleDateFormat transFormat = new SimpleDateFormat("yy/MM/dd");
-		String tempdate = transFormat.format(list.get(0).get("B"));
-		java.sql.Date date = java.sql.Date.valueOf(tempdate);
+		List<Map<String, String>> list = null;
+		list = er.read(excel);
+//		String tem = list.get(0).get("B") +list.get(0).get("D") +list.get(0).get("F");
+		String tem = list.get(0).get("B");
+		String m ="";
+		String d ="";
+		if(list.get(0).get("D").length() <= 1)
+			m = "0"+list.get(0).get("D");
+		if(list.get(0).get("F").length() <= 1)
+			d = "0"+list.get(0).get("F");
+		
+		tem = tem+m+d;
+		System.out.println(tem);
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd"); 
+	    java.util.Date date = null;
+	    java.sql.Date sqlDate = null;
+		try {
+			date = transFormat.parse(tem);
+			sqlDate = new java.sql.Date(date.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+//		System.out.println(tempdate);
+		System.out.println("날짜 : ");
+//		System.out.println(tem);
+//		System.out.println(tempdate);
+//		java.sql.Date date = java.sql.Date.valueOf(tempdate);
+		System.out.println(date);
 		for (int i = 3; i < list.size() - 1; i++) {
+
 			pay = new Pay();
 			pay.setEmp_no(Integer.parseInt(list.get(i).get("A")));
 			pay.setPay_emp_name(list.get(i).get("B"));
@@ -146,7 +172,7 @@ public class PayController {
 			pay.setPay_ptotal(Integer.parseInt(list.get(i).get("L")));
 			pay.setPay_mtotal(Integer.parseInt(list.get(i).get("S")));
 			pay.setPay_total(Integer.parseInt(list.get(i).get("T")));
-			pay.setPay_date(date);
+			pay.setPay_date(sqlDate);
 
 			payService.insertPay(pay);
 		}

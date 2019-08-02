@@ -44,6 +44,7 @@ table{
 			</a>
 		</div>
 	<body>
+
 	<div class="container-fluid">
 			<div class="col-12">
 				<!-- Column -->

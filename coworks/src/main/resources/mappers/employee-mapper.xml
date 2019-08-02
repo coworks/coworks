@@ -153,7 +153,18 @@
 			AUTH_PAY = #{auth_pay}
 		WHERE EMP_NO = #{emp_no}
 	</update>
-	
+
+	<update id="updateEmployee" parameterType="employee">
+		UPDATE EMPLOYEE
+		SET
+			EMP_PASSWORD = #{emp_password},
+			EMP_EMAIL = #{emp_email},
+			EMP_EMAILPASSWORD=#{emp_emailpassword},
+			EMP_ADDRESS=#{emp_address}
+		WHERE
+			EMP_NO = #{emp_no}
+			
+	</update>
 	
 	
 </mapper>

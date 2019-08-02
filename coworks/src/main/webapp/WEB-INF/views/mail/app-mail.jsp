@@ -91,10 +91,10 @@
                                                            	
                                                             <td class="hidden-xs-down " > 
                                                             <c:if test="${m.getMail_name() eq null }">
-															<c:if test="${m.getMail_from_email().length() gt 30}">
-                                                            	${m.getMail_from_email().substring(0,30) } ...
+															<c:if test="${m.getMail_from_email().length() gt 25}">
+                                                            	${m.getMail_from_email().substring(0,25) } ...
                                                             </c:if>
-                                                          	<c:if test="${m.getMail_from_email().length() le 30}">
+                                                          	<c:if test="${m.getMail_from_email().length() le 25}">
                                                           		${m.getMail_from_email() }
                                                           	</c:if>
                                                           	</c:if>
@@ -125,10 +125,10 @@
                                                             	</c:when>
                                                             </c:choose>
                                                             </c:if>
-                                                          	<c:if test="${m.getMail_subject().length() gt 30}">
-                                                            	${m.getMail_subject().substring(0,10) } ...
+                                                          	<c:if test="${m.getMail_subject().length() gt 20}">
+                                                            	${m.getMail_subject().substring(0,20) } ...
                                                             </c:if>
-                                                          	<c:if test="${m.getMail_subject().length()le 30}">
+                                                          	<c:if test="${m.getMail_subject().length()le 20}">
                                                           		${m.getMail_subject() }
                                                           	</c:if> 
                                                             </td>

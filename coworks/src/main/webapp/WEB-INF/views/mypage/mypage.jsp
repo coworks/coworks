@@ -71,7 +71,8 @@
 										<div class="form-group row">
 											<label class="control-label text-right col-3">주소 : </label>
 											<div class=" col-9">
-												<p class="form-control-static">서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F 길이 테스트ㅡ으응으ㅡ으으으으으ㅡ으으으으으ㅡ으으으으으으으으ㅡ으으으으으으ㅡ</p>
+												<p class="form-control-static">
+												${sessionScope.employee.emp_address }</p>
 											</div>
 										</div>
 									</div>

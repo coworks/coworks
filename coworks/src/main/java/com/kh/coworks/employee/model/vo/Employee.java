@@ -27,8 +27,9 @@ public class Employee implements Serializable {
 	private String emp_signature; // ���μ���
 	private String[] emp_authority;
 	private String dept_name;
+	private String emp_address;
 	private String job_title;
-	
+	 
 	public int getEmp_no() {
 		return emp_no;
 	}

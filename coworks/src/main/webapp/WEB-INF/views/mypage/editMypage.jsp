@@ -26,25 +26,30 @@
 						<div class="card">
 							<div class="card-body col-8 align-self-center">
 								<h3 class="box-title text-themecolor">회원정보 수정</h3>
-								<form class="form-control-line mt-5" method="post" action="updateEmpInfo.do">
+								<form class="form-control-line mt-5 form-group-danger" method="post" action="editMypageEnd.do" id="update" enctype="multipart/form-data">
 									<div class="form-group">
-										<label class="fontw"><i class=" ti-help-alt"></i>　현재 비밀번호</label> <input type="password" class="form-control" value="password">
+										<label class="fontw"><i class=" ti-help-alt"></i>　현재 비밀번호</label> <input type="password" name="pre_password" id="pre_password" class="form-control" placeholder="password">
 									</div>
+									<input type="hidden" value="${sessionScope.employee.emp_password}" id="hiddenPw"/>
 									<br>
 									<div class="form-group">
-										<label class="fontw"><i class="ti-info-alt"></i>　변경할 비밀번호</label> <input type="password" class="form-control" value="password">
+										<label class="fontw"><i class="ti-info-alt"></i>　변경할 비밀번호</label> <input type="password" name="new_password" id="new_password"  class="form-control pw" placeholder="password">
 									</div>
 									
 									<div class="form-group">
-										<label class="fontw"><i class="ti-info-alt"></i>　비밀번호 확인</label> <input type="password" class="form-control" value="password">
+										<label class="fontw"><i class="ti-info-alt"></i>　비밀번호 확인</label> <input type="password" name="emp_password" id="emp_password"  class="form-control pw" placeholder="password">
 									</div>
 									<br>
 									<div class="form-group">
-										<label class="fontw"><i class="ti-email"></i>　이메일</label> <input type="email" name="emp_email" value="${ sessionScope.employee.emp_email }" class="form-control">
+										<label class="fontw"><i class="ti-email"></i>　이메일</label> <input type="email" placeholder="email 입력" name="emp_email" value="${ sessionScope.employee.emp_email }" class="form-control">
 									</div>
+									<div class="form-group">
+										<label class="fontw"><i class="ti-info-alt"></i>　비밀번호 확인</label> <input type="password" placeholder="email password 입력"  id="emp_emailpassword" name="emp_emailpassword" class="form-control" value="${sessionScope.employee.emp_emailpassword }">
+									</div>
+									
 									<br>
 									<div class="form-group">
-										<label class="fontw"><i class=" ti-mobile"></i>　연락처</label> <input type="text" class="form-control phone-inputmask" id="phone-mask" im-insert="true" value="${ sessionScope.employee.emp_phone }" placeholder="010-1234-1234">
+										<label class="fontw"><i class=" ti-mobile"></i>　연락처</label> <input type="text" name="emp_phone" class="form-control phone-inputmask" id="phone-mask" im-insert="true" value="${ sessionScope.employee.emp_phone }" placeholder="010-0000-xxxx">
 									</div>
 									<br>
 									<div class="form-group">
@@ -58,8 +63,9 @@
 												
 											</div>
 										</div>
-										<input type="text" id="sample6_address" placeholder="주소" class="form-control mb-2"> <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> <input
-											type="hidden" id="sample6_extraAddress" class="form-control mb-2" placeholder="참고항목"
+										<input type="text" name="address1" id="sample6_address" placeholder="주소" value="${ sessionScope.employee.emp_address }" class="form-control mb-2"> 
+										<input type="text" name="address2" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> 
+										<input type="hidden" id="sample6_extraAddress" class="form-control mb-2" placeholder="참고항목"
 										>
 									</div>
 									<br>
@@ -72,12 +78,12 @@
 											<span class="input-group-addon btn btn-secondary btn-file"> <span class="fileinput-new">선택하기</span> <span class="fileinput-exists">바꾸기</span> <input type="file" name="...">
 											</span> <a href="#" class="input-group-addon btn btn-danger fileinput-exists ml-1" data-dismiss="fileinput">삭제</a>
 										</div> -->
-										<input type="file" id="input-file-now-custom-1" class="dropify" data-default-file="${pageContext.request.contextPath }/resources/images/empSign/stamp.png" />
+										<input type="file" id="input-file-now-custom-1" class="dropify" name="emp_signature1" data-default-file="${pageContext.request.contextPath }/resources/images/empSign/stamp.png" />
 
 									</div>
 
 									<div align="center">
-										<input type="submit" value="수정하기" class="btn btn-outline-info" /> &nbsp;&nbsp;&nbsp;
+										<input type="button" id="sub" value="수정하기" class="btn btn-outline-info" /> &nbsp;&nbsp;&nbsp;
 										<input type="reset" value="초기화" class="btn btn-outline-success" /> &nbsp;&nbsp;&nbsp;
 										<input type="button" value="취소" class="btn btn-outline-dark"
 											onclick="javascript:history.back();"
@@ -98,9 +104,57 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/dropify/dist/js/dropify.min.js"></script>
 	<script>
+	
+	$("#sub").on("click",function(){
+		if( $("#pre_password") != null){
+			if($("#pre_password").val() == $("#hiddenPw").val()){
+				if($("#new_password").val() == $("#emp_password").val()){	
+					alert("수정이 완료되었습니다.");
+					$("#update").submit();
+				}else alert("변경할 비밀번호가 일치하지 않습니다.");
+			}else alert("현재 비밀번호가 일치하지 않습니다.");
+		} else alert("현재 비밀번호를 입력해주세요");
+		
+	});
 		function agg() {
 			console.log($('input:file'));
 		}
+		
+		$("#pre_password").on("change",function(){
+			if($("#pre_password").val() == $("#hiddenPw").val()){
+				$("#pre_password").removeClass("form-control-danger");
+				$("#pre_password").parent().eq(0).removeClass("has-danger");
+
+				$("#pre_password").addClass("form-control-success");
+				$("#pre_password").parent().eq(0).addClass("has-success");
+			}
+			else{
+				console.log("일치 x");
+
+				$("#pre_password").removeClass("form-control-success");
+				$("#pre_password").parent().eq(0).removeClass("has-success");
+				$("#pre_password").addClass("form-control-danger");
+				$("#pre_password").parent().eq(0).addClass("has-danger");
+			}
+		});
+		
+		
+		$(".pw").on("change",function(){
+			if($("#new_password").val() == $("#emp_password").val()){
+				$("#emp_password").removeClass("form-control-danger");
+				$("#emp_password").parent().removeClass("has-danger");
+
+				$("#emp_password").addClass("form-control-success");
+				$("#emp_password").parent().addClass("has-success");
+			}
+			else{
+				$("#emp_password").removeClass("form-control-success");
+				$("#emp_password").parent().removeClass("has-success");
+				$("#emp_password").addClass("form-control-danger");
+				$("#emp_password").parent().addClass("has-danger");
+			}
+		});	
+	
 		$(document).ready(
 				function() {
 					// Basic

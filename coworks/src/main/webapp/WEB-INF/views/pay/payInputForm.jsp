@@ -70,7 +70,7 @@
 							</div> -->
 						<!-- <table class="jsgrid-table table table-striped table-hover"> -->
 							<tbody class="jsgrid-table table table-striped table-hover" id="append">
-
+								
 							</tbody>
 						</table>		
 					</div>
@@ -102,6 +102,8 @@
 			async:false,
 			contentType:false,
 			success:function(data){
+				$("#info").empty();
+				$("#append").empty();
 				$("#info").append(data[0].B +" / "+data[0].D +" / "+data[0].F )
 				for(var i = 2 ; i < data.length; i++){
 					var tbody = $("#append");

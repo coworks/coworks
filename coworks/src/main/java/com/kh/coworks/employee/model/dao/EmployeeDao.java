@@ -45,5 +45,7 @@ public interface EmployeeDao {
 	int updateAuthority(Authority ah);
 
 	Authority selectOneAuthority(int emp_no);
+
+	int updateEmployee(Employee emp);
 	
 }
