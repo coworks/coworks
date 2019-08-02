@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -60,7 +60,34 @@
                  						
                  						 <tbody>  	
                                        	 <c:forEach items="${list}" var="list" varStatus="idx">
-                                         
+                                       	 
+											 
+											
+												<input type="hidden" id="eduDate" name="eduDate" value="${list.edu_eduDate}"/>
+													<c:set var="now" value="<%=new java.util.Date()%>" />
+													<fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd HH:mm"/>
+													<fmt:formatDate var="edudate" value="${list.edu_eduDate}" pattern="yyyy-MM-dd HH:mm" />
+												
+												 <fmt:parseDate var="a" value="${list.edu_eduDate}" pattern="yyyy-MM-dd HH:mm"/> 
+												 
+													<c:set var="start2" value="${a.getTime()+60*60*24*1000}"/>
+													<c:set var="end2" value="${a.getTime()+60*60*24*1000*7}"/>
+													
+													<jsp:useBean id="convtSt" class="java.util.Date">
+														<c:set target="${convtSt}" property="time" value="${ start2 }"/>
+													</jsp:useBean>
+													
+													<jsp:useBean id="convtEd" class="java.util.Date">
+														<c:set target="${convtEd}" property="time" value="${ end2 }"/>
+													</jsp:useBean>
+													<fmt:formatDate var="start2_cvt" value="${convtSt}" pattern="yyyy-MM-dd HH:mm"/>
+													<fmt:formatDate var="end2_cvt" value="${convtEd}" pattern="yyyy-MM-dd HH:mm" />
+													
+													<fmt:parseDate var="startReport" value="${start2_cvt}" pattern="yyyy-MM-dd HH:mm"/>
+													<fmt:parseDate var="endReport" value="${end2_cvt}" pattern="yyyy-MM-dd HH:mm"/> 
+															
+											
+											
 											<tr onclick="location.href='${pageContext.request.contextPath}/education/eduDetail.do?edu_no=${list.edu_no}'">
 												<td>${idx.count}</td>
 												<td>${list.edu_type}</td>
@@ -70,23 +97,32 @@
 													
 												</td>
 												<td>${list.edu_instructor}</td>
-												<td>
-													<input type="hidden" id="eduDate" name="eduDate" value="${list.edu_eduDate}"/>
-													<fmt:formatDate value="${list.edu_eduDate}" pattern="yyyy-MM-dd" />
-												</td>
+												 
 												<td  onclick="event.cancelBubble=true"> 
 													<c:if test="${list.edurep_no==0}">
-														<button id="report" name="report" class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');">보고서 작성</button>
+														<c:choose> 
+														<c:when test="${today lt edudate}">
+															<button id="cancel" name="cancel"  class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button>
+														</c:when>
+														<c:when test="${today ge start2_cvt && today le end2_cvt}">
+															<button id="report" name="report" class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');">보고서 작성</button>
+														</c:when>
+														</c:choose>
+														
 													</c:if>
-													<c:if test="${list.edurep_no!=0}">
+													
+													<c:if test="${list.edurep_no!=0  }">
 														<button id="reportView" class="btn btn-secondary" onclick="fnReportView('${list.edurep_no}');">보고서 보기</button>
-														<button id="reportEdit" name="report" class="btn btn-info" onclick="fnReportEdit('${list.edurep_no}');">보고서 수정</button>
+														<c:if test="${today ge start2_cvt && today le end2_cvt}">
+															<button id="reportEdit" name="report" class="btn btn-info" onclick="fnReportEdit('${list.edurep_no}');">보고서 수정</button>
+														</c:if> 
 													</c:if>
-													<button id="cancel" name="cancel"  class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button>
 												</td>
 											</tr>
 										</c:forEach>
                  						</tbody>
+                 						
+          
                  						
                  					</table>
                  					<c:if test="${list.size() == 0 }">
@@ -116,16 +152,18 @@
 	
 	<script>
 	$( function(){
-		$('#cancel').show(); 
+		/* $('#cancel').show(); 
 		var edu=$('#eduDate').val();
 		var edudate=new Date(edu);  
 		var today=new Date();  
 		console.log(today.getTime());	//오늘
+		
 		var d=new Date(edudate.getFullYear(),edudate.getMonth(),edudate.getDate());	// 교육일
 		var startReport=new Date(d.setDate(d.getDate()+1));
-		console.log(startReport.getTime()); // 교육 다음날
+		
 		var endReport=new Date(d.setDate(d.getDate()+7));
 		console.log(endReport.getTime()); //교육 일주일 후
+		
 		
 		var d2=new Date(edudate.getFullYear(),edudate.getMonth(),edudate.getDate()); // 교육날
 		console.log(startReport.getTime()<=today.getTime() && today.getTime()<=endReport.getTime());
@@ -136,7 +174,7 @@
 		if(d2.getTime()<today){
 			$('#cancel').hide();
 		}
-		
+		 */
 		 
  	});
 	
