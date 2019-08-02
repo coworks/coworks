@@ -21,4 +21,6 @@ public interface AuthorityService {
 
 	int authorityUpdate(Authority authority);
 
+	 Authority  selectEmpAuthority(int emp_no);
+
 }

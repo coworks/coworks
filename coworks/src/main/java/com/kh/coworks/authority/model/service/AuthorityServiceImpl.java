@@ -43,5 +43,10 @@ public class AuthorityServiceImpl implements AuthorityService {
 		return authorityDao.authorityUpdate(authority);
 	}
 
+	@Override
+	public  Authority selectEmpAuthority(int emp_no) {
+		return authorityDao.selectEmpAuthority(emp_no);
+	}
+
 	
 }

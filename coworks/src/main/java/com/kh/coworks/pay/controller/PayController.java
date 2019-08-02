@@ -2,7 +2,6 @@ package com.kh.coworks.pay.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +27,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.kh.coworks.authority.model.service.AuthorityService;
+import com.kh.coworks.authority.model.vo.Authority;
 import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Department;
@@ -44,24 +45,37 @@ public class PayController {
 	EmployeeService employeeService;
 
 	@Autowired
+	AuthorityService authorityService;
+
+	@Autowired
 	PayService payService;
 
 	String filename = "";
 
 	@RequestMapping("/pay/employeeList.do")
 	public String selectEmployeeList(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-			Model model) {
+			Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		Authority au = authorityService.selectEmpAuthority(emp.getEmp_no());
+		if (au != null) {
+			if (au.getAuth_authority().equals("Y")) {
 
-		int limit = 5; // 한 페이지 당 게시글 수
-		ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.selectEmployeeList(cPage, limit));
-		int totalContents = employeeService.selectEmployeeTotalContents();
-		ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
-		ArrayList<Job> jobList = new ArrayList<>(employeeService.selectJobList());
-		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "employeeList.do");
-		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
-				.addAttribute("pageBar", pageBar).addAttribute("departmentList", departmentList)
-				.addAttribute("jobList", jobList);
-		return "pay/payEmpList";
+				int limit = 5; // 한 페이지 당 게시글 수
+				ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.selectEmployeeList(cPage, limit));
+				int totalContents = employeeService.selectEmployeeTotalContents();
+				ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+				ArrayList<Job> jobList = new ArrayList<>(employeeService.selectJobList());
+				String pageBar = Utils.getPageBar(totalContents, cPage, limit, "employeeList.do");
+				model.addAttribute("list", list).addAttribute("totalContents", totalContents)
+						.addAttribute("numPerPage", limit).addAttribute("pageBar", pageBar)
+						.addAttribute("departmentList", departmentList).addAttribute("jobList", jobList);
+				return "pay/payEmpList";
+			} else
+				return "redirect:empListPay.do/" + emp.getEmp_no();
+		} else
+			return "redirect:empListPay.do/" + emp.getEmp_no();
+
 	}
 
 	@RequestMapping("/pay/payInputForm.do")
@@ -125,18 +139,18 @@ public class PayController {
 		list = er.read(excel);
 //		String tem = list.get(0).get("B") +list.get(0).get("D") +list.get(0).get("F");
 		String tem = list.get(0).get("B");
-		String m ="";
-		String d ="";
-		if(list.get(0).get("D").length() <= 1)
-			m = "0"+list.get(0).get("D");
-		if(list.get(0).get("F").length() <= 1)
-			d = "0"+list.get(0).get("F");
-		
-		tem = tem+m+d;
+		String m = "";
+		String d = "";
+		if (list.get(0).get("D").length() <= 1)
+			m = "0" + list.get(0).get("D");
+		if (list.get(0).get("F").length() <= 1)
+			d = "0" + list.get(0).get("F");
+
+		tem = tem + m + d;
 		System.out.println(tem);
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd"); 
-	    java.util.Date date = null;
-	    java.sql.Date sqlDate = null;
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd");
+		java.util.Date date = null;
+		java.sql.Date sqlDate = null;
 		try {
 			date = transFormat.parse(tem);
 			sqlDate = new java.sql.Date(date.getTime());
@@ -182,7 +196,7 @@ public class PayController {
 	@RequestMapping(value = "/pay/empListPay.do/{emp_no}", method = RequestMethod.GET)
 	public String empListPay(@PathVariable("emp_no") String emp_no, Model model,
 			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage) {
-		
+
 		int limit = 5; // 한 페이지 당 게시글 수
 		List<Pay> list = payService.empListPay(cPage, limit, Integer.parseInt(emp_no));
 		int totalContents = payService.empPayCount(Integer.parseInt(emp_no));
@@ -230,26 +244,26 @@ public class PayController {
 		return "pay/payEmpList";
 	}
 
-	@RequestMapping(value = "/pay/searchDatePay.do")	// 아직 미구현 날짜 검색
+	@RequestMapping(value = "/pay/searchDatePay.do") // 아직 미구현 날짜 검색
 	public String searchDataPay(@RequestParam("sdate") Date sdate, @RequestParam("edate") Date edate, Model model) {
 
 		return "pay/empListPay";
 	}
-	
-	@RequestMapping(value="/pay/payDirect.do")
+
+	@RequestMapping(value = "/pay/payDirect.do")
 	public String payDirect() {
 		return "pay/payDirect";
 	}
-	
-	@RequestMapping(value="/pay/payDriectGetInfo")
+
+	@RequestMapping(value = "/pay/payDriectGetInfo")
 	@ResponseBody
-	public Employee payDriectGetInfo(@RequestParam("emp_no")int emp_no) {
+	public Employee payDriectGetInfo(@RequestParam("emp_no") int emp_no) {
 		System.out.println("getInfo 실행");
 		Employee emp = employeeService.selectOneEmployee(emp_no);
 		return emp;
 	}
-	
-	@RequestMapping(value="/pay/payDirectSetInfo.do")
+
+	@RequestMapping(value = "/pay/payDirectSetInfo.do")
 	public String payDirectSetInfo(Pay pay) {
 		System.out.println(pay);
 		int result = payService.insertPay(pay);

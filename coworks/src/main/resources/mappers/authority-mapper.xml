@@ -74,5 +74,8 @@
 		WHERE EMP_NO = #{emp_no}
 	</update>
 	
+	<select id="selectEmpAuthority" resultType="authority">
+		select * from authority where emp_no = #{emp_no}
+	</select>
 
 </mapper>

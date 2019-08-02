@@ -57,4 +57,9 @@ public class AuthorityDaoImpl implements AuthorityDao {
 		return sqlSession.update("authority.updateAuthority",authority);
 	}
 
+	@Override
+	public Authority selectEmpAuthority(int emp_no) {
+		return sqlSession.selectOne("authority.selectEmpAuthority",emp_no);
+	}
+
 }

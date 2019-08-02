@@ -19,4 +19,6 @@ public interface AuthorityDao {
 
 	int authorityUpdate(Authority authority);
 
+	Authority selectEmpAuthority(int emp_no);
+
 }
