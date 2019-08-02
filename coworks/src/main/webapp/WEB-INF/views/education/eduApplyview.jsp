@@ -32,7 +32,7 @@
 	                            		
 	                            		</div>
 	                            		</br></br></br>
-		                      			  <div class="dropdown float-right ">
+		                      		<!-- 	  <div class="dropdown float-right ">
 					                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">교육 유형</button>
 					                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
 					                            	<input type="button" class="dropdown-item" id="type1" name="type1" value="회계" onclick="fnonclick($('input[name=month1]').val())"/>
@@ -40,7 +40,7 @@
 					                            	<input type="button" class="dropdown-item" id="type3" name="type3" value="컴퓨터" onclick="fnonclick($('input[name=month3]').val())"/> 
 					                            	<input type="button" class="dropdown-item" id="type4" name="type4" value="외국어" onclick="fnonclick($('input[name=month3]').val())"/> 
 					                            </div>
-					                      </div>
+					                      </div> -->
 					            </div>
 					            
 					            </br></br></br>
