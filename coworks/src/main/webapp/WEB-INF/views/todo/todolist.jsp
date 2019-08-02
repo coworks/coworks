@@ -62,6 +62,54 @@
 			</div>
 		</div>
 		<!-- TODO 추가 모달 ← -->
+		
+		<!-- TODO 수정 모달 → -->
+			<div id="correcttodo" class="modal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true"
+			style="display: none;">
+			<div class="modal-dialog">
+				<form method="post" action="updatetodo.do" name="correcttodo">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title" id="myModalLabel">TODO 수정하기</h2>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group has-success">
+								<br> <label class="control-label">상태</label> <select
+									id="todo_condition" name="todo_condition"
+									class="form-control custom-select">
+									<option value="null"></option>
+									<option value="0" style="color: red; font-weight: bold;">긴급</option>
+									<option value="1" style="color: orange; font-weight: bold;">보통</option>
+									<option value="2" style="color: green; font-weight: bold;">여유</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="modal-body">
+							<div class="col-md-13">
+								<div class="form-group has-success">
+									<label class="control-label">내용</label> <input type="text"
+										id="todo_content" name="todo_content" class="form-control"
+										value="기존 내용 받아오쟈~~~">
+								</div>
+							</div>
+						</div>
+						<input type="text" value="${ sessionScope.employee.emp_no }"
+							name="emp_no" hidden />
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light waves-effect"
+								data-dismiss="modal">취소하기</button>
+							<button type="submit" class="btn btn-success waves-effect">등록하기</button>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- TODO 수정 모달 ← -->
 
 
 		<div class="page-wrapper">
@@ -85,7 +133,7 @@
 							</div>
 							<br>
 							<!-- Nav tabs -->
-							<div class="vtabs">
+							<div class="vtabs col-12">
 								<ul class="nav nav-tabs tabs-vertical" role="tablist">
 									<li class="nav-item"><a class="nav-link active"
 										data-toggle="tab" href="#home9" role="tab"
@@ -101,7 +149,7 @@
 
 											<!-- 반복문으로 내역 뽑으면 될 듯 -->
 											<div class="row">
-												<div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12">
+												<div class="col-lg-4 col-md-6 col-xs-12">
 													<div class="ribbon-wrapper card"
 														style="border: 1px solid lightgray;">
 
@@ -118,7 +166,7 @@
 														<div class="dropdown-menu animated flipInY"
 															x-placement="bottom-start"
 															style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-															<a class="dropdown-item" href="javascript:void(0)"><i
+															<a class="dropdown-item" type="button" data-toggle="modal" data-target="#correcttodo"><i
 																class="mdi mdi-lead-pencil"></i> 수정하기</a> <a
 																class="dropdown-item" href="javascript:void(0)"><i
 																class="mdi mdi-delete"></i> 삭제하기</a>
@@ -126,7 +174,7 @@
 														<p class="ribbon-content">이거 저거 요고 고거 그거 해야 함. 몬G알G.</p>
 													</div>
 												</div>
-												<div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12">
+												<div class="col-lg-4 col-md-6 col-xs-12">
 													<div class="ribbon-wrapper card"
 														style="border: 1px solid lightgray;">
 														<div class="ribbon ribbon-warning">
@@ -150,7 +198,7 @@
 														<p class="ribbon-content">이거 저거 요고 고거 그거 해야 함. 몬G알G</p>
 													</div>
 												</div>
-												<div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12">
+												<div class="col-lg-4 col-md-6 col-xs-12">
 													<div class="ribbon-wrapper card"
 														style="border: 1px solid lightgray;">
 														<div class="ribbon ribbon-success">
@@ -185,8 +233,14 @@
 						</div>
 					</div>
 				</div>
-
-				<
+				
+				<!-- 글자 수 제한 넘으면 ...으로 표시되게!! -->
+				<!--    <c:if test="${m.getMail_subject().length() gt 20}">
+                                                               ${m.getMail_subject().substring(0,20) } ...
+                                                            </c:if>
+                                                             <c:if test="${m.getMail_subject().length()le 20}">
+                                                                ${m.getMail_subject() }
+                                                             </c:if>  -->
 
 				<!-- 끝 -->
 

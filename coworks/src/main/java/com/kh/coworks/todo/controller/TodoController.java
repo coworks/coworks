@@ -13,10 +13,13 @@ public class TodoController {
 	
 	@RequestMapping("/todo/addtodo.do")
 	public String inserttodo() {
-		return "todo/inserttodo";
+		return "todo/addtodo";
 	}
 	
-	
+	@RequestMapping("/todo/correcttodo.do")
+	public String updatetodo() {
+		return "todo/correcttodo";
+	}
 	
 	
 	

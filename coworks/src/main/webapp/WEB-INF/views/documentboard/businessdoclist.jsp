@@ -98,8 +98,18 @@
 								<tbody class="text-al-ct">
 								<c:forEach items="${list}" var="b">
 									<tr id="${b.bo_no}">
+									
 										<td class="title">${b.bo_no }</td>
-										<td class="text-al-left title">${b.bo_title } 
+										
+										<td class="text-al-left title">
+										
+										   <c:if test="${b.bo_title.length() gt 20}">
+                                                   ${b.bo_title.substring(0,20) } ...
+                                           </c:if>
+                                           <c:if test="${b.bo_title.length()le 20}">
+                                                   ${b.bo_title}
+                                           </c:if> 
+										
 											<div hidden>
 												<c:set var="now" value="<%=new java.util.Date()%>" />
 												<c:set var="today"><fmt:formatDate value="${now}" pattern="yyyy/MM/dd" /></c:set> 
@@ -107,7 +117,6 @@
 												<fmt:formatDate value="${after3days }" type="DATE" pattern="yyyy/MM/dd"/>
 												<fmt:formatDate var="now" value="${b.bo_date }" pattern="yyyy/MM/dd"/>
 											</div>
-											<%-- <input type="text" value="${b.bo_code}" name="bo_code" hidden/> --%>
 										<c:choose>
 											<c:when test="${now <= after3days && now >= today}">
 												&nbsp;&nbsp;<span class="badge badge-danger ml-auto">new&nbsp;</span>
