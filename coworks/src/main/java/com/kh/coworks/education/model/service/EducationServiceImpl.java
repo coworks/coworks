@@ -1,6 +1,9 @@
 package com.kh.coworks.education.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,9 +44,9 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public List<Education> selectEduApply(int emp_no) {
+	public List<Map<String, String>> selectEduApply(int emp_no,int cPage, int limit) {
 		// TODO Auto-generated method stub
-		return eduDao.selectEduApply(emp_no);
+		return eduDao.selectEduApply(emp_no, cPage, limit);
 	}
 
 	@Override
@@ -64,6 +67,24 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public void updateEduReport(EduReport erep) {
 		eduDao.updateEduReport(erep);
+	}
+
+	@Override
+	public int selectApplyTotalContents(int emp_no) {
+		// TODO Auto-generated method stub
+		return eduDao.selectApplyTotalContents(emp_no);
+	}
+
+	@Override
+	public List<Map<String, String>> searchTypeEduApply(HashMap<String,String> hmap, int cPage, int limit) {
+		// TODO Auto-generated method stub
+		return eduDao.searchTypeEduApply(hmap, cPage, limit);
+	}
+
+	@Override
+	public int selectTypeApplyTotalContents(HashMap<String, String> hmap) {
+		// TODO Auto-generated method stub
+		return eduDao.selectTypeApplyTotalContents(hmap);
 	}
 	
 	

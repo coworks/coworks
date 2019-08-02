@@ -1,7 +1,11 @@
 package com.kh.coworks.education.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,9 +45,9 @@ public class EducationDaoImpl implements EducationDao {
 	}
 
 	@Override
-	public List<Education> selectEduApply(int emp_no) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("education.selectEduApply",emp_no);
+	public List<Map<String, String>> selectEduApply(int emp_no,int cPage, int limit) {
+		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
+		return sqlSession.selectList("education.selectEduApply",emp_no,rows);
 	}
 
 	@Override
@@ -65,6 +69,26 @@ public class EducationDaoImpl implements EducationDao {
 	public void updateEduReport(EduReport erep) {
 		sqlSession.update("education.updateEduReport", erep);
 	}
+
+	@Override
+	public int selectApplyTotalContents(int emp_no) {
+		return sqlSession.selectOne("education.selectApplyTotalContents", emp_no);
+		
+	}
+
+	@Override
+	public List<Map<String, String>> searchTypeEduApply(HashMap<String, String> hmap, int cPage, int limit) {
+		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
+		return sqlSession.selectList("education.searchTypeEduApply",hmap,rows);
+	}
+
+	@Override
+	public int selectTypeApplyTotalContents(HashMap<String, String> hmap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("education.selectTypeApplyTotalContents");
+	}
+	
+	
 	
 	
 	

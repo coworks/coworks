@@ -9,6 +9,18 @@
 		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no} ) EAPP WHERE EDU.EDU_NO = EAPP.EDU_NO (+)
 	</select>
 	
+	<select id="selectApplyTotalContents" parameterType="_int" resultType="_int">
+		SELECT COUNT(*) FROM EDUAPPLY WHERE EMP_NO=#{emp_no}
+	</select>
+	
+	<select id="searchTypeEduApply" parameterType="hashmap" resultType="education">
+		SELECT * FROM EDUCATION E,EDUAPPLY EA WHERE EMP_NO=TO_NUMBER(#{emp_no}) AND EDU_TYPE=#{edu_type}
+	</select>
+	
+	<select id="selectTypeApplyTotalContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM EDUAPPLY EA ,EDUCATION E WHERE E.EDU_NO=EA.EDU_NO AND EMP_NO=TO_NUMBER(#{emp_no}) AND EDU_TYPE=#{edu_type}
+	</select>
+	
 	<select id="selectEduApply" resultType="education">
 	SELECT
 	EDU.*,

@@ -2,7 +2,9 @@ package com.kh.coworks.education.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.education.model.service.EducationService;
 import com.kh.coworks.education.model.vo.EduApply;
 import com.kh.coworks.education.model.vo.EduReport;
@@ -65,6 +68,28 @@ public class EducationController {
 		mv.setViewName("education/eduCalendar");
 
 		return mv;
+	}
+	
+	@RequestMapping("/education/searchTypeEducation.do")
+	public ModelAndView searchTypeEducation(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,@RequestParam("edu_type") String edu_type, ModelAndView mv, HttpServletRequest request) {
+		Employee employee = (Employee) request.getSession().getAttribute("employee");
+		 
+		int limit = 1; // 한 페이지 당 게시글 수
+		HashMap<String, String> hmap = new HashMap<>();
+		hmap.put("edu_type", edu_type);
+		hmap.put("emp_no", Integer.toString(employee.getEmp_no()));
+		int totalContents = educationService.selectTypeApplyTotalContents(hmap);
+		System.out.println("총 수량 : "+totalContents);
+		ArrayList<Map<String, String>> edu=  new ArrayList<>(educationService.searchTypeEduApply(hmap,cPage,limit));
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "eduApplyview.do");
+		
+		mv.addObject("list", edu).addObject("pageBar",pageBar).addObject("totalContents", totalContents)
+		.addObject("numPerPage", limit);
+		mv.setViewName("education/eduApplyview");
+		
+	mv.addObject("");	
+	return mv;
+	
 	}
 
 	@RequestMapping("/education/eduDetail.do")
@@ -113,6 +138,27 @@ public class EducationController {
 	}
 
 	@RequestMapping("/education/eduApplyview.do")
+	public ModelAndView eduApplyview(ModelAndView mv, HttpServletRequest request, 
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage
+			 ) {
+		Employee employee = (Employee) request.getSession().getAttribute("employee");
+
+		int limit = 10; // 한 페이지 당 게시글 수
+		
+		int totalContents = educationService.selectApplyTotalContents(employee.getEmp_no());
+		
+		ArrayList<Map<String, String>> edu=  new ArrayList<>(educationService.selectEduApply(employee.getEmp_no(),cPage,limit));
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "eduApplyview.do");
+		
+		mv.addObject("list", edu).addObject("pageBar",pageBar).addObject("totalContents", totalContents)
+		.addObject("numPerPage", limit);
+		mv.setViewName("education/eduApplyview");
+
+		return mv;
+	}
+
+	/*
+	@RequestMapping("/education/eduApplyview.do")
 	public ModelAndView eduApplyview(ModelAndView mv, HttpServletRequest request) {
 		Employee employee = (Employee) request.getSession().getAttribute("employee");
 
@@ -123,7 +169,10 @@ public class EducationController {
 
 		return mv;
 	}
-
+	
+	*/
+	
+	
 	@RequestMapping("/education/insertEduReport.do")
 	public String writeEduReportView(@RequestParam int edu_no, Model model) {
 		model.addAttribute("edu_no", edu_no);
