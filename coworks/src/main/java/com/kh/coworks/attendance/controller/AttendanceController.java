@@ -166,9 +166,9 @@ public class AttendanceController {
 		 //** 조퇴 및 총근무시간 계산
 		 String str1 = new SimpleDateFormat("yyyyMMdd").format(date);
 		 String str2 = new SimpleDateFormat("HHmm").format(time);
-		 System.out.println(str2);
+		 
 		 String reqDateStr=str1+"180000";	//최소 출근시간 기준
-		 System.out.println(reqDateStr);
+		  
 		  
 		//현재시간 Date
 		java.util.Date curDate = new java.util.Date();
@@ -189,8 +189,7 @@ public class AttendanceController {
 		long hour= (reqDateTime-curDateTime) / (1000*60*60);
 		long minute = (reqDateTime-curDateTime) / 60000-(hour*60);
 		long second=(reqDateTime-curDateTime) / 1000-((hour*60*60)+(minute*60));
-		String leaveEarly=String.format("%02d:%02d:%02d", hour,minute,second);
-		  System.out.println("leaveEarly : "+leaveEarly); 
+		String leaveEarly=String.format("%02d:%02d:%02d", hour,minute,second); 
 			attend.setAtten_leaveEarly(leaveEarly);
 		}else {
 			attend.setAtten_leaveEarly(null);	
@@ -258,23 +257,9 @@ public class AttendanceController {
 			 
 				attend.setAtten_hours(hours2);
 		}
-			 
+			  
+		int result=attendanceService.updateAttendanceLeave(attend); 
 		
-		System.out.println(list.getAtten_attLate());
-		System.out.println(attend.getAtten_leaveEarly());
-		//System.out.println("long1 : "+long1+" long2 :"+long2);
-		System.out.println(attend.getAtten_leaveTime());
-		
-		
-		
-		
-		
-		
-		
-		
-		System.out.println("attendance 값 : "+attend);
-		int result=attendanceService.updateAttendanceLeave(attend);
-		System.out.println("result값 :"+result);
 		response.getWriter().print(true);
 		
 	
@@ -299,18 +284,13 @@ public class AttendanceController {
 		  ModelAndView mv=new ModelAndView(); 
 		  HttpSession session=request.getSession(false); 
 		  Employee employee=(Employee) session.getAttribute("employee");
-		  
-		  System.out.println("select_date");
+		   
 		  
 		  String year=select_date.substring(2,4);
 		  int y=Integer.parseInt(year);
 		  String month=select_date.substring(6,8);
-		  int m=Integer.parseInt(month);
-		  System.out.println("m:"+m);
-		  System.out.println("year : "+year);
-		  System.out.println("month : "+month);
-		  String date1="20"+year+month+"01"; 
-		  System.out.println("Date1 : "+date1);
+		  int m=Integer.parseInt(month); 
+		  String date1="20"+year+month+"01";  
 		  Attendance attend=new Attendance();
 		  attend.setEmp_no(employee.getEmp_no());
 		  
@@ -320,9 +300,7 @@ public class AttendanceController {
 		  java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		 // DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 	   //     System.out.println("dateFormated date is : " + df.format(utilDate));
-		  attend.setAtten_date(sqlDate);
-		  System.out.println();
-		  System.out.println(attend.getAtten_date());
+		  attend.setAtten_date(sqlDate); 
 			   
 		  List<Attendance> list=attendanceService.selectTypeAttendance(attend);
 	  

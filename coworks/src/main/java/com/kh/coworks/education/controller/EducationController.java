@@ -40,9 +40,7 @@ public class EducationController {
 	public ModelAndView eduView(ModelAndView mv, HttpServletRequest request) {
 
 		Employee employee = (Employee) request.getSession().getAttribute("employee");
-		System.out.println("세션값 : " + employee);
-		System.out.println("아이디 : " + employee.getEmp_no());
-
+		 
 		List<Education> list = educationService.selectListEducation(employee.getEmp_no());
 		Date today=new Date();  
 		

@@ -72,7 +72,6 @@ public class CommonController {
             session.setAttribute("employee",e);
             session.setAttribute("authority",au);
             session.setAttribute("approvalReceiveList", approvalService.selectApprovalReceive(e.getEmp_no()));
-            System.out.println(approvalService.selectApprovalReceive(e.getEmp_no()));
             
             loc="/attendancecome.do";
           }else {
@@ -82,8 +81,7 @@ public class CommonController {
       }    
       mv.addObject("loc",loc);
       mv.addObject("msg",msg);
-      
-      System.out.println(mv);
+       
       
       // 화면 전달을 위한 viewName 등록하기
       mv.setViewName("common/msg");

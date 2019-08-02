@@ -39,17 +39,15 @@ public class CalendarController {
 		
 		
 		Employee employee=(Employee) request.getSession().getAttribute("employee");
-		System.out.println("세션값 : "+employee);
-		System.out.println("아이디 : "+employee.getEmp_no());
-		
+		 
 		Calendar cal=new Calendar();
 		cal.setCal_holder(Integer.toString(employee.getEmp_no()));
 		cal.setCal_type(employee.getDept_code());
 		
-		System.out.println("넘어가나?");
+		 
 		List<Calendar> list = calService.selectListAllCalendar(cal);	
 		
-		System.out.println("select 확인" +list);
+		 
 		mv.addObject("list", list);
 		mv.setViewName("calendar/app-calendar");
 		return mv;
@@ -61,7 +59,7 @@ public class CalendarController {
 		Employee employee=(Employee) request.getSession().getAttribute("employee");
 		String emp_no= Integer.toString(employee.getEmp_no());
 		
-		System.out.println("cal_Type 검색 : "+cal_type);
+		 
 		Calendar cal=new Calendar();
 		// 나중에 11에  emp_no 세션받아서 보내야함
 		if(cal_type.equals("부서")) {
@@ -73,8 +71,7 @@ public class CalendarController {
 		
 		
 		List<Calendar> list=calService.selectListCalendar(cal);
-		System.out.println("받아온 list확인 : "+list);
-		
+		 
 		mv.addObject("list", list);
 		mv.setViewName("calendar/app-calendar");
 		return mv;
@@ -96,14 +93,11 @@ public class CalendarController {
 			calendar.setCal_holder(Integer.toString(employee.getEmp_no()));	// 사용자 고유 번호 넣기
 		}
 		
-		System.out.println("Calendar 확인 : "+calendar);
-			
 		 
-				int insertCalendar = calService.insertCalendar(calendar);
+		int insertCalendar = calService.insertCalendar(calendar);
 			
 		
-
-		System.out.println("insert 캘린더 결과 : "+calendar);
+ 
 		
 		mv.setViewName("redirect:/calendar/calendarview.do");
 		
@@ -137,12 +131,9 @@ public class CalendarController {
 		
 		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸삘..
 		
-		//if(employee!=null) 
-			boolean result = calService.deleteCalendar(cal_no)>0?true:false;
+		boolean result = calService.deleteCalendar(cal_no)>0?true:false;
 		
-		System.out.println("delete 캘린더 결과 : "+result);
-		
-		
+		 
 		resp.getWriter().print(result);
 		
 	}
@@ -160,8 +151,7 @@ public class CalendarController {
 		 Timestamp ts1=java.sql.Timestamp.valueOf(cal_beginDate);	 
 		 Timestamp ts2=java.sql.Timestamp.valueOf(cal_endDate);
 		 
-		 System.out.println("시작 : " + ts1);
-		 System.out.println("끝 : " + ts2);
+		 
 		 
 		
 			 
@@ -170,9 +160,7 @@ public class CalendarController {
 		 cal.setCal_no(cal_no);
 		 cal.setCal_beginDate(ts1);
 		 cal.setCal_endDate(ts2);
-		 
-		 System.out.println("cal : "+cal);
-		 
+		  
 		int result=calService.updateCalendar(cal);
 		  
 			
