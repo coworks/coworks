@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>근태 관리</title>
+<title>CO-WORKS : 근태 현황</title>
 <c:import url="../common/header.jsp" />
 </head>
 <body class="fix-header fix-sidebar card-no-border">
