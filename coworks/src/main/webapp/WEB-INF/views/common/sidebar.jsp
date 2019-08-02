@@ -34,7 +34,7 @@
 					aria-expanded=false"><i
 						class="mdi mdi-checkbox-multiple-marked"></i><span
 						class="hide-menu">TODO</span></a></li>
-				<li><a href="#" aria-expanded="false"><i
+				<li><a href="${pageContext.request.contextPath}/chat/chatview.do" aria-expanded="false"><i
 						class="mdi mdi-message-text-outline"></i><span class="hide-menu">메신저</span></a></li>
 				
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
