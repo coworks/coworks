@@ -816,4 +816,33 @@ FROM
     employee, department, job
 where employee.dept_code=department.dept_code and employee.job_code=job.job_code;
 
+--------------------------------------------------------
+--  DDL for View CURAPPVIEW
+--------------------------------------------------------
 
+  CREATE OR REPLACE FORCE VIEW "COWORKS"."CURAPPVIEW" ("ADOC_NO", "CURAPPNO") AS 
+  SELECT
+		DOC.adoc_no,emp.emp_no curappno
+		FROM
+		APPROVALDOC DOC,
+		EMPLOYEE EMP,
+		(
+		SELECT
+		ROW_NUMBER() OVER(
+		PARTITION BY AP.ADOC_NO
+		ORDER BY
+		JOB_CODE DESC,
+		EMP_HIREDATE
+		) RNUM,
+		AP.*
+		FROM
+		APPROVALSTATUS AP,
+		EMPLOYEE E
+		WHERE
+		AP.AS_STATUS = 0
+		AND AP.EMP_NO = E.EMP_NO
+		) ST
+		WHERE DOC.ADOC_NO = ST.ADOC_NO
+		AND DOC.ADOC_STATUS = 0
+		AND ST.RNUM = 1 and emp.emp_no = st.emp_no
+;

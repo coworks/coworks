@@ -41,15 +41,16 @@ div p {
 									<button id="print" class=" btn btn-outline-info" type="button">
 										<span><i class="fa fa-print"></i> Print</span>
 									</button></div>
-									<div align="right" class="ml-auto" id="approvalBtn" style="display: none;">
+									<c:if test="${sessionScope.employee.emp_no eq doc.curAppNo }">
+									<div align="right" class="ml-auto" id="approvalBtn">
 										<button class=" btn  btn-success  mr-2" type="button" onclick="approve()">
 											<span><i class="mdi mdi-checkbox-marked-outline"></i> 승인</span>
 										</button>
 										<button class=" btn  btn-danger " type="button" onclick="reject()">
 											<span><i class="mdi mdi-close-box-outline"></i> 반려</span>
 										</button>
-
 									</div>
+									</c:if>
 								</div>
 								<div class="printArea">
 									<h2 class="card-title mb-5 mt-3" align="center">

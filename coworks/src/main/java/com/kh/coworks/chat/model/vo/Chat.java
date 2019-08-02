@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class Chat implements Serializable {
 
-	private int chat_no;// ÀÎµ¦½º
-	private int croom_no;// Ã¤ÆÃ¹æid
-	private int chat_sendno;// À¯Àúid
-	private String chat_content;// ³»¿ë
-	private Timestamp chat_sendtime;// º¸³½³¯Â¥
-	private String chat_isRead;// ÀĞÀ½¿©ºÎ
+	private int chat_no;// ì±„íŒ… INDEX
+	private int croom_no;// ì±„íŒ…ë°© index
+	private int chat_sendno;// ë³´ë‚¸ì‚¬ëŒ ì‚¬ë²ˆ
+	private String chat_content;// ë‚´ìš©
+	private Timestamp chat_sendtime;// ë³´ë‚¸ì‹œê°„
+	private String chat_isRead;// ì½ê¸°ì—¬ë¶€..?
 
 	private String senderName;
 

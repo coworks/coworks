@@ -24,10 +24,10 @@ public class ApprovalDoc implements Serializable {
 	private String writerDept;
 	private String writerJobTitle;
 	private String writerName;
-	
+
 	private String docPage;
 	private String aform_title;
-	private int curApprovalno;
+	private int curAppNo;
 
 	public ApprovalDoc() {
 		super();
@@ -178,21 +178,22 @@ public class ApprovalDoc implements Serializable {
 		this.aform_title = aform_title;
 	}
 
-	public int getCurApprovalno() {
-		return curApprovalno;
+	public int getCurAppNo() {
+		return curAppNo;
 	}
 
-	public void setCurApprovalno(int curApprovalno) {
-		this.curApprovalno = curApprovalno;
+	public void setCurAppNo(int curAppNo) {
+		this.curAppNo = curAppNo;
 	}
 
 	@Override
 	public String toString() {
-		return "ApprovDoc [adoc_no=" + adoc_no + ", aform_no=" + aform_no + ", adoc_writerno=" + adoc_writerno
+		return "ApprovalDoc [adoc_no=" + adoc_no + ", aform_no=" + aform_no + ", adoc_writerno=" + adoc_writerno
 				+ ", adoc_uploadDate=" + adoc_uploadDate + ", adoc_security=" + adoc_security + ", adoc_expiration="
 				+ adoc_expiration + ", adoc_subject=" + adoc_subject + ", adoc_content=" + adoc_content
 				+ ", adoc_status=" + adoc_status + ", writerDept=" + writerDept + ", writerJobTitle=" + writerJobTitle
-				+ ", writerName=" + writerName + "]";
+				+ ", writerName=" + writerName + ", docPage=" + docPage + ", aform_title=" + aform_title + ", curAppNo="
+				+ curAppNo + "]";
 	}
 
 }

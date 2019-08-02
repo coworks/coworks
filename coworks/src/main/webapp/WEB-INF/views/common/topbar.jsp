@@ -49,16 +49,12 @@
 							<li>
 								<div class="drop-title">결재 대기 문서</div>
 							</li>
-							<li>
+							<li id="approvalNotify">
 
-								<div class="message-center" id="approvalMSG">
-										
-								</div>
+								
 
 
-								<div class="m-3" align="center" id="approvalNoMSG">
-									<h5 class="text-info">현재 결재 대기 중인 문서가 없습니다</h5>
-								</div>
+								
 							</li>
 							<li><a class="nav-link text-center" href="${pageContext.request.contextPath }/approval/approvalReceive.do"> <strong id="approvalCnt"></strong> <i
 									class="fa fa-angle-right"

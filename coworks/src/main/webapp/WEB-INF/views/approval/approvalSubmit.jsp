@@ -99,8 +99,9 @@
 												</tr>
 											</thead>
 											<tbody class="border-info">
+											<c:set var="approveIndex" value="0" />
 												<c:forEach items="${docList}" var="doc" varStatus="vs">
-													<c:set var="approveIndex" value="0" />
+													
 													<c:if test="${doc.adoc_status == '1'}">
 														<c:set var="approveIndex" value="${approveIndex +1}" />
 														<tr onclick="location.href='${pageContext.request.contextPath}/approval/approvalDoc/v/${doc.adoc_no}'">
@@ -143,8 +144,9 @@
 												</tr>
 											</thead>
 											<tbody class="border-info">
+												<c:set var="rejectIndex" value="0" />
 												<c:forEach items="${docList}" var="doc" varStatus="vs">
-													<c:set var="rejectIndex" value="0" />
+												
 													<c:if test="${doc.adoc_status eq '2'}">
 														<c:set var="rejectIndex" value="${rejectIndex + 1}" />
 

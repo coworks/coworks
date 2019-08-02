@@ -113,10 +113,6 @@ public class ApprovalController {
 		return "approval/approvalComplete";
 	}
 
-	@RequestMapping("/approval/approvalDetail.do")
-	public String approvalDetail(@RequestParam int adoc_no) {
-		return "approval/approvalDetail";
-	}
 
 	// approvDoc Mapping
 	@RequestMapping(value = "/approval/write/{docType}/{formNo}", method = RequestMethod.GET)
@@ -264,7 +260,7 @@ public class ApprovalController {
 		ModelAndView mv = new ModelAndView();
 
 		ApprovalDoc doc = approvalService.selectOneApprovalDoc(adoc_no);
-
+		
 		mv.addObject("doc", doc).addObject("signList", approvalService.selectApprovalStatus(adoc_no))
 				.addObject("attachList", approvalService.selectApprovalAttach(adoc_no))
 				.addObject("form", approvalService.selectApprovalDocForm(doc.getAform_no()))

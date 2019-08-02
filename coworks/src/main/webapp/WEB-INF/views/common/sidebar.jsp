@@ -36,8 +36,7 @@
 						class="hide-menu">TODO</span></a></li>
 				<li><a href="#" aria-expanded="false"><i
 						class="mdi mdi-message-text-outline"></i><span class="hide-menu">메신저</span></a></li>
-				<c:set var="auapproval" value="${sessionScope.authority.auth_approval}" />
-				<c:if test="${auapproval eq 'Y'}">
+				
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-pen"></i><span class="hide-menu">전자결재</span></a>
 					<ul aria-expanded="false" class="collapse">
@@ -58,7 +57,7 @@
 							href="${pageContext.request.contextPath}/approval/approvalComplete.do">완료함</a></li>
 						<!-- 내가 결재서류 올리고 모든 결재가 끝난 문서 -->
 					</ul></li>
-				</c:if>
+				
 				<c:set var="audata" value="${sessionScope.authority.auth_data}" />
 				<c:if test="${audata eq 'Y'}">
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i

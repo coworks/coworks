@@ -17,12 +17,11 @@ import com.kh.coworks.employee.model.vo.Employee;
 
 import net.sf.json.JSONArray;
 
-public class SocketHandler extends TextWebSocketHandler {
+public class DMHandler extends TextWebSocketHandler {
 
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 
-	@Autowired
-	private ApprovalService appSrv;
+	
 
 	// 클라이언트와 연결 이후에 실행되는 메서드
 	@Override
@@ -32,11 +31,6 @@ public class SocketHandler extends TextWebSocketHandler {
 
 		Employee loginEmployee = (Employee) session.getAttributes().get("employee");
 
-		Gson gson = new Gson();
-
-		String docJson = gson.toJson(appSrv.selectApprovalReceive(loginEmployee.getEmp_no()));
-
-		session.sendMessage(new TextMessage(docJson));
 
 		super.afterConnectionEstablished(session);
 	}

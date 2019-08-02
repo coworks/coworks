@@ -20,32 +20,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
 
 <script type="text/javascript">
-	var sock = new SockJS("<c:url value='/count'/>");
+	var sock = new SockJS("<c:url value='/approvalCount'/>");
 
 	sock.onmessage = onMessage;
 
 	function onMessage(evt) {
 		var data = JSON.parse(evt.data);
-
+		var btnArr=['btn-success','btn-warning','btn-info'];
+		var approvalMSG;
 		if (data.length != 0) {
 			$('#approvalHeartbit').css('display', 'block');
 			$('#approvalNoMSG').css('display', 'none');
-			$('#approvalCnt').html('결재 미결함(' + data.length + ')');
-
+			
+			approvalMSG=$("<div class='message-center'>");
 			for (var i = 0; i < data.length; i++) {
 				var alink = $('<a>').attr('href','${pageContext.request.contextPath }/approval/approvalDoc/v/'+data[i].adoc_no);
-				var mail_content=$("<div class='btn btn-danger btn-circle'><i class='fa fa-link'></i></div><div class='mail-contnet'>");
+				var circleBtn=$("<div class='btn "+btnArr[i%3]+" btn-circle'><i class='fa fa-link'></i></div>");
+				var mail_content=$("<div class='mail-contnet ml-2'>");
 				mail_content.append("<h5>"+data[i].adoc_subject+"</h5>");
 				mail_content.append("<span class='mail-desc'>"+data[i].writerName+"</span>");
 				mail_content.append(" <span class='time'>"+data[i].adoc_uploadDate+"</span>");
 				
-				
-				$('#approvalMSG').append(alink).append(mail_content);
-				
+				alink.append(circleBtn).append(mail_content);
+				approvalMSG.append(alink);
 			}
 
+		} else{
+			
+			approvalMSG=$("<div class='m-3' align='center' ><h5 class=text-info>현재 결재 대기 중인 문서가 없습니다</h5></div>");
+		
 		}
-
+		$('#approvalNotify').append(approvalMSG);
+		
+		$('#approvalCnt').html('결재 미결함(' + data.length + ')');
 		console.log(data);
 
 	}
