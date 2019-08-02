@@ -71,8 +71,7 @@ public class CommonController {
           
             session.setAttribute("employee",e);
             session.setAttribute("authority",au);
-            session.setAttribute("approvalReceiveList", approvalService.selectApprovalReceive(e.getEmp_no()));
-            
+          
             loc="/attendancecome.do";
           }else {
              msg="비밀번호가 일치하지 않습니다!";
