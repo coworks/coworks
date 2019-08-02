@@ -79,21 +79,44 @@ public class AuthorityController {
 	@RequestMapping("/authority/authorityUpdate.do")
 	public String authorityUpdate(Authority authority) {
 		
-		System.out.println(authority.getAuth_personnal());
-		System.out.println(authority.getAuth_data());
-		System.out.println(authority.getAuth_cal());
+		if(authority.getAuth_personnal().equals("인사")) {
+			authority.setAuth_personnal("Y");
+		}else
+			authority.setAuth_personnal("N");
 		
-		authority.setAuth_personnal("N");
-		authority.setAuth_data("N");
-		authority.setAuth_cal("N");
-		authority.setAuth_board("N");
-		authority.setAuth_approval("N");
-		authority.setAuth_authority("N");
-		authority.setAuth_pay("N");
+		if(authority.getAuth_data().equals("자료실")) {
+			authority.setAuth_data("Y");
+		}else
+			authority.setAuth_data("N");
 		
-		//int result = authorityService.authorityUpdate(authority);
+		if(authority.getAuth_cal().equals("회사일정")) {
+			authority.setAuth_cal("Y");
+		}else
+			authority.setAuth_cal("N");
 		
-		return "redirect:/authority/authorityList";
+		if(authority.getAuth_board().equals("게시판")) {
+			authority.setAuth_board("Y");
+		}else
+			authority.setAuth_board("N");
+		
+		if(authority.getAuth_approval().equals("결재서류")) {
+			authority.setAuth_approval("Y");
+		}else
+			authority.setAuth_approval("N");
+		
+		if(authority.getAuth_authority().equals("권한관리")) {
+			authority.setAuth_authority("Y");
+		}else
+			authority.setAuth_authority("N");
+		
+		if(authority.getAuth_pay().equals("급여")) {
+			authority.setAuth_pay("Y");
+		}else
+			authority.setAuth_pay("N");
+		
+		int result = authorityService.authorityUpdate(authority);
+		
+		return "redirect:authorityList.do";
 	}
 	
 }

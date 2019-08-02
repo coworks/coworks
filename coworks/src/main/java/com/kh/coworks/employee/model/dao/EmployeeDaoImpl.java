@@ -119,4 +119,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public int updateAuthority(Authority ah) {
 		return sqlSession.update("employee.updateAuthority",ah);
 	}
+
+	@Override
+	public Authority selectOneAuthority(int emp_no) {
+		return sqlSession.selectOne("employee.selectOneAuthority",emp_no);
+	}
 }

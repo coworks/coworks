@@ -21,7 +21,7 @@ import com.kh.coworks.employee.model.vo.Job;
 
 
 
-@SessionAttributes(value= {"employee"})
+@SessionAttributes(value={"employee"})
 @Controller
 public class EmployeeController {
 	
@@ -185,8 +185,11 @@ public class EmployeeController {
 		// 사원추가 SELECT 사원 목록
 		ArrayList<Job> jobList = new ArrayList<>(employeeService.selectJobList());
 		
+		// 권한 SELECT 하기 
+		Authority au = employeeService.selectOneAuthority(Integer.parseInt(index));
+		
 		model.addAttribute("employee",employee).addAttribute("departmentList",departmentList)
-		.addAttribute("jobList",jobList);
+		.addAttribute("jobList",jobList).addAttribute("au",au);
 		
 		return "employee/employeeMove";
 	}

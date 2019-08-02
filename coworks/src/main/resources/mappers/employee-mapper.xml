@@ -51,7 +51,7 @@
 		#{emp_phone}, #{emp_email}, #{emp_birth},
 		#{emp_gender}, DEFAULT,
 		DEFAULT, DEFAULT,
-		DEFAULT,#{emp_authority,typeHandler=strArrTypeHandler},DEFAULT,DEFAULT
+		DEFAULT,REPLACE(#{emp_birth},'/', ''),DEFAULT
 		)
 		
 	</insert>
@@ -123,6 +123,10 @@
 	select dept_name,count(*) count from empview group by dept_name order by dept_name
 	</select>
 	
+	<select id="selectOneAuthority" resultType="authority">
+	SELECT * FROM AUTHORITY WHERE EMP_NO = #{EMP_NO}
+	</select>
+	
 	<update id="employeeMoveUpdate" parameterType="employee" >
 		UPDATE EMPLOYEE
 		SET
@@ -132,8 +136,7 @@
 			EMP_PHONE = #{emp_phone},
 			EMP_EMAIL = #{emp_email},
 			EMP_BIRTH = #{emp_birth},
-			EMP_GENDER = #{emp_gender},
-			EMP_AUTHORITY = #{emp_authority, typeHandler=strArrTypeHandler}
+			EMP_GENDER = #{emp_gender}
 			
 		WHERE EMP_NO = #{emp_no}
 	</update>

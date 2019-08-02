@@ -16,6 +16,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.coworks.approval.model.service.ApprovalService;
+import com.kh.coworks.authority.model.service.AuthorityService;
+import com.kh.coworks.authority.model.vo.Authority;
 import com.kh.coworks.employee.model.exception.EmployeeException;
 import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Employee;
@@ -25,6 +27,7 @@ public class CommonController {
 
 	@Autowired
 	EmployeeService employeeService;
+
 	@Autowired
 	private ApprovalService approvalService;
 
@@ -36,11 +39,12 @@ public class CommonController {
       System.out.println("아이디 패스워드 받아서 세션저장해야됩니다요~~");
       
       ModelAndView mv=new ModelAndView();
+
       
-      
-       
       try {
       Employee e=employeeService.selectOneEmployee(emp_no);
+      Authority au=employeeService.selectOneAuthority(emp_no);
+      
       
       String rawPassword=emp_password;   // 암호화x 나중에 암호화 할것임돠
       System.out.println("암호화 전 : "+rawPassword);
@@ -66,6 +70,7 @@ public class CommonController {
             msg="로그인 성공!";
           
             session.setAttribute("employee",e);
+            session.setAttribute("authority",au);
             session.setAttribute("approvalReceiveList", approvalService.selectApprovalReceive(e.getEmp_no()));
             System.out.println(approvalService.selectApprovalReceive(e.getEmp_no()));
             
