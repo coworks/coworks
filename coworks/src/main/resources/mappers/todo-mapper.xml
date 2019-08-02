@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="todo">
+
+	<resultMap id="todoMap" type="map"/>
+
+	<select id="selectTodolist" resultType="todo">
+		SELECT *
+		FROM TODO
+        WHERE EMP_NO = #{emp_no}
+        AND TODO_STATUS IN(0,1)
+		ORDER BY TODO_NO DESC
+	</select>
+
+
+	
+</mapper>

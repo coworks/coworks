@@ -53,7 +53,7 @@ public class BoardController {
 	@RequestMapping(value = "/documentboard/{boardCode}", method = RequestMethod.GET)
 	public String selectBusinessdoc(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			@PathVariable("boardCode") String boardCode, Model model, Board board) {
-
+		System.out.println("check : "+cPage);
 		int limit = 10;
 
 		ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>(
@@ -61,8 +61,8 @@ public class BoardController {
 
 		int totalContents = boardService.selectBusinessdocTotalContents(boardCode);
 
-		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "businessdoclist.do");
-		//String pageBar = Utils.getPageBar(totalContents, cPage, limit, "businessdoclist/"+boardCode);
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "/coworks/documentboard/"+boardCode);
+		
 
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
 				.addAttribute("pageBar", pageBar).addAttribute("bo_code", boardCode).addAttribute(board);
