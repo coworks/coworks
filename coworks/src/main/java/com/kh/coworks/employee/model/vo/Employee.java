@@ -173,6 +173,13 @@ public class Employee implements Serializable {
 				+ ", dept_name=" + dept_name + ", job_title=" + job_title + "]";
 	}
 	
+	public void setEmp_address(String emp_address) {
+		this.emp_address = emp_address;
+	}
+	public String getEmp_address() {
+		return emp_address;
+	}
+	
 	
 	
   
