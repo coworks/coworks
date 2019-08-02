@@ -1,0 +1,78 @@
+    --게시판 샘플
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내1', '사내1내용', 12345679, '2019/06/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내2', '사내2내용', 12345678, '2019/06/20', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내3', '사내3내용', 12345679, '2019/06/25', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내4', '사내4내용', 12345678, '2019/06/30', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내5', '사내5내용', 12345679, '2019/07/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내6', '사내6내용', 12345678, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내7', '사내7내용', 12345678, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내8', '사내8내용', 12345678, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내9', '사내9내용', 12345678, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내10번', '사내10내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내11번', '사내11내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D50', '사내12번', '사내12내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실1', '업무자료실1내용', 12345679, '2019/06/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실1', '업무자료실1내용', 12345679, '2019/06/20', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실2', '업무자료실2내용', 12345678, '2019/06/25', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실3', '업무자료실3내용', 12345679, '2019/06/30', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실4', '업무자료실4내용', 12345678, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실5', '업무자료실5내용', 12345679, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D51', '업무자료실6', '업무자료실6내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실1', '교육자료실1내용', 12345679, '2019/06/24', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실2', '교육자료실2내용', 12345678, '2019/06/24', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실3', '교육자료실3내용', 23478521, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실4', '교육자료실4내용', 12345678, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실5', '교육자료실5내용', 12345679, DEFAULT, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D52', '교육자료실6', '교육자료실6내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판1', '공지게시판1내용', 12345679, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판1', '공지게시판1내용', 23478521, '2019/07/31', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판2', '공지게시판2내용', 12345678, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판3', '공지게시판3내용', 12345679, DEFAULT, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판4', '공지게시판4내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판5', '공지게시판5내용', 23478521, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D53', '공지게시판6', '공지게시판6내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판1', '경조사게시판1내용', 12345679, '2016/10/24', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판2', '경조사게시판2내용', 12345678, '2017/12/26', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판1', '경조사게시판1내용', 12345679, '2018/03/31', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판2', '경조사게시판2내용', 12345678, '2019/07/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판3', '경조사게시판3내용', 12345679, '2019/07/30', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판3', '경조사게시판3내용', 12345679, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판4', '경조사게시판4내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판5', '경조사게시판5내용', 23478521, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D54', '경조사게시판6', '경조사게시판6내용', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판1', '조직개편 및 인사이동 게시판1내용이쥬', 12345679, '2019/06/24', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판2', '조직개편 및 인사이동 게시판2내용이쥬', 12345679, '2019/07/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판3', '조직개편 및 인사이동 게시판3내용이쥬', 12345678, '2019/07/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판4', '조직개편 및 인사이동 게시판4내용이쥬', 12345678, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판5', '조직개편 및 인사이동 게시판5내용이쥬', 12345679, '2019/08/01', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판6', '조직개편 및 인사이동 게시판6', 23478521, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판7', '조직개편 및 인사이동 게시판7', 12345679, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D01', '우리부서 게시판11', '회식해여~', 12345678, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D02', '부서 게시판 첫 글', '부서별 자료실', 12345678, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D03', '내가 1등이다', '야근시키지말아줘여', 12345678, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D04', '내가 처음인가', '오늘 칼퇴각', 12345678, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D05', '아싸 처음이당', '휴가 언제오죠', 12345678, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D06', '우리 부서 처음 글이네', '출근 왜 해여', 12345678, '2019/07/15', default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D01', '우리부서 게시판22', '퇴근하고 싶다', 12345678, default, default);
+   INSERT INTO BOARD VALUES (SEQ_BNO.NEXTVAL, 'D02', '부서 게시판 두번째 글', '우리도 회식해여~', 12345678, default, default);
+   
+   
+   --게시판 생성
+   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D50', '사내규정 자료실');
+   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D51', '업무자료 자료실');
+   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D52', '교육자료 자료실');
+   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D53', '공지사항 게시판');
+   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D54', '경조사 게시판');
+   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D55', '조직개편 및 인사이동 게시판');
+   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D56', 'News 게시판');
+   INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D57', '자유게시판');
+   
+   
+   --부서게시판 생성
+    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D01', '관리');
+    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D02', '경영');
+    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D03', '마케팅');
+    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D04', '인사');
+    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D05', '전산');
+    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D06', '총무');
+    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D07', '회계');
