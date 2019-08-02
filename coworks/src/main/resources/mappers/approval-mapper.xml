@@ -38,7 +38,7 @@
 	<insert id="insertApprovalAttach">
 		insert into approvalAttach
 		(APATT_NO,ADOC_NO,APATT_ORINAME,APATT_RENAME,APATT_PATH) values
-		(sql_apatt.nextval,#{adoc_no},#{apAtt_oriname},#{apAtt_rename},#{apAtt_path})
+		(seq_apatt.nextval,#{adoc_no},#{apAtt_oriname},#{apAtt_rename},#{apAtt_path})
 	</insert>
 
 	<select id="selectOneApprovalDoc" parameterType="_int" resultType="approvalDoc">
@@ -55,7 +55,7 @@
 		employee e, job j where st.adoc_no=#{adoc_no} and
 		st.emp_no=e.emp_no
 		and e.job_code=j.job_code
-		order by j.job_code desc
+		order by j.job_code desc, e.EMP_HIREDATE
 	</select>
 
 	<select id="selectApprovalDocForm" resultType="approvalForm">
@@ -93,7 +93,8 @@
 		ROW_NUMBER() OVER(
 		PARTITION BY AP.ADOC_NO
 		ORDER BY
-		JOB_CODE DESC
+		JOB_CODE DESC,
+		EMP_HIREDATE
 		) RNUM,
 		AP.*
 		FROM
