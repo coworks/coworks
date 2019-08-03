@@ -1,7 +1,6 @@
 package com.kh.coworks.todo.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.todo.model.service.TodoService;
@@ -22,6 +22,7 @@ public class TodoController {
 	@Autowired
 	TodoService todoService;
 
+	// (할 일)조회
 	@RequestMapping("/todo/todolist.do")
 	public String selecttodolist(Model model, HttpServletRequest request ) {
 		
@@ -32,26 +33,65 @@ public class TodoController {
 		todo.setEmp_no(emp.getEmp_no());
 		todo.setTodo_status(0);
 		
-		ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>(todoService.selectTodolist(todo));
+		ArrayList<Map<String, String>> list 
+			= new ArrayList<Map<String, String>>(todoService.selectTodolist(todo));
 		
+		ArrayList<Map<String, String>> finList 
+			= new ArrayList<Map<String, String>>(todoService.selectFinTodolist(todo));
 		
-		model.addAttribute("todoList", list);		
-		System.out.println("model : " + model);
+		model.addAttribute("todoList", list).addAttribute("finList", finList);
 		
 		return "todo/todolist";
 	}
 	
+	// (할 일)추가
 	@RequestMapping("/todo/addtodo.do")
-	public String inserttodo() {
-		return "todo/addtodo";
+	public String inserttodo(Model model, Todo todo) {
+		
+		int result = todoService.insertTodo(todo);
+		
+		model.addAttribute(todo);
+		
+		return "redirect:/todo/todolist.do";
 	}
 	
+	// (할 일) 내용&상태 수정
 	@RequestMapping("/todo/correcttodo.do")
-	public String updatetodo() {
-		return "todo/correcttodo";
+	public String updatetodo(Model model, Todo todo) {
+		
+		int result = todoService.updateTodo(todo);
+		
+		model.addAttribute(todo);
+		
+		return "redirect:/todo/todolist.do";
 	}
 	
+	// (할 일 & 완료)삭제
+	@RequestMapping("/todo/deletetodo.do")
+	public String deletetodo(Model model, Todo todo) {
+		
+		int result = todoService.deleteTodo(todo);
+		
+		model.addAttribute(todo);
+		
+		return "redirect:/todo/todolist.do";
+	}
 	
+	// '완료'로 변경 (stauts -> 1로 변경)
+	@RequestMapping("/todo/finishtodo.do")
+	public String changeTofinished(Model model, String todo_no ) {
+		System.out.println("todo에 뭐 들고 왔나여!!?!? : " + todo_no);
+		
+		Todo todo = new Todo();
+		int todo_number = Integer.parseInt(todo_no);
+		todo.setTodo_no(todo_number);
+		
+		int result = todoService.changeTofinished(todo);
+		
+		model.addAttribute(todo);
+		
+		return "redirect:/todo/todolist.do";
+	}
 	
 	
 }

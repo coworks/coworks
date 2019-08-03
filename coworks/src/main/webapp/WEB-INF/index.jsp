@@ -114,6 +114,33 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-2 p-2">
+									<h4 class="card-title">${ sessionScope.employee.emp_name }의 TODO</h4>
+									
+									<h5 class="mt-4">
+										<span class="badge badge-danger">긴급 </span>&nbsp;<small class="text-muted">긴급으로 할 일이요</small>
+										<br>
+										<span class="badge badge-danger">긴급 </span>&nbsp;<small class="text-muted">긴급으로 할 일22이요</small>
+									</h5>
+									
+									<h5 class="mt-4">
+										<span class="badge badge-warning">보통 </span>&nbsp;<small class="text-muted">그냥 할 일이요</small>
+										<br>
+										<span class="badge badge-warning">보통 </span>&nbsp;<small class="text-muted">그냥 할 일222이요</small>
+									</h5>
+									
+									<h5 class="mt-4">
+										<span class="badge badge-success">여유 </span>&nbsp;<small class="text-muted">여유롭게 할 일이요</small>
+										<br>
+										<span class="badge badge-success">여유 </span>&nbsp;<small class="text-muted">여유롭게 할 일22222이요</small>
+									</h5>
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="card">
+							<div class="card-body">
+								<div class="m-2 p-2">
 									<h4 class="card-title">설문조사</h4>
 									<p class="card-text">이 페이지가 마음에 드시나요?!</p>
 									<p class="card-text">

@@ -126,7 +126,7 @@ DROP SEQUENCE SEQ_APATT;
    );
    
     COMMENT ON COLUMN "TODO"."TODO_STATUS" IS '0 : 할일, 1 :  완료, 2 : 삭제';
-    
+    COMMENT ON COLUMN "TODO"."TODO_CONDITION" IS '0 : 긴급, 1 : 보통, 3 : 여유';
     
     CREATE SEQUENCE SEQ_TODO_NO --할 일 시퀀스
     START WITH 1

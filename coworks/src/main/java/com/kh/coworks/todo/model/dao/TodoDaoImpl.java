@@ -15,27 +15,42 @@ public class TodoDaoImpl implements TodoDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
+	
+	// 할 일 조회
 	@Override
 	public List<Map<String, String>> selectTodolist(Todo todo) {
 		return sqlSession.selectList("todo.selectTodolist", todo);
 	}
-/*
+
+	// 완료 조회
+	@Override
+	public List<Map<String, String>> selectFinTodolist(Todo todo){
+		return sqlSession.selectList("todo.selectFinTodolist", todo);
+	}
+	
+	// 할 일 추가
 	@Override
 	public int insertTodo(Todo todo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("todo.insertTodo", todo);
 	}
 
+	// 할 일 내용&상태 수정
 	@Override
 	public int updateTodo(Todo todo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("todo.updateTodo", todo);
 	}
 
+	// 삭제
 	@Override
-	public int deleteTodo(int todo_no, int todo_status) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteTodo(Todo todo) {
+		return sqlSession.delete("todo.deleteTodo", todo);
 	}
-*/
+	
+	// '완료'로 변경 (stauts -> 1로 변경)
+	@Override
+	public int changeTofinished(Todo todo) {
+		return sqlSession.update("todo.changeTofinished", todo);
+	}
+	
+
 }

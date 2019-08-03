@@ -15,29 +15,40 @@ public class TodoServiceImpl implements TodoService {
 	@Autowired
 	private TodoDao todoDao;
 	
+	// 할 일 조회
 	@Override
 	public List<Map<String, String>> selectTodolist(Todo todo) {
 		return todoDao.selectTodolist(todo);
 	}
 	
-/*
+	// 완료 조회
+	@Override
+	public List<Map<String, String>> selectFinTodolist(Todo todo){
+		return todoDao.selectFinTodolist(todo);
+	}
+	
+	// 할 일 추가
 	@Override
 	public int insertTodo(Todo todo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return todoDao.insertTodo(todo);
 	}
 
+	// 할 일 내용&상태 수정
 	@Override
 	public int updateTodo(Todo todo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return todoDao.updateTodo(todo);
 	}
 
+	// 삭제
 	@Override
-	public int deleteTodo(int todo_no, int todo_status) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteTodo(Todo todo) {
+		return todoDao.deleteTodo(todo);
 	}
-*/
+	
+	// '완료'로 변경 (stauts -> 1로 변경)
+	@Override
+	public int changeTofinished(Todo todo) {
+		return todoDao.changeTofinished(todo);
+	}
 	
 }

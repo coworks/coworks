@@ -6,14 +6,46 @@
 
 	<resultMap id="todoMap" type="map"/>
 
+	<!-- STATUS : 0할일, 1완료, 2삭제 -->
+	<!-- CONDITION : 0긴급, 1보통, 2여유 -->
+
 	<select id="selectTodolist" resultType="todo">
 		SELECT *
 		FROM TODO
         WHERE EMP_NO = #{emp_no}
-        AND TODO_STATUS IN(0,1)
+        AND TODO_STATUS = 0
+		ORDER BY TODO_NO DESC
+	</select>
+	
+	<select id="selectFinTodolist" resultType="todo">
+		SELECT *
+		FROM TODO
+        WHERE EMP_NO = #{emp_no}
+        AND TODO_STATUS = 1
 		ORDER BY TODO_NO DESC
 	</select>
 
-
+	<insert id="insertTodo" parameterType="todo">
+		INSERT INTO TODO VALUES(SEQ_TODO_NO.NEXTVAL, #{emp_no}, #{todo_content}, #{todo_condition}, #{todo_status})
+	</insert>
+	
+	<update id="updateTodo">
+		UPDATE TODO
+		SET TODO_CONTENT = #{todo_content},
+			TODO_CONDITION = #{todo_condition},
+			TODO_STATUS = #{todo_status}
+		WHERE TODO_NO = #{todo_no}
+	</update>
+	
+	<delete id="deleteTodo">
+		DELETE TODO
+		WHERE TODO_NO = #{todo_no}
+	</delete>
+	
+	<update id="changeTofinished">
+		UPDATE TODO
+		SET TODO_STATUS = 1
+		WHERE TODO_NO = #{todo_no}
+	</update>
 	
 </mapper>
