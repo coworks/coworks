@@ -31,9 +31,11 @@
                                             <input class="form-control p-3" type="text" placeholder="사원 조회">
                                         </div>
                                         <ul class="chatonline style-none ">
+                                        	<c:forEach var="chatroom" items="${croomList }">
                                             <li>
-                                                <a href="javascript:void(0)"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
+                                                <a href="javascript:void(0)"> <span>${chatroom.croom_title } <small class="text-success">online</small></span></a>
                                             </li>
+                                            </c:forEach>
                                             <li>
                                                 <a href="javascript:void(0)" class="active"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
                                             </li>
