@@ -39,7 +39,7 @@
 				var mail_content=$("<div class='mail-contnet ml-2'>");
 				mail_content.append("<h5>"+data[i].adoc_subject+"</h5>");
 				mail_content.append("<span class='mail-desc'>"+data[i].writerName+"</span>");
-				mail_content.append(" <span class='time'>"+data[i].adoc_uploadDate+"</span>");
+				mail_content.append(" <span class='time'>"+new Date(data[i].adoc_uploadDate).toLocaleString()+"</span>");
 				
 				alink.append(circleBtn).append(mail_content);
 				approvalMSG.append(alink);
@@ -74,7 +74,7 @@
 				var chat_content=$("<div class='mail-contnet ml-2'>");
 				chat_content.append("<h5>"+data[i].chat_content+"</h5>");
 				chat_content.append("<span class='mail-desc'>"+data[i].croom_title+"</span>");
-				chat_content.append(" <span class='time'>"+data[i].chat_sendtime+"</span>");
+				chat_content.append(" <span class='time'>"+new Date(data[i].chat_sendtime).toLocaleString()+"</span>");
 				
 				alink.append(chat_content);
 				chatMSG.append(alink);

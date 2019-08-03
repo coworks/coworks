@@ -1,5 +1,6 @@
 package com.kh.coworks.websocket;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import com.kh.coworks.employee.model.vo.Employee;
 
 import net.sf.json.JSONArray;
 
-public class chatHandler extends TextWebSocketHandler {
+public class chatviewHandler extends TextWebSocketHandler {
 
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 
@@ -32,36 +33,29 @@ public class chatHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
 		sessionList.add(session);
-
-		Employee loginEmployee = (Employee) session.getAttributes().get("employee");
-
-		Gson gson = new Gson();
-
-		String chatJson = gson.toJson(chatSrv.selectRecentChat(loginEmployee.getEmp_no()));
-
-		session.sendMessage(new TextMessage(chatJson));
-
-		super.afterConnectionEstablished(session);
+		//super.afterConnectionEstablished(session);
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
-//		Employee loginEmployee = (Employee) session.getAttributes().get("employee");
-//		JSONObject chatJson = new Gson().fromJson(message.getPayload(), JSONObject.class);
-//
-//		Chat chat = new Chat();
-//		chat.setChat_content((String) chatJson.get("chat_content"));
-//		chat.setChat_sendno(loginEmployee.getEmp_no());
-//		chat.setCroom_no(Integer.valueOf((String) chatJson.get("croom_no")));
-//		
-//		//insert 서비스 해주기
-//		
-//		//croom 셀럭트를 하고 보낼까 보내고 나서 셀렉트할까..
-//		
-//		for(WebSocketSession ws: sessionList) {
-//			ws.sendMessage(new TextMessage(new Gson().toJson(chat)));
-//		}
+		Employee loginEmployee = (Employee) session.getAttributes().get("employee");
+		JSONObject chatJson = new Gson().fromJson(message.getPayload(), JSONObject.class);
+
+		Chat chat = new Chat();
+		chat.setChat_content((String) chatJson.get("chat_content"));
+		chat.setChat_sendno(loginEmployee.getEmp_no());
+		chat.setCroom_no(Integer.valueOf((String) chatJson.get("croom_no")));
+		chat.setSenderName(loginEmployee.getEmp_name());
+		chat.setChat_sendtime(new Timestamp(System.currentTimeMillis()));
+		
+		chatSrv.insertChat(chat);
+		
+		//croom 셀럭트를 하고 보낼까 보내고 나서 셀렉트할까..
+		
+		for(WebSocketSession ws: sessionList) {
+			ws.sendMessage(new TextMessage(new Gson().toJson(chat)));
+		}
 		
 
 		super.handleTextMessage(session, message);

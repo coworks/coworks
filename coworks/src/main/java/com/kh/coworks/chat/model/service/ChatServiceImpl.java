@@ -25,4 +25,9 @@ public class ChatServiceImpl implements ChatService {
 		return chatDao.selectRecentChat(emp_no);
 	}
 
+	@Override
+	public void insertChat(Chat chat) {
+		chatDao.insertChat(chat);
+	}
+
 }

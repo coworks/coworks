@@ -11,4 +11,6 @@ public interface ChatService {
 
 	List<Chat> selectRecentChat(int emp_no);
 
+	void insertChat(Chat chat);
+
 }

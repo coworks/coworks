@@ -87,6 +87,7 @@
 	<beans:bean id="approvalHandler" class="com.kh.coworks.websocket.SocketHandler" />
 	<beans:bean id="DMHandler" class="com.kh.coworks.websocket.DMHandler" />
 	<beans:bean id="chatHandler" class="com.kh.coworks.websocket.chatHandler" />
+	<beans:bean id="chatviewHandler" class="com.kh.coworks.websocket.chatviewHandler" />
 
 	<websocket:handlers>
 		<websocket:mapping path="/approvalCount" handler="approvalHandler" />
@@ -106,6 +107,14 @@
 	
 	<websocket:handlers>
 		<websocket:mapping path="/chatTop" handler="chatHandler" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs />
+	</websocket:handlers>
+	
+	<websocket:handlers>
+		<websocket:mapping path="/chatting" handler="chatviewHandler" />
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>

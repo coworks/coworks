@@ -5,29 +5,39 @@
 <mapper namespace="chat">
 
 	<select id="selectChatRoomList" resultType="chatRoom">
-		select * from chatroom where emp_no=#{emp_no}
+		select * from
+		chatroom where emp_no=#{emp_no}
 	</select>
-	
-	<select  id="selectChatRoomOne" resultType="chat">
-		select * from chat where croom_no=#{croom_no} order by chat_sendtime desc
+
+	<select id="selectChatRoomOne" resultType="chat">
+		select * from chat
+		where croom_no=#{croom_no} order by chat_sendtime desc
 	</select>
-	
-	<select id="selectRecentChat" resultType="chat" parameterType="_int">
+
+	<select id="selectRecentChat" resultType="chat"
+		parameterType="_int">
 		select * from(
-    	SELECT
+		SELECT
 		ROW_NUMBER() OVER(
 		PARTITION BY c.croom_no
 		ORDER BY
 		chat_sendtime DESC
-		) RNUM,
+		)
+		RNUM,
 		c.*,cr.croom_title
 		FROM
 		chat c,
 		chatroom cr
 		WHERE
 		cr.croom_no=c.croom_no and cr.emp_no=#{emp_no} )
-        where rnum=1
-        order by chat_sendtime desc
+		where rnum=1
+		order by chat_sendtime desc
 	</select>
+
+	<insert id="insertChat">
+		insert into chat
+		(CHAT_NO,CROOM_NO,CHAT_SENDNO,CHAT_CONTENT,CHAT_SENDTIME) values
+		(seq_chat.nextval,#{croom_no},#{chat_sendno},#{chat_content},#{chat_sendtime})
+	</insert>
 
 </mapper>

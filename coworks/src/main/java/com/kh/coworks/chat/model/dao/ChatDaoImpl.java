@@ -25,4 +25,9 @@ public class ChatDaoImpl implements ChatDao {
 		return sqlSession.selectList("chat.selectRecentChat", emp_no);
 	}
 
+	@Override
+	public void insertChat(Chat chat) {
+		sqlSession.insert("chat.insertChat", chat);
+	}
+
 }
