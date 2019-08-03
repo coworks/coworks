@@ -43,11 +43,8 @@
               
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor mb-0 mt-0">일정관리</h3>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Calendar</li>
-                        </ol>
+                        <h3 class=" mb-0 mt-0">일정관리</h3>
+                       
                     </div>
                     <div class="col-md-6 col-4 align-self-center">
                          <input type="button" class="btn btn-success float-right" id="indi" onclick="onclick1('개인');"   value="개인"/>  
@@ -102,7 +99,7 @@
                         </div>    
                          <div class="card">
                             <div class="card-body">
-                            <form name="insertCalendar" action="${pageContext.request.contextPath}/calendar/insertCalendar.do" method="post">
+                            <form  id="insertCalendar" action="${pageContext.request.contextPath}/calendar/insertCalendar.do" method="post">
          
                                 <h4 class="card-title">일정 추가</h4>
                                 <div class="row">
@@ -110,7 +107,7 @@
                                         <div class='col-md-12'>
                                       <div class='form-group'>
                                          <label class='control-label'>일정 명</label>
-                                         <input class='form-control' placeholder='Insert Event Name' type='text' id="cal_name" name="cal_name"/>
+                                         <input class='form-control' placeholder='일정 명 입력' type='text' id="cal_name" name="cal_name"/>
                                          
                                       </div>
                                    </div> <div class='col-md-12'>
@@ -168,27 +165,36 @@
                                       var caltype=$('#category2 option:selected').val();
                                       $('#cal_type').val(caltype);
                                    };
-                                   </script>
-                                   <!-- 
-                                   
-                                     <jsp:useBean id="now" class="java.util.Date" />
-                                 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss.SSSSSS" var="today" />
-                                    오늘 날짜 : <c:out value="${today}"/>
-                                 
-                                  <input id="cal_beginDate" value="${today}" name="cal_beginDate" type="text"/> 
-                                  <input id="cal_endDate" value="${today}" name="cal_endDate" type="text"/>
-                                       -->
+                                   </script> 
                                       
                                        <input id="cal_beginDate"  name="cal_beginDate" type="hidden"/> 
                                   <input id="cal_endDate"  name="cal_endDate" type="hidden"/>
                                        
-                                        <button type="submit" class="btn btn-danger btn-block waves-effect waves-light">
+                                        <button type="button" id="insertbutton" class="btn btn-danger btn-block waves-effect waves-light">
                                                      <i class="ti-plus"></i> 추가
                                         </button>
                                     </div>
                                 </div>
+                                </form>
                             </div>
-                       
+                       <script>
+                    	   $('#insertbutton').on("click",function(){
+                    		    var auth_cal='${sessionScope.authority.auth_cal}';
+                    		    var type=$('#cal_type').val();
+                    		    
+                    		    console.log(auth_cal);
+                    		    console.log(type);
+                    		    if(auth_cal=='Y' && type=='회사'){
+                    		    	console.log('권한없음');
+                    		    	alert("권한이 없습니다.");
+                    		    	return;
+                    		    }else{
+                    		    	console.log('성공');
+                    		    	$('#insertCalendar').submit();
+                    		    }
+                    	  
+                       });
+                       </script>
                      
                       </div>
                     </div>
@@ -228,41 +234,7 @@
                 
                 
                 <!-- Modal Add Category -->
-                <div class="modal fade none-border" id="add-new-event">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title"><strong>Add</strong> a category</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <form role="form">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="control-label">Category Name</label>
-                                            <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="control-label">Choose Category Color</label>
-                                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                                <option value="success">Success</option>
-                                                <option value="danger">Danger</option>
-                                                <option value="info">Info</option>
-                                                <option value="primary">Primary</option>
-                                                <option value="warning">Warning</option>
-                                                <option value="inverse">Inverse</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-                                <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <!-- END MODAL -->
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -366,6 +338,7 @@
                var start= $.fullCalendar.formatDate(copiedEventObject.start, "YYYY-MM-DD HH:mm:ss.SSSSSSSSS");
                var end=$.fullCalendar.formatDate(copiedEventObject.start, "YYYY-MM-DD HH:30:ss.SSSSSSSSS");
                //alert(end);
+               
                $.ajax({
             	   url: "${pageContext.request.contextPath}/calendar/insertCalendar2.do",
                    dataType : "json",

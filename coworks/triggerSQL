@@ -1,0 +1,37 @@
+-- 트리거
+
+-- 하나씩 따로따로 등록바람 ★
+
+
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER_EDU_DEL ★
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "COWORKS"."TRIGGER_EDU_DEL" 
+    AFTER DELETE ON EDUAPPLY
+    FOR EACH ROW
+    BEGIN
+        UPDATE EDUCATION SET EDU_CURCNT=EDU_CURCNT-1 WHERE EDU_NO=:OLD.EDU_NO;
+    END;
+/
+ALTER TRIGGER "COWORKS"."TRIGGER_EDU_DEL" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRIGGER_EDU ★
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "COWORKS"."TRIGGER_EDU" 
+    AFTER INSERT ON EDUAPPLY
+    FOR EACH ROW
+    BEGIN
+
+        UPDATE EDUCATION SET EDU_CURCNT=EDU_CURCNT+1 WHERE EDU_NO=:NEW.EDU_NO;
+    END; 
+/
+ALTER TRIGGER "COWORKS"."TRIGGER_EDU" ENABLE;
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------

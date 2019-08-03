@@ -48,6 +48,13 @@
 				
 				<div class="card">
 							<div class="card-body">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div id="calendar-events" class="mt-3">
+                                            <span class="calendar-events" data-class="bg-info"><i class="fa fa-circle mb-3 text-info"></i>&nbsp;접수 예정</span>&nbsp;
+                                            <span class="calendar-events" data-class="bg-success"><i class="fa fa-circle mb-3 text-success"></i>&nbsp;&nbsp;접수 진행중</span>&nbsp;
+                                            <span class="calendar-events" data-class="bg-warning"><i class="fa fa-circle mb-3 text-warning"></i>&nbsp;&nbsp;마감 임박</span>  &nbsp;
+                                            <span class="calendar-events" data-class="bg-danger"><i class="fa fa-circle mb-3 text-danger"></i>&nbsp;&nbsp;마감 </span>
+                                            </div> 
 								<div id="calendar">
 								</div>
 								
