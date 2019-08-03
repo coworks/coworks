@@ -68,6 +68,7 @@
 			<mapping path="/employee/**/*" />
 			<mapping path="/mail/**/*" />
 			<mapping path="/mypage/**/*" />
+			<mapping path="/survey/**/*" />
 
 			<mapping path="/common/gomain.do" />
 			<!-- ★★★★★ 추가해주세요 여러분 ~ (세션없이 넘어갈수 없게)★★★★★★ -->
