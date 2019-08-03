@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.coworks.chat.model.vo.Chat;
 import com.kh.coworks.chat.model.vo.ChatRoom;
 
 @Repository
@@ -17,6 +18,11 @@ public class ChatDaoImpl implements ChatDao {
 	@Override
 	public List<ChatRoom> selectChatRoomList(int emp_no) {
 		return sqlSession.selectList("chat.selectChatRoomList", emp_no);
+	}
+
+	@Override
+	public List<Chat> selectRecentChat(int emp_no) {
+		return sqlSession.selectList("chat.selectRecentChat", emp_no);
 	}
 
 }

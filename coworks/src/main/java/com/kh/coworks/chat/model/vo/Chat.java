@@ -16,6 +16,7 @@ public class Chat implements Serializable {
 	private String chat_isRead;// 읽기여부..?
 
 	private String senderName;
+	private String croom_title;
 
 	public Chat() {
 		super();
@@ -88,6 +89,14 @@ public class Chat implements Serializable {
 
 	public void setSenderName(String senderName) {
 		this.senderName = senderName;
+	}
+
+	public String getCroom_title() {
+		return croom_title;
+	}
+
+	public void setCroom_title(String croom_title) {
+		this.croom_title = croom_title;
 	}
 
 	@Override

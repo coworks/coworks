@@ -11,5 +11,23 @@
 	<select  id="selectChatRoomOne" resultType="chat">
 		select * from chat where croom_no=#{croom_no} order by chat_sendtime desc
 	</select>
+	
+	<select id="selectRecentChat" resultType="chat" parameterType="_int">
+		select * from(
+    	SELECT
+		ROW_NUMBER() OVER(
+		PARTITION BY c.croom_no
+		ORDER BY
+		chat_sendtime DESC
+		) RNUM,
+		c.*,cr.croom_title
+		FROM
+		chat c,
+		chatroom cr
+		WHERE
+		cr.croom_no=c.croom_no and cr.emp_no=#{emp_no} )
+        where rnum=1
+        order by chat_sendtime desc
+	</select>
 
 </mapper>

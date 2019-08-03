@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.coworks.chat.model.service.ChatService;
+import com.kh.coworks.chat.model.vo.Chat;
 import com.kh.coworks.chat.model.vo.ChatRoom;
 import com.kh.coworks.employee.model.vo.Employee;
 
@@ -23,9 +24,7 @@ public class ChatController {
 	public String chatView(Model model, HttpServletRequest request) {
 		Employee loginEmployee = (Employee) request.getSession().getAttribute("employee");
 
-		System.out.println("webSocket 로그인 객체 확인 : " + loginEmployee);
-
-		List<ChatRoom> cList = chatService.selectChatRoomList(loginEmployee.getEmp_no());
+		List<Chat> cList = chatService.selectRecentChat(loginEmployee.getEmp_no());
 
 		model.addAttribute("croomList", cList);
 

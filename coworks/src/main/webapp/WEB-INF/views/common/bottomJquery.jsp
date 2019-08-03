@@ -21,7 +21,7 @@
 
 <script type="text/javascript">
 	var sock = new SockJS("<c:url value='/approvalCount'/>");
-
+	
 	sock.onmessage = onMessage;
 
 	function onMessage(evt) {
@@ -53,8 +53,41 @@
 		$('#approvalNotify').append(approvalMSG);
 		
 		$('#approvalCnt').html('결재 미결함(' + data.length + ')');
-		console.log(data);
+		sock.close();
 
 	}
+
+ 	var chatSock = new SockJS("<c:url value='/chatTop'/>");
+	chatSock._transportTimeout = function() { console.log('chat 타임아웃!!!'); };
+	
+	chatSock.onmessage = onChatMessage;
+
+	function onChatMessage(evt) {
+		var data = JSON.parse(evt.data);		
+		var chatMSG;
+		if (data.length != 0) {
+			
+			chatMSG=$("<div class='message-center'>");
+			for (var i = 0; i < data.length; i++) {
+				var alink = $('<a>').attr('href','${pageContext.request.contextPath }/chat/chatRoom/'+data[i].croom_no);
+				
+				var chat_content=$("<div class='mail-contnet ml-2'>");
+				chat_content.append("<h5>"+data[i].chat_content+"</h5>");
+				chat_content.append("<span class='mail-desc'>"+data[i].croom_title+"</span>");
+				chat_content.append(" <span class='time'>"+data[i].chat_sendtime+"</span>");
+				
+				alink.append(chat_content);
+				chatMSG.append(alink);
+			}
+
+		} else{
+			
+			chatMSG=$("<div class='m-3' align='center' ><h5 class=text-info>현재 결재 대기 중인 문서가 없습니다</h5></div>");
+		
+		}
+		$('#chatNotify').append(chatMSG);
+		
+		
+	} 
 </script>
 

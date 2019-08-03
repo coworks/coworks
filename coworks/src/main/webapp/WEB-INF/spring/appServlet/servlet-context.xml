@@ -105,7 +105,7 @@
 	</websocket:handlers>
 	
 	<websocket:handlers>
-		<websocket:mapping path="/chat" handler="chatHandler" />
+		<websocket:mapping path="/chatTop" handler="chatHandler" />
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
