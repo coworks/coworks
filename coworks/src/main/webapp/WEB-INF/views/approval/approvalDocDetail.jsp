@@ -209,7 +209,7 @@ div p {
 		
 		if(docType=="휴가신청서"){
 			var docContentList=$('<ol>');
-			docContentList.append("<li>휴가 종류 : "+content.vacation_type+"</li><br />");
+			docContentList.append("<li>휴가 종류 : "+((content.vacation_Etc!="")?content.vacation_Etc:content.vacation_type)+"</li><br />");
 			docContentList.append("<li>휴가 기간 : "+content.vacation_range+" ("+content.vacation_period+" 일간)</li><br />");
 			docContentList.append("<li>휴가 사유 : "+content.vacation_reason.replace(/\r\n/gi, "<br>")+"</li><br />"); 
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.coworks.chat.model.vo.Chat;
 import com.kh.coworks.chat.model.vo.ChatRoom;
+import com.kh.coworks.employee.model.vo.Employee;
 
 @Repository
 public class ChatDaoImpl implements ChatDao {
@@ -28,6 +29,16 @@ public class ChatDaoImpl implements ChatDao {
 	@Override
 	public void insertChat(Chat chat) {
 		sqlSession.insert("chat.insertChat", chat);
+	}
+
+	@Override
+	public List<Integer> selectCroomEmp(int croom_no) {
+		return sqlSession.selectList("chat.selectCroomEmp", croom_no);
+	}
+
+	@Override
+	public List<Chat> selectChatList(int croom_no) {
+		return sqlSession.selectList("chat.selectChatList", croom_no);
 	}
 
 }

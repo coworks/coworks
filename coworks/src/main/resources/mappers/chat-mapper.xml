@@ -19,19 +19,30 @@
 		select * from(
 		SELECT
 		ROW_NUMBER() OVER(
-		PARTITION BY c.croom_no
+		PARTITION BY
+		c.croom_no
 		ORDER BY
 		chat_sendtime DESC
 		)
 		RNUM,
 		c.*,cr.croom_title
 		FROM
-		chat c,
+		chat
+		c,
 		chatroom cr
 		WHERE
 		cr.croom_no=c.croom_no and cr.emp_no=#{emp_no} )
 		where rnum=1
 		order by chat_sendtime desc
+	</select>
+
+	<select id="selectCroomEmp" parameterType="_int"
+		resultType="int">
+		select emp_no from chatRoom where croom_no=#{croom_no}
+	</select>
+
+	<select id="selectChatList" parameterType="_int" resultType="chat">
+		select c.*, emp_name senderName from chat c, employee e where croom_no=#{croom_no} and e.emp_no=c.chat_sendno order by chat_sendtime
 	</select>
 
 	<insert id="insertChat">

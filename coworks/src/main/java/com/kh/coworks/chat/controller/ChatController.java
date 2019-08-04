@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.gson.Gson;
 import com.kh.coworks.chat.model.service.ChatService;
 import com.kh.coworks.chat.model.vo.Chat;
 import com.kh.coworks.chat.model.vo.ChatRoom;
@@ -27,6 +28,7 @@ public class ChatController {
 		List<Chat> cList = chatService.selectRecentChat(loginEmployee.getEmp_no());
 
 		model.addAttribute("croomList", cList);
+		model.addAttribute("chatList", new Gson().toJson(chatService.selectChatList(1)));
 
 		return "chat/chatting";
 	}

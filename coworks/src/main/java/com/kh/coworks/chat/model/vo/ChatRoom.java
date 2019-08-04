@@ -6,20 +6,30 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ChatRoom implements Serializable {
-	private int croom_no;// ÀÎµ¦½º
-	private int emp_no;// Âü¿©ÀÚ
-	private String croom_title;// Ã¤ÆÃ¹æÀÌ¸§
+	private int croom_index;
+	private int croom_no;// ï¿½Îµï¿½ï¿½ï¿½
+	private int emp_no;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String croom_title;// Ã¤ï¿½Ã¹ï¿½ï¿½Ì¸ï¿½
 
 	public ChatRoom() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ChatRoom(int croom_no, int emp_no, String croom_title) {
+	public ChatRoom(int croom_index, int croom_no, int emp_no, String croom_title) {
 		super();
+		this.croom_index = croom_index;
 		this.croom_no = croom_no;
 		this.emp_no = emp_no;
 		this.croom_title = croom_title;
+	}
+
+	public int getCroom_index() {
+		return croom_index;
+	}
+
+	public void setCroom_index(int croom_index) {
+		this.croom_index = croom_index;
 	}
 
 	public int getCroom_no() {
@@ -48,7 +58,8 @@ public class ChatRoom implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ChatRoom [croom_no=" + croom_no + ", emp_no=" + emp_no + ", croom_title=" + croom_title + "]";
+		return "ChatRoom [croom_index=" + croom_index + ", croom_no=" + croom_no + ", emp_no=" + emp_no
+				+ ", croom_title=" + croom_title + "]";
 	}
 
 }
