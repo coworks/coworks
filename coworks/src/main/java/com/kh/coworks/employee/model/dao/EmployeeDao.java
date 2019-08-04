@@ -47,5 +47,7 @@ public interface EmployeeDao {
 	Authority selectOneAuthority(int emp_no);
 
 	int updateEmployee(Employee emp);
+
+	List<Employee> getDeptEmp(String dept_code);
 	
 }

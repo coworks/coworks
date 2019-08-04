@@ -166,5 +166,9 @@
 			
 	</update>
 	
+	<select id="getDeptEmp" resultType="employee">
+		select * from empview where dept_code = #{dept_code} order by job_code
+	</select>
+	
 	
 </mapper>

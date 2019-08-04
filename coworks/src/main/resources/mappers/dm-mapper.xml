@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dm">
+
+	<resultMap id="dmMap" type="dm" />
+	<select id="dmList" resultType="dm">
+		select *
+		from dm
+		where
+		dm_no=(select dm_no
+		from dm_to
+		where dm_to = #{emp_no})
+	</select>
+
+	<select id="dmListCount" resultType="_int" parameterType="_int">
+		select
+		count(*)
+		from dm
+		where
+		dm_no=(select dm_no
+		from dm_to
+		where 
+		dm_to = #{emp_no})
+	</select>
+
+	<select id="sendDmList" resultType="dm">
+		select *
+		from dm
+		where dm_from = #{emp_no}
+	</select>
+
+	<select id="sendDmListCount" resultType="_int"
+		parameterType="_int">
+		select
+		count(*)
+		from dm
+		where dm_from = #{emp_no}
+	</select>
+
+
+	<select id="delDmList" resultType="dm">
+		select
+		*
+		from dm
+		WHERE
+		dm_no=(select dm_no
+		from dm_to
+		where dm_to = #{emp_no} and dm_to_del='N')
+	</select>
+
+	<select id="delDmListCount" resultType="_int"
+		parameterType="_int">
+		select
+		count(*)
+		from dm
+		WHERE
+		dm_no=(select dm_no
+		from dm_to
+		where dm_to = #{emp_no} and dm_to_del='N')
+	</select>
+	
+	<insert id="insertDM" parameterType="dm">
+		insert into dm(dm_no,dm_from, dm_subject,dm_content,dm_date,dm_from_del) values(seq_dm.nextval, #{dm_from},#{dm_subject},#{dm_content},default,default)
+		<selectKey keyProperty="dm_no" resultType="_int" order="AFTER">
+			select seq_dm.CURRVAL from dual
+		</selectKey>
+	</insert>
+	
+	<insert id="insertDMTo" parameterType="_int">
+		<selectKey keyProperty="dm_no" resultType="_int" order="BEFORE">
+			select seq_dm.CURRVAL from dual
+		</selectKey>
+		insert into dm_to(dm_to_no,dm_no,dm_to,dm_to_del)
+		values(seq_dm_to.nextval, #{dm_no}, #{dm_to} ,default)
+	</insert>
+</mapper>

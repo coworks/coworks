@@ -23,6 +23,10 @@
 					aria-expanded="false"><i class="mdi mdi-email"></i><span
 						class="hide-menu">메일</span></a></li>
 				
+					<li><a
+					href="${pageContext.request.contextPath}/dm/dmList.do"	
+					aria-expanded="false"><i class="mdi mdi-comment-alert"></i><span
+						class="hide-menu">쪽지</span></a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/calendar/calendarview.do"
 					aria-expanded="false"><i class="mdi mdi-calendar-multiple"></i><span

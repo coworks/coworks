@@ -113,5 +113,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.updateEmployee(emp);
 	}
 
+	@Override
+	public List<Employee> getDeptEmp(String dept_code) {
+		return employeeDao.getDeptEmp(dept_code);
+	}
+
 
 }

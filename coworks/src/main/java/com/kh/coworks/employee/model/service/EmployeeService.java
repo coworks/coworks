@@ -48,6 +48,8 @@ public interface EmployeeService {
 
 	int updateEmployee(Employee emp);
 
+	List<Employee> getDeptEmp(String dept_code);
+
 
 	
 }

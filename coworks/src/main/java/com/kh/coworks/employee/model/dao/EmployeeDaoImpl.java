@@ -129,4 +129,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public int updateEmployee(Employee emp) {
 		return sqlSession.update("employee.updateEmployee",emp);
 	}
+
+	@Override
+	public List<Employee> getDeptEmp(String dept_code) {
+		return sqlSession.selectList("employee.getDeptEmp",dept_code);
+	}
 }
