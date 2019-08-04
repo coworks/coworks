@@ -26,6 +26,7 @@
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
     
     
+<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/lang-all.js"></script>
 <c:import url="../common/header.jsp" />
 </head>
 
@@ -285,10 +286,13 @@
    <script
       src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
    <script
-      src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
+      src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js?ver=1"></script>
  <script
       src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.print.min.js"></script>
-  
+  <script
+      src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/gcal.js"></script>
+   <script
+      src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/gcal.min.js"></script> 
 
     <!-- ============================================================== -->
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
@@ -363,6 +367,7 @@
        CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
            var $this = this; 
            var today = new Date($.now());
+           
            if(calEvent.end==null){ 
         	   calEvent.end=today;
            }
@@ -517,7 +522,6 @@
            var today = new Date($.now());
             
            
-          
            var defaultEvents = [];
            
            // 일정 받아오기
@@ -534,36 +538,47 @@
                
                
            })
+            
+           
           </c:forEach>
            
+            
     
            var $this = this;
            
            
            $this.$calendarObj = $this.$calendar.fullCalendar({
-        	   nextDayThreshold:'00:00:00',	//0시이후로 하루로치기
-        	  
-              	 daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
-      				monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
-      						"7월", "8월", "9월", "10월", "11월", "12월" ],
-        	   
+        	   nextDayThreshold:'00:00:00',	//0시이후로 하루로치기  
                slotDuration: '00:30:00', /* If we want to split day time each 15minutes */
                minTime: '06:00:00',
                maxTime: '24:30:00',  
                defaultView: 'month',  
                handleWindowResize: true,   
+
+               googleCalendarApiKey: 'AIzaSyDOpGZ4CmwS9n6_kh2NNP9OB__TSgtAoBI',
                 
                header: {
                    left: 'prev,next today',
                    center: 'title',
                    right: 'month,agendaWeek,agendaDay'
                }, 
-                   
-               events: defaultEvents,   //이벤트 불러오기
+        		   monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+        		   monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+        		   dayNames: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
+        		   dayNamesShort: ["일","월","화","수","목","금","토"],
+
+        		   eventSources: [{
+                	   id:'ko.south_korea#holiday@group.v.calendar.google.com'}
+                        
+                    
+              ,{ events: defaultEvents 
+               
+        		   }],    //이벤트 불러오기
                editable: true,   // 
                droppable: true, // this allows things to be dropped onto the calendar !!!
                eventLimit: true, // allow "more" link when too many events
                selectable: true,
+               
                drop: function(date) { $this.onDrop($(this), date); },
                select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
                eventClick: function(calEvent, jsEvent, view,event) { $this.onEventClick(calEvent, jsEvent, view); },
@@ -593,6 +608,7 @@
        
        },
       //init CalendarApp
+       $('#calendar').fullCalendar('addEventSource', 'https://calendar.google.com/calendar/embed?src=ko.south_korea%23holiday%40group.v.calendar.google.com&ctz=Asia%2FSeoul');
        $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
        
    }(window.jQuery),
