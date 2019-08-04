@@ -110,7 +110,7 @@
 						<li><a href="#">보고서 작성하기</a></li>
 
 					</ul></li>
-				<li><a href="${pageContext.request.contextPath}/survey/surveyChart.do" aria-expanded="false"><i
+				<li><a href="${pageContext.request.contextPath}/survey/surveyList.do" aria-expanded="false"><i
 						class="mdi mdi-file-chart"></i><span class="hide-menu">설문조사</span></a>
 				</li>
 				<c:set var="auper" value="${sessionScope.authority.auth_personnal}" />
