@@ -6,10 +6,12 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +26,8 @@ import com.kh.coworks.attendance.model.service.AttendanceService;
 import com.kh.coworks.attendance.model.vo.Attendance;
 import com.kh.coworks.calendar.model.service.CalendarService;
 import com.kh.coworks.employee.model.vo.Employee;
+import com.kh.coworks.todo.model.service.TodoService;
+import com.kh.coworks.todo.model.vo.Todo;
 
 @Controller
 public class CommonProcessingController {
@@ -36,6 +40,9 @@ public class CommonProcessingController {
 
 	@Autowired
 	private CalendarService calendarService;
+	
+	@Autowired
+	TodoService todoService;
 	
 	
 	@RequestMapping("/commonProcessing.do") 
@@ -50,7 +57,18 @@ public class CommonProcessingController {
 		 
 		 ModelAndView mv=new ModelAndView();  
 		Attendance attend=new Attendance(); 
-		  
+		
+		// todo부분 →
+		Todo todo = new Todo();
+		todo.setEmp_no(employee.getEmp_no());
+		todo.setTodo_status(0);
+
+		ArrayList<Map<String, String>> todolist 
+			= new ArrayList<Map<String, String>>(todoService.selectTodolist(todo));
+		mv.addObject("todoList", todolist);
+		// ← todo부분
+		
+		
 		//현재시간 Date
 		java.util.Date curDate = new java.util.Date(); 
  

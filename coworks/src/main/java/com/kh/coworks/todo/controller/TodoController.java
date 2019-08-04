@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.todo.model.service.TodoService;
@@ -55,6 +54,19 @@ public class TodoController {
 		return "redirect:/todo/todolist.do";
 	}
 	
+	// (할 일)추가 _ index화면에서
+	@RequestMapping("/addtodohome.do")
+	public String inserttodohome(Model model, Todo todo) {
+		
+		System.out.println("todo왔냐? : " + todo);
+		
+		int result = todoService.insertTodo(todo);
+		
+		model.addAttribute(todo);
+		
+		return "redirect:/common/gomain.do";
+	}
+	
 	// (할 일) 내용&상태 수정
 	@RequestMapping("/todo/correcttodo.do")
 	public String updatetodo(Model model, Todo todo) {
@@ -77,11 +89,10 @@ public class TodoController {
 		return "redirect:/todo/todolist.do";
 	}
 	
-	// '완료'로 변경 (stauts -> 1로 변경)
+	// '완료'로 변경 (status -> 1로 변경)
 	@RequestMapping("/todo/finishtodo.do")
 	public String changeTofinished(Model model, String todo_no ) {
-		System.out.println("todo에 뭐 들고 왔나여!!?!? : " + todo_no);
-		
+
 		Todo todo = new Todo();
 		int todo_number = Integer.parseInt(todo_no);
 		todo.setTodo_no(todo_number);
@@ -93,5 +104,19 @@ public class TodoController {
 		return "redirect:/todo/todolist.do";
 	}
 	
+	// '완료'로 변경 _ HOME에서 (status -> 1로 변경)
+	@RequestMapping("/todo/finishtodohome.do")
+	public String changeTofinishedHome(Model model, String todo_no ) {
+		
+		Todo todo = new Todo();
+		int todo_number = Integer.parseInt(todo_no);
+		todo.setTodo_no(todo_number);
+		
+		int result = todoService.changeTofinished(todo);
+		
+		model.addAttribute(todo);
+		
+		return "redirect:/common/gomain.do";
+	}
 	
 }

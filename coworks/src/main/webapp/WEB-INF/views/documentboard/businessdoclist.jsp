@@ -48,8 +48,45 @@
 					<div class="col-md-6 col-8 align-self-center">
 						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item">
-								<a>자료실 / 게시판</a>
+							<li class="breadcrumb-item" ><input type="text" id="bo_code" value="${bo_code }" hidden>
+								<c:choose>
+												<c:when test="${bo_code eq 'D50' }">
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 사내규정 자료실</span>
+												</c:when>
+												<c:when test="${bo_code eq 'D51' }">
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 업무자료 자료실</span>
+												</c:when>
+												<c:when test="${bo_code eq 'D52' }">
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 교육자료 자료실</span>
+												</c:when>
+												<c:when test="${bo_code eq 'D53' }">
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 공지사항</span>
+												</c:when>
+												<c:when test="${bo_code eq 'D54' }">
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 경조사</span>
+												</c:when>
+												<c:when test="${bo_code eq 'D55' }">
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 조직개편 및 인사이동</span>
+												</c:when>
+												<c:when test="${bo_code eq 'D56' }">
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> News</span>
+												</c:when>
+												<c:when test="${bo_code eq 'D57' }">
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 자유게시판</span>
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="bo_code" value="${bo_code }" hidden>
+													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 부서게시판</span>
+												</c:otherwise>
+											</c:choose>
 							</li>
 						</ol>
 					</div>
@@ -64,7 +101,11 @@
 						
 						
 						<div class="table-responsive ">
-						<div style="text-align : right;"><a href="businessdocForm.do" class="btn btn-success waves-effect waves-light">글쓰기</a></div>
+						<div style="text-align : right;">
+						
+							<a class="btn btn-success waves-effect waves-light" onclick="goboardForm();" style="color:white;">글쓰기<input type="text" id="bo_code" value="${bo_code }" hidden></a>
+						
+						</div>
 												
 						<!-- (내역이 없을 때 →) -->
 						<c:if test="${list.size() eq 0 }">
@@ -103,10 +144,10 @@
 										
 										<td class="text-al-left title">
 										
-										   <c:if test="${b.bo_title.length() gt 20}">
-                                                   ${b.bo_title.substring(0,20) } ...
+										   <c:if test="${b.bo_title.length() gt 30}">
+                                                   ${b.bo_title.substring(0,30) } ...
                                            </c:if>
-                                           <c:if test="${b.bo_title.length()le 20}">
+                                           <c:if test="${b.bo_title.length()le 30}">
                                                    ${b.bo_title}
                                            </c:if> 
 										
@@ -132,14 +173,19 @@
 											<c:if test="${b.fileCount>0 }">
 												<i class="fa fa-paperclip"></i>
 											</c:if>
+											<c:if test="${b.fileCount eq 0 }">
+												<i class="mdi mdi-close"></i>
+											</c:if>
 										</td>
 									</tr>
 									</c:forEach>
 								</tbody>
 								
 							</table>
-							<c:out value="${pageBar}" escapeXml="false"/>
+							<div style="float:right; position: relative; left: -40%;">
+							<c:out value="${pageBar}" escapeXml="false"/> </div>
 							</c:if><!-- (내역이 있을 때 ←)-->
+							</div>
 						</div>
 					</div>
 				</div>
@@ -152,7 +198,7 @@
 			
 			<c:import url="../common/footer.jsp" />
 			
-		</div>
+		
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 		<script
@@ -163,8 +209,6 @@
 		$(function(){
 			$("tr[id]").on("click", function(){
 				var bo_no = $(this).attr("id");
-				console.log("bo_no="+bo_no);
-				console.log("bo_code=${bo_code}");
 				location.href="${pageContext.request.contextPath}/documentboard/${bo_code}/"+bo_no;
 			});
 		});
@@ -179,6 +223,11 @@
 			});
 		});
 		
+		function goboardForm(){
+			var value = $('#bo_code').val();
+			
+			location.href="${pageContext.request.contextPath}/documentboard/boardForm/"+value;
+		}
 	
 	</script>
 </body>

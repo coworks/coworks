@@ -34,13 +34,7 @@
 
 				<!-- 시작 -->
 
-				<div class="row page-titles">
-					<div class="col-md-6 col-8 align-self-center">
-						<h3 class="text-themecolor mb-0 mt-0">COWORKS 글 작성하기</h3>
 
-					</div>
-
-				</div>
 
 				<div class="row">
 					<div class="col-lg-12">
@@ -50,71 +44,135 @@
 
 							<div class="col-xlg-9 col-lg-8 col-md-7 align-self-center">
 								<div class="card-body" style="margin-bottom: 7%;">
-									<h3 class="card-title text-primary">새 글 등록</h3>
-									<form class="all-form" id="docEnrollFrm" action="${pageContext.request.contextPath}/documentboard/insert"
-											method="post" enctype="multipart/form-data">
-									<div class="form-group">
-										
-											<select class="form-control custom-select" id="select1"
-												name="bo_code" style="width: 18%;">
-												<!-- onchange="itemChange(this)" -->
-												<option value="0">자료실 선택</option>
-												<option value="D50">사내규정</option>
-												<option value="D51">업무문서</option>
-												<option value="D52">교육문서</option>
-												<option value="DD">부서</option>
-											</select>
-											<select class="form-control custom-select" id="select2"
-												name="dep_code" style='display: none; width: 18%;'>
-												<c:forEach items="${departmentList}" var="de">
-													<option value="${de.dept_code}">${de.dept_name}</option>
-												</c:forEach>
+									<h2 class="card-title text-info">새 글 등록</h2>
+									<br>
+									<form class="all-form" id="docEnrollFrm"
+										action="${pageContext.request.contextPath}/documentboard/insert"
+										method="post" enctype="multipart/form-data">
+										<div class="form-group">
 
-											</select>
-											<input type="text" name="emp_no" value="${sessionScope.employee.emp_no }" hidden/>
-											<input type="text" name="writerName" value="${sessionScope.employee.emp_name }" hidden/>
+
+											<c:choose>
+												<c:when test="${boardCode eq 'D50' }">
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>자료실</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> 사내규정 자료실</span>
+												</c:when>
+												<c:when test="${boardCode eq 'D51' }">
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>자료실</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> 업무자료 자료실</span>
+												</c:when>
+												<c:when test="${boardCode eq 'D52' }">
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>자료실</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> 교육자료 자료실</span>
+												</c:when>
+												<c:when test="${boardCode eq 'D53' }">
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>게시판</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> 공지사항</span>
+												</c:when>
+												<c:when test="${boardCode eq 'D54' }">
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>게시판</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> 경조사</span>
+												</c:when>
+												<c:when test="${boardCode eq 'D55' }">
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>게시판</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> 조직개편 및 인사이동</span>
+												</c:when>
+												<c:when test="${boardCode eq 'D56' }">
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>게시판</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> News</span>
+												</c:when>
+												<c:when test="${boardCode eq 'D57' }">
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>게시판</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> 자유게시판</span>
+												</c:when>
+												<c:otherwise>
+													<input type="text" name="bo_code" value="${boardCode }"
+														hidden>
+													<span>게시판</span>
+													<i class="fas fa-chevron-right"></i>
+													<span class="text-info"> 부서게시판</span>
+												</c:otherwise>
+											</c:choose>
+
+
+
+
+
+
+											<input type="text" name="emp_no"
+												value="${sessionScope.employee.emp_no }" hidden /> <input
+												type="text" name="writerName"
+												value="${sessionScope.employee.emp_name }" hidden />
 											<h4 name="writerName" style="float: right; padding-top: 5px;">작성자
 												: ${sessionScope.employee.emp_name}</h4>
-									</div>
-									<div class="form-group">
-										<input class="form-control" name="bo_title"
-											placeholder="제목을 입력하세요.">
-									</div>
-									<div class="form-group">
+										</div>
+										<div class="form-group">
+											<input class="form-control writtentitle" name="bo_title"
+												placeholder="제목을 입력하세요.">
+										</div>
+										<div class="form-group">
 
-										<textarea class="textarea_editor form-control" name="bo_content"
-											rows="15" placeholder="내용을 입력하세요."></textarea>
+											<textarea class="textarea_editor form-control writtencontent"
+												name="bo_content" rows="15" placeholder="내용을 입력하세요."></textarea>
 
-									</div>
-									<c:import url="../approval/approvalDoc/approvalWriteForm/common/approvalAttachAdd.jsp" />
-									
-								
-									<div style="float: right;">
-										<button class="btn btn-success mt-3" type="submit" onclick="return validate();">
-											<i class="far fa-check-circle"></i> 등록
-										</button>
-										&nbsp;
-										<button class="btn btn-danger mt-3" onclick="goback();">
+										</div>
+										<c:import
+											url="../approval/approvalDoc/approvalWriteForm/common/approvalAttachAdd.jsp" />
+
+
+										<div style="float: right;">
+
+											<!-- <button class="btn btn-light waves-effect mt-3" onclick="goback();">
 											<i class=" far fa-times-circle"></i> 취소
-										</button>
-									</div>
+										</button> -->
+											&nbsp;
+											<button class="btn btn-success waves-effect mt-3"
+												type="submit" onclick="return validate();">
+												<i class="far fa-check-circle"></i> 등록
+											</button>
+
+										</div>
 									</form>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				
-				
-				
-				
-				</div>
 
-				<!-- 끝 -->
+
+
 
 			</div>
-			<c:import url="../common/footer.jsp" />
+
+			<!-- 끝 -->
+
 		</div>
+		<c:import url="../common/footer.jsp" />
+	</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 
@@ -126,48 +184,47 @@
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/dropzone-master/dist/dropzone.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
-
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/styleswitcher/jQuery.style.switcher.js"
+		aria-hidden="true"></script>
 
 	<script>
 		$(document).ready(function() {
 			$('.textarea_editor').wysihtml5();
 		});
 
-
 		function deleteBtn(obj) {
 			$(obj).parent().remove();
 		}
 
-		$("#select1").on("change", function() {
-
-			console.log($(this).val());
-
-			if ($(this).val() == 'DD')
-				$("#select2").css("display", "block");
-			else
-				$("#select2").css("display", "none");
-			
-
-		});
-
-		function goback() {
-			console.log("뒤로가기. --> 알람이 뜨면서 작성 취소할건지 물어봐야 함 / Form, UpdateView 둘 다 해야 한다.")
-			window.history.go(-1);
-		}
+		/* 	function goback() {
+				
+				 console.log("뒤로가기. --> 알람이 뜨면서 작성 취소할건지 물어봐야 함 / Form, UpdateView 둘 다 해야 한다.")
+				window.history.forward(-1);
+			} */
 
 		function validate() {
-			var boardCode = $("#select1").val();
+			var boardContent = $(".writtencontent").val();
+			var boardTitle = $(".writtentitle").val();
 
-			if (boardCode == "0") {
-				alert("등록할 자료실을 선택하세요.");
+			
+			 if (boardTitle == "") {
+					Swal.fire({
+		                title: "제목을 입력하세요!!",
+		                timer: 1300,
+		                showConfirmButton: false
+		            });
+					return false;
+			} else if (boardContent == "") {
+				Swal.fire({
+	                title: "내용을 입력하세요!!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
 				return false;
 			}
-			
-			alert("딩동댕!!!!!!!!! 글을 등록하겠냐고 모달 뜨게 하장1!! (취소=닫기),(등록)");
-			
 			return true;
 		}
-
 	</script>
 
 </body>

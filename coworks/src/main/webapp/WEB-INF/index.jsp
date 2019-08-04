@@ -21,6 +21,18 @@
     <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
    
    <c:import url="views/common/header.jsp" />
+   
+   <style>
+   	.detail-box{
+	    border-bottom: solid #E6E6E6 1px !important;
+	}
+	.detail-list{
+		border: solid #E6E6E6 1px !important;
+		padding : 85px 0;
+		text-align : center;
+		margin-top : 20px;
+	}
+   </style>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -111,37 +123,132 @@
 							}
 							
 						};
-						
-						
-						
 						</script>
+
+
+
 						<div class="card">
 							<div class="card-body">
-								<div class="m-2 p-2">
-									<h4 class="card-title">${ sessionScope.employee.emp_name }의 TODO</h4>
-									
-									<h5 class="mt-4">
-										<span class="badge badge-danger">긴급 </span>&nbsp;<small class="text-muted">긴급으로 할 일이요</small>
-										<br>
-										<span class="badge badge-danger">긴급 </span>&nbsp;<small class="text-muted">긴급으로 할 일22이요</small>
-									</h5>
-									
-									<h5 class="mt-4">
-										<span class="badge badge-warning">보통 </span>&nbsp;<small class="text-muted">그냥 할 일이요</small>
-										<br>
-										<span class="badge badge-warning">보통 </span>&nbsp;<small class="text-muted">그냥 할 일222이요</small>
-									</h5>
-									
-									<h5 class="mt-4">
-										<span class="badge badge-success">여유 </span>&nbsp;<small class="text-muted">여유롭게 할 일이요</small>
-										<br>
-										<span class="badge badge-success">여유 </span>&nbsp;<small class="text-muted">여유롭게 할 일22222이요</small>
-									</h5>
-									
+								<button class="float-right btn btn-sm btn-rounded btn-info"
+									data-toggle="modal" data-target="#addtodohome">
+									<i class="fas fa-plus"></i>
+								</button>
+								<h4 class="card-title">${ sessionScope.employee.emp_name }의 To Do list <c:if
+													test="${todoList.size() ne 0 }">
+													<span class="badge badge-danger">${todoList.size() }</span>
+												</c:if></h4>
+								<!-- ============================================================== -->
+								<!-- To do list widgets -->
+								<!-- ============================================================== -->
+								<div class="to-do-widget mt-3">
+									<!-- .modal for add task -->
+									<div id="addtodohome" class="modal" tabindex="-1" role="dialog"
+										aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+										<div class="modal-dialog">
+											<form method="post" action="addtodohome.do" name="addtodohome">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h2 class="modal-title" id="myModalLabel">TODO 추가하기</h2>
+														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group has-success">
+															<br> <label class="control-label">상태</label>
+															<select
+																id="todo_condition" name="todo_condition"
+																class="form-control custom-select">
+																<option value="1"></option>
+																<option value="0" style="color: red; font-weight: bold;">긴급</option>
+																<option value="1" style="color: orange; font-weight: bold;">보통</option>
+																<option value="2" style="color: green; font-weight: bold;">여유</option>
+															</select>
+														</div>
+													</div>
+
+													<div class="modal-body">
+														<div class="col-md-13">
+															<div class="form-group has-success">
+																<label class="control-label">내용</label> <input
+																	type="text" id="todo_content" name="todo_content"
+																	class="form-control" placeholder="내용을 입력하세요">
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<input type="text"
+															value="${ sessionScope.employee.emp_no }" name="emp_no" hidden />
+														<button type="button" class="btn btn-light waves-effect"
+															data-dismiss="modal">취소하기</button>
+														<button type="submit" class="btn btn-success waves-effect">등록하기</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+									<!-- /.modal -->
+									<ul class="list-task todo-list list-group mb-0"
+										data-role="tasklist">
+										
+										<c:if test="${todoList.size() eq 0 }">
+												<div class="detail-box col-12">
+													<div class="detail-list">
+														<div>
+															<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png"
+																	style="width: 50px; vertical-align: middle; border: 0" />
+														</div>
+														<h4 class="text-themecolor" style="margin: 10px 0;">등록된 TODO가 없습니다.</h4>
+													</div>
+												</div>
+											</c:if>
+
+										<c:if test="${todoList.size() ne 0 }">
+											<c:forEach items="${todoList}" var="todo">
+											
+												<li class="list-group-item" data-role="task">
+													<div class="checkbox checkbox-info">
+														<input type="checkbox" id="${todo.todo_no }" value="${todo.todo_no }">
+														<label for="${todo.todo_no }" class="">
+															<c:if test="${todo.todo_content.length() gt 30}">
+																<c:choose>
+																	<c:when test="${todo.todo_condition eq 0}">
+																		<span class="label label-light-danger">긴급</span>
+																	</c:when>
+																	<c:when test="${todo.todo_condition eq 1 }">
+																		<span class="label label-light-warning">보통</span>
+																	</c:when>
+																	<c:when test="${todo.todo_condition eq 2 }">
+																		<span class="label label-light-success">여유</span>
+																	</c:when>
+																</c:choose>
+																<span>${todo.todo_content.substring(0,29) } ...</span>
+															</c:if>
+															<c:if test="${todo.todo_content.length()le 30}">
+																<c:choose>
+																	<c:when test="${todo.todo_condition eq 0}">
+																		<span class="label label-light-danger">긴급</span>
+																	</c:when>
+																	<c:when test="${todo.todo_condition eq 1 }">
+																		<span class="label label-light-warning">보통</span>
+																	</c:when>
+																	<c:when test="${todo.todo_condition eq 2 }">
+																		<span class="label label-light-success">여유</span>
+																	</c:when>
+																</c:choose>
+																<span>${todo.todo_content }</span>
+															</c:if>
+														</label>
+													</div>
+												</li>
+											</c:forEach>
+										</c:if>
+									</ul>
 								</div>
 							</div>
 						</div>
-						
+
+
+
+
 						<div class="card">
 							<div class="card-body">
 								<div class="m-2 p-2">
@@ -538,6 +645,19 @@
 	    $.CalendarApp.init()
 	}(window.jQuery);
 
+	
+	// todo : 완료로 바꾸기
+	$("li input[id]").on("click", function(){
+		var todo_no = $(this).attr("id");
+			
+		location.href="${pageContext.request.contextPath}/todo/finishtodohome.do?todo_no="+todo_no;
+			
+	});
+
+		
+
+	
+	
  	</script>
  
  

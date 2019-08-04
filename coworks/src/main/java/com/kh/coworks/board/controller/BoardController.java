@@ -53,7 +53,6 @@ public class BoardController {
 	@RequestMapping(value = "/documentboard/{boardCode}", method = RequestMethod.GET)
 	public String selectBusinessdoc(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			@PathVariable("boardCode") String boardCode, Model model, Board board) {
-		System.out.println("check : "+cPage);
 		int limit = 10;
 
 		ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>(
@@ -66,31 +65,34 @@ public class BoardController {
 
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
 				.addAttribute("pageBar", pageBar).addAttribute("bo_code", boardCode).addAttribute(board);
-
 		return "documentboard/businessdoclist";
 	}
 
 	// (글쓰기) ★
-	@RequestMapping("/documentboard/businessdocForm.do")
-	public String insertBusinessdocForm(Model model) {
-
-		ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
-
-		model.addAttribute("departmentList", departmentList);
-
+	@RequestMapping(value = "/documentboard/boardForm/{boardCode}", method = RequestMethod.GET)
+	public String insertBusinessdocForm(Model model,
+			@PathVariable("boardCode") String boardCode) {
+		
+			ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+			model.addAttribute("departmentList", departmentList)
+			.addAttribute("boardCode", boardCode);
+		
+		
 		return "documentboard/businessdocForm";
+
+		
 	}
 
 	// (글쓰기 등록) ★
 	@RequestMapping(value = "/documentboard/insert", method = RequestMethod.POST)
 	public String insertBusinessdoc(Board board, Model model, HttpServletRequest request,
-			@RequestParam(value = "upFiles", required = false) MultipartFile[] upFiles,
-			@RequestParam(value = "dep_code") String dep_code) {
-
-		if (board.getBo_code().equals("DD")) {
-			board.setBo_code(dep_code);
-
-		}
+			@RequestParam(value = "upFiles", required = false) MultipartFile[] upFiles) {
+//		,
+//		@RequestParam(value = "dept_code") String dept_code
+//		if (board.getBo_code().equals("DD")) {
+//			board.setBo_code(dept_code);
+//
+//		}
 
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");

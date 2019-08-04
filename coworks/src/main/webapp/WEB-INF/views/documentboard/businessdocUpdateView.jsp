@@ -61,12 +61,12 @@
 									<h4 style="float:right; padding-top:5px;">작성자 : ${sessionScope.employee.emp_name}</h4>
 									</div>
 									<div class="form-group">
-											<input class="form-control" name="bo_title" value="${board.getBo_title() }" readonly required>
+											<input class="form-control writtentitle" name="bo_title" value="${board.getBo_title() }" readonly required>
 										</div>
 										<div class="form-group">
 											<input type="text" name="bo_no" value="${board.getBo_no()}" hidden/>
 											<input type="text" name="emp_no" value="${board.emp_no}" hidden/>
-											<textarea class="textarea_editor form-control" name="bo_content" rows="15">
+											<textarea class="textarea_editor form-control writtencontent" name="bo_content" rows="15">
 											${board.bo_content }
 											</textarea>
 											
@@ -87,7 +87,7 @@
                                         
                                                                            
                                         <div style="float:right;">
-										<button class="btn btn-success mt-3" type="submit">
+										<button class="btn btn-success mt-3" type="submit" onclick="return validate();">
 										
 											<i class="far fa-check-circle"></i> 등록
 										</button>
@@ -117,6 +117,12 @@
 	 <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/wysihtml5-0.3.0.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/html5-editor/bootstrap-wysihtml5.js"></script>
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/dropzone-master/dist/dropzone.js"></script>
+  	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/styleswitcher/jQuery.style.switcher.js"
+		aria-hidden="true"></script>
+  
    <script>
    $(document).ready(function() {
        $('.textarea_editor').wysihtml5();
@@ -134,14 +140,17 @@
     }
     
     function validate(){
-		var content = $("[name=bo_content]").val();
-		console.log("validate");
-		if(content.trim().length==0){
-			alert("내용을 입력하세요");
+    	var boardContent = $(".writtencontent").val();
+
+		
+		 if (boardContent == "") {
+			Swal.fire({
+                title: "내용을 입력하세요!!",
+                timer: 1300,
+                showConfirmButton: false
+            });
 			return false;
 		}
-				
-		console.log('check');
 		return true;
 	}
     $(function(){
