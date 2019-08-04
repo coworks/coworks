@@ -1,5 +1,6 @@
 package com.kh.coworks.calendar.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public interface CalendarService {
 	
 	List<Calendar> selectListCalendar(Calendar calendar);
 	
-	List<Calendar> selectListAllCalendar(Calendar calendar);
+	List<Calendar> selectListAllCalendar(HashMap<String,String> mmap);
 	
 	int insertCalendar(Calendar calendar);
 	/*

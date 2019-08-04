@@ -1,13 +1,9 @@
 package com.kh.coworks.calendar.controller;
 
-import java.io.IOException; 
-import java.sql.Time;
+import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,13 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
- 
+
 import com.kh.coworks.calendar.model.exception.CalendarException;
 import com.kh.coworks.calendar.model.service.CalendarService;
 import com.kh.coworks.calendar.model.vo.Calendar;
@@ -41,11 +36,12 @@ public class CalendarController {
 		Employee employee=(Employee) request.getSession().getAttribute("employee");
 		 
 		Calendar cal=new Calendar();
-		cal.setCal_holder(Integer.toString(employee.getEmp_no()));
-		cal.setCal_type(employee.getDept_code());
+		HashMap<String,String> hmap=new HashMap<>();
+		hmap.put("emp_no",Integer.toString(employee.getEmp_no()));
+		hmap.put("dept_no",employee.getDept_code());
 		
 		 
-		List<Calendar> list = calService.selectListAllCalendar(cal);	
+		List<Calendar> list = calService.selectListAllCalendar(hmap);	
 		
 		 
 		mv.addObject("list", list);

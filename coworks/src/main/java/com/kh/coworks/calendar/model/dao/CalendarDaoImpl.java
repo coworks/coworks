@@ -1,5 +1,6 @@
 package com.kh.coworks.calendar.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,9 +20,9 @@ public class CalendarDaoImpl implements CalendarDao {
 	
 	
 	@Override
-	public List<Calendar> selectListAllCalendar(Calendar calendar) {
+	public List<Calendar> selectListAllCalendar(HashMap<String,String> hmap) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("calendar.selectListAllCalendar",calendar);
+		return sqlSession.selectList("calendar.selectListAllCalendar",hmap);
 	}
 
 

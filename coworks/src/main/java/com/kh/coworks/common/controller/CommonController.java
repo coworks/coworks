@@ -1,6 +1,13 @@
 package com.kh.coworks.common.controller;
 
-import java.sql.SQLException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,8 +23,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.coworks.approval.model.service.ApprovalService;
-import com.kh.coworks.authority.model.service.AuthorityService;
+import com.kh.coworks.attendance.model.service.AttendanceService; 
 import com.kh.coworks.authority.model.vo.Authority;
+import com.kh.coworks.calendar.model.service.CalendarService;
 import com.kh.coworks.employee.model.exception.EmployeeException;
 import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Employee;
@@ -31,6 +39,12 @@ public class CommonController {
 	@Autowired
 	private ApprovalService approvalService;
 
+	@Autowired
+	private CalendarService calendarService;
+	
+	@Autowired
+	private AttendanceService attendanceService;
+	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -68,11 +82,10 @@ public class CommonController {
          if(e.getEmp_password().equals(emp_password)) {
          //if(bcryptPasswordEncoder.matches(emp_password, e.getEmp_password())) {   // 비밀번호 암호화 후 추가예정
             msg="로그인 성공!";
-          
             session.setAttribute("employee",e);
             session.setAttribute("authority",au);
-          
-            loc="/attendancecome.do";
+             
+    		loc="/commonProcessing.do";
           }else {
              msg="비밀번호가 일치하지 않습니다!";
              loc="/";
@@ -87,6 +100,9 @@ public class CommonController {
       }catch(Exception e) {
          throw new EmployeeException("로그인 에러 : "+e.getMessage());
        }
+      
+      
+      
       return mv;
    }
 
@@ -109,7 +125,7 @@ public class CommonController {
 		String msg = "";
 
 		if (employee != null) {
-			mv.setViewName("redirect:/attendancecome.do");
+			mv.setViewName("redirect:/commonProcessing.do");
 		} else {
 			msg = "로그인 후 이용 가능합니다";
 			mv.addObject("loc", loc);

@@ -1,5 +1,6 @@
 package com.kh.coworks.calendar.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ public class CalendarServiceImpl implements CalendarService {
 	
 	
 @Override
-	public List<Calendar> selectListAllCalendar(Calendar calendar) {
+	public List<Calendar> selectListAllCalendar(HashMap<String,String> hmap) {
 		// TODO Auto-generated method stub
-		return calDao.selectListAllCalendar(calendar);
+		return calDao.selectListAllCalendar(hmap);
 	}
 
 

@@ -1,5 +1,6 @@
 package com.kh.coworks.calendar.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -12,8 +13,8 @@ public interface CalendarDao {
 	
 	
 	List<Calendar> selectListCalendar(Calendar calendar);	// 개인,부서,회사 별로 보기
-	
-	List<Calendar> selectListAllCalendar(Calendar calendar);	// 전체 보기
+
+	List<Calendar> selectListAllCalendar(HashMap<String,String> mmap);
 	
 	int insertCalendar(Calendar calendar);
 	/*

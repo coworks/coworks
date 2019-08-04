@@ -46,112 +46,13 @@ public class AttendanceController {
 	 Date date=new Date(cal.getTimeInMillis());
 	 
 	 //**** 지각 계산
-	 String str1 = new SimpleDateFormat("yyyyMMdd").format(date);
-	 String str2 = new SimpleDateFormat("HHmm").format(time);
+	 String str1 = new SimpleDateFormat("yyyyMMdd").format(date); 
 	 //System.out.println(str2);
 	 String reqDateStr1=str1+"090000";	//최소 출근시간 기준
 	 String reqDateStr2=str1+"180000";	//정규 퇴근시작시간
 	 String reqDateStr3=str1+"070000";	// 출근찍을수있는시간 7시~6시사이!
 	 
-	@RequestMapping("/attendancecome.do") 
-	public ModelAndView insertAttendaceCome( HttpServletRequest request,Model model) throws ParseException { 
-		HttpSession session=request.getSession(false);
-		Employee employee=(Employee) session.getAttribute("employee"); 
 
-		Calendar cal=new GregorianCalendar();
-		 ModelAndView mv=new ModelAndView(); 
-		 Time time=new Time(cal.getTimeInMillis());
-		Attendance attend=new Attendance();
-		
-		  
-		//현재시간 Date
-		java.util.Date curDate = new java.util.Date(); 
-		
-		//요청시간을 Date로 parsing 후 time가져오기
-		java.util.Date reqDate1 = dateFormat.parse(reqDateStr1);
-		java.util.Date reqDate2 = dateFormat.parse(reqDateStr2);
-		java.util.Date reqDate3 = dateFormat.parse(reqDateStr3);
-		System.out.println("reqDate : "+reqDate1);
-		long reqDateTime1 = reqDate1.getTime();	// 9시
-		long reqDateTime2 = reqDate2.getTime(); // 18시
-		long reqDateTime3 = reqDate3.getTime(); // 7시
-		
-		//현재시간을 요청시간의 형태로 format 후 time 가져오기
-		curDate = dateFormat.parse(dateFormat.format(curDate));
-		long curDateTime = curDate.getTime();
-		System.out.println(" reqDateTime1 : "+ reqDateTime1);
-		System.out.println(" reqDateTime2 : "+ reqDateTime2);
-		System.out.println(" reqDateTime3 : "+ reqDateTime3);
-		System.out.println("curDate : "+curDateTime);
-		
-		//분으로 표현 (직원이 출근한 시간대는 07:00~ 18:00 사이어야함)
-		if(curDateTime>reqDateTime1 && curDateTime<reqDateTime2) {
-		long hour= (curDateTime - reqDateTime1) / (1000*60*60);
-		long minute = (curDateTime - reqDateTime1) / 60000-(hour*60);
-		long second=(curDateTime - reqDateTime1) / 1000-((hour*60*60)+(minute*60));
-		String attLate=String.format("%02d:%02d:%02d", hour,minute,second);
-		 
-		 
-			attend.setAtten_attLate(attLate);
-			attend.setAtten_attTime(time);
-		
-		
-		 
-		
-		
-		}else if(reqDateTime3<curDateTime) {
-			attend.setAtten_attLate(null);
-			attend.setAtten_attTime(time);
-		}else {
-
-			attend.setAtten_attLate(null);
-			attend.setAtten_attTime(null);
-		}
-		// ************
-		 
-				//2019-07-03 19:30:00.0
-				 InetAddress local;
-				 String ip = null;
-				 try {
-				     local = InetAddress.getLocalHost();
-				    ip = local.getHostAddress();
-				     System.out.println("local ip : "+ip);
-				 } catch (UnknownHostException e1) {
-				     e1.printStackTrace();
-				 }
-		 
-				 
-				 System.out.println("ip :" +ip);
-				 attend.setAtten_attIP(ip);	//나중에 세션 ip 받아오기
-				 attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
-				 //attend.setAtten_attTime(time);
-				 attend.setAtten_date(date);
-		int result=0;
-		if(reqDateTime3<curDateTime && reqDateTime2>curDateTime) {		 
-		 result=attendanceService.insertAttendanceCome(attend);
-		} 
-		Attendance list =attendanceService.selectOneAttendance(employee.getEmp_no());
-		
-		com.kh.coworks.calendar.model.vo.Calendar cal1=new com.kh.coworks.calendar.model.vo.Calendar();
-		cal1.setCal_holder(Integer.toString(employee.getEmp_no()));
-		cal1.setCal_type(employee.getDept_code());
-
-		// 나중에 수정해야함 꼮!!! calendar list뽑기 
-		List<com.kh.coworks.calendar.model.vo.Calendar> calendar=calendarSerivce.selectListAllCalendar(cal1);
-		 System.out.println("calendar : "+calendar);
-		mv.addObject("atten",list);	// index에 출근시간, ip시간 보여주기!!!! 나중에~~~
-		mv.addObject("list",calendar); 
-		System.out.println("mv 들 : "+mv);
-		mv.setViewName("../index");
-		 
-		  
-			
-	  return mv;
-	
-	}
-	
-	
-	
 	@RequestMapping("/mypage/attendanceleave.do") 
 	public void insertAttendaceLeave(HttpServletRequest request,HttpServletResponse response,@RequestParam() String atten_no,Model model) throws IOException, ParseException { 
 		System.out.println("atten_no값 : "+atten_no);

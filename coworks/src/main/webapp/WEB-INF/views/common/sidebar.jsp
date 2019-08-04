@@ -22,13 +22,12 @@
 					href="${pageContext.request.contextPath}/mail/authCheck.do"
 					aria-expanded="false"><i class="mdi mdi-email"></i><span
 						class="hide-menu">메일</span></a></li>
-				<c:set var="aucal" value="${sessionScope.authority.auth_cal}" />
-				<c:if test="${aucal eq 'Y'}">
+				
 				<li><a
 					href="${pageContext.request.contextPath}/calendar/calendarview.do"
 					aria-expanded="false"><i class="mdi mdi-calendar-multiple"></i><span
 						class="hide-menu">일정</span></a></li>
-				</c:if>
+				
 				<li><a
 					href="${pageContext.request.contextPath}/todo/todolist.do"
 					aria-expanded=false"><i
