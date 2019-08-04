@@ -54,8 +54,9 @@
 										<c:out value="${today}" />
 									</h4>
 									<p class="card-text" id="time">
+									<c:if test="${atten.atten_date==null && atten.atten_date==null}" >
 									<p>출근가능시간 : 07:00 이후<br>
-									    
+									</c:if>    
 									<c:if test="${atten.atten_attTime!=null && atten.atten_date!=null}" >
 										 
 										<span id="span1"> 
@@ -95,16 +96,19 @@
 						 
 						
 						function onclick1(atten_no){ 
+							
+							if(confirm("퇴근하시겠습니까?")==true){
 							$.ajax({
 								url : "${pageContext.request.contextPath}/mypage/attendanceleave.do",
 		                          dataType : "json", 
 		                          data : {atten_no :atten_no}, 
 		                          success : function(response){
-		                      	 	 location.href="${pageContext.request.contextPath}/attendancecome.do";
+		                      	 	 location.href="${pageContext.request.contextPath}/commonProcessing.do";
 		                          },error: function(){
 		                        	  alert("실패~"); 
 		                          }  
 							});
+							}
 							
 						};
 						
@@ -271,6 +275,8 @@
      <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
        
  	<script>
+ 	
+ 	
 	!function($) {
 	    "use strict";
 
