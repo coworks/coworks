@@ -187,7 +187,7 @@
 											<div class="modal-body"></div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-success save-event waves-effect waves-light">수정</button>
+												<button type="button" class="btn btn-success save-event waves-effect waves-light"><i class='fa fa-check'></i>수정</button>
 												<button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">삭제</button>
 											</div>
 										</div>
