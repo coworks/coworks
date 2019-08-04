@@ -546,7 +546,8 @@
               	 daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
       				monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
       						"7월", "8월", "9월", "10월", "11월", "12월" ],
-        	   
+
+      		 titleFormat: 'YYYY년   M월',
                slotDuration: '00:30:00', /* If we want to split day time each 15minutes */
                minTime: '06:00:00',
                maxTime: '24:30:00',  

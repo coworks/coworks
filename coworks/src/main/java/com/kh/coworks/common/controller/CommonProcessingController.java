@@ -40,8 +40,7 @@ public class CommonProcessingController {
 	
 	@RequestMapping("/commonProcessing.do") 
 	public ModelAndView indexProcessing( HttpServletRequest request,Model model) throws ParseException {
-
-		System.out.println("넘어갔음1");
+ 
 		HttpSession session=request.getSession(false);
 		Employee employee=(Employee) session.getAttribute("employee"); 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
@@ -50,8 +49,7 @@ public class CommonProcessingController {
 		 Date date=new Date(cal.getTimeInMillis()); 
 		 
 		 ModelAndView mv=new ModelAndView();  
-		Attendance attend=new Attendance();
-		System.out.println("넘어갔음2");
+		Attendance attend=new Attendance(); 
 		  
 		//현재시간 Date
 		java.util.Date curDate = new java.util.Date(); 
@@ -60,18 +58,14 @@ public class CommonProcessingController {
 		java.util.Date reqDate1 = dateFormat.parse( new SimpleDateFormat("yyyyMMdd").format(date)+"090000");
 		java.util.Date reqDate2 = dateFormat.parse(new SimpleDateFormat("yyyyMMdd").format(date)+"180000");
 		java.util.Date reqDate3 = dateFormat.parse(new SimpleDateFormat("yyyyMMdd").format(date)+"070000");
-		System.out.println("reqDate : "+reqDate1);
+		 
 		long reqDateTime1 = reqDate1.getTime();	// 9시
 		long reqDateTime2 = reqDate2.getTime(); // 18시
 		long reqDateTime3 = reqDate3.getTime(); // 7시
 		
 		//현재시간을 요청시간의 형태로 format 후 time 가져오기
 		curDate = dateFormat.parse(dateFormat.format(curDate));
-		long curDateTime = curDate.getTime();
-		System.out.println(" reqDateTime1 : "+ reqDateTime1);
-		System.out.println(" reqDateTime2 : "+ reqDateTime2);
-		System.out.println(" reqDateTime3 : "+ reqDateTime3);
-		System.out.println("curDate : "+curDateTime);
+		long curDateTime = curDate.getTime(); 
 		
 		//분으로 표현 (직원이 출근한 시간대는 07:00~ 18:00 사이어야함)
 		if(curDateTime>reqDateTime1 && curDateTime<reqDateTime2) {
@@ -129,12 +123,10 @@ public class CommonProcessingController {
 		List<com.kh.coworks.calendar.model.vo.Calendar> calendar=calendarService.selectListAllCalendar(hmap);
 		 System.out.println("calendar : "+calendar);
 		mv.addObject("atten",list);	// index에 출근시간, ip시간 보여주기!!!! 나중에~~~
-		mv.addObject("list",calendar); 
-		System.out.println("mv 들 : "+mv);
+		mv.addObject("list",calendar);  
 		mv.setViewName("../index");
 		 
-
-		System.out.println("넘어갔음3");
+ 
 			
 	  return mv;
 	}

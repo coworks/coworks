@@ -485,6 +485,7 @@
 	                center: 'title',
 	                right: 'month,agendaWeek,agendaDay'
 	            },
+	            titleFormat: 'YYYY년   M월',
 	            events: defaultEvents,	//이벤트 불러오기
 	            editable: true,
 	            droppable: true, // this allows things to be dropped onto the calendar !!!
