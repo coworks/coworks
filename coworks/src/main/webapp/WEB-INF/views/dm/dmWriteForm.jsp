@@ -67,7 +67,7 @@ list-style-type: none;float: left;
 		<ul class="list-group list-group-full">
 		<!-- active -->
 		<c:forEach items="${dept}" var="d">
-			<li class="list-group-item has-arrow depts" aria-expanded="true" id="${d.dept_code }" name="${d.dept_name }" >	
+			<li class="list-group-item has-arrow depts"id="${d.dept_code }" name="${d.dept_name }" >	
 				<span class="#" id="append">${d.dept_name } / ${d.dept_code }</span>
 				<!-- <ul aria-expanded="true" class="collapse">  </ul> -->
 				<div>
@@ -87,9 +87,9 @@ list-style-type: none;float: left;
                                     <div class="card-body">
                                         <h3 class="card-title">쪽지 작성하기</h3>
                                         <div class="form-group">
-                                        <%--   <c:if test="${type eq 'reply'}">
-                                          	<!-- <div class="form-control col-12" name="dm_to_list" id="dm_to_list" value="">a</div> -->
-                                          </c:if> --%>
+                                        <c:if test="${type eq 'reply'}">
+                                            <div class="form-group dm_to_list" name="dm_to_list" id="dm_to_list" value="${dm.dm_to }">
+                                          </c:if> 
                                           <c:if test="${type ne 'reply' }">
                                             <div class="form-group dm_to_list" name="dm_to_list" id="dm_to_list" >
 											</div>
@@ -97,7 +97,7 @@ list-style-type: none;float: left;
                                         </div>
                                         <div class="form-group" style='margin-top:4px;'>
                                         <c:if test="${type eq 'forward'}">
-                                        	<input class="form-control" name="dm_subject" style='margin-top:2%;'  value="">
+                                        	<input class="form-control" name="dm_subject" style='margin-top:2%;'  value="${dm.dm_subject }">
                                          </c:if>
                                           <c:if test="${type ne 'forward'}">
                                             <input class="form-control" name="dm_subject"  style='margin-top:2%;' placeholder="제목 : ">
@@ -170,17 +170,20 @@ list-style-type: none;float: left;
 					$("#"+dept_code).next().empty();
 					console.log("1");
 					for(var i = 0 ; i < data.length; i++){
-						var tbody = $("#"+dept_code).next();/* $("#append"); */
-						var content = $("<ul>");
-						if(i==0)
+						
+						if(i==0){
+							var tbody = $("#"+dept_code).next();/* $("#append"); */
+							var content = $("<ul>");
 							content.append("<li class='insertTo' name='insertTo' id='"+dept_code+"' value="+dept_name+">"+dept_name+"부 </li>");
-						else{
-					/* content.append("<li>"+data[i].emp_no+"</li>"); */
+							tbody.append(content);
+						}
+							/* content.append("<li>"+data[i].emp_no+"</li>"); */
+						var tbody = $("#"+dept_code).next();/* $("#append"); */
+						var content = $("<ul>");	
 						var emp_name = data[i].emp_name;
 						var emp_no = data[i].emp_no;
 						var emp = data[i];
 						content.append("<li class='insertTo' name='insertTo' id='"+data[i].emp_no+"' value="+data[i].emp_name+">"+data[i].emp_name +" : "+ data[i].job_title+"</li>");
-						}
 						tbody.append(content);
 					}
 					console.log(" 완료");
@@ -188,23 +191,6 @@ list-style-type: none;float: left;
 			}
     	});
     });
-    
-    
-/* 
-    $("li[name='emp_no']").on("click",function(){
-    	console.log("name=emp_no");
-    	console.log(this.attr('id'));
-    });
-    
-    $("[name=dm_to]").on("change",function(){
-    	console.log("123");
-        if($("#dm_to").is(":checked")==true){
-        	console.log(this.val());
-        	$("#dm_to_list").val("!");
-        }else{
-        	console.log("123");
-        }
-    }); */
     
     var empList= new Array();
     var count = 0;

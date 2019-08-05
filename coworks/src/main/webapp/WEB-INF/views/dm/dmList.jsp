@@ -42,7 +42,7 @@
                                 <div class="col-xlg-10 col-lg-9 col-md-9">
                                    <c:import url="dmTopbar.jsp"/>
                                     <!-- 
-                                    <td class="max-texts"><a href="app-email-detail.html"><span class="label label-info mr-2">Work</span> Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
+                                    <td class="max-texts"><a href="app-edm-detail.html"><span class="label label-info mr-2">Work</span> Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
                                     <span class="label label-info mr-2">내용 jstl 로 추가</span> 
                                     <span class="label label-warning">내용 jstl 로 추가</span>
                                     <span class="label label-purple">내용 jstl 로 추가</span>
@@ -57,87 +57,51 @@
                                             <div class="inbox-center b-all table-responsive">
                                                 <table class="table table-hover no-wrap">
                                                     <tbody>
-                                                    <c:forEach items="${mails}" var="m"> 
+                                                    <c:forEach items="${list}" var="dm"> 
                                                    
-                                                        <%-- <a href="/mail/selectOneMail.do/${m.getMail_no()}">  --%>
-                                                    	<input type="text" name="mail_no" value="${m.getMail_no()}" id="mail_no" hidden/>
+                                                        <%-- <a href="/dm/selectOnedm.do/${m.getDm_no()}">  --%>
+                                                    	<input type="text" name="dm_no" value="${dm.getDm_no()}" id="dm_no" hidden/>
                                                     	
-                                                        <tr class="unread mailRow" >
+                                                        <tr class="unread dmRow" >
                                                             <td style="width:40px">
                                                             
                                                                 <div class="checkbox">
-                                                                    <input type="checkbox" id="checkbox${m.getMail_no() }" name="chkMail" value="${m.getMail_no() }">
-                                                                    <label for="checkbox${m.getMail_no() }"></label>
+                                                                    <input type="checkbox" id="${dm.getDm_no() }" name="chkdm" value="${m.getDm_no()}">
+                                                                    <label for="${dm.getDm_no() }"></label>
                                                                 </div>
                                                             </td>
                                                             <td style="width:20px" class="hidden-xs-down ">
-                                                            	<c:if test="${m.getMail_isRead() eq 'N' }" >
+                                                            	<%-- <c:if test="${dm.getDm_isRead() eq 'N' }" >
                                                     			<i class="mdi mdi-checkbox-blank-circle-outline"></i>
                                                     			</c:if>
-                                                    			<c:if test="${m.getMail_isRead() eq 'Y' }" >
-                                                    			<i class="mdi mdi-check-circle-outline"></i>
-                                                    			</c:if>
-                                                    		</td>
+                                                    			<c:if test="${dm.getDm_isRead() eq 'Y' }" >
+                                                    			 --%><i class="mdi mdi-check-circle-outline"></i>
+                                                    			<%-- </c:if> --%>
+                                                    		</td><%-- 
                                                     		<td style="width:20px" class="hidden-xs-down ">
-                                                            	<c:if test="${m.getMail_star() eq 'Y' }" >
+                                                            	<c:if test="${m.getDm_star() eq 'Y' }" >
                                                     			<i class="mdi  mdi-star"></i>
                                                     			</c:if>
-                                                    			<c:if test="${m.getMail_star() eq 'N' }" >
+                                                    			<c:if test="${m.getDm_star() eq 'N' }" >
                                                     			<i class="mdi mdi-star-outline"></i>
                                                     			</c:if>
                                                     		</td>
-                                                            
+                                                             --%>
                                                             <!-- <td style="width:40px" class="hidden-xs-down notRead"><i class="fa fa-star-o"></i></td> -->
                                                            	
                                                             <td class="hidden-xs-down " > 
-                                                            <c:if test="${m.getMail_name() eq null }">
-															<c:if test="${m.getMail_from_email().length() gt 25}">
-                                                            	${m.getMail_from_email().substring(0,25) } ...
-                                                            </c:if>
-                                                          	<c:if test="${m.getMail_from_email().length() le 25}">
-                                                          		${m.getMail_from_email() }
-                                                          	</c:if>
-                                                          	</c:if>
-                                                          	<c:if test="${m.getMail_name() ne null }">
-                                                          		${m.getMail_name() }
-                                                          	</c:if>
-                                                          	</td><!-- <a href="app-email-detail.do"/> -->
-                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}/${type}'"> 
-                                                          	<c:if test="${m.getMail_mark() != null }">
-                                                            <c:choose>
-                                                            	<c:when test="${m.getMail_mark()==1}">
-                                                            	<span class="label label-info mr-2">COMP</span> 
-                                                            	</c:when>
-                                                            	<c:when test="${m.getMail_mark()==2}">
-                                                            	<span class="label label-warning mr-2">DEPT</span> 
-                                                            	</c:when>
-                                                            	<c:when test="${m.getMail_mark()==3}">
-                                                            	<span class="label label-purple mr-2">INDI</span> 
-                                                            	</c:when>
-                                                            	<c:when test="${m.getMail_mark()==4}">
-                                                            	<span class="label label-danger mr-2">WORK</span> 
-                                                            	</c:when>
-                                                            	<c:when test="${m.getMail_mark()==5}">
-                                                            	<span class="label label-success mr-2">SOCI</span> 
-                                                            	</c:when>
-                                                            	<c:when test="${m.getMail_mark()==6}">
-                                                            	<span class=""></span> 
-                                                            	</c:when>
-                                                            </c:choose>
-                                                            </c:if>
-                                                          	<c:if test="${m.getMail_subject().length() gt 20}">
-                                                            	${m.getMail_subject().substring(0,20) } ...
-                                                            </c:if>
-                                                          	<c:if test="${m.getMail_subject().length()le 20}">
-                                                          		${m.getMail_subject() }
-                                                          	</c:if> 
+                                                          		${dm.getDm_from_name()}
+                                                          	</td><!-- <a href="app-edm-detail.do"/> -->
+                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/dm/selectOneDm.do/${dm.getDm_no()}'"> 
+                                                          	
+                                                          		${dm.getDm_subject() }
                                                             </td>
                                                            
                                                             <td class="hidden-xs-down">
-                                                            	<fmt:formatDate value="${m.getMail_sendDate()}" pattern="yyyy-MM-dd : HH시" />
+                                                            	<fmt:formatDate value="${dm.getDm_date()}" pattern="yyyy-MM-dd : HH시" />
                                                             </td>
                                                             <!-- <i class="fa fa-paperclip"></i> -->
-                                                           <%--  <fmt:parseDate value='${m.getMail_sendDate()}' var='sendDate' pattern='yyyymmdd'/> --%>
+                                                           <%--  <fmt:parseDate value='${m.getDm_sendDate()}' var='sendDate' pattern='yyyymmdd'/> --%>
                                                             <td class="text-right"><%-- <fmt:formatDate value=" ${sendDate}" pattern="MM-dd-yyyy" /> --%></td>
                                                         </tr>  
                                                       <!--   </a>  -->
@@ -188,60 +152,61 @@
 	<c:import url="../common/bottomJquery.jsp" />
 	<script>
 	
-	 var chkMails = [];
+	 var chkdms = [];
 	 function chk(){
-	    $("input[name='chkMail']:checked").each(function(i) {
-	        chkMails.push($(this).val());
+	    $("input[name='chkdm']:checked").each(function(i) {
+	    	console.log("!23");
+	        chkdms.push($(this).attr('id'));
 	    });
 	 }
-	    /* var allData = { "mail_no": mail_no, "chkMails": chkMail }; */
-	     /*  onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}/${type}' */
+	    /* var allData = { "dm_no": dm_no, "chkdms": chkdm }; */
+	     /*  onclick="location.href='${pageContext.request.contextPath}/dm/selectOnedm.do/${m.getDm_no()}/${type}' */
 	    
-	    function storeMail(){
-	    	chkMails=[];
+	    function storeDm(){
+	    	chkdms=[];
 	    	chk();
-	    	console.log(chkMails);
+	    	console.log(chkdms);
 		    $.ajax({
-		        url:"${pageContext.request.contextPath}/mail/storeMail.do",
+		        url:"${pageContext.request.contextPath}/dm/storeDm.do",
 		        type:'POST',
 	    		contentType : 'application/json; charset=UTF-8',
-		        data: JSON.stringify(chkMails),
+		        data: JSON.stringify(chkdms),
 		        success:function(data){
 		            alert("내부 메일로 저장이 완료 되었습니다.!");
-		            location.href="${pageContext.request.contextPath}/mail/innerMail.do"; 
+		            location.href="${pageContext.request.contextPath}/dm/dmList.do"; 
 		        },
 		        error:function(){
 		            alert("내부 메일로 저장하는데 문제가 발생하였습니다! ㅜㅜ");
 		        }
 		    });
 		}
-	    function deleteMail(){
-	    	chkMails=[];
+	    function deleteDm(){
+	    	chkdms=[];
 	    	chk();
-	    	console.log(chkMails);
+	    	console.log(chkdms);
 		    $.ajax({
-		        url:"${pageContext.request.contextPath}/mail/deleteMail.do/${type}",
+		        url:"${pageContext.request.contextPath}/dm/deleteDm.do",
 		        type:'POST',
 	    		contentType : 'application/json; charset=UTF-8',
-		        data: JSON.stringify(chkMails),
+		        data: JSON.stringify(chkdms),
 		        success:function(data){
 		            alert("완료!");
-		            /* location.href="${pageContext.request.contextPath}/mail/innerMail.do"; */
+		            /* location.href="${pageContext.request.contextPath}/dm/innerdm.do"; */
 		        },
 		        error:function(){
 		            alert("메일 삭제 실패");
 		        }
 		    });
-		}
-	    function readMail(){
-	    	chkMails=[];
+		}/* 
+	    function readdm(){
+	    	chkdms=[];
 	    	chk();
-	    	console.log(chkMails);
+	    	console.log(chkdms);
 		    $.ajax({
-		        url:"${pageContext.request.contextPath}/mail/readMail.do",
+		        url:"${pageContext.request.contextPath}/dm/readdm.do",
 		        type:'POST',
 	    		contentType : 'application/json; charset=UTF-8',
-		        data: JSON.stringify(chkMails),
+		        data: JSON.stringify(chkdms),
 		        success:function(data){
 		            alert("완료!");
 		        },
@@ -251,14 +216,14 @@
 		    });
 		}
 	    function updateStar(value){
-	    	chkMails=[];
+	    	chkdms=[];
 	    	chk();
-	    	console.log(chkMails);
+	    	console.log(chkdms);
 		    $.ajax({
-		        url:"${pageContext.request.contextPath}/mail/updateStar.do/"+value,
+		        url:"${pageContext.request.contextPath}/dm/updateStar.do/"+value,
 		        type:'POST',
 	    		contentType : 'application/json; charset=UTF-8',
-		        data: JSON.stringify(chkMails),
+		        data: JSON.stringify(chkdms),
 		        success:function(data){
 		            alert("완료!");
 		        },
@@ -268,15 +233,15 @@
 		    });
 		}
 	    function updateMark(num){
-	    	chkMails=[];
+	    	chkdms=[];
 	    	chk();
-	    	console.log(chkMails);
+	    	console.log(chkdms);
 	    	console.log(num);
 		    $.ajax({
-		        url:"${pageContext.request.contextPath}/mail/updateMark.do/"+num,
+		        url:"${pageContext.request.contextPath}/dm/updateMark.do/"+num,
 		        type:'POST',
 	    		contentType : 'application/json; charset=UTF-8',
-		        data: JSON.stringify(chkMails),
+		        data: JSON.stringify(chkdms),
 		        success:function(data){
 		            alert("완료!");
 		        },
@@ -284,16 +249,16 @@
 		            alert();
 		        }
 		    });
-		}
+		} */
 	
 	</script>
 	<!-- <script>
-		$(".mailRow").on("click",function(){
+		$(".dmRow").on("click",function(){
 			var m = $(this).val();
-			var mail_no = $("#mailRow").eq(0);
+			var dm_no = $("#dmRow").eq(0);
 			console.log(m);/* 
-			console.log(mail_no); */
-			/* location.href="/mail/selectOneMail.do/${m.getMail_no()}"; */
+			console.log(dm_no); */
+			/* location.href="/dm/selectOnedm.do/${m.getDm_no()}"; */
 		});
 		
 	</script> -->

@@ -2,16 +2,56 @@ package com.kh.coworks.dm.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DM implements Serializable{
 	private int dm_no;
 	private int dm_from;
 	private String dm_subject;
+	
 	private String dm_content;
-	private Date dm_date;
+	private Timestamp dm_date;
 	private String dm_from_del;
 	
-	
+	private String dm_from_name;
+	private String dm_from_dept;
+	private String dm_from_job;
+	//
+//	"DM_TO_NO","DM_TO","DM_TO_DEL"
+	public String getDm_from_dept() {
+		return dm_from_dept;
+	}
+
+
+
+	public void setDm_from_dept(String dm_from_dept) {
+		this.dm_from_dept = dm_from_dept;
+	}
+
+
+	public String getDm_from_job() {
+		return dm_from_job;
+	}
+
+
+	public void setDm_from_job(String dm_from_job) {
+		this.dm_from_job = dm_from_job;
+	}
+
+
+	public String getDm_from_name() {
+		return dm_from_name;
+	}
+
+
+	public void setDm_from_name(String dm_from_name) {
+		this.dm_from_name = dm_from_name;
+	}
+
+
 	public int getDm_no() {
 		return dm_no;
 	}
@@ -52,13 +92,13 @@ public class DM implements Serializable{
 	}
 
 
-	public Date getDm_date() {
+	public Timestamp getDm_date() {
 		return dm_date;
 	}
 
 
-	public void setDm_date(Date dm_date) {
-		this.dm_date = dm_date;
+	public void setDm_date(Timestamp timestamp) {
+		this.dm_date = timestamp;
 	}
 
 
@@ -77,7 +117,8 @@ public class DM implements Serializable{
 	}
 
 
-	public DM(int dm_no, int dm_from, String dm_subject, String dm_content, Date dm_date, String dm_from_del) {
+	public DM(int dm_no, int dm_from, String dm_subject, String dm_content, Timestamp dm_date, String dm_from_del,
+			String dm_from_name, String dm_from_dept, String dm_from_job) {
 		super();
 		this.dm_no = dm_no;
 		this.dm_from = dm_from;
@@ -85,14 +126,22 @@ public class DM implements Serializable{
 		this.dm_content = dm_content;
 		this.dm_date = dm_date;
 		this.dm_from_del = dm_from_del;
+		this.dm_from_name = dm_from_name;
+		this.dm_from_dept = dm_from_dept;
+		this.dm_from_job = dm_from_job;
+		
+		
+		
 	}
 
 
 	@Override
 	public String toString() {
 		return "DM [dm_no=" + dm_no + ", dm_from=" + dm_from + ", dm_subject=" + dm_subject + ", dm_content="
-				+ dm_content + ", dm_date=" + dm_date + ", dm_from_del=" + dm_from_del + "]";
+				+ dm_content + ", dm_date=" + dm_date + ", dm_from_del=" + dm_from_del + ", dm_from_name="
+				+ dm_from_name + ", dm_from_dept=" + dm_from_dept + ", dm_from_job=" + dm_from_job + "]";
 	}
+
 
 
 	

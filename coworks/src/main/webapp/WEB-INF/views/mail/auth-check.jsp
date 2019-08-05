@@ -117,9 +117,17 @@
 		        },type:'POST'
 		        ,dataType: 'text'
 		        ,success:function(data){
-		        	key = data;
+		        	if(data==99999){
+		        		alert("메일인증에 실패하였습니다. 다시 입력해주세요");
+		        		window.location.reload(true);
+		        	}
+		        	else{
+		        		key = data;
 		            alert("메일이 발송되었습니다.");
+		            $("#emp_email").prop("readonly",true);
+		            $("#emp_emailpassword").prop("readonly",true);
 		            console.log(key);	
+		        	}
 		        },
 		        error:function(){
 		            alert("인증 메일 전송에 실패하였습니다.");

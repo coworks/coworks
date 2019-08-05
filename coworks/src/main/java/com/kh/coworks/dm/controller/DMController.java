@@ -1,5 +1,8 @@
 package com.kh.coworks.dm.controller;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,7 +64,7 @@ public class DMController {
 		int totalContents = dmService.sendDmListCount(emp.getEmp_no());
 
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "sendDmList.do");
-
+		System.out.println(list);
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
 				.addAttribute("pageBar", pageBar);
 		return "dm/dmList";
@@ -87,7 +92,6 @@ public class DMController {
 		// 부서별로 모아서 화면으로 전송
 		List<Department> dept = employeeService.selectDepartmentList();
 		model.addAttribute("dept", dept);
-		System.out.println(dept.get(0).getDept_code());
 		return "dm/dmWriteForm";
 	}
 
@@ -100,24 +104,87 @@ public class DMController {
 	}
 
 	@RequestMapping("/dm/dmWriteFormEnd.do")
-	public String dmWriteFromEnd(DM dm, @RequestParam(value = "to_no_emp", required = true) String[] to_no_emp,HttpServletRequest request) {
-		
+	public String dmWriteFromEnd(DM dm, @RequestParam(value = "to_no_emp", required = true) String[] to_no_emp,
+			HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Employee e = (Employee) session.getAttribute("employee");
 		dm.setDm_from(e.getEmp_no());
-		System.out.println(dm);
+		dm.setDm_date(new Timestamp(new Date().getTime()));
 		int result = dmService.insertDM(dm);
 		for (String dm_to : to_no_emp) {
 			if (dm_to.contains("D")) {
 				List<Employee> empList = employeeService.getDeptEmp(dm_to);
-				for(Employee emp : empList)
+				for (Employee emp : empList)
 					result = dmService.insertDMTo(emp.getEmp_no());
 			} else {
 				result = dmService.insertDMTo(Integer.parseInt(dm_to));
 			}
-		
+
 		}
 
 		return "redirect:dmList.do";
+	}
+
+	@RequestMapping("/dm/selectOneDm.do/{dm_no}")
+	public String selectOneDm(@PathVariable(value = "dm_no") int dm_no, Model model) {
+
+		model.addAttribute("dm", dmService.selectOneDm(dm_no));
+		return "dm/dmDetail";
+
+	}
+
+	@RequestMapping("/dm/replyDm.do/{dm_no}")
+	public String replyDm( @PathVariable(value = "dm_no") int dm_no ,Model model) {
+		model.addAttribute("dm",dmService.selectOneDm(dm_no)).addAttribute("type","reply");
+		return "dm/dmWriteForm";
+	}
+	
+	@RequestMapping("/dm/fowardDm.do/{dm_no}")
+	public String fowardDm(@PathVariable(value = "dm_no") int dm_no, Model model) {
+		List<Department> dept = employeeService.selectDepartmentList();
+		System.out.println(dept);
+		model.addAttribute("dm", dmService.selectOneDm(dm_no)).addAttribute("dept", dept).addAttribute("type", "foward");
+		return "dm/dmWriteForm";
+
+	}
+
+	@RequestMapping(value = "/dm/storeDm.do")
+	@ResponseBody
+	public DM storeDm(@RequestBody int[] chkdms,
+		HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			Employee e = (Employee) session.getAttribute("employee");
+			
+		System.out.println(chkdms);
+		DM dm = null;
+		if (chkdms != null)
+			for (int no : chkdms) {
+				System.out.println("store : " + dmService.selectOneDm(no));
+				dm = dmService.selectOneDm(no);
+				int result = dmService.insertDM(dm);
+				dmService.insertDMTo(e.getEmp_no());
+			}
+	
+		return dm;
+	}
+	
+	@RequestMapping(value = "/dm/deleteDm.do")
+	@ResponseBody
+	public DM deleteDm(@RequestBody int[] chkdms,
+		HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			Employee e = (Employee) session.getAttribute("employee");
+			
+		System.out.println(chkdms);
+		DM dm = null;
+		if (chkdms != null)
+			for (int no : chkdms) {
+				System.out.println("store : " + dmService.selectOneDm(no));
+				dm = dmService.selectOneDm(no);
+				int result = dmService.insertDM(dm);
+				dmService.insertDMTo(e.getEmp_no());
+			}
+	
+		return dm;
 	}
 }

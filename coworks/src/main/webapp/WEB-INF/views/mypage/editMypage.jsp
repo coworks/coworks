@@ -27,6 +27,7 @@
 							<div class="card-body col-8 align-self-center">
 								<h3 class="box-title text-themecolor">회원정보 수정</h3>
 								<form class="form-control-line mt-5 form-group-danger" method="post" action="editMypageEnd.do" id="update" enctype="multipart/form-data">
+									
 									<div class="form-group">
 										<label class="fontw"><i class=" ti-help-alt"></i>　현재 비밀번호</label> <input type="password" name="pre_password" id="pre_password" class="form-control" placeholder="password">
 									</div>
@@ -40,13 +41,23 @@
 										<label class="fontw"><i class="ti-info-alt"></i>　비밀번호 확인</label> <input type="password" name="emp_password" id="emp_password"  class="form-control pw" placeholder="password">
 									</div>
 									<br>
-									<div class="form-group">
+									<%-- <div class="form-group">
 										<label class="fontw"><i class="ti-email"></i>　이메일</label> <input type="email" placeholder="email 입력" name="emp_email" value="${ sessionScope.employee.emp_email }" class="form-control">
 									</div>
 									<div class="form-group">
 										<label class="fontw"><i class="ti-info-alt"></i>　비밀번호 확인</label> <input type="password" placeholder="email password 입력"  id="emp_emailpassword" name="emp_emailpassword" class="form-control" value="${sessionScope.employee.emp_emailpassword }">
 									</div>
-									
+									 --%> 
+									 <div class="form-group">
+									 	<label class="fontw"><i class=" ti-help-alt"></i>
+									 	&nbsp;&nbsp;   이메일 인증하기　</label>
+									 	<a  href="${pageContext.request.contextPath}/mail/reAuth.do">
+											<div type="button" class="btn waves-effect waves-light btn-block btn-info">
+											 이메일 인증하기
+											</div>
+										</a>
+									</div>
+									<br>
 									<br>
 									<div class="form-group">
 										<label class="fontw"><i class=" ti-mobile"></i>　연락처</label> <input type="text" name="emp_phone" class="form-control phone-inputmask" id="phone-mask" im-insert="true" value="${ sessionScope.employee.emp_phone }" placeholder="010-0000-xxxx">

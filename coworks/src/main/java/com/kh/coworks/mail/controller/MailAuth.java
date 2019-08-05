@@ -12,7 +12,7 @@ public class MailAuth extends Authenticator {
 	//javax.mail 의 주요 메소드는 Session, Message, Address, Authenticator, Transport
 	// SMTP서버에 연결해 사용자 인증을 하기 위해선 Authenticator 클래스가 필요하다.
 	
-	PasswordAuthentication pa;
+	PasswordAuthentication pa  ;
 
 	
 	public MailAuth(HttpServletRequest request) {
@@ -24,12 +24,13 @@ public class MailAuth extends Authenticator {
 		String mail_id = emp.getEmp_email();
 		String mail_pw = emp.getEmp_emailpassword();
 		
-		pa = new PasswordAuthentication(mail_id,mail_pw);
+		 pa = new PasswordAuthentication(mail_id,mail_pw);
 	}
 	
 	public MailAuth(String mail_id, String mail_pw) {
 		pa = new PasswordAuthentication(mail_id,mail_pw);
 	}
+
 
 	public PasswordAuthentication getPasswordAuthentication() {
 		// Authenticator를 사용하기 위해선 PasswordAuthenticator 클래스로 부터 인스턴스를 생성하고

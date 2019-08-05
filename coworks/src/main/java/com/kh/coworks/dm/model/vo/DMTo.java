@@ -1,8 +1,11 @@
 package com.kh.coworks.dm.model.vo;
 
 import java.io.Serializable;
+
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+@Component
 public class DMTo implements Serializable{
 	private int dm_to_no;
 	private int dm_no;

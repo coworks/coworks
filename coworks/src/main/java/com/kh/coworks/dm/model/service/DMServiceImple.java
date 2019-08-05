@@ -67,6 +67,12 @@ public class DMServiceImple implements DMService {
 	}
 
 
+	@Override
+	public DM selectOneDm(int dm_no) {
+		return dmDao.selectOneDm(dm_no);
+	}
+
+
 
 
 

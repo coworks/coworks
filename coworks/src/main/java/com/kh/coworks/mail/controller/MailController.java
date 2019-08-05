@@ -44,6 +44,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.coworks.common.util.Utils;
+import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.mail.model.service.MailService;
 import com.kh.coworks.mail.model.vo.Mail;
@@ -59,6 +60,8 @@ public class MailController {
 
 	@Autowired
 	MailService mailService;
+	@Autowired
+	EmployeeService employeeService;
 
 //	@RequestMapping("/mail/sendingMailMulti.do")
 //	public void sendingMailMulti(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request,
@@ -119,6 +122,18 @@ public class MailController {
 		}
 	}
 
+	@RequestMapping("/mail/reAuth.do")
+	public String reAuth(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee emp = (Employee) session.getAttribute("employee");
+		emp.setEmp_email(null);
+		emp.setEmp_emailpassword(null);
+		int result = employeeService.updateEmployee(emp);
+		if (result > 0)
+			session.setAttribute("employee", emp);
+		return "mail/auth-check";
+	}
+
 	@RequestMapping("/mail/authCheck.do")
 	public String authCheck(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -134,14 +149,26 @@ public class MailController {
 	@ResponseBody
 	public int authCheckEnd(@RequestParam("emp_email") String emp_email,
 			@RequestParam("emp_emailpassword") String emp_emailpassword) {
-		MimeMessage msg = mailSetting.sendingSetting(emp_email, emp_emailpassword);
-		System.out.println("email : " + emp_email);
-		System.out.println("password : " + emp_emailpassword);
+
+		MimeMessage msg = null;
+		msg = mailSetting.sendingSetting(emp_email, emp_emailpassword);
+		Message[] msgr = null;
+
+		try {
+			msgr = mailSetting.receiveSetting(emp_email,emp_emailpassword);
+		} catch (MessagingException e1) {
+			e1.printStackTrace();
+			System.out.println("받은 메일");
+			return 99999;
+		}
+
+		System.out.println(emp_email);
+		System.out.println(emp_emailpassword);
 		int rnd = (int) (Math.random() * 1000);
 		System.out.println("random : " + rnd);
 		try {
 			msg.setSentDate(new Date());
-			msg.setFrom(new InternetAddress("mail_0318@naver.com", "COWORKS"));
+			msg.setFrom(new InternetAddress(emp_email,"COWORKS"));
 			InternetAddress to = new InternetAddress(emp_email);
 			msg.setRecipient(Message.RecipientType.TO, to);
 			msg.setSubject("coworks 이메일 인증 메일입니다", "UTF-8");
@@ -149,7 +176,9 @@ public class MailController {
 			if (msg != null)
 				Transport.send(msg);
 		} catch (MessagingException e) {
+			System.out.println("보낸 메일");
 			e.printStackTrace();
+			return 99999;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

@@ -29,7 +29,8 @@ public class DMDaoImpl implements DMDao {
 	@Override
 	public List<DM> sendDmList(int cPage, int limit, int emp_no) {
 		RowBounds rows = new RowBounds((cPage-1)*limit,limit);
-		return sqlSession.selectList("dm.dmList",emp_no,rows);
+		System.out.println(rows);
+		return sqlSession.selectList("dm.sendDmList",emp_no,rows);
 	}
 
 	@Override
@@ -56,6 +57,11 @@ public class DMDaoImpl implements DMDao {
 	@Override
 	public int insertDMTo(int dm_to) {
 		return sqlSession.insert("dm.insertDMTo",dm_to);
+	}
+
+	@Override
+	public DM selectOneDm(int dm_no) {
+		return sqlSession.selectOne("dm.selectOneDm",dm_no);
 	}
 
 

@@ -26,4 +26,6 @@ public interface DMDao {
 
 	int insertDMTo(int dm_to);
 
+	DM selectOneDm(int dm_no);
+
 }
