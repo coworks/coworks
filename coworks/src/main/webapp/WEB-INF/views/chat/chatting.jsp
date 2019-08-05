@@ -31,7 +31,9 @@
 									</div>
 									<ul class="chatonline style-none ">
 										<c:forEach var="chatroom" items="${croomList }">
-											<li><a href="javascript:void(0)"> <span><b>${chatroom.croom_title } </b><p class="text-mute ml-2">${chatroom.chat_content }</p><small class="text-mute text-right">${chatroom.chat_sendtime }</small></span></a></li>
+											<li><a href="javascript:void(0)"> <span><b>${chatroom.croom_title } </b>
+													<p class="text-mute ml-2">${chatroom.chat_content }</p>
+														<small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }" pattern="yyyy-MM-dd HH:mm" /></small></span></a></li>
 										</c:forEach>
 										<li class="p-3"></li>
 									</ul>
@@ -48,7 +50,7 @@
 								</div>
 								<div class="chat-rbox">
 									<ul class="chat-list p-5" id="chatList">
-										
+
 									</ul>
 								</div>
 								<div class="card-body border-top">
@@ -79,11 +81,12 @@
 		var chattingSock = new SockJS("<c:url value='/chatting'/>");
 
 		$(function() {
-			var chatListJson=${chatList};
-			for(var i=0;i<chatListJson.length;i++){
+			var chatListJson = ${chatList};
+			for (var i = 0; i < chatListJson.length; i++) {
 				appendMSG(chatListJson[i]);
 			}
 			
+			/* $('#chatList').scrollTop($('#chatList').get(0).scrollHeight); */
 			pageDown();
 
 			$('#sendChat').on('click', sendMSG);
@@ -97,16 +100,16 @@
 
 		chattingSock.onmessage = function(evt) {
 			var data = JSON.parse(evt.data);
-			console.log(data);
-			
+
 			appendMSG(data);
+			pageDown();
 
 		}
 
 		function pageDown() {
 			$('#chatList').animate({
 				scrollTop : $('#chatList').get(0).scrollHeight
-			},10);
+			}, 10);
 		}
 
 		function sendMSG() {
@@ -143,8 +146,6 @@
 							+ new Date(data.chat_sendtime).toLocaleTimeString()
 							+ "</div>");
 			chatList.append(chatli);
-
-			pageDown();
 
 		}
 	</script>

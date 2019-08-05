@@ -27,6 +27,8 @@ public interface DMService {
 	int insertDMTo(int dm_to);
 
 	DM selectOneDm(int dm_no);
+	
+	List<DM> receiveDMList(int emp_no);
 
 	
 }

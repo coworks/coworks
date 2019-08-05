@@ -12,9 +12,13 @@
 		<!-- Logo -->
 		<!-- ============================================================== -->
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/common/gomain.do"> <!-- Logo icon --> <b> <!--You can put here icon as well // <i class="wi wi-sunset"></i> //--> <!-- Dark Logo icon --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" class="dark-logo" style="width: 33px; height: 34px" /> <!-- Light Logo icon --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage"
-					class="light-logo" style="width: 33px; height: 34px" />
-			</b> <!--End Logo icon --> <!-- Logo text --> <span> <!-- dark Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" alt="homepage" class="dark-logo" style="width: 148px; height: 25px" /> <!-- Light Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" class="light-logo" alt="homepage" style="width: 148px; height: 25px" /></span>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/common/gomain.do"> <!-- Logo icon --> <b> <!--You can put here icon as well // <i class="wi wi-sunset"></i> //--> <!-- Dark Logo icon -->
+					<img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" class="dark-logo" style="width: 33px; height: 34px" /> <!-- Light Logo icon --> <img
+					src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" class="light-logo" style="width: 33px; height: 34px"
+				/>
+			</b> <!--End Logo icon --> <!-- Logo text --> <span> <!-- dark Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" alt="homepage" class="dark-logo"
+					style="width: 148px; height: 25px"
+				/> <!-- Light Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" class="light-logo" alt="homepage" style="width: 148px; height: 25px" /></span>
 			</a>
 		</div>
 		<!-- ============================================================== -->
@@ -31,12 +35,10 @@
 				<!-- ============================================================== -->
 				<!-- Comment -->
 				<!-- ============================================================== -->
-				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell"></i>
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="mdi mdi-bell"></i>
 						<div class="notify" id="approvalHeartbit" style="display: none;">
-							<c:if test="${sessionScope.approvalReceiveList.size() ne '0' }">
-								<span class="heartbit"></span>
-								<span class="point"></span>
-							</c:if>
+							<span class="heartbit"></span> <span class="point"></span>
 						</div>
 				</a>
 					<div class="dropdown-menu mailbox animated slideInDown">
@@ -55,70 +57,29 @@
 				<!-- ============================================================== -->
 				<!-- Messages -->
 				<!-- ============================================================== -->
-				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-email"></i>
-						<div class="notify">
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="mdi mdi-cookie"></i>
+						<div class="notify" id="DMHeartbit" style="display: none;">
 							<span class="heartbit"></span> <span class="point"></span>
 						</div>
 				</a>
-					<div class="dropdown-menu mailbox animated bounceInDown" aria-labelledby="2">
+					<div class="dropdown-menu mailbox animated slideInDown">
 						<ul>
 							<li>
-								<div class="drop-title">쪽지가 도착했습니다!</div>
+								<div class="drop-title">쪽지함</div>
 							</li>
-							<li>
-								<div class="message-center">
-									<!-- Message -->
-									<a href="#">
-										<div class="user-img">
-											<img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online float-right"></span>
-										</div>
-										<div class="mail-contnet">
-											<h5>Pavan kumar</h5>
-											<span class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span>
-										</div>
-									</a>
-									<!-- Message -->
-									<a href="#">
-										<div class="user-img">
-											<img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy float-right"></span>
-										</div>
-										<div class="mail-contnet">
-											<h5>Sonu Nigam</h5>
-											<span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span>
-										</div>
-									</a>
-									<!-- Message -->
-									<a href="#">
-										<div class="user-img">
-											<img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/3.jpg" alt="user" class="img-circle"> <span class="profile-status away float-right"></span>
-										</div>
-										<div class="mail-contnet">
-											<h5>Arijit Sinh</h5>
-											<span class="mail-desc">I am a singer!</span> <span class="time">9:08 AM</span>
-										</div>
-									</a>
-									<!-- Message -->
-									<a href="#">
-										<div class="user-img">
-											<img src="${pageContext.request.contextPath}/resources/templates/assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline float-right"></span>
-										</div>
-										<div class="mail-contnet">
-											<h5>Pavan kumar</h5>
-											<span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
-										</div>
-									</a>
-								</div>
-							</li>
-							<li><a class="nav-link text-center" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i>
+							<li id="DMNotify"></li>
+							<li><a class="nav-link text-center" href="${pageContext.request.contextPath }/dm/dmList.do"> <strong id="DMCnt"></strong> <i class="fa fa-angle-right"></i>
 							</a></li>
 						</ul>
 					</div></li>
 				<!-- ============================================================== -->
 				<!-- End Messages -->
 				<!-- ============================================================== -->
-				
-				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message-reply-text"></i>
-						<!-- <div class="notify">
+
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
+						class="mdi mdi-message-reply-text"
+					></i> <!-- <div class="notify">
 							<span class="heartbit"></span> <span class="point"></span>
 						</div> -->
 				</a>
@@ -127,8 +88,7 @@
 							<li>
 								<div class="drop-title">메신저</div>
 							</li>
-							<li id="chatNotify">
-							</li>
+							<li id="chatNotify"></li>
 							<li><a class="nav-link text-center" href="${pageContext.request.contextPath }/chat/chatview.do"> <strong>메신저 바로가기</strong> <i class="fa fa-angle-right"></i>
 							</a></li>
 						</ul>

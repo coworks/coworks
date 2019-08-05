@@ -28,4 +28,6 @@ public interface DMDao {
 
 	DM selectOneDm(int dm_no);
 
+	List<DM> receiveDMList(int emp_no);
+
 }

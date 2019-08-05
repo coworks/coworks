@@ -14,30 +14,37 @@
 		where croom_no=#{croom_no} order by chat_sendtime desc
 	</select>
 
-	<select id="selectRecentChat" resultType="chat"
-		parameterType="_int">
-		select * from(
+	<select id="selectRecentChat" resultType="chat" parameterType="_int">
+		SELECT
+		*
+		FROM
+		(
 		SELECT
 		ROW_NUMBER() OVER(
-		PARTITION BY
-		c.croom_no
+		PARTITION BY C.CROOM_NO
 		ORDER BY
-		chat_sendtime DESC
-		)
-		RNUM,
-		c.*,cr.croom_title
+		CHAT_SENDTIME DESC
+		) RNUM,
+		C.CHAT_NO,
+		C.CHAT_SENDNO,
+		C.CHAT_CONTENT,
+		C.CHAT_SENDTIME,
+		CR.CROOM_NO,
+		CR.CROOM_TITLE
 		FROM
-		chat
-		c,
-		chatroom cr
+		CHAT C,
+		CHATROOM CR
 		WHERE
-		cr.croom_no=c.croom_no and cr.emp_no=#{emp_no} )
-		where rnum=1
-		order by chat_sendtime desc
+		CR.CROOM_NO = C.CROOM_NO (+)
+		AND CR.EMP_NO = #{emp_no}
+		)
+		WHERE
+		RNUM = 1
+		ORDER BY
+		CHAT_SENDTIME DESC
 	</select>
 
-	<select id="selectCroomEmp" parameterType="_int"
-		resultType="int">
+	<select id="selectCroomEmp" parameterType="_int" resultType="int">
 		select emp_no from chatRoom where croom_no=#{croom_no}
 	</select>
 

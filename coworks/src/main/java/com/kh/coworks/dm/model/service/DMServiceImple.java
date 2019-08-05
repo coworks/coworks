@@ -65,6 +65,11 @@ public class DMServiceImple implements DMService {
 	public int insertDMTo(int dm_to) {
 		return dmDao.insertDMTo(dm_to);
 	}
+	
+	@Override
+	public List<DM> receiveDMList(int emp_no){
+		return dmDao.receiveDMList(emp_no);
+	}
 
 
 	@Override

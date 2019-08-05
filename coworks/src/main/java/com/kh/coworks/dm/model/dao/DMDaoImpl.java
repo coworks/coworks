@@ -58,6 +58,11 @@ public class DMDaoImpl implements DMDao {
 	public int insertDMTo(int dm_to) {
 		return sqlSession.insert("dm.insertDMTo",dm_to);
 	}
+	
+	@Override
+	public List<DM> receiveDMList(int emp_no){
+		return sqlSession.selectList("dm.dmList", emp_no);
+	}
 
 	@Override
 	public DM selectOneDm(int dm_no) {
