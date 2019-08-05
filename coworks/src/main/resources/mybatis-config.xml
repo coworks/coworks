@@ -30,6 +30,7 @@
 		<typeAlias type="com.kh.coworks.todo.model.vo.Todo" alias="todo" />
 		<typeAlias type="com.kh.coworks.chat.model.vo.Chat" alias="chat" />
 		<typeAlias type="com.kh.coworks.chat.model.vo.ChatRoom" alias="chatRoom" />
+		<typeAlias type="com.kh.coworks.survey.model.vo.Survey" alias="survey" />
 	</typeAliases>
 
 	<typeHandlers>

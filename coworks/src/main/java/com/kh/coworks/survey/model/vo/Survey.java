@@ -9,14 +9,78 @@ import org.springframework.stereotype.Component;
 @Component
 public class Survey implements Serializable {
 
-	private int survey_no; // ÀÎµ¦½º
-	private String survey_quest; // Áú¹®
-	private Timestamp survey_start; // ½ÃÀÛ½Ã°£
-	private Timestamp survey_end; // Á¾·á½Ã°£
-	
-	private List<SurveyAnswer> answer; //´äº¯¸®½ºÆ®
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 286;
 	
 	
+	private int survey_no; // ï¿½Îµï¿½ï¿½ï¿½
+	private String survey_quest; // ï¿½ï¿½ï¿½ï¿½
+	private Timestamp survey_start; // ï¿½ï¿½ï¿½Û½Ã°ï¿½
+	private Timestamp survey_end; // ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+	
+	private List<SurveyAnswer> answer; //ï¿½äº¯ï¿½ï¿½ï¿½ï¿½Æ®
+
+	public Survey() {
+		
+	}
+	
+	public int getSurvey_no() {
+		return survey_no;
+	}
+
+	public void setSurvey_no(int survey_no) {
+		this.survey_no = survey_no;
+	}
+
+	public String getSurvey_quest() {
+		return survey_quest;
+	}
+
+	public void setSurvey_quest(String survey_quest) {
+		this.survey_quest = survey_quest;
+	}
+
+	public Timestamp getSurvey_start() {
+		return survey_start;
+	}
+
+	public void setSurvey_start(Timestamp survey_start) {
+		this.survey_start = survey_start;
+	}
+
+	public Timestamp getSurvey_end() {
+		return survey_end;
+	}
+
+	public void setSurvey_end(Timestamp survey_end) {
+		this.survey_end = survey_end;
+	}
+
+	public List<SurveyAnswer> getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(List<SurveyAnswer> answer) {
+		this.answer = answer;
+	}
+
+	public Survey(int survey_no, String survey_quest, Timestamp survey_start, Timestamp survey_end,
+			List<SurveyAnswer> answer) {
+		super();
+		this.survey_no = survey_no;
+		this.survey_quest = survey_quest;
+		this.survey_start = survey_start;
+		this.survey_end = survey_end;
+		this.answer = answer;
+	}
+
+	@Override
+	public String toString() {
+		return "Survey [survey_no=" + survey_no + ", survey_quest=" + survey_quest + ", survey_start=" + survey_start
+				+ ", survey_end=" + survey_end + ", answer=" + answer + "]";
+	}
 	
 
 }

@@ -1,6 +1,6 @@
 package com.kh.coworks.employee.controller;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,7 +70,7 @@ public class EmployeeController {
 
 		// 1. 현재 페이지 게시글 목록 가져오기
 		ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.selectEmployeeList(cPage, limit));
-
+		
 		// 2. 전체 페이지 게시글 수 가져오기
 		int totalContents = employeeService.selectEmployeeTotalContents();
 
