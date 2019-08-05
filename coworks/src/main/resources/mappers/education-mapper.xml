@@ -3,71 +3,80 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="education">
-	
-	<select id="selectListEducation" parameterType="_int" resultType="education">
-		SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
-		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no} ) EAPP WHERE EDU.EDU_NO = EAPP.EDU_NO (+) order by EDU.EDU_EDUDATE
-	</select>
-	
-	<select id="selectApplyTotalContents" parameterType="_int" resultType="_int">
-		SELECT COUNT(*) FROM EDUAPPLY WHERE EMP_NO=#{emp_no}
-	</select>
-	
-	<select id="searchTypeEduApply" parameterType="hashmap" resultType="education">
-		SELECT * FROM EDUCATION E,EDUAPPLY EA WHERE EMP_NO=TO_NUMBER(#{emp_no}) AND EDU_TYPE=#{edu_type}
-	</select>
-	
-	<select id="selectTypeApplyTotalContents" parameterType="hashmap" resultType="_int">
-		SELECT COUNT(*) FROM EDUAPPLY EA ,EDUCATION E WHERE E.EDU_NO=EA.EDU_NO AND EMP_NO=TO_NUMBER(#{emp_no}) AND EDU_TYPE=#{edu_type}
-	</select>
-	
-	<select id="selectEduApply" resultType="education">
-	SELECT
-	EDU.*,
-	REP.EDUREP_NO
-	FROM
-	EDUAPPLY EAPP,
-	EDUREPORT REP,
-	EDUCATION EDU
-	WHERE
-	EAPP.EDU_NO = REP.EDU_NO (+)
-	AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no}
-	</select>
-	
-	<select id="selectOneEducation" parameterType="eduapply" resultType="education">
-		SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
-		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no}) EAPP WHERE EDU.EDU_NO=#{edu_no} and EDU.EDU_NO = EAPP.EDU_NO (+) ORDER BY EDU.EDU_DATE DESC
+   
+   <select id="selectListEducation" parameterType="_int" resultType="education">
+      SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
+      (SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no} ) EAPP WHERE EDU.EDU_NO = EAPP.EDU_NO (+)
+   </select>
+   
+   <select id="selectApplyTotalContents" parameterType="_int" resultType="_int">
+      SELECT COUNT(*) FROM EDUAPPLY WHERE EMP_NO=#{emp_no}
+   </select>
+   
+   <select id="searchTypeEduApply" parameterType="hashmap" resultType="education">
+   SELECT
+   EDU.*,
+   REP.EDUREP_NO
+   FROM
+   EDUAPPLY EAPP,
+   EDUREPORT REP,
+   EDUCATION EDU
+   WHERE
+   EAPP.EDU_NO = REP.EDU_NO (+)
+   AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no} AND EDU.EDU_TYPE=#{edu_type}
+   </select>
+   
+   <select id="selectTypeApplyTotalContents" parameterType="hashmap" resultType="_int">
+      SELECT COUNT(*) FROM EDUAPPLY EA ,EDUCATION E WHERE E.EDU_NO=EA.EDU_NO AND EMP_NO=#{emp_no} AND EDU_TYPE=#{edu_type}
+   </select>
+   
+   <select id="selectEduApply" resultType="education">
+   SELECT
+   EDU.*,
+   REP.EDUREP_NO
+   FROM
+   EDUAPPLY EAPP,
+   EDUREPORT REP,
+   EDUCATION EDU
+   WHERE
+   EAPP.EDU_NO = REP.EDU_NO (+)
+   AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no}
+   </select>
+   
+   <select id="selectOneEducation" parameterType="eduapply" resultType="education">
+      SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
+      (SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no}) EAPP WHERE EDU.EDU_NO=#{edu_no} and EDU.EDU_NO = EAPP.EDU_NO (+)
         
-	</select>
-	<insert id="insertEduApply" parameterType="eduapply">
-		INSERT INTO EDUAPPLY SELECT SEQ_EAAP_NO.NEXTVAL,#{emp_no},#{edu_no} FROM DUAL 
-		WHERE NOT EXISTS(SELECT EMP_NO FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no})
-	</insert>	
-	
-	<delete id="deleteEduApply" parameterType="eduapply">
-		DELETE FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no}
-	</delete>
-	
-	
+   </select>
+   <insert id="insertEduApply" parameterType="eduapply">
+      INSERT INTO EDUAPPLY SELECT SEQ_EAAP_NO.NEXTVAL,#{emp_no},#{edu_no} FROM DUAL 
+      WHERE NOT EXISTS(SELECT EMP_NO FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no})
+   </insert>   
+   
+   <delete id="deleteEduApply" parameterType="eduapply">
+      DELETE FROM EDUAPPLY WHERE EMP_NO=#{emp_no} AND EDU_NO=#{edu_no}
+   </delete>
+   
+   
 
-	<insert id="insertEduReport">
-		insert into eduReport (EDUREP_NO, EDU_NO,
-		EMP_NO,
-		EDUREP_TITLE, EDUREP_CONTENT, EDUREP_DATE) values
-		(seq_eduRep.nextval,#{edu_no},#{emp_no},#{edurep_title},#{edurep_content},SYSDATE)
-	</insert>
-	
-	<select id="selectEduRep" resultType="edureport" parameterType="_int">
-		SELECT * FROM eduReport WHERE EMP_NO=#{emp_no}
-	</select>
-	
-	<select id="selectOneEduRep" resultType="edureport" parameterType="_int">
-		SELECT * FROM eduReport WHERE edurep_no=#{eduprep_no}
-	</select>
-	
-	<update id="updateEduReport" parameterType="edureport">
-		update edureport set edurep_title=#{edurep_title}, edurep_content=#{edurep_content} where edurep_no=#{edurep_no}
-	</update>
+   <insert id="insertEduReport">
+      insert into eduReport (EDUREP_NO, EDU_NO,
+      EMP_NO,
+      EDUREP_TITLE, EDUREP_CONTENT, EDUREP_DATE) values
+      (seq_eduRep.nextval,#{edu_no},#{emp_no},#{edurep_title},#{edurep_content},SYSDATE)
+   </insert>
+   
+   <select id="selectEduRep" resultType="edureport" parameterType="_int">
+      SELECT * FROM eduReport WHERE EMP_NO=#{emp_no}
+   </select>
+   
+   <select id="selectOneEduRep" resultType="edureport" parameterType="_int">
+      SELECT * FROM eduReport WHERE edurep_no=#{eduprep_no}
+   </select>
+   
+   <update id="updateEduReport" parameterType="edureport">
+      update edureport set edurep_title=#{edurep_title}, edurep_content=#{edurep_content} where edurep_no=#{edurep_no}
+   </update>
 
 
 </mapper>

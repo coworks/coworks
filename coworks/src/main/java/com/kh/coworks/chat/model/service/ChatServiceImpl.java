@@ -41,4 +41,9 @@ public class ChatServiceImpl implements ChatService {
 		return chatDao.selectChatList(croom_no);
 	}
 
+	@Override
+	public ChatRoom selectCroom(int croom_no) {
+		return chatDao.selectCroom(croom_no);
+	}
+
 }

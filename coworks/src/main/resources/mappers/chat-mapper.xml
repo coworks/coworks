@@ -52,6 +52,10 @@
 		select c.*, emp_name senderName from chat c, employee e where croom_no=#{croom_no} and e.emp_no=c.chat_sendno order by chat_sendtime
 	</select>
 
+	<select id="selectCroom" parameterType="_int" resultType="chatRoom">
+	select * from chatroom where croom_no=#{croom_no}
+	</select>
+
 	<insert id="insertChat">
 		insert into chat
 		(CHAT_NO,CROOM_NO,CHAT_SENDNO,CHAT_CONTENT,CHAT_SENDTIME) values

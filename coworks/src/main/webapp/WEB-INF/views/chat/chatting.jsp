@@ -31,7 +31,7 @@
 									</div>
 									<ul class="chatonline style-none ">
 										<c:forEach var="chatroom" items="${croomList }">
-											<li><a href="javascript:void(0)"> <span><b>${chatroom.croom_title } </b>
+											<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" value="link${chatroom.croom_no }"> <span><b>${chatroom.croom_title } </b>
 													<p class="text-mute ml-2">${chatroom.chat_content }</p>
 														<small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }" pattern="yyyy-MM-dd HH:mm" /></small></span></a></li>
 										</c:forEach>
@@ -44,8 +44,8 @@
 							<div class="chat-right-aside">
 								<div class="chat-main-header">
 									<div class="p-3 border-bottom">
-										<h3 class="box-title">채팅 메세지</h3>
-										<input type="hidden" id="croom_no" value="1" />
+										<h3 class="box-title">${croom.croom_title}</h3>
+										<input type="hidden" id="croom_no" value="${croom.croom_no }" />
 									</div>
 								</div>
 								<div class="chat-rbox">
@@ -81,7 +81,11 @@
 		var chattingSock = new SockJS("<c:url value='/chatting'/>");
 
 		$(function() {
+			var croom_no=${croom.croom_no};
+			$('a[value=link'+croom_no+']').addClass('active');
+			
 			var chatListJson = ${chatList};
+			console.log(chatListJson);
 			for (var i = 0; i < chatListJson.length; i++) {
 				appendMSG(chatListJson[i]);
 			}
