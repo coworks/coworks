@@ -110,7 +110,7 @@ public class MailController {
 			msg.setText(mail.getMail_content(), "UTF-8");
 
 			if (msg != null)
-				Transport.send(msg);
+				Transport.send(msg,emp.getEmp_email(),emp.getEmp_emailpassword());
 		} catch (AddressException ae) {
 			System.out.println("AddressException : " + ae.getMessage());
 		} catch (MessagingException me) {
