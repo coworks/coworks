@@ -12,7 +12,7 @@
 	<select id="selectChatRoomOne" resultType="chat">
 		select * from chat
 		where croom_no=#{croom_no} order by chat_sendtime desc
-	</select>
+	</select> 
 
 	<select id="selectRecentChat" resultType="chat" parameterType="_int">
 		SELECT
