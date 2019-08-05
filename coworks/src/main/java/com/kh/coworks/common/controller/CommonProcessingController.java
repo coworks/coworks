@@ -135,11 +135,11 @@ public class CommonProcessingController {
 		 
 		HashMap<String, String> hmap=new HashMap<>();
 		hmap.put("emp_no", Integer.toString(employee.getEmp_no()));
-		hmap.put("dept_no", employee.getDept_code());
+		hmap.put("dept_code", employee.getDept_code());
 		// 나중에 수정해야함 꼮!!! calendar list뽑기 
 		
 		List<com.kh.coworks.calendar.model.vo.Calendar> calendar=calendarService.selectListAllCalendar(hmap);
-		 System.out.println("calendar : "+calendar);
+		 
 		mv.addObject("atten",list);	// index에 출근시간, ip시간 보여주기!!!! 나중에~~~
 		mv.addObject("list",calendar);  
 		mv.setViewName("../index");

@@ -6,7 +6,7 @@
 	
 	<select id="selectListEducation" parameterType="_int" resultType="education">
 		SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
-		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no} ) EAPP WHERE EDU.EDU_NO = EAPP.EDU_NO (+)
+		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no} ) EAPP WHERE EDU.EDU_NO = EAPP.EDU_NO (+) order by EDU.EDU_EDUDATE
 	</select>
 	
 	<select id="selectApplyTotalContents" parameterType="_int" resultType="_int">
@@ -36,7 +36,7 @@
 	
 	<select id="selectOneEducation" parameterType="eduapply" resultType="education">
 		SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
-		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no}) EAPP WHERE EDU.EDU_NO=#{edu_no} and EDU.EDU_NO = EAPP.EDU_NO (+)
+		(SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no}) EAPP WHERE EDU.EDU_NO=#{edu_no} and EDU.EDU_NO = EAPP.EDU_NO (+) ORDER BY EDU.EDU_DATE DESC
         
 	</select>
 	<insert id="insertEduApply" parameterType="eduapply">

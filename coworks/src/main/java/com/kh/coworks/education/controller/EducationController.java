@@ -46,7 +46,7 @@ public class EducationController {
 		 
 		List<Education> list = educationService.selectListEducation(employee.getEmp_no());
 		Date today=new Date();  
-		
+		System.out.println(list);
  		for(int i=0;i<list.size();i++) {
  			if(list.get(i).getEdu_applyBgDate().getTime()>today.getTime()){
  				list.get(i).setEdu_color("bg-info");
