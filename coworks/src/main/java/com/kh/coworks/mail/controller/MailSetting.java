@@ -117,9 +117,10 @@ public class MailSetting {
 		System.out.println("a " + auth);
 		System.out.println("auth email : " + emp_email);
 		System.out.println("auth pass : " + emp_emailpassword);
-
+		
 		Session psession = Session.getDefaultInstance(prop, auth);
-
+		psession.setDebug(true);
+		
 		MimeMessage msg = new MimeMessage(psession);
 		msg = new MimeMessage(psession);
 		return msg;
@@ -142,6 +143,8 @@ public class MailSetting {
 		prop.put("mail.pop3.starttls.enable", "true");
 		prop.put("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		Session emailSession = Session.getDefaultInstance(prop, auth);
+		emailSession.setDebug(true);
+		
 		Store store;
 		store = emailSession.getStore("pop3");
 		store.connect(host, emp_email, emp_emailpassword);

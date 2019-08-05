@@ -151,11 +151,13 @@ public class MailController {
 			@RequestParam("emp_emailpassword") String emp_emailpassword) {
 
 		MimeMessage msg = null;
-		msg = mailSetting.sendingSetting(emp_email, emp_emailpassword);
+		msg = //mailSetting.sendingSetting(emp_email, emp_emailpassword);
+				new MailSetting().sendingSetting(emp_email, emp_emailpassword);
 		Message[] msgr = null;
 
 		try {
-			msgr = mailSetting.receiveSetting(emp_email,emp_emailpassword);
+			msgr = //mailSetting.receiveSetting(emp_email,emp_emailpassword);
+					new MailSetting().receiveSetting(emp_email,emp_emailpassword);
 		} catch (MessagingException e1) {
 			e1.printStackTrace();
 			System.out.println("받은 메일");
@@ -173,8 +175,9 @@ public class MailController {
 			msg.setRecipient(Message.RecipientType.TO, to);
 			msg.setSubject("coworks 이메일 인증 메일입니다", "UTF-8");
 			msg.setText("해당 값을 입력해주세요 : " + rnd, "UTF-8");
-			if (msg != null)
-				Transport.send(msg);
+			if (msg != null) {
+				Transport.send(msg,emp_email,emp_emailpassword);
+				}
 		} catch (MessagingException e) {
 			System.out.println("보낸 메일");
 			e.printStackTrace();

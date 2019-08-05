@@ -853,10 +853,9 @@ where employee.dept_code=department.dept_code and employee.job_code=job.job_code
    
    
    
-   
-  CREATE OR REPLACE VIEW "DMVIEW" 
- ( "DM_NO","DM_FROM","DM_SUBJECT","DM_CONTENT","DM_DATE","DM_FROM_DEL","DM_FROM_NAME","DM_FROM_DEPT","DM_FROM_JOB")as
- SELECT 
+ 
+  CREATE OR REPLACE VIEW "DMVIEW" ("DM_NO", "DM_FROM", "DM_SUBJECT", "DM_CONTENT", "DM_DATE", "DM_FROM_DEL", "DM_FROM_NAME", "DM_FROM_DEPT", "DM_FROM_JOB") AS 
+  SELECT 
  dm.dm_no,
  dm.dm_from,dm_subject, dm.dm_content, dm.dm_date,
  dm.dm_from_del, employee.emp_name, department.dept_name, job.job_title 

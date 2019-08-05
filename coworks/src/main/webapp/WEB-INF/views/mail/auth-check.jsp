@@ -123,9 +123,9 @@
 		        	}
 		        	else{
 		        		key = data;
-		            alert("메일이 발송되었습니다.");
+		            alert("메일이 발송되었습니다.");/* 
 		            $("#emp_email").prop("readonly",true);
-		            $("#emp_emailpassword").prop("readonly",true);
+		            $("#emp_emailpassword").prop("readonly",true); */
 		            console.log(key);	
 		        	}
 		        },
