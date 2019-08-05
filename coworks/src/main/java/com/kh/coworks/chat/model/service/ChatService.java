@@ -18,6 +18,6 @@ public interface ChatService {
 	
 	List<Chat> selectChatList(int croom_no);
 
-	ChatRoom selectCroom(int croom_no);
+	ChatRoom selectCroom(ChatRoom cr);
 
 }

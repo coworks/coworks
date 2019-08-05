@@ -42,8 +42,8 @@ public class ChatDaoImpl implements ChatDao {
 	}
 
 	@Override
-	public ChatRoom selectCroom(int croom_no) {
-		return sqlSession.selectOne("chat.selectCroom", croom_no);
+	public ChatRoom selectCroom(ChatRoom cr) {
+		return sqlSession.selectOne("chat.selectCroom", cr);
 	}
 
 }

@@ -27,13 +27,13 @@
 								</div>
 								<div class="chat-left-inner">
 									<div class="form-material">
-										<input class="form-control p-3" type="text" placeholder="사원 조회">
+										<input class="form-control p-3" type="text" placeholder="검색">
 									</div>
 									<ul class="chatonline style-none ">
+										<li><a href=""><i class="fa fa-plus"></i> 채팅방 개설하기</a></li>
 										<c:forEach var="chatroom" items="${croomList }">
 											<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" value="link${chatroom.croom_no }"> <span><b>${chatroom.croom_title } </b>
-													<p class="text-mute ml-2">${chatroom.chat_content }</p>
-														<small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }" pattern="yyyy-MM-dd HH:mm" /></small></span></a></li>
+														<p class="text-mute ml-2">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }" pattern="yyyy-MM-dd HH:mm" /></small></span></a></li>
 										</c:forEach>
 										<li class="p-3"></li>
 									</ul>
@@ -44,7 +44,7 @@
 							<div class="chat-right-aside">
 								<div class="chat-main-header">
 									<div class="p-3 border-bottom">
-										<h3 class="box-title">${croom.croom_title}</h3>
+										<h3 class="box-title">${croom.croom_title}  <a href=""><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href=""><i class="mdi-plus-box-outline mdi float-right text-success ml-3"></i></a><a href=""><i class="mdi-lead-pencil mdi float-right"></i></a> </h3>
 										<input type="hidden" id="croom_no" value="${croom.croom_no }" />
 									</div>
 								</div>
@@ -79,17 +79,16 @@
 	<script src="${pageContext.request.contextPath}/resources/templates/resources/js/chat.js"></script>
 	<script type="text/javascript">
 		var chattingSock = new SockJS("<c:url value='/chatting'/>");
-
+		var croom_no = ${croom.croom_no};
 		$(function() {
-			var croom_no=${croom.croom_no};
-			$('a[value=link'+croom_no+']').addClass('active');
-			
+			$('a[value=link' + croom_no + ']').addClass('active');
+
 			var chatListJson = ${chatList};
 			console.log(chatListJson);
 			for (var i = 0; i < chatListJson.length; i++) {
 				appendMSG(chatListJson[i]);
 			}
-			
+
 			/* $('#chatList').scrollTop($('#chatList').get(0).scrollHeight); */
 			pageDown();
 
@@ -104,9 +103,9 @@
 
 		chattingSock.onmessage = function(evt) {
 			var data = JSON.parse(evt.data);
-
+			if(data.croom_no==croom_no){
 			appendMSG(data);
-			pageDown();
+			pageDown();}
 
 		}
 

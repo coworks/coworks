@@ -41,6 +41,7 @@
 		WHERE
 		RNUM = 1
 		ORDER BY
+		 case when CHAT_SENDTIME is null then 1 else 0 end,
 		CHAT_SENDTIME DESC
 	</select>
 
@@ -52,8 +53,8 @@
 		select c.*, emp_name senderName from chat c, employee e where croom_no=#{croom_no} and e.emp_no=c.chat_sendno order by chat_sendtime
 	</select>
 
-	<select id="selectCroom" parameterType="_int" resultType="chatRoom">
-	select * from chatroom where croom_no=#{croom_no}
+	<select id="selectCroom" parameterType="chatRoom" resultType="chatRoom">
+		select * from chatroom where croom_no=#{croom_no} and emp_no=#{emp_no}
 	</select>
 
 	<insert id="insertChat">

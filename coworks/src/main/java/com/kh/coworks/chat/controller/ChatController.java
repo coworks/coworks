@@ -33,7 +33,10 @@ public class ChatController {
 			croom_no = cList.get(0).getCroom_no();
 
 		model.addAttribute("chatList", new Gson().toJson(chatService.selectChatList(croom_no)));
-		model.addAttribute("croom", chatService.selectCroom(croom_no));
+		ChatRoom cr=new ChatRoom();
+		cr.setEmp_no(loginEmployee.getEmp_no());
+		cr.setCroom_no(croom_no);
+		model.addAttribute("croom", chatService.selectCroom(cr));
 
 		return "chat/chatting";
 	}
