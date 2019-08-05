@@ -10,7 +10,7 @@
 		select *
 		from dmview
 		where
-		dm_no IN(select dm_no from dm_to where dm_to = #{emp_no}) order by dm_date desc;
+		dm_no IN(select dm_no from dm_to where dm_to = #{emp_no}) order by dm_date desc
 	</select>
 
 	<select id="dmListCount" resultType="_int" parameterType="_int">

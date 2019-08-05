@@ -95,7 +95,7 @@
 
 		} else {
 
-			DMMSG = $("<div class='m-3' align='center' ><h5 class='text-info'>현재 결재 대기 중인 문서가 없습니다</h5></div>");
+			DMMSG = $("<div class='m-3' align='center' ><h5 class='text-purple'>도착한 쪽지가 없습니다!</h5></div>");
 
 		}
 		$('#DMNotify').append(DMMSG);
