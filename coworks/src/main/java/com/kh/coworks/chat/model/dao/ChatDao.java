@@ -20,4 +20,12 @@ public interface ChatDao {
 
 	ChatRoom selectCroom(ChatRoom cr);
 
+	int selectChatRoomSeq();
+
+	int insertChatRoom(ChatRoom cr);
+
+	void deleteChatRoom(int croom_index);
+
+	void updateCroom(ChatRoom cr);
+
 }

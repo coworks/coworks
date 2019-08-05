@@ -14,14 +14,16 @@
 		where croom_no=#{croom_no} order by chat_sendtime desc
 	</select>
 
-	<select id="selectRecentChat" resultType="chat" parameterType="_int">
+	<select id="selectRecentChat" resultType="chat"
+		parameterType="_int">
 		SELECT
 		*
 		FROM
 		(
 		SELECT
 		ROW_NUMBER() OVER(
-		PARTITION BY CR.CROOM_NO
+		PARTITION BY
+		CR.CROOM_NO
 		ORDER BY
 		CHAT_SENDTIME DESC
 		) RNUM,
@@ -41,20 +43,32 @@
 		WHERE
 		RNUM = 1
 		ORDER BY
-		 case when CHAT_SENDTIME is null then 1 else 0 end,
+		case when CHAT_SENDTIME is null then 1 else 0
+		end,
 		CHAT_SENDTIME DESC
 	</select>
 
-	<select id="selectCroomEmp" parameterType="_int" resultType="int">
+	<select id="selectCroomEmp" parameterType="_int"
+		resultType="int">
 		select emp_no from chatRoom where croom_no=#{croom_no}
 	</select>
 
-	<select id="selectChatList" parameterType="_int" resultType="chat">
-		select c.*, emp_name senderName from chat c, employee e where croom_no=#{croom_no} and e.emp_no=c.chat_sendno order by chat_sendtime
+	<select id="selectChatList" parameterType="_int"
+		resultType="chat">
+		select c.*, emp_name senderName from chat c, employee e
+		where croom_no=#{croom_no} and e.emp_no=c.chat_sendno order by
+		chat_sendtime
 	</select>
 
-	<select id="selectCroom" parameterType="chatRoom" resultType="chatRoom">
-		select * from chatroom where croom_no=#{croom_no} and emp_no=#{emp_no}
+	<select id="selectCroom" parameterType="chatRoom"
+		resultType="chatRoom">
+		select * from chatroom where croom_no=#{croom_no} and
+		emp_no=#{emp_no}
+	</select>
+
+	<select id="selectChatRoomSeq" resultType="_int">
+		select
+		seq_crno.nextval from dual
 	</select>
 
 	<insert id="insertChat">
@@ -62,5 +76,19 @@
 		(CHAT_NO,CROOM_NO,CHAT_SENDNO,CHAT_CONTENT,CHAT_SENDTIME) values
 		(seq_chat.nextval,#{croom_no},#{chat_sendno},#{chat_content},#{chat_sendtime})
 	</insert>
+
+	<insert id="insertChatRoom">
+		insert into chatroom
+		(croom_index,croom_no,emp_no,croom_title) values
+		(seq_crindex.nextval,#{croom_no},#{emp_no},#{croom_title})
+	</insert>
+
+	<delete id="deleteChatRoom" parameterType="_int">
+		delete from chatRoom where croom_index=#{croom_index}
+	</delete>
+	
+	<update id="updateCroom">
+	update chatroom set croom_title=#{croom_title} where croom_index=#{croom_index}
+	</update>
 
 </mapper>

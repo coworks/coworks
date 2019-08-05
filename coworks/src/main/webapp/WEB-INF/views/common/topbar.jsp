@@ -83,7 +83,7 @@
 							<span class="heartbit"></span> <span class="point"></span>
 						</div> -->
 				</a>
-					<div class="dropdown-menu mailbox animated bounceInDown" aria-labelledby="2">
+					<div class="dropdown-menu mailbox animated slideInDown" aria-labelledby="2">
 						<ul>
 							<li>
 								<div class="drop-title">메신저</div>

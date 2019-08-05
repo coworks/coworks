@@ -31,10 +31,12 @@
 									</div>
 									<ul class="chatonline style-none ">
 										<li><a href=""><i class="fa fa-plus"></i> 채팅방 개설하기</a></li>
+										<c:if test="${croomList.size() ne 0 }">
 										<c:forEach var="chatroom" items="${croomList }">
 											<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" value="link${chatroom.croom_no }"> <span><b>${chatroom.croom_title } </b>
 														<p class="text-mute ml-2">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }" pattern="yyyy-MM-dd HH:mm" /></small></span></a></li>
 										</c:forEach>
+										</c:if>
 										<li class="p-3"></li>
 									</ul>
 								</div>
@@ -42,9 +44,12 @@
 							<!-- .chat-left-panel -->
 							<!-- .chat-right-panel -->
 							<div class="chat-right-aside">
+							<c:if test="${croom ne null }">
 								<div class="chat-main-header">
 									<div class="p-3 border-bottom">
-										<h3 class="box-title">${croom.croom_title}  <a href=""><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href=""><i class="mdi-plus-box-outline mdi float-right text-success ml-3"></i></a><a href=""><i class="mdi-lead-pencil mdi float-right"></i></a> </h3>
+										<h3 class="box-title"> ${croom.croom_title}
+											<a id="exitChatRoom"><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href=""><i class="mdi-plus-box-outline mdi float-right text-success ml-3"></i></a><a href=""><i class="mdi-lead-pencil mdi float-right"></i></a>
+										</h3>
 										<input type="hidden" id="croom_no" value="${croom.croom_no }" />
 									</div>
 								</div>
@@ -65,6 +70,7 @@
 										</div>
 									</div>
 								</div>
+								</c:if>
 							</div>
 							<!-- .chat-right-panel -->
 						</div>
@@ -77,6 +83,7 @@
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath}/resources/templates/resources/js/chat.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
 		var chattingSock = new SockJS("<c:url value='/chatting'/>");
 		var croom_no = ${croom.croom_no};
@@ -84,7 +91,6 @@
 			$('a[value=link' + croom_no + ']').addClass('active');
 
 			var chatListJson = ${chatList};
-			console.log(chatListJson);
 			for (var i = 0; i < chatListJson.length; i++) {
 				appendMSG(chatListJson[i]);
 			}
@@ -151,6 +157,39 @@
 			chatList.append(chatli);
 
 		}
+		!function ($) {
+		 var SweetAlert = function () { };
+		 SweetAlert.prototype.init = function () {
+			  $("#exitChatRoom").click(function () {
+		            Swal.fire({
+		                title: '이 채팅방을 나가시겠습니까?',
+		                type: 'warning',
+		                showCancelButton: true,
+		                confirmButtonColor: '#3085d6',
+		                cancelButtonColor: '#d33',
+		                confirmButtonText: 'OK!'
+		            }).then((result) => {
+		                if (result.value) {
+		                    Swal.fire(
+		                        '성공!',
+		                        '채팅방을 나가셨습니다.',
+		                        'success'
+		                    )
+		                    
+		                }
+		            })
+		        });
+			 
+		 },
+	        //init
+	        $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
+	}(window.jQuery),
+
+	    //initializing 
+	    function ($) {
+	        "use strict";
+	        $.SweetAlert.init()
+	    }(window.jQuery);
 	</script>
 </body>
 </html>

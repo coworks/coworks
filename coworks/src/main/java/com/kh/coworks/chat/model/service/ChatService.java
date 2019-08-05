@@ -20,4 +20,12 @@ public interface ChatService {
 
 	ChatRoom selectCroom(ChatRoom cr);
 
+	int insertChatRoom(List<ChatRoom> crList);
+
+	int insertChatRoom(ChatRoom cr);
+
+	void deleteChatRoom(int croom_index);
+
+	void updateCroom(ChatRoom cr);
+
 }
