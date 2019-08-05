@@ -51,4 +51,10 @@ public class TodoServiceImpl implements TodoService {
 		return todoDao.changeTofinished(todo);
 	}
 	
+	// '진행중'으로 변경(status -> 0으로 변경)
+	@Override
+	public int changeToIng(Todo todo) {
+		return todoDao.changeToIng(todo);
+	}
+	
 }

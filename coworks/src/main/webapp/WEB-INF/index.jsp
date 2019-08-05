@@ -126,7 +126,7 @@
 						</script>
 
 
-
+						<!-- TODO -->
 						<div class="card">
 							<div class="card-body">
 								<button class="float-right btn btn-sm btn-rounded btn-info"
@@ -147,41 +147,43 @@
 										<div class="modal-dialog">
 											<form method="post" action="addtodohome.do" name="addtodohome">
 												<div class="modal-content">
-													<div class="modal-header">
-														<h2 class="modal-title" id="myModalLabel">TODO 추가하기</h2>
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-													</div>
-													<div class="col-md-12">
-														<div class="form-group has-success">
-															<br> <label class="control-label">상태</label>
-															<select
-																id="todo_condition" name="todo_condition"
-																class="form-control custom-select">
-																<option value="1"></option>
-																<option value="0" style="color: red; font-weight: bold;">긴급</option>
-																<option value="1" style="color: orange; font-weight: bold;">보통</option>
-																<option value="2" style="color: green; font-weight: bold;">여유</option>
-															</select>
-														</div>
-													</div>
+						<div class="modal-header">
+							<h2 class="modal-title" id="myModalLabel">TODO 추가하기</h2>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group has-success">
+								<br> <label class="control-label">상태</label> <select
+									id="todo_condition" name="todo_condition"
+									class="form-control custom-select">
+									<option value="1"></option>
+									<option value="0" style="color: red; font-weight: bold;">긴급</option>
+									<option value="1" style="color: orange; font-weight: bold;">보통</option>
+									<option value="2" style="color: green; font-weight: bold;">여유</option>
+								</select>
+							</div>
+						</div>
 
-													<div class="modal-body">
-														<div class="col-md-13">
-															<div class="form-group has-success">
-																<label class="control-label">내용</label> <input
-																	type="text" id="todo_content" name="todo_content"
-																	class="form-control" placeholder="내용을 입력하세요">
-															</div>
-														</div>
-													</div>
-													<div class="modal-footer">
-														<input type="text"
-															value="${ sessionScope.employee.emp_no }" name="emp_no" hidden />
-														<button type="button" class="btn btn-light waves-effect"
-															data-dismiss="modal">취소하기</button>
-														<button type="submit" class="btn btn-success waves-effect">등록하기</button>
-													</div>
-												</div>
+						<div class="modal-body">
+							<div class="col-md-13">
+								<div class="form-group has-success">
+									<label class="control-label">내용</label> <input type="text"
+										id="todo_content" name="todo_content" class="form-control writtencontent"
+										placeholder="내용을 입력하세요">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="text" value="${ sessionScope.employee.emp_no }"
+								name="emp_no" hidden />
+
+							<button type="button" class="btn btn-light waves-effect"
+								data-dismiss="modal">취소하기</button>
+							<button type="submit" class="btn btn-success waves-effect" onclick="return convalidate();">등록하기</button>
+							
+						</div>
+					</div>
 											</form>
 										</div>
 									</div>
@@ -206,18 +208,18 @@
 											
 												<li class="list-group-item" data-role="task">
 													<div class="checkbox checkbox-info">
-														<input type="checkbox" id="${todo.todo_no }" value="${todo.todo_no }">
-														<label for="${todo.todo_no }" class="">
+														<input type="checkbox" id="${todo.todo_no }" value="${todo.todo_no }" class="todoCk">
+														<label for="${todo.todo_no }" class="todoLabel">
 															<c:if test="${todo.todo_content.length() gt 30}">
 																<c:choose>
 																	<c:when test="${todo.todo_condition eq 0}">
-																		<span class="label label-light-danger">긴급</span>
+																		<span class="label label-danger">긴급</span>
 																	</c:when>
 																	<c:when test="${todo.todo_condition eq 1 }">
-																		<span class="label label-light-warning">보통</span>
+																		<span class="label label-warning">보통</span>
 																	</c:when>
 																	<c:when test="${todo.todo_condition eq 2 }">
-																		<span class="label label-light-success">여유</span>
+																		<span class="label label-success">여유</span>
 																	</c:when>
 																</c:choose>
 																<span>${todo.todo_content.substring(0,29) } ...</span>
@@ -647,13 +649,42 @@
 
 	
 	// todo : 완료로 바꾸기
-	$("li input[id]").on("click", function(){
+	$(".todoCk").on("click", function(){
 		var todo_no = $(this).attr("id");
+		var todo_checked =$(this).prop('checked');
+		console.log(todo_checked);
 			
-		location.href="${pageContext.request.contextPath}/todo/finishtodohome.do?todo_no="+todo_no;
+		$.ajax({
+			url  : "${pageContext.request.contextPath}/todo/finishtodohome.do",
+					data:{todo_no : todo_no , todo_checked : todo_checked},
+		 dataType: "json",
+         type : "get",
+         success : function(data){
+         	 $('.todoCk').next().eq(todo_no).toggleClass('task-done');
+        	 
+         }, error : function(jqxhr, textStatus, errorThrown){
+        	 alert("ajax 처리 실패 : ",jqxhr,textStatus,errorThrown);
+         }
+         
+         
+		});
 			
 	});
 
+	// todo 내용 입력해야 넘어감
+		function convalidate() {
+			var boardContent = $(".writtencontent").val();
+			
+			if (boardContent == "") {
+				Swal.fire({
+	                title: "☆★☆내용을 입력하세요☆★☆",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}
+			return true;
+		}
 		
 
 	

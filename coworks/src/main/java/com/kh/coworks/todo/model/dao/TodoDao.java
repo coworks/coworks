@@ -30,6 +30,10 @@ public interface TodoDao {
 	
 	// '완료'로 변경 (stauts -> 1로 변경)
 	int changeTofinished(Todo todo);
+
+
+	// '진행중'으로 변경(status -> 0으로 변경)
+	int changeToIng(Todo todo);
 	
 	
 }

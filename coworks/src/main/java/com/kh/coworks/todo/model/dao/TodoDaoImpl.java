@@ -52,5 +52,11 @@ public class TodoDaoImpl implements TodoDao {
 		return sqlSession.update("todo.changeTofinished", todo);
 	}
 	
+	// '진행중'으로 변경(status -> 0으로 변경)
+	@Override
+	public int changeToIng(Todo todo) {
+		return sqlSession.update("todo.changeToIng", todo);
+	}
+	
 
 }

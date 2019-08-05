@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.todo.model.service.TodoService;
@@ -106,17 +107,21 @@ public class TodoController {
 	
 	// '완료'로 변경 _ HOME에서 (status -> 1로 변경)
 	@RequestMapping("/todo/finishtodohome.do")
-	public String changeTofinishedHome(Model model, String todo_no ) {
-		
+	@ResponseBody
+	public Todo changeTofinishedHome(String todo_no , String todo_checked) {
+
 		Todo todo = new Todo();
 		int todo_number = Integer.parseInt(todo_no);
 		todo.setTodo_no(todo_number);
 		
-		int result = todoService.changeTofinished(todo);
+		if(todo_checked.equals("true")) { //완료로 바꾸기 위해 체크가 되었다면
+			int result = todoService.changeTofinished(todo);
+		} else {
+			int result = todoService.changeToIng(todo);
+		}
 		
-		model.addAttribute(todo);
 		
-		return "redirect:/common/gomain.do";
+		return todo;
 	}
 	
 }

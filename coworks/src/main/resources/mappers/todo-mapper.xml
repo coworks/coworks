@@ -48,4 +48,10 @@
 		WHERE TODO_NO = #{todo_no}
 	</update>
 	
+	<update id="changeToIng">
+		UPDATE TODO
+		SET TODO_STATUS = 0
+		WHERE TODO_NO = #{todo_no}
+	</update>
+	
 </mapper>

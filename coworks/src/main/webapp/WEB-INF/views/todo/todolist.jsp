@@ -56,7 +56,7 @@
 							<div class="col-md-13">
 								<div class="form-group has-success">
 									<label class="control-label">내용</label> <input type="text"
-										id="todo_content" name="todo_content" class="form-control"
+										id="todo_content" name="todo_content" class="form-control writtencontent"
 										placeholder="내용을 입력하세요">
 								</div>
 							</div>
@@ -67,7 +67,7 @@
 
 							<button type="button" class="btn btn-light waves-effect"
 								data-dismiss="modal">취소하기</button>
-							<button type="submit" class="btn btn-success waves-effect">등록하기</button>
+							<button type="submit" class="btn btn-success waves-effect" onclick="return validate();">등록하기</button>
 							
 						</div>
 					</div>
@@ -106,7 +106,7 @@
 								<div class="form-group has-success">
 									<label for="recipient-name" class="control-label">내용</label> <input
 										type="text" id="recipient-name" name="todo_content"
-										class="form-control">
+										class="form-control writtencontent">
 								</div>
 							</div>
 						</div>
@@ -119,7 +119,7 @@
 
 							<button type="button" class="btn btn-light waves-effect"
 								data-dismiss="modal">취소하기</button>
-							<button type="submit" class="btn btn-success waves-effect">수정하기</button>
+							<button type="submit" class="btn btn-success waves-effect">수정하기</button> <!--  onclick="return corrvalidate();" -->
 
 						</div>
 					</div>
@@ -471,7 +471,7 @@
 		});
 		
 		
-		$("a[id]").on("click", function(){
+		$(".sa-position a[id]").on("click", function(){
 			var todo_no = $(this).attr("id");
 			
 			Swal.fire({
@@ -484,6 +484,38 @@
 			
 			location.href="${pageContext.request.contextPath}/todo/finishtodo.do?todo_no="+todo_no;
 		});
+		
+		// (입력)todo 내용 입력해야 넘어감
+		function validate() {
+			var boardContent = $(".writtencontent").val();
+
+			if (boardContent == "") {
+				Swal.fire({
+	                title: "☆★☆내용을 입력하세요☆★☆",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}
+			return true;
+		}
+		
+		
+		// (수정)todo 내용 입력해야 넘어감
+/* 		function corrvalidate() {
+			var boardContent = $(".writtencontent").val();
+			
+			if (boardContent == "") {
+				Swal.fire({
+	                title: "☆★☆내용을 입력하세요☆★☆",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}
+			return true;
+		} */
+		
 		
 				
 	</script>

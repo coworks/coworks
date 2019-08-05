@@ -60,6 +60,14 @@ public interface TodoService {
 	 */
 	int changeTofinished(Todo todo);
 
+	
+	/**
+	 * Todo 진행중으로 변경 --> status 0으로 바꾸기
+	 * @param todo
+	 * @return
+	 */
+	int changeToIng(Todo todo);
+
 
 	
 	
