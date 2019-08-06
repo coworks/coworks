@@ -197,15 +197,7 @@ ul {
 												</table>
 											</div>
 
-											<div class="col-sm-12 col-md-5"></div>
-											<div class="col-sm-12 col-md-7">
-
-
-												<c:out value="${pageBar}" escapeXml="false" />
-
-
-											</div>
-										</div>
+											
 										<!-- 부서별 조회 끝 -->
 									</div>
 								</div>

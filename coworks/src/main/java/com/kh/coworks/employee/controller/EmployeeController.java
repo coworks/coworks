@@ -289,5 +289,34 @@ public class EmployeeController {
 		return "contact/contactList";
 	}
 	
+	// 연락처에서 조회
+	@RequestMapping("/employee/contactSearch.do")
+	public String selectContactSearch(@RequestParam(value = "cPage", required = false, defaultValue = "1") 
+	int cPage, String con, String keyword, Model model) {
+
+		int limit = 5; // 한 페이지 당 게시글 수
+
+		
+		HashMap<String, String> hmap = new HashMap<>();
+		
+		
+		hmap.put("con", con); 
+		hmap.put("keyword", keyword);
+		
+				
+		// 1. 현재 페이지 게시글 목록 가져오기
+		ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.searchEmployee(cPage, limit, hmap));
+
+		// 2. 전체 페이지 게시글 수 가져오기
+		int totalContents = employeeService.selectSearchEmployeeTotalContents(con,hmap);
+	
+
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "contactList.do");
+
+		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
+				.addAttribute("pageBar", pageBar);
+		
+		return "contact/contactList";
+	}
 	
 }
