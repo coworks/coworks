@@ -140,7 +140,7 @@
 								<c:forEach items="${list}" var="b">
 									<tr id="${b.bo_no}">
 									
-										<td class="title">${b.bo_no }</td>
+										<td class="title">${b.rnum }</td>
 										
 										<td class="text-al-left title">
 										

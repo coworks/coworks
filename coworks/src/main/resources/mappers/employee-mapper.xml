@@ -20,7 +20,7 @@
 
 	<select id="selectEmployeeList" resultType="employee">
 		SELECT EMP_NO , EMP_NAME,
-		JOB_TITLE, DEPT_NAME, EMP_PHONE
+		JOB_TITLE, DEPT_NAME, EMP_PHONE, EMP_EMAIL
 		FROM EMPLOYEE E, DEPARTMENT D, JOB J
 		WHERE E.JOB_CODE = J.Job_Code
 		AND E.Dept_Code = D.Dept_Code

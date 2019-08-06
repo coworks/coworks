@@ -119,7 +119,7 @@
 
 							<button type="button" class="btn btn-light waves-effect"
 								data-dismiss="modal">취소하기</button>
-							<button type="submit" class="btn btn-success waves-effect">수정하기</button> <!--  onclick="return corrvalidate();" -->
+							<button type="submit" class="btn btn-success waves-effect" onclick="return corrvalidate();">수정하기</button> <!--   -->
 
 						</div>
 					</div>
@@ -471,9 +471,8 @@
 		});
 		
 		
-		$(".sa-position a[id]").on("click", function(){
+		$(".sa-position").on("click", function(){
 			var todo_no = $(this).attr("id");
-			
 			Swal.fire({
 				position : 'top-middle',
 				type : 'success',
@@ -502,7 +501,7 @@
 		
 		
 		// (수정)todo 내용 입력해야 넘어감
-/* 		function corrvalidate() {
+/*  		function corrvalidate() {
 			var boardContent = $(".writtencontent").val();
 			
 			if (boardContent == "") {

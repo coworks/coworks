@@ -16,8 +16,8 @@
 					href="${pageContext.request.contextPath}/common/gomain.do"
 					aria-expanded="false"><i class="mdi mdi-home"></i><span
 						class="hide-menu">메인</span></a></li>
-				<li><a href="#" aria-expanded="false"><i
-						class="mdi mdi-phone"></i><span class="hide-menu">연락처</span></a>
+				<li><a href="${pageContext.request.contextPath}/employee/contactList.do"
+					aria-expanded="false"><i class="mdi mdi-phone"></i><span class="hide-menu">연락처</span></a>
 				<li><a
 					href="${pageContext.request.contextPath}/mail/authCheck.do"
 					aria-expanded="false"><i class="mdi mdi-email"></i><span

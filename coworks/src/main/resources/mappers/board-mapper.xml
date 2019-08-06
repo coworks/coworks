@@ -12,7 +12,7 @@
 	<select id="selectBusinessdocList" resultType="board">
 	 	SELECT B.*, (SELECT COUNT(*) 
 		             FROM BOARDATTACH 
-		             WHERE B.BO_NO = BO_NO) FILECOUNT
+		             WHERE B.BO_NO = BO_NO) FILECOUNT, ROWNUM RNUM
 		FROM BOARD B
 		WHERE BO_CODE = #{bo_code}
 		AND BO_STATUS='y'

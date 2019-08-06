@@ -2,6 +2,7 @@ package com.kh.coworks.employee.controller;
 
 import java.util.ArrayList; 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -261,5 +262,32 @@ public class EmployeeController {
 		
 		return "redirect:/employee/employeeList.do";
 	}
+	
+	// 연락처
+	@RequestMapping("employee/contactList.do")
+	public String selectContactList(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage, Model model) {
+
+		int limit = 10; // 한 페이지 당 게시글 수
+
+		// 1. 현재 페이지 게시글 목록 가져오기
+		ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.selectEmployeeList(cPage, limit));
+		
+		// 2. 전체 페이지 게시글 수 가져오기
+		int totalContents = employeeService.selectEmployeeTotalContents();
+
+		// 3. 사원추가 SELECT 부서 목록
+		ArrayList<Department> departmentList = new ArrayList<>(employeeService.selectDepartmentList());
+		
+		// 4. 사원추가 SELECT 사원 목록 
+		ArrayList<Job> jobList = new ArrayList<>(employeeService.selectJobList());
+		
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "contactList.do");
+
+		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
+				.addAttribute("pageBar", pageBar).addAttribute("departmentList",departmentList).addAttribute("jobList",jobList);
+
+		return "contact/contactList";
+	}
+	
 	
 }

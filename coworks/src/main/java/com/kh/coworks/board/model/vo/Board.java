@@ -32,6 +32,8 @@ public class Board implements Serializable {
 	private int fileCount;
 	private List<Attach> files = new ArrayList<>();
 	
+	private int rnum;
+	
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -88,12 +90,12 @@ public class Board implements Serializable {
 	}
 
 	
-	
+
 
 
 	public Board(int bo_no, String bo_code, String bo_title, String bo_content, int emp_no, Timestamp bo_date,
 			String bo_status, int bo_type, int bg_no, String bg_code, String bg_title, String writerName, int fileCount,
-			List<Attach> files) {
+			List<Attach> files, int rnum) {
 		super();
 		this.bo_no = bo_no;
 		this.bo_code = bo_code;
@@ -109,6 +111,7 @@ public class Board implements Serializable {
 		this.writerName = writerName;
 		this.fileCount = fileCount;
 		this.files = files;
+		this.rnum = rnum;
 	}
 
 
@@ -193,7 +196,7 @@ public class Board implements Serializable {
 		return "Board [bo_no=" + bo_no + ", bo_code=" + bo_code + ", bo_title=" + bo_title + ", bo_content="
 				+ bo_content + ", emp_no=" + emp_no + ", bo_date=" + bo_date + ", bo_status=" + bo_status + ", bo_type="
 				+ bo_type + ", bg_no=" + bg_no + ", bg_code=" + bg_code + ", bg_title=" + bg_title + ", writerName="
-				+ writerName + ", fileCount=" + fileCount + ", files=" + files + "]";
+				+ writerName + ", fileCount=" + fileCount + ", files=" + files + ", rnum=" + rnum + "]";
 	}
 
 	public int getFileCount() {
@@ -235,6 +238,18 @@ public class Board implements Serializable {
 	public void setBg_title(String bg_title) {
 		this.bg_title = bg_title;
 	}
+
+
+	public int getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+	
+	
 	
 
 }
