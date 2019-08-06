@@ -1,7 +1,7 @@
 package com.kh.coworks.survey.model.vo;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -17,8 +17,8 @@ public class Survey implements Serializable {
 	
 	private int survey_no; // �ε���
 	private String survey_quest; // ����
-	private Timestamp survey_start; // ���۽ð�
-	private Timestamp survey_end; // ����ð�
+	private Date survey_start; // ���۽ð�
+	private Date survey_end; // ����ð�
 	
 	private List<SurveyAnswer> answer; //�亯����Ʈ
 
@@ -42,19 +42,19 @@ public class Survey implements Serializable {
 		this.survey_quest = survey_quest;
 	}
 
-	public Timestamp getSurvey_start() {
+	public Date getSurvey_start() {
 		return survey_start;
 	}
 
-	public void setSurvey_start(Timestamp survey_start) {
+	public void setSurvey_start(Date survey_start) {
 		this.survey_start = survey_start;
 	}
 
-	public Timestamp getSurvey_end() {
+	public Date getSurvey_end() {
 		return survey_end;
 	}
 
-	public void setSurvey_end(Timestamp survey_end) {
+	public void setSurvey_end(Date survey_end) {
 		this.survey_end = survey_end;
 	}
 
@@ -66,7 +66,7 @@ public class Survey implements Serializable {
 		this.answer = answer;
 	}
 
-	public Survey(int survey_no, String survey_quest, Timestamp survey_start, Timestamp survey_end,
+	public Survey(int survey_no, String survey_quest, Date survey_start, Date survey_end,
 			List<SurveyAnswer> answer) {
 		super();
 		this.survey_no = survey_no;

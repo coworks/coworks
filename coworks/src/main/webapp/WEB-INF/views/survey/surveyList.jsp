@@ -38,14 +38,13 @@
 							aria-hidden="true">×</button>
 					</div>
 					<div class="form-body">
-						<form method="get" action="employeeEnroll.do"
-							name="employeeEnroll">
+						<form method="post" action="surveyInsert.do" name="surveyInsert">
 							<div class="card-body">
 								<div class="row pt-3">
 									<div class="col-md-12">
 										<div class="form-group">
 											<label class="control-label">제목 </label> <input type="text"
-												id="emp_name" name="emp_name" class="form-control"
+												id="survey_quest" name="survey_quest" class="form-control"
 												placeholder="">
 											<!-- <small class="form-control-feedback"> This is inline help </small> -->
 										</div>
@@ -56,8 +55,7 @@
 								<div class="col-md-13">
 									<div class="form-group">
 										<label class="control-label">시작일시 </label> <input type="date"
-											id="emp_birth" name="emp_birth" class="form-control"
-											placeholder="1992-08-31">
+											id="survey_start" name="survey_start" class="form-control">
 										<!-- <small class="form-control-feedback"> This is inline help </small> -->
 									</div>
 								</div>
@@ -65,23 +63,18 @@
 								<div class="col-md-13">
 									<div class="form-group">
 										<label class="control-label">종료일시 </label> <input type="date"
-											id="emp_birth" name="emp_birth" class="form-control"
-											placeholder="1992-08-31">
+											id="survey_end" name="survey_end" class="form-control">
 										<!-- <small class="form-control-feedback"> This is inline help </small> -->
 									</div>
 								</div>
 
 								<div id="surveyadditem" class="col-md-13">
 									<div class="form-group">
-										<label class="control-label">항목추가하기 </label> <input
-											style="margin-left: 330px;" type="button"
-											id='button-add-file' value='+'
-											class="btn btn-outline-secondary btn-sm" /> <input
-											type="text" id="emp_name1" name="emp_name1"
-											class="form-control"> <input
-											style="margin-top: 10px;" type="text" id="emp_name2"
-											name="emp_name2" class="form-control">
-
+										<label class="control-label">항목 </label> 
+											<input type="text" id="survey_content" name="survey_content" class="form-control"> 
+											<input style="margin-top: 10px;" type="text" id=survey_content	name="survey_content" class="form-control">
+											<input style="margin-top: 10px;" type="text" id="survey_content"	name="survey_content" class="form-control">
+											<input style="margin-top: 10px;" type="text" id="survey_content"	name="survey_content" class="form-control">
 										<!-- <small class="form-control-feedback"> This is inline help </small> -->
 									</div>
 								</div>
@@ -93,14 +86,13 @@
 										data-dismiss="modal">취소하기</button>
 								</div>
 							</div>
+						</form>
 					</div>
 				</div>
-				</form>
+				
 			</div>
 		</div>
 	</div>
-
-
 
 	<div class="page-wrapper">
 		<div class="container-fluid">
@@ -114,10 +106,7 @@
 					</ol>
 				</div>
 			</div>
-
-
 			<!-- 시작 -->
-
 			<div class="col-lg-12 col-md-12">
 				<div class="card">
 					<div class="card-body">
@@ -128,12 +117,8 @@
 						<div style="float: right; display: inline-border;">
 							<button type="button" data-toggle="modal"
 								data-target="#insertSurvey"
-								class="btn btn-info btn-circle waves-effect waves-light">
-								<i class="fas fa-plus" data-toggle="tooltip"
-									data-original-title="TODO 추가" aria-describedby="tooltip859564"></i>
+								class="btn btn-info">설문조사 등록
 							</button>
-
-
 						</div>
 						<br>
 						<!-- Nav tabs -->
@@ -189,8 +174,10 @@
 															<h4 class="card-title">설문조사</h4>
 															<p class="card-text">${survey.survey_quest}</p>
 															<p class="card-text">
-																<small class="text-muted">${survey.survey_start} ~
-																	${survey.survey_end}</small>
+																<small class="text-muted"><fmt:formatDate
+															value="${survey.survey_start }" pattern="yyyy년MM월dd일 " /> ~
+																	<fmt:formatDate
+															value="${survey.survey_end }" pattern="yyyy년MM월dd일 " /></small>
 															</p>
 															<h5 class="mt-4">
 																YES!!<span class="float-right">10%</span>
@@ -342,20 +329,7 @@
 									+ todo_no;
 						});
 
-		var count = 0;
-		$('#button-add-file')
-				.on(
-						"click",
-						function() {
-							var html = "<input type='text' style='margin-top:10px;' name='surveyitem' class='form-control'/>";
-							/* html += "<input type='button' onclick='deleteBtn(this)' class='btn  btn-outline-danger btn-xs' value='X'/></div>"; */
-							count++;
-							$("#surveyadditem").append(html);
-						});
-
-		function deleteBtn(obj) {
-			$(obj).remove();
-		}
+	
 	</script>
 
 

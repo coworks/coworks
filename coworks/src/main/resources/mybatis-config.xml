@@ -33,6 +33,7 @@
 		<typeAlias type="com.kh.coworks.chat.model.vo.Chat" alias="chat" />
 		<typeAlias type="com.kh.coworks.chat.model.vo.ChatRoom" alias="chatRoom" />
 		<typeAlias type="com.kh.coworks.survey.model.vo.Survey" alias="survey" />
+		<typeAlias type="com.kh.coworks.survey.model.vo.SurveyAnswer" alias="surveyAnswer" />
 	</typeAliases>
 
 	<typeHandlers>

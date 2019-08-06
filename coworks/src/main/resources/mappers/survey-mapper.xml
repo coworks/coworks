@@ -12,4 +12,15 @@
 		SELECT COUNT(*) FROM SURVEY
 	</select>
 
+
+	<insert id="insertSurvey" parameterType="survey">
+		INSERT INTO SURVEY(SURVEY_NO, SURVEY_QUEST, SURVEY_START, SURVEY_END)
+		VALUES(SEQ_SURVEY.NEXTVAL, #{survey_quest}, #{survey_start} , #{survey_end})
+	</insert>
+	
+	<insert id="insertSurveyAnswer" parameterType="surveyAnswer">
+		INSERT INTO SURVEYANSWER(SURVEYAN_NO, SURVEY_NO, SURVEY_CONTENT)
+		VALUES(SEQ_SURVEYANSWER.NEXTVAL, SEQ_SURVEY.CURRVAL, #{survey_content})
+	</insert>
+	
 </mapper>
