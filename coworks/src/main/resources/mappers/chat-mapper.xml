@@ -14,8 +14,7 @@
 		where croom_no=#{croom_no} order by chat_sendtime desc
 	</select>
 
-	<select id="selectRecentChat" resultType="chat"
-		parameterType="_int">
+	<select id="selectRecentChat" resultType="chat" parameterType="_int">
 		SELECT
 		*
 		FROM
@@ -43,25 +42,23 @@
 		WHERE
 		RNUM = 1
 		ORDER BY
-		case when CHAT_SENDTIME is null then 1 else 0
+		case when CHAT_SENDTIME is null then 1
+		else 0
 		end,
 		CHAT_SENDTIME DESC
 	</select>
 
-	<select id="selectCroomEmp" parameterType="_int"
-		resultType="int">
+	<select id="selectCroomEmp" parameterType="_int" resultType="int">
 		select emp_no from chatRoom where croom_no=#{croom_no}
 	</select>
 
-	<select id="selectChatList" parameterType="_int"
-		resultType="chat">
+	<select id="selectChatList" parameterType="_int" resultType="chat">
 		select c.*, emp_name senderName from chat c, employee e
 		where croom_no=#{croom_no} and e.emp_no=c.chat_sendno order by
 		chat_sendtime
 	</select>
 
-	<select id="selectCroom" parameterType="chatRoom"
-		resultType="chatRoom">
+	<select id="selectCroom" parameterType="chatRoom" resultType="chatRoom">
 		select * from chatroom where croom_no=#{croom_no} and
 		emp_no=#{emp_no}
 	</select>
@@ -69,6 +66,17 @@
 	<select id="selectChatRoomSeq" resultType="_int">
 		select
 		seq_crno.nextval from dual
+	</select>
+
+	<select id="selectChatEmp" parameterType="_int" resultType="employee">
+		SELECT
+		E.*
+		FROM
+		CHATROOM CR,
+		empview E
+		WHERE
+		CR.EMP_NO = E.EMP_NO
+		and CR.CROOM_NO=#{croom_no}
 	</select>
 
 	<insert id="insertChat">
@@ -86,9 +94,9 @@
 	<delete id="deleteChatRoom" parameterType="_int">
 		delete from chatRoom where croom_index=#{croom_index}
 	</delete>
-	
+
 	<update id="updateCroom">
-	update chatroom set croom_title=#{croom_title} where croom_index=#{croom_index}
+		update chatroom set croom_title=#{croom_title} where croom_index=#{croom_index}
 	</update>
 
 </mapper>

@@ -28,4 +28,6 @@ public interface ChatService {
 
 	void updateCroom(ChatRoom cr);
 
+	List<Employee> selectChatEmp(int croom_no);
+
 }

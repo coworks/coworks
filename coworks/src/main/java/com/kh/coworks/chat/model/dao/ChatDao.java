@@ -28,4 +28,6 @@ public interface ChatDao {
 
 	void updateCroom(ChatRoom cr);
 
+	List<Employee> selectChatEmp(int croom_no);
+
 }

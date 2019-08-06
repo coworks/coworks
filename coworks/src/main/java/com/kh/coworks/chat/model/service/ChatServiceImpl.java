@@ -61,7 +61,7 @@ public class ChatServiceImpl implements ChatService {
 			}
 		}
 
-		return result;
+		return croom_no;
 	}
 
 	@Override
@@ -78,6 +78,11 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public void updateCroom(ChatRoom cr) {
 		chatDao.updateCroom(cr);
+	}
+
+	@Override
+	public List<Employee> selectChatEmp(int croom_no) {
+		return chatDao.selectChatEmp(croom_no);
 	}
 
 }

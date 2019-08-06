@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>CO-WORKS : 채팅하기</title>
 <c:import url="../common/header.jsp" />
+<link href="${pageContext.request.contextPath }/resources/templates/resources/css/hummingbird-treeview.css" rel="stylesheet" type="text/css">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -30,12 +31,16 @@
 										<input class="form-control p-3" type="text" placeholder="검색">
 									</div>
 									<ul class="chatonline style-none ">
-										<li><a href=""><i class="fa fa-plus"></i> 채팅방 개설하기</a></li>
+										<li><button class="btn text-info btn-block" data-target="#create-chatroom" data-toggle="modal">
+												<i class="fa fa-plus"></i> 채팅방 개설하기
+											</button></li>
 										<c:if test="${croomList.size() ne 0 }">
-										<c:forEach var="chatroom" items="${croomList }">
-											<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" value="link${chatroom.croom_no }"> <span><b>${chatroom.croom_title } </b>
-														<p class="text-mute ml-2">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }" pattern="yyyy-MM-dd HH:mm" /></small></span></a></li>
-										</c:forEach>
+											<c:forEach var="chatroom" items="${croomList }">
+												<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" value="link${chatroom.croom_no }"> <span><b>${chatroom.croom_title } </b>
+															<p class="text-mute ml-2 text-overflow">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }"
+																	pattern="yyyy-MM-dd HH:mm"
+																/></small></span></a></li>
+											</c:forEach>
 										</c:if>
 										<li class="p-3"></li>
 									</ul>
@@ -44,32 +49,34 @@
 							<!-- .chat-left-panel -->
 							<!-- .chat-right-panel -->
 							<div class="chat-right-aside">
-							<c:if test="${croom ne null }">
-								<div class="chat-main-header">
-									<div class="p-3 border-bottom">
-										<h3 class="box-title"> ${croom.croom_title}
-											<a id="exitChatRoom"><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href=""><i class="mdi-plus-box-outline mdi float-right text-success ml-3"></i></a><a href=""><i class="mdi-lead-pencil mdi float-right"></i></a>
-										</h3>
-										<input type="hidden" id="croom_no" value="${croom.croom_no }" />
+								<c:if test="${croom ne null }">
+									<div class="chat-main-header">
+										<div class="p-3 border-bottom">
+											<h3 class="box-title">
+												${croom.croom_title} <a href="javascript:void(0)" id="exitChatRoom"><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href="javascript:void(0)"><i
+													class="mdi-plus-box-outline mdi float-right text-success ml-3"
+												></i></a><a href="javascript:void(0)" data-target="#renameCroomTitle" data-toggle="modal"><i class="mdi-lead-pencil mdi float-right"></i></a>
+											</h3>
+											<input type="hidden" id="croom_no" value="${croom.croom_no }" />
+										</div>
 									</div>
-								</div>
-								<div class="chat-rbox">
-									<ul class="chat-list p-5" id="chatList">
+									<div class="chat-rbox">
+										<ul class="chat-list p-5" id="chatList">
 
-									</ul>
-								</div>
-								<div class="card-body border-top">
-									<div class="row">
-										<div class="col-8">
-											<textarea placeholder="Type your message here" class="form-control b-0" id="sendMSG"></textarea>
-										</div>
-										<div class="col-4 text-right">
-											<button type="button" class="btn btn-info btn-circle btn-lg" id="sendChat">
-												<i class="fa fa-paper-plane"></i>
-											</button>
+										</ul>
+									</div>
+									<div class="card-body border-top">
+										<div class="row">
+											<div class="col-9">
+												<textarea placeholder="메세지를 입력하세요" class="form-control b-0" id="sendMSG"></textarea>
+											</div>
+											<div class="col-3 text-right">
+												<button type="button" class="btn btn-info btn-circle btn-lg" id="sendChat">
+													<i class="fa fa-paper-plane"></i>
+												</button>
+											</div>
 										</div>
 									</div>
-								</div>
 								</c:if>
 							</div>
 							<!-- .chat-right-panel -->
@@ -78,16 +85,83 @@
 					</div>
 				</div>
 			</div>
+			<div id="create-chatroom" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<form action="${pageContext.request.contextPath }/chat/insertChatRoom">
+							<div class="modal-header">
+								<h4 class="modal-title">채팅방 개설하기</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+							</div>
+							<div class="modal-body">
+								<div class="m-2">
+									<label for="inputTitle" class="col-2">제목 : </label><input type="text" name="croom_title" id="inputTitle" class="form-control col-10" />
+								</div>
+								<div id="treeview_container" class="hummingbird-treeview p-3" style="overflow: auto; height: 300px;">
+									<label>채팅 멤버 선택하기</label>
+									<c:set var="index" value="0" />
+									<ul id="treeview" class="hummingbird-base list-group">
+										<c:forEach var="dept" items="${deptList }" varStatus="vs">
+											<li class="list-group-item"><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
+												<ul>
+													<c:forEach var="deptEmp" begin="1" end="${dept.COUNT }" step="1">
+														<li><label> <input class="hummingbirdNoParent" name="emp_no" value="${empList[index].emp_no}" type="checkbox"> ${empList[index].emp_name } (
+																${empList[index].job_title } )
+														</label></li>
+														<c:set var="index" value="${index+1 }"></c:set>
+													</c:forEach>
+												</ul></li>
+										</c:forEach>
+									</ul>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">닫기</button>
+								<button type="submit" class="btn btn-success waves-effect waves-light">저장하기</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="renameCroomTitle" class="modal show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-modal="true" style="display: none; padding-right: 17px;">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<form action="${pageContext.request.contextPath }/chat/renameCroom">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">채팅방 이름 변경하기</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+							</div>
+							<div class="modal-body">
+								<input type="text" value="${croom.croom_title }" class="form-control" name="croom_title" /> <input type="hidden" value="${croom.croom_index }" name="croom_index" /><input type="hidden"
+									value="${croom.croom_no }" name="croom_no"
+								/>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">닫기</button>
+								<button type="submit" class="btn btn-success waves-effect waves-light">저장하기</button>
+							</div>
+						</form>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
 			<c:import url="../common/footer.jsp" />
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	<script src="${pageContext.request.contextPath}/resources/templates/resources/js/chat.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 	<script type="text/javascript">
 		var chattingSock = new SockJS("<c:url value='/chatting'/>");
 		var croom_no = ${croom.croom_no};
+		$('#treeview').hummingbird();
+				
 		$(function() {
+			var emp_no=${employee.emp_no};
+			$('#create-chatroom input[value='+emp_no+']').prop('checked','checked').attr('disabled', 'disabled');
+			
 			$('a[value=link' + croom_no + ']').addClass('active');
 
 			var chatListJson = ${chatList};
@@ -157,39 +231,27 @@
 			chatList.append(chatli);
 
 		}
-		!function ($) {
-		 var SweetAlert = function () { };
-		 SweetAlert.prototype.init = function () {
-			  $("#exitChatRoom").click(function () {
-		            Swal.fire({
-		                title: '이 채팅방을 나가시겠습니까?',
-		                type: 'warning',
-		                showCancelButton: true,
-		                confirmButtonColor: '#3085d6',
-		                cancelButtonColor: '#d33',
-		                confirmButtonText: 'OK!'
-		            }).then((result) => {
-		                if (result.value) {
-		                    Swal.fire(
-		                        '성공!',
-		                        '채팅방을 나가셨습니다.',
-		                        'success'
-		                    )
-		                    
-		                }
-		            })
-		        });
-			 
-		 },
-	        //init
-	        $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
-	}(window.jQuery),
 
-	    //initializing 
-	    function ($) {
-	        "use strict";
-	        $.SweetAlert.init()
-	    }(window.jQuery);
+		  $("#exitChatRoom").click(function () {
+	            Swal.fire({
+	                title: '이 채팅방을 나가시겠습니까?',
+	                type: 'warning',
+	                showCancelButton: true,
+	                confirmButtonColor: '#3085d6',
+	                cancelButtonColor: '#d33',
+	                confirmButtonText: 'OK!'
+	            }).then((result) => {
+	                if (result.value) {
+	                    /* Swal.fire(
+	                        '성공!',
+	                        '채팅방을 나가셨습니다.',
+	                        'success'
+	                    ) */
+	                    location.href="${pageContext.request.contextPath}/chat/exitCroom/"+${croom.croom_index};
+	                }
+	            })
+	        });
+			 
 	</script>
 </body>
 </html>

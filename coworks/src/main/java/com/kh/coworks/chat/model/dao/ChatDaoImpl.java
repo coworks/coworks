@@ -67,4 +67,9 @@ public class ChatDaoImpl implements ChatDao {
 
 	}
 
+	@Override
+	public List<Employee> selectChatEmp(int croom_no) {
+		return sqlSession.selectList("chat.selectChatEmp", croom_no);
+	}
+
 }

@@ -13,3 +13,10 @@
 <!-- You can change the theme colors from here -->
 <link href="${pageContext.request.contextPath}/resources/templates/resources/css/colors/custom.css" id="theme" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery/jquery.min.js"></script>
+<style type="text/css">
+.text-overflow {
+	overflow: hidden; 
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+</style>

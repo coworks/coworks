@@ -21,7 +21,7 @@ public class Utils {
       //System.out.println("totalPage : "+totalPage);
       //System.out.println("pageStart["+pageNo+"] ~ pageEnd["+pageEnd+"]");
       
-      pageBar += "<nav aria-label='Page navigation example' class='mt-5 justify-content-center'><ul class='pagination'>";
+      pageBar += "<nav aria-label='Page navigation example' class='mt-5 justify-content-center' style='margin-left:40%;'><ul class='pagination'>";
       //[이전]section
       if(pageNo == 1 ){
          pageBar += "<li class='page-item disabled'>";

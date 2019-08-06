@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.kh.coworks.chat.model.service.ChatService;
 import com.kh.coworks.chat.model.vo.Chat;
 import com.kh.coworks.chat.model.vo.ChatRoom;
+import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Employee;
 
 @Controller
@@ -23,6 +24,9 @@ public class ChatController {
 
 	@Autowired
 	private ChatService chatService;
+
+	@Autowired
+	private EmployeeService employeeService;
 
 	@RequestMapping("/chat/croom/{croom_no}")
 	public String chatView(@PathVariable int croom_no, Model model, HttpServletRequest request) {
@@ -39,6 +43,9 @@ public class ChatController {
 		cr.setEmp_no(loginEmployee.getEmp_no());
 		cr.setCroom_no(croom_no);
 		model.addAttribute("croom", chatService.selectCroom(cr));
+		model.addAttribute("empList", employeeService.selectEmployeeList());
+		model.addAttribute("deptList", employeeService.selectDeptEmpCount());
+		model.addAttribute("chatEmp", chatService.selectChatEmp(croom_no));
 
 		return "chat/chatting";
 	}
@@ -49,7 +56,9 @@ public class ChatController {
 	}
 
 	@RequestMapping("/chat/insertChatRoom")
-	public int insertChatRoom(@RequestParam String croom_title, @RequestParam int[] emp_no) {
+	public String insertChatRoom(@RequestParam String croom_title, @RequestParam int[] emp_no,
+			HttpServletRequest request) {
+		Employee emp = (Employee) request.getSession().getAttribute("employee");
 		List<ChatRoom> crList = new ArrayList<ChatRoom>();
 
 		for (int eno : emp_no) {
@@ -58,10 +67,14 @@ public class ChatController {
 			cr.setEmp_no(eno);
 			crList.add(cr);
 		}
+		ChatRoom cr = new ChatRoom();
+		cr.setCroom_title(croom_title);
+		cr.setEmp_no(emp.getEmp_no());
+		crList.add(cr);
 
-		int result = chatService.insertChatRoom(crList);
+		int croom_no = chatService.insertChatRoom(crList);
 
-		return result;
+		return "redirect:/chat/croom/" + croom_no;
 	}
 
 	@RequestMapping("/chat/inviteEmp")
@@ -76,8 +89,8 @@ public class ChatController {
 		return result;
 	}
 
-	@RequestMapping("/chat/exitCroom")
-	public String exitCroom(@RequestParam int croom_index) {
+	@RequestMapping("/chat/exitCroom/{croom_index}")
+	public String exitCroom(@PathVariable int croom_index) {
 		chatService.deleteChatRoom(croom_index);
 
 		return "redirect:/chat/croom/0";

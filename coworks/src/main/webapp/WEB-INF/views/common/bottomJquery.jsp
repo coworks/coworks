@@ -41,7 +41,7 @@
 				var circleBtn = $("<div class='btn " + btnArr[i % 3]
 						+ " btn-circle'><i class='fa fa-link'></i></div>");
 				var mail_content = $("<div class='mail-contnet ml-2'>");
-				mail_content.append("<h5>" + data[i].adoc_subject + "</h5>");
+				mail_content.append("<h5 class='text-overflow'>" + data[i].adoc_subject + "</h5>");
 				mail_content.append("<span class='mail-desc'>"
 						+ data[i].writerName + "</span>");
 				mail_content.append(" <span class='time'>"
@@ -60,7 +60,6 @@
 		$('#approvalNotify').append(approvalMSG);
 
 		$('#approvalCnt').html('결재 미결함(' + data.length + ')');
-		sock.close();
 
 	}
 
@@ -80,13 +79,13 @@
 			for (var i = 0; i < data.length; i++) {
 				var alink = $('<a>').attr(
 						'href',
-						'${pageContext.request.contextPath }');
+						'${pageContext.request.contextPath }/dm/selectOneDm.do/'+data[i].dm_no);
 				var mail_content = $("<div class='mail-contnet ml-2'>");
-				mail_content.append("<h5>" + data[i].dm_subject + "</h5>");
+				mail_content.append("<h5 class='text-overflow'>" + data[i].dm_subject + "</h5>");
 				mail_content.append("<span class='mail-desc'>"
 						+ data[i].dm_from_name + "</span>");
 				mail_content.append(" <span class='time'>"
-						+ data[i].dm_date
+						+ new Date(data[i].dm_date).toLocaleString()
 						+ "</span>");
 
 				alink.append(mail_content);
@@ -101,7 +100,6 @@
 		$('#DMNotify').append(DMMSG);
 
 		$('#DMCnt').html('받은 쪽지함(' + data.length + ')');
-		DMsock.close();
 
 	}
 
@@ -122,11 +120,11 @@
 			for (var i = 0; i < data.length; i++) {
 				var alink = $('<a>').attr(
 						'href',
-						'${pageContext.request.contextPath }/chat/chatRoom/'
+						'${pageContext.request.contextPath }/chat/croom/'
 								+ data[i].croom_no);
 
 				var chat_content = $("<div class='mail-contnet ml-2'>");
-				chat_content.append("<h5>"
+				chat_content.append("<h5 class='text-overflow'>"
 						+ (data[i].chat_content == undefined ? "최근 채팅이 없습니다."
 								: data[i].chat_content) + "</h5>");
 				chat_content.append("<span class='mail-desc'>"
