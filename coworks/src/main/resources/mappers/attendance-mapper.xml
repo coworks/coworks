@@ -9,13 +9,13 @@
 	</select>
 	
 	<select id="selectListAttendance" parameterType="_int" resultType="attendance">
-		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no} ORDER BY ATTEN_DATE
+		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no} ORDER BY ATTEN_DATE DESC
 		
 	</select>
 	 
 	
 	<select id="selectOneAttendance" parameterType="_int" resultType="attendance">
-		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd')
+		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND ATTEN_DATE=to_date(SYSDATE,'yy/mm/dd') 
 		
 	</select>
 	

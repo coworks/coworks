@@ -75,6 +75,13 @@
 								<div class="jsgrid-grid-header jsgrid-header-scrollbar">
 									<table class="jsgrid-table table table-striped table-hover">
 										<tbody>
+										<c:if test="${list.size() == 0 }">
+											<div align="center">
+				
+												<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 150px; vertical-align: middle; border: 0" /> <br />
+												<h4 style="font-weight: bold;">신청한 교육이 없습니다.</h4>
+											</div>
+										</c:if>
 											<c:forEach items="${list}" var="list" varStatus="idx">
 
 
@@ -85,24 +92,11 @@
 												<fmt:formatDate var="edudate" value="${list.edu_eduDate}" pattern="yyyy-MM-dd HH:mm" />
 
 												<fmt:parseDate var="a" value="${list.edu_eduDate}" pattern="yyyy-MM-dd HH:mm" />
-
+												<c:set var="today2" value="${now.getTime()}"/>
 												<c:set var="start2" value="${a.getTime()+60*60*24*1000}" />
-												<c:set var="end2" value="${a.getTime()+60*60*24*1000*7}" />
+												<c:set var="end2" value="${a.getTime()+60*60*24*1000*8}" />
 
-												<jsp:useBean id="convtSt" class="java.util.Date">
-													<c:set target="${convtSt}" property="time" value="${ start2 }" />
-												</jsp:useBean>
-
-												<jsp:useBean id="convtEd" class="java.util.Date">
-													<c:set target="${convtEd}" property="time" value="${ end2 }" />
-												</jsp:useBean>
-												<fmt:formatDate var="start2_cvt" value="${convtSt}" pattern="yyyy-MM-dd HH:mm" />
-												<fmt:formatDate var="end2_cvt" value="${convtEd}" pattern="yyyy-MM-dd HH:mm" />
-
-												<%--   <fmt:parseDate var="startReport" value="${start2_cvt}" pattern="yyyy-MM-dd HH:mm"/>
-		                                       <fmt:parseDate var="endReport" value="${end2_cvt}" pattern="yyyy-MM-dd HH:mm"/> 
-		                                         --%>
-
+												 
 
 												<tr class="jsgrid-row" onclick="location.href='${pageContext.request.contextPath}/education/eduDetail.do?edu_no=${list.edu_no}'">
 													<td class="jsgrid-cell jsgrid-align-center" style="width: 30px;">${idx.count}</td>
@@ -117,17 +111,17 @@
 																<c:when test="${today lt edudate}">
 																	<button id="cancel" name="cancel" class="btn btn-danger" onclick="fnCancel('${list.edu_no}');">취소</button>
 																</c:when>
-																<c:when test="${today ge start2_cvt && today le end2_cvt}">
+																<c:when test="${today2- start2>0 && today2-end2<=0}">
 																	<button id="report" name="report" class="btn btn-info" onclick="fnWriteReport('${list.edu_no}');">보고서 작성</button>
-																</c:when>
+																</c:when> 
 															</c:choose>
 
 														</c:if>
 
 														<c:if test="${list.edurep_no!=0  }">
 															<c:choose>
-																<c:when test="${today ge start2_cvt && today le end2_cvt}">
-																	<button id="reportEdit" name="report" class="btn btn-info" onclick="fnReportEdit('${list.edurep_no}');">보고서 수정</button>
+																<c:when test="${today2- start2>0 && today2-end2<=0}">
+																	<button id="reportEdit" name="report" class="btn btn-success" onclick="fnReportEdit('${list.edurep_no}');">보고서 수정</button>
 																</c:when>
 																<c:otherwise>
 																	<button id="reportView" class="btn btn-secondary" onclick="fnReportView('${list.edurep_no}');">보고서 보기</button>
@@ -143,13 +137,7 @@
 								<c:out value="${pageBar}" escapeXml="false" />
 							</div>
 						</div>
-						<c:if test="${list.size() == 0 }">
-							<div align="center">
-
-								<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 150px; vertical-align: middle; border: 0" /> <br />
-								<h4 style="font-weight: bold;">신청한 교육이 없습니다.</h4>
-							</div>
-						</c:if>
+						
 					</div>
 					<div style="height: 100px;"></div>
 

@@ -23,7 +23,7 @@
    EDUCATION EDU
    WHERE
    EAPP.EDU_NO = REP.EDU_NO (+)
-   AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no} AND EDU.EDU_TYPE=#{edu_type}
+   AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no} AND EDU.EDU_TYPE=#{edu_type} ORDER BY EDU.EDU_EDUDATE DESC
    </select>
    
    <select id="selectTypeApplyTotalContents" parameterType="hashmap" resultType="_int">
@@ -40,12 +40,12 @@
    EDUCATION EDU
    WHERE
    EAPP.EDU_NO = REP.EDU_NO (+)
-   AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no}
+   AND EDU.EDU_NO = EAPP.EDU_NO AND eapp.EMP_NO=#{emp_no} ORDER BY EDU.EDU_EDUDATE DESC
    </select>
    
    <select id="selectOneEducation" parameterType="eduapply" resultType="education">
       SELECT EDU.* ,EAPP.EMP_NO FROM EDUCATION EDU, 
-      (SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no}) EAPP WHERE EDU.EDU_NO=#{edu_no} and EDU.EDU_NO = EAPP.EDU_NO (+)
+      (SELECT * FROM EDUAPPLY WHERE EMP_NO =#{emp_no}) EAPP WHERE EDU.EDU_NO=#{edu_no} and EDU.EDU_NO = EAPP.EDU_NO (+) 
         
    </select>
    <insert id="insertEduApply" parameterType="eduapply">
