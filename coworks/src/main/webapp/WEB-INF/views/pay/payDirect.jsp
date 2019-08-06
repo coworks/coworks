@@ -84,7 +84,7 @@
 												</td>
 												<td class="jsgrid-cell jsgrid-align-center" >소득세</td>
 												<td class="jsgrid-cell jsgrid-align-center" >
-												<input type="number" value="0" name="pay_income" id="pay_income" class="col-10 vl plus">
+												<input type="number" value="0" name="pay_income" id="pay_income" class="col-10 vl minus">
 												</td>
 											</tr>
 											
@@ -94,7 +94,7 @@
 													<input type="number"  value="0" name="pay_jobtitle" id="pay_jobtitle" class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center">주민세</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-												<input type="number"  value="0"name="pay_resident" id="pay_resident" class="col-10 vl plus"></td>
+												<input type="number"  value="0"name="pay_resident" id="pay_resident" class="col-10 vl minus"></td>
 											</tr>
 											
 											<tr class="jsgrid-row" >
@@ -164,7 +164,7 @@
 													<input type="number" value="0" id="pay_ptotal" name="pay_ptotal" class="col-10 vl "readOnly></td>
 												<td class="jsgrid-cell jsgrid-align-center">차감 수령액</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_total"name=" pay_total"class="col-10 vl " readOnly></td>
+													<input type="number" value="0" id="pay_total"name="pay_total"class="col-10 vl " readOnly></td>
 											</tr>
 											<tr>
 											<td colspan="4" class="bg-white">
@@ -197,7 +197,12 @@
 	}
 	
 	function submit(){
-		$("#payInfo").submit();
+		var payInfo= $('#payInfo')[0];
+		var form =new FormData(payInfo);
+		for(var pair of form.entries()) {
+			   console.log(pair[0]+ ', '+ pair[1]); 
+			}
+		//$('#payInfo').submit();
 	}
 	$("[name=emp_no]").on("blur",function(){
 		var emp_no = $(this).val();
@@ -222,7 +227,7 @@
 	var ptotal=0;
 	var mtotal=0;
 	$(".plus").on("change",function(){
-		ptotal =0;
+		ptotal = 0;
 		ptotal = parseInt(mtotal);
 		ptotal += parseInt($("#pay_basepay").val());
 		ptotal += parseInt($("#pay_jobtitle").val());

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.coworks.dm.model.vo.DM;
+import com.kh.coworks.dm.model.vo.DMTo;
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.mail.model.vo.Mail;
 import com.kh.coworks.mail.model.vo.MailAttach;
@@ -29,5 +30,11 @@ public interface DMDao {
 	DM selectOneDm(int dm_no);
 
 	List<DM> receiveDMList(int emp_no);
+
+	DMTo selectOneDmTo(DMTo dmto);
+
+	int updateDmFromDel(DM dm);
+
+	int updateDmToDel(DMTo dmto);
 
 }

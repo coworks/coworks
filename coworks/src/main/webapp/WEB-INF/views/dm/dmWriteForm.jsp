@@ -159,7 +159,6 @@ list-style-type: none;float: left;
     	console.log($(this).attr('id'));
     	var dept_code = $(this).attr('id');
     	var dept_name = $(this).attr('name');
-    	console.log(dept_name);
     	$.ajax({
 			url:"${pageContext.request.contextPath}/dm/ajxDept.do",
 			data:{dept_code:dept_code},
@@ -168,7 +167,6 @@ list-style-type: none;float: left;
 					$("#"+dept_code).next().empty();
 				}else{
 					$("#"+dept_code).next().empty();
-					console.log("1");
 					for(var i = 0 ; i < data.length; i++){
 						
 						if(i==0){
@@ -195,13 +193,12 @@ list-style-type: none;float: left;
     var empList= new Array();
     var count = 0;
 	$(document).on("click",".insertTo",function(){
-		 console.log("insertTo why not click");
 		var to_no= $(this).attr('id');
 		var to_name = $(this).attr('value');
+		for(var i = 0 ; i < count ; i++)
+			if(empList[i].to_no == to_no)
+				return;
 		empList[count++] = {to_no:to_no , to_name :to_name};
-		console.log(to_no);
-		console.log(to_name);
-		console.log(empList);
 		$("#dm_to_list").children().remove();
 		for(var i = 0 ; i < count ; i++){
 			$("#dm_to_list").append("<input type='text' id='"+empList[i].to_no+"'value='"+empList[i].to_name
@@ -216,11 +213,7 @@ list-style-type: none;float: left;
 		console.log(empList);
 		for(var i = 0 ; i < empList.length;i++){
 			if(empList[i].to_no == to_no){
-				console.log(empList[i].to_no);
-				console.log(to_no);
 				empList.splice(i,1);
-				console.log("왜 안지워져 시발~")
-				console.log(empList);
 				break;
 			}
 		}count--;

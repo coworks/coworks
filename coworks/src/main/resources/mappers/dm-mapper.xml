@@ -5,25 +5,26 @@
 <mapper namespace="dm">
 
 	<resultMap id="dmMap" type="dm" />
+	<resultMap id="dmToMap" type="dmto" />
 	
 	<select id="dmList" resultType="dm">
 		select *
 		from dmview
 		where
-		dm_no IN(select dm_no from dm_to where dm_to = #{emp_no}) order by dm_date desc
+		dm_no IN(select dm_no from dm_to where dm_to = #{emp_no}  and dm_to_del='N' ) order by dm_date desc
 	</select>
 
 	<select id="dmListCount" resultType="_int" parameterType="_int">
 	select count(*)
 		from dmview
 		where
-		dm_no IN(select dm_no from dm_to where dm_to = #{emp_no})
+		dm_no IN(select dm_no from dm_to where dm_to = #{emp_no} and dm_to_del='N' ) 
 	</select>
 
 	<select id="sendDmList" resultType="dm">
 		select *
 		from dmview
-		where dm_from = #{emp_no}
+		where dm_from = #{emp_no} and dm_from_del ='N' order by dm_date desc
 	</select>
 
 	<select id="sendDmListCount" resultType="_int"
@@ -31,7 +32,7 @@
 		select
 		count(*)
 		from dmview
-		where dm_from = #{emp_no}
+		where dm_from = #{emp_no} and dm_from_del ='N'
 	</select>
 
 
@@ -39,7 +40,7 @@
 		
 		select *
 		from dmview
-		where dm_no IN( select dm_no from dm_to where dm_to =#{emp_no} and dm_to_del='Y') 
+		where dm_no IN( select dm_no from dm_to where dm_to =#{emp_no} and dm_to_del='Y')  order by dm_date desc
 	</select>
 
 	<select id="delDmListCount" resultType="_int"
@@ -51,7 +52,7 @@
 	
 	<insert id="insertDM" parameterType="dm">
 		insert into dm(dm_no,dm_from, dm_subject,dm_content,dm_date,dm_from_del)
-		 values(seq_dm.nextval, #{dm_from},#{dm_subject},#{dm_content},#{dm_date},default)
+		 values(seq_dm.nextval, #{dm_from},#{dm_subject},#{dm_content},#{dm_date},#{dm_from_del})
 	</insert>
 	
 	<insert id="insertDMTo" parameterType="_int">
@@ -62,4 +63,17 @@
 	<select id="selectOneDm" resultType="dm">
 		select * from dmview where dm_no = #{dm_no}
 	</select>
+	
+	<select id="selectOneDmTo" resultType="dmto">
+		select * from dm_to where dm_to = #{dm_to} and dm_no=#{dm_no}
+	</select>
+	
+	<update id="updateDmFromDel" parameterType="dm">
+		update dm set dm_from_del ='Y' where dm_no=#{dm_no}
+	</update>
+	
+	<update id="updateDmToDel" parameterType="dmto">
+		update dm_to set dm_to_del ='Y' where dm_to =#{dm_to} and dm_no=#{dm_no}
+	</update>
+	
 </mapper>

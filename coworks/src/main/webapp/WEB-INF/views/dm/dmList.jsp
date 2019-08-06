@@ -12,6 +12,11 @@
 </head>
 
 <style>
+  #page{
+     	padding-left:36%;
+     	margin-top:0;
+     	
+     }
    .m-center{
       margin: 0 auto;
    }
@@ -170,13 +175,13 @@
 		        url:"${pageContext.request.contextPath}/dm/storeDm.do",
 		        type:'POST',
 	    		contentType : 'application/json; charset=UTF-8',
-		        data: JSON.stringify(chkdms),
+		        data: JSON.stringify(chkdms) ,
 		        success:function(data){
-		            alert("내부 메일로 저장이 완료 되었습니다.!");
+		            alert("쪽지 저장!");
 		            location.href="${pageContext.request.contextPath}/dm/dmList.do"; 
 		        },
 		        error:function(){
-		            alert("내부 메일로 저장하는데 문제가 발생하였습니다! ㅜㅜ");
+		            alert("쪽지 저장 실패!!");
 		        }
 		    });
 		}
@@ -185,16 +190,17 @@
 	    	chk();
 	    	console.log(chkdms);
 		    $.ajax({
-		        url:"${pageContext.request.contextPath}/dm/deleteDm.do",
+		        url:"${pageContext.request.contextPath}/dm/deleteDm.do/${type}",
 		        type:'POST',
 	    		contentType : 'application/json; charset=UTF-8',
 		        data: JSON.stringify(chkdms),
 		        success:function(data){
-		            alert("완료!");
+		            alert("쪽지 삭제!");
+		            location.href="${pageContext.request.contextPath}/dm/dmList.do"; 
 		            /* location.href="${pageContext.request.contextPath}/dm/innerdm.do"; */
 		        },
 		        error:function(){
-		            alert("메일 삭제 실패");
+		            alert("쪽지 삭제 실패");
 		        }
 		    });
 		}/* 

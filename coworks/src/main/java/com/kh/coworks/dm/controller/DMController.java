@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.dm.model.service.DMService;
 import com.kh.coworks.dm.model.vo.DM;
+import com.kh.coworks.dm.model.vo.DMTo;
 import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Employee;
@@ -48,7 +49,7 @@ public class DMController {
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "dmList.do");
 
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
-				.addAttribute("pageBar", pageBar);
+				.addAttribute("pageBar", pageBar).addAttribute("type","rece").addAttribute("type", "rece");
 
 		return "dm/dmList";
 	}
@@ -66,7 +67,7 @@ public class DMController {
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "sendDmList.do");
 		System.out.println(list);
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
-				.addAttribute("pageBar", pageBar);
+				.addAttribute("pageBar", pageBar).addAttribute("type", "send");
 		return "dm/dmList";
 	}
 
@@ -83,7 +84,7 @@ public class DMController {
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "delDmList.do");
 
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
-				.addAttribute("pageBar", pageBar);
+				.addAttribute("pageBar", pageBar).addAttribute("type", "del");
 		return "dm/dmList";
 	}
 
@@ -110,6 +111,7 @@ public class DMController {
 		Employee e = (Employee) session.getAttribute("employee");
 		dm.setDm_from(e.getEmp_no());
 		dm.setDm_date(new Timestamp(new Date().getTime()));
+		dm.setDm_from_del("N");
 		int result = dmService.insertDM(dm);
 		for (String dm_to : to_no_emp) {
 			if (dm_to.contains("D")) {
@@ -161,6 +163,7 @@ public class DMController {
 			for (int no : chkdms) {
 				System.out.println("store : " + dmService.selectOneDm(no));
 				dm = dmService.selectOneDm(no);
+				dm.setDm_from_del("Y");
 				int result = dmService.insertDM(dm);
 				dmService.insertDMTo(e.getEmp_no());
 			}
@@ -168,23 +171,38 @@ public class DMController {
 		return dm;
 	}
 	
-	@RequestMapping(value = "/dm/deleteDm.do")
+	@RequestMapping(value = "/dm/deleteDm.do/{type}")
 	@ResponseBody
 	public DM deleteDm(@RequestBody int[] chkdms,
-		HttpServletRequest request) {
+		HttpServletRequest request,@PathVariable("type") String type  ) {
 			HttpSession session = request.getSession();
 			Employee e = (Employee) session.getAttribute("employee");
-			
+		int result = 0;
 		System.out.println(chkdms);
+		DMTo dmto = null;
 		DM dm = null;
 		if (chkdms != null)
 			for (int no : chkdms) {
-				System.out.println("store : " + dmService.selectOneDm(no));
+				System.out.println("no : " + no);
 				dm = dmService.selectOneDm(no);
-				int result = dmService.insertDM(dm);
-				dmService.insertDMTo(e.getEmp_no());
+				dmto = new DMTo();
+				dmto.setDm_to(e.getEmp_no());
+				dmto.setDm_no(no);
+				dmto = dmService.selectOneDmTo(dmto);
+				System.out.println(dm);
+				System.out.println(dmto);
+				System.out.println(type);
+				if(type.equals("send")) {
+					result = dmService.updateDmFromDel(dm);
+					System.out.println("보낸 삭제");
+				}
+				else {
+					result = dmService.updateDmToDel(dmto);
+					System.out.println("받은 삭제");
+				}
 			}
 	
 		return dm;
 	}
+
 }

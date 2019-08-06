@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.coworks.dm.model.dao.DMDao;
 import com.kh.coworks.dm.model.vo.DM;
+import com.kh.coworks.dm.model.vo.DMTo;
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.mail.model.dao.MailDao;
 import com.kh.coworks.mail.model.exception.MailException;
@@ -75,6 +76,24 @@ public class DMServiceImple implements DMService {
 	@Override
 	public DM selectOneDm(int dm_no) {
 		return dmDao.selectOneDm(dm_no);
+	}
+
+
+	@Override
+	public DMTo selectOneDmTo(DMTo dmto) {
+		return dmDao.selectOneDmTo(dmto);
+	}
+
+
+	@Override
+	public int updateDmFromDel(DM dm) {
+		return dmDao.updateDmFromDel(dm);
+	}
+
+
+	@Override
+	public int updateDmToDel(DMTo dmto) {
+		return dmDao.updateDmToDel(dmto);
 	}
 
 
