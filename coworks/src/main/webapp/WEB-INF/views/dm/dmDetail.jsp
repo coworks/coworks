@@ -37,7 +37,9 @@
                             <div class="row">
                                 <c:import url="dmCommon.jsp"/>
                                 <div class="col-xlg-10 col-lg-8 col-md-8">
-                                    <c:import url="dmTopbar.jsp"/>
+                                   <%--  <c:import url="dmTopbar.jsp"/> --%>
+									<div class="card-body">
+                                   	</div>
                                     <div class="card-body pt-0">
                                         <div class="card b-all shadow-none">
                                             <div class="card-body">
@@ -52,7 +54,9 @@
                                                         <a href="javascript:void(0)"><img src="#" alt="user" width="40" class="img-circle" /></a>
                                                     </div> -->
                                                     <div class="pl-2">
-                                                        <h4 class="mb-0">From : ${dm.dm_from_name } <small class="text-muted"> &lt;${dm.dm_from_dept }부 : ${dm.dm_from_job } &gt;</small></h4>
+                                                        <h4 class="mb-0">From : ${dm.dm_from_name } <small class="text-muted"> &lt;${dm.dm_from_dept }부 : ${dm.dm_from_job } &gt;</small>
+                                                        To : ${emp.emp_name } <small class="text-muted"> &lt;${emp.dept_name }부 : ${emp.job_title } &gt;
+                                                        </h4>
                                                         <small class="text-muted">Date: ${dm.dm_date}</small>
                                                     </div>
                                                 </div>

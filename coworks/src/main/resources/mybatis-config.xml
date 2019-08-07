@@ -26,7 +26,6 @@
 		<typeAlias type="com.kh.coworks.approval.model.vo.ApprovalStatus" alias="approvalStatus" />
 		<typeAlias type="com.kh.coworks.mail.model.vo.Mail" alias="mail" />
 		<typeAlias type="com.kh.coworks.dm.model.vo.DM" alias="dm" />
-		<typeAlias type="com.kh.coworks.dm.model.vo.DMTo" alias="dmto" />
 		<typeAlias type="com.kh.coworks.mail.model.vo.MailAttach" alias="mailAttach" />
 		<typeAlias type="com.kh.coworks.common.typeHandler.StringArrayTypeHandler" alias="strArrTypeHandler" />
 		<typeAlias type="com.kh.coworks.todo.model.vo.Todo" alias="todo" />

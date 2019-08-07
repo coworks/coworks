@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.dm.model.service.DMService;
 import com.kh.coworks.dm.model.vo.DM;
-import com.kh.coworks.dm.model.vo.DMTo;
 import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Employee;
@@ -42,12 +41,11 @@ public class DMController {
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
 		int limit = 15;
-
 		List<DM> list = dmService.dmList(cPage, limit, emp.getEmp_no());
 		int totalContents = dmService.dmListCount(emp.getEmp_no());
 
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "dmList.do");
-
+		
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
 				.addAttribute("pageBar", pageBar).addAttribute("type","rece").addAttribute("type", "rece");
 
@@ -109,17 +107,18 @@ public class DMController {
 			HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Employee e = (Employee) session.getAttribute("employee");
+		int result = 0;
 		dm.setDm_from(e.getEmp_no());
-		dm.setDm_date(new Timestamp(new Date().getTime()));
-		dm.setDm_from_del("N");
-		int result = dmService.insertDM(dm);
 		for (String dm_to : to_no_emp) {
 			if (dm_to.contains("D")) {
 				List<Employee> empList = employeeService.getDeptEmp(dm_to);
-				for (Employee emp : empList)
-					result = dmService.insertDMTo(emp.getEmp_no());
-			} else {
-				result = dmService.insertDMTo(Integer.parseInt(dm_to));
+				for (Employee emp : empList) {
+					dm.setDm_to(emp.getEmp_no());
+					result = dmService.insertDM(dm);
+				}
+			}else {
+				dm.setDm_to(Integer.parseInt(dm_to));
+				result = dmService.insertDM(dm);
 			}
 
 		}
@@ -128,12 +127,21 @@ public class DMController {
 	}
 
 	@RequestMapping("/dm/selectOneDm.do/{dm_no}")
-	public String selectOneDm(@PathVariable(value = "dm_no") int dm_no, Model model) {
+	public String selectOneDm(@PathVariable(value = "dm_no") int dm_no, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Employee e = (Employee) session.getAttribute("employee"); 
+		DM dm = dmService.selectOneDm(dm_no);
+		
+		dm.setDm_to_read("Y");
 
-		model.addAttribute("dm", dmService.selectOneDm(dm_no));
+		int result = dmService.updateDm(dm);
+		Employee emp = employeeService.selectOneEmployee(dm.getDm_to());
+		System.out.println("to : "  + emp);
+		model.addAttribute("dm",dm).addAttribute("emp",emp);
 		return "dm/dmDetail";
 
 	}
+		
 
 	@RequestMapping("/dm/replyDm.do/{dm_no}")
 	public String replyDm( @PathVariable(value = "dm_no") int dm_no ,Model model) {
@@ -163,9 +171,7 @@ public class DMController {
 			for (int no : chkdms) {
 				System.out.println("store : " + dmService.selectOneDm(no));
 				dm = dmService.selectOneDm(no);
-				dm.setDm_from_del("Y");
 				int result = dmService.insertDM(dm);
-				dmService.insertDMTo(e.getEmp_no());
 			}
 	
 		return dm;
@@ -179,30 +185,43 @@ public class DMController {
 			Employee e = (Employee) session.getAttribute("employee");
 		int result = 0;
 		System.out.println(chkdms);
-		DMTo dmto = null;
 		DM dm = null;
 		if (chkdms != null)
 			for (int no : chkdms) {
 				System.out.println("no : " + no);
 				dm = dmService.selectOneDm(no);
-				dmto = new DMTo();
-				dmto.setDm_to(e.getEmp_no());
-				dmto.setDm_no(no);
-				dmto = dmService.selectOneDmTo(dmto);
 				System.out.println(dm);
-				System.out.println(dmto);
-				System.out.println(type);
 				if(type.equals("send")) {
-					result = dmService.updateDmFromDel(dm);
+					dm.setDm_from_del("Y");
+					result = dmService.updateDm(dm);
 					System.out.println("보낸 삭제");
-				}
-				else {
-					result = dmService.updateDmToDel(dmto);
-					System.out.println("받은 삭제");
+				}else if(type.equals("rece")) {
+					dm.setDm_to_del("Y");
+					result = dmService.updateDm(dm);
 				}
 			}
 	
 		return dm;
+	}
+	
+	@RequestMapping(value = "/dm/readDm.do/{type}")
+	public String readDm(@RequestBody int[] chkdms,
+		HttpServletRequest request,@PathVariable("type") String type  ) {
+			HttpSession session = request.getSession();
+			Employee e = (Employee) session.getAttribute("employee");
+		int result = 0;
+		System.out.println(chkdms);
+		DM dm = null;
+		if (chkdms != null)
+			for (int no : chkdms) {
+
+				System.out.println("no : " + no);
+				dm = dmService.selectOneDm(no);
+				dm.setDm_to_read("Y");
+				result = dmService.updateDm(dm);
+				
+			}
+		return "redirect:dmList.do";
 	}
 
 }

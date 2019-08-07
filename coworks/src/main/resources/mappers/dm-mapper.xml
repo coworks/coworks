@@ -5,20 +5,18 @@
 <mapper namespace="dm">
 
 	<resultMap id="dmMap" type="dm" />
-	<resultMap id="dmToMap" type="dmto" />
 	
 	<select id="dmList" resultType="dm">
 		select *
 		from dmview
-		where
-		dm_no IN(select dm_no from dm_to where dm_to = #{emp_no}  and dm_to_del='N' ) order by dm_date desc
+		where  dm_to=#{emp_no} and dm_to_del='N'order by dm_date desc
 	</select>
 
 	<select id="dmListCount" resultType="_int" parameterType="_int">
 	select count(*)
 		from dmview
 		where
-		dm_no IN(select dm_no from dm_to where dm_to = #{emp_no} and dm_to_del='N' ) 
+		dm_no = #{emp_no} and dm_to_del='N' 
 	</select>
 
 	<select id="sendDmList" resultType="dm">
@@ -40,40 +38,41 @@
 		
 		select *
 		from dmview
-		where dm_no IN( select dm_no from dm_to where dm_to =#{emp_no} and dm_to_del='Y')  order by dm_date desc
+		where dm_no  =#{emp_no} and dm_to_del='Y' order by dm_date desc
 	</select>
 
 	<select id="delDmListCount" resultType="_int"
 		parameterType="_int">
 		select count(*)
 		from dmview
-		where dm_no IN( select dm_no from dm_to where dm_to =#{emp_no} and dm_to_del='Y') 
+		where dm_no=#{emp_no} and dm_to_del='Y'
 	</select>
 	
 	<insert id="insertDM" parameterType="dm">
-		insert into dm(dm_no,dm_from, dm_subject,dm_content,dm_date,dm_from_del)
-		 values(seq_dm.nextval, #{dm_from},#{dm_subject},#{dm_content},#{dm_date},#{dm_from_del})
+		insert into dm(dm_no,dm_from, dm_subject,dm_content,dm_date,dm_from_del, dm_to, dm_to_del,dm_to_read)
+		 values(seq_dm.nextval, #{dm_from},#{dm_subject},#{dm_content},default,default,#{dm_to},default,default)
 	</insert>
-	
+	<!-- 
 	<insert id="insertDMTo" parameterType="_int">
-		insert into dm_to(dm_to_no,dm_no,dm_to,dm_to_del)
-		values(seq_dm_to.nextval,seq_dm.CURRVAL, #{dm_to} ,default)
-	</insert>
+		insert into dm_to(dm_to_no,dm_no,dm_to,dm_to_del,dm_to_read)
+		values(seq_dm_to.nextval,seq_dm.CURRVAL, #{dm_to} ,default,default)
+	</insert> -->
 	
 	<select id="selectOneDm" resultType="dm">
 		select * from dmview where dm_no = #{dm_no}
 	</select>
-	
+	<!-- 
 	<select id="selectOneDmTo" resultType="dmto">
 		select * from dm_to where dm_to = #{dm_to} and dm_no=#{dm_no}
 	</select>
+	 -->
 	
-	<update id="updateDmFromDel" parameterType="dm">
-		update dm set dm_from_del ='Y' where dm_no=#{dm_no}
+	<update id="updateDm" parameterType="dm" >
+		update dm set dm_from_del = #{dm_from_del} ,dm_to_del = #{dm_to_del} , dm_to_read=#{dm_to_read} where  dm_no=#{dm_no}
 	</update>
 	
-	<update id="updateDmToDel" parameterType="dmto">
-		update dm_to set dm_to_del ='Y' where dm_to =#{dm_to} and dm_no=#{dm_no}
-	</update>
+<!-- 	<select id="dmtoList" parameterType="dmto" resultType="dmto">
+		select * from dm_to where dm_no=#{dm_no} and dm_to=#{dm_to}	
+	</select> -->
 	
 </mapper>

@@ -201,6 +201,11 @@
 	    	chkMails=[];
 	    	chk();
 	    	console.log(chkMails);
+	    	if(chkMails.length < 1){
+	    		alert("저장할 메일을 선택해주세요");
+	    		return false;
+	    	}
+	    	
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/mail/storeMail.do",
 		        type:'POST',
@@ -219,6 +224,10 @@
 	    	chkMails=[];
 	    	chk();
 	    	console.log(chkMails);
+	    	if(chkMails.length < 1){
+	    		alert("삭제할 메일을 선택해주세요");
+	    		return false;
+	    	}
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/mail/deleteMail.do/${type}",
 		        type:'POST',
@@ -237,6 +246,10 @@
 	    	chkMails=[];
 	    	chk();
 	    	console.log(chkMails);
+	    	if(chkMails.length < 1){
+	    		alert("표시할 메일을 선택해주세요");
+	    		return false;
+	    	}
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/mail/readMail.do",
 		        type:'POST',
@@ -254,6 +267,10 @@
 	    	chkMails=[];
 	    	chk();
 	    	console.log(chkMails);
+	    	if(chkMails.length < 1){
+	    		alert("표시할 메일을 선택해주세요");
+	    		return false;
+	    	}
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/mail/updateStar.do/"+value,
 		        type:'POST',
@@ -272,6 +289,10 @@
 	    	chk();
 	    	console.log(chkMails);
 	    	console.log(num);
+	    	if(chkMails.length < 1){
+	    		alert("표시할 메일을 선택해주세요");
+	    		return false;
+	    	}
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/mail/updateMark.do/"+num,
 		        type:'POST',

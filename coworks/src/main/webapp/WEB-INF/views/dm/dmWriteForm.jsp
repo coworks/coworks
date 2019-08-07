@@ -18,6 +18,10 @@ ul{
 [name = to_do_emp]{
 list-style-type: none;float: left;
 }
+
+	.over {
+		font-weight:bold;
+	}
 .to_do_emp{
 	border: 1px solid black;
 	/* background:red; */
@@ -68,7 +72,8 @@ list-style-type: none;float: left;
 		<!-- active -->
 		<c:forEach items="${dept}" var="d">
 			<li class="list-group-item has-arrow depts"id="${d.dept_code }" name="${d.dept_name }" >	
-				<span class="#" id="append">${d.dept_name } / ${d.dept_code }</span>
+				<i class="fas fa-caret-right"></i>&nbsp;
+				<span class="text-primary" style="font-weight:bold"id="append">${d.dept_name } / ${d.dept_code }</span>
 				<!-- <ul aria-expanded="true" class="collapse">  </ul> -->
 				<div>
 					
@@ -228,6 +233,16 @@ list-style-type: none;float: left;
 			$(this).remove();
 		}
 	}
+	$(document).on("mouseover",function(){
+		$('.insertTo').addClass('out')
+		$('.insertTo').hover(function(){
+			$('ul').has('li').css('cursor', 'pointer');
+			$(this).addClass('over');
+		}, function(){
+			$(this).removeClass('over');
+		});
+	});
+	
     </script>
    
 </body>

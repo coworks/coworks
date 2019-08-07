@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.coworks.dm.model.vo.DM;
-import com.kh.coworks.dm.model.vo.DMTo;
 
 @Repository
 public class DMDaoImpl implements DMDao {
@@ -55,10 +54,6 @@ public class DMDaoImpl implements DMDao {
 		return sqlSession.insert("dm.insertDM",dm);
 	}
 
-	@Override
-	public int insertDMTo(int dm_to) {
-		return sqlSession.insert("dm.insertDMTo",dm_to);
-	}
 	
 	@Override
 	public List<DM> receiveDMList(int emp_no){
@@ -70,20 +65,12 @@ public class DMDaoImpl implements DMDao {
 		return sqlSession.selectOne("dm.selectOneDm",dm_no);
 	}
 
-	@Override
-	public DMTo selectOneDmTo(DMTo dmto) {
-		return sqlSession.selectOne("dm.selectOneDmTo",dmto);
-	}
 
 	@Override
-	public int updateDmFromDel(DM dm) {
-		return sqlSession.update("dm.updateDmFromDel",dm);
+	public int updateDm(DM dm) {
+		return sqlSession.update("dm.updateDm",dm);
 	}
 
-	@Override
-	public int updateDmToDel(DMTo dmto) {
-		return sqlSession.update("dm.updateDmToDel",dmto);
-	}
 
 
 

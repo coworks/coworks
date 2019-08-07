@@ -12,7 +12,7 @@
    }
 </style>
 <meta charset="UTF-8">
-<title>CO-WORKS : Insert title here</title>
+<title>CO-WORKS : 메일 상세 보기</title>
 <c:import url="../common/header.jsp" />
 </head>
 <body class="fix-header fix-sidebar card-no-border">
@@ -37,7 +37,9 @@
                             <div class="row">
                                 <c:import url="mail-common.jsp"/>
                                 <div class="col-xlg-10 col-lg-8 col-md-8">
-                                    <c:import url="mail-topbar.jsp"/>
+                                    <%-- <c:import url="mail-topbar.jsp"/> --%>
+                                    <div class="card-body">
+                                   	</div>
                                     <div class="card-body pt-0">
                                         <div class="card b-all shadow-none">
                                             <div class="card-body">
@@ -56,8 +58,7 @@
                                                         <small class="text-muted">Date: ${mail.getMail_sendDate()}</small>
                                                     </div>
                                                 </div>
-                                                <p><b>Content : </b></p>
-                                                <p>${mail.getMail_content()}</p>
+                                                ${mail.getMail_content()}
                                           		</div>
                                             <div>
                                                 <hr class="mt-0">

@@ -65,23 +65,23 @@
                                                     <c:forEach items="${list}" var="dm"> 
                                                    
                                                         <%-- <a href="/dm/selectOnedm.do/${m.getDm_no()}">  --%>
-                                                    	<input type="text" name="dm_no" value="${dm.getDm_no()}" id="dm_no" hidden/>
+                                                    	<input type="text" name="dm_no" value="${dm.dm_no}" id="dm_no" hidden/>
                                                     	
                                                         <tr class="unread dmRow" >
                                                             <td style="width:40px">
                                                             
                                                                 <div class="checkbox">
-                                                                    <input type="checkbox" id="${dm.getDm_no() }" name="chkdm" value="${m.getDm_no()}">
-                                                                    <label for="${dm.getDm_no() }"></label>
+                                                                    <input type="checkbox" id="${dm.dm_no }" name="chkdm" value="${dm.dm_no}">
+                                                                    <label for="${dm.dm_no }"></label>
                                                                 </div>
                                                             </td>
                                                             <td style="width:20px" class="hidden-xs-down ">
-                                                            	<%-- <c:if test="${dm.getDm_isRead() eq 'N' }" >
+                                                            	<c:if test="${dm.dm_to_read eq 'N' }" >
                                                     			<i class="mdi mdi-checkbox-blank-circle-outline"></i>
                                                     			</c:if>
-                                                    			<c:if test="${dm.getDm_isRead() eq 'Y' }" >
-                                                    			 --%><i class="mdi mdi-check-circle-outline"></i>
-                                                    			<%-- </c:if> --%>
+                                                    			<c:if test="${dm.dm_to_read eq 'Y' }" >
+                                                    			 <i class="mdi mdi-check-circle-outline"></i>
+                                                    			</c:if> 
                                                     		</td><%-- 
                                                     		<td style="width:20px" class="hidden-xs-down ">
                                                             	<c:if test="${m.getDm_star() eq 'Y' }" >
@@ -95,15 +95,15 @@
                                                             <!-- <td style="width:40px" class="hidden-xs-down notRead"><i class="fa fa-star-o"></i></td> -->
                                                            	
                                                             <td class="hidden-xs-down " > 
-                                                          		${dm.getDm_from_name()}
+                                                          		${dm.dm_from_name}
                                                           	</td><!-- <a href="app-edm-detail.do"/> -->
-                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/dm/selectOneDm.do/${dm.getDm_no()}'"> 
+                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/dm/selectOneDm.do/${dm.dm_no}'"> 
                                                           	
-                                                          		${dm.getDm_subject() }
+                                                          		${dm.dm_subject }
                                                             </td>
                                                            
                                                             <td class="hidden-xs-down">
-                                                            	<fmt:formatDate value="${dm.getDm_date()}" pattern="yyyy-MM-dd : HH시" />
+                                                            	<fmt:formatDate value="${dm.dm_date}" pattern="yyyy-MM-dd : HH시" />
                                                             </td>
                                                             <!-- <i class="fa fa-paperclip"></i> -->
                                                            <%--  <fmt:parseDate value='${m.getDm_sendDate()}' var='sendDate' pattern='yyyymmdd'/> --%>
@@ -165,12 +165,16 @@
 	    });
 	 }
 	    /* var allData = { "dm_no": dm_no, "chkdms": chkdm }; */
-	     /*  onclick="location.href='${pageContext.request.contextPath}/dm/selectOnedm.do/${m.getDm_no()}/${type}' */
+	     /*  onclick="location.href='${pageContext.request.contextPath}/dm/selectOnedm.do/${m.getDm_no}/${type}' */
 	    
 	    function storeDm(){
 	    	chkdms=[];
 	    	chk();
-	    	console.log(chkdms);
+	    	console.log(chkdms);	
+	    	if(chkdms.length < 1){
+	    		alert("저장할 메일을 선택해주세요");
+	    		return false;
+	    	}
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/dm/storeDm.do",
 		        type:'POST',
@@ -189,6 +193,10 @@
 	    	chkdms=[];
 	    	chk();
 	    	console.log(chkdms);
+	    	if(chkdms.length < 1){
+	    		alert("삭제할 메일을 선택해주세요");
+	    		return false;
+	    	}
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/dm/deleteDm.do/${type}",
 		        type:'POST',

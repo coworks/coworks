@@ -279,7 +279,8 @@ public class MailController {
 					mail.setMail_no(count++/* messages[i].getMessageNumber() - 1 */);
 					mail.setMail_sendDate(new Timestamp(messages[i].getSentDate().getTime()));
 					System.out.println("메일 받은 시간 " + mail.getMail_sendDate());
-					mail.setMail_content(getTextFromMessage(messages[i]));
+//					mail.setMail_content(getTextFromMessage(messages[i]));
+					mail.setMail_content(messages[i].getContent().toString());
 					mail.setMail_from_email(ar.getAddress());
 					mail.setMail_to_email(emp.getEmp_email());
 					mail.setMail_subject(messages[i].getSubject());
