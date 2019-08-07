@@ -281,7 +281,7 @@ td th {
 							<div class="input-group" style="width: 60%; margin-left: 20px;">
 								<input type="search" id="keyword" class="form-control"
 									style="width: 70%">
-								<button class="btn btn-info" type="button" onclick="search();">검색</button>
+								<button class="btn btn-info" type="button" onclick="return search();">검색</button>
 							</div>
 						</div>
 
@@ -389,13 +389,40 @@ td th {
 	</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js" aria-hidden="true"></script>
 	<script>
-		function search(){
+		/* function search(){
 			location.href="${pageContext.request.contextPath}/employee/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
-		}
+		} */
 		
 		function employeemove(index){
 			location.href="${pageContext.request.contextPath}/employee/employeeMove.do?index="+index;
+		}
+		
+		function search(){
+			var searchKey = $("#keyword").val();
+			var searchCdt = $("#searchCondition").val();
+			
+			if(searchCdt == ""){
+				Swal.fire({
+	                title: "༼ -᷅ɷ-᷄༽    검색 분류를 선택하세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			} else if(searchKey == ""){
+				Swal.fire({
+	                title: "༼ -᷅ɷ-᷄༽    검색어를 입력하세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			} else {
+				location.href="${pageContext.request.contextPath}/employee/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();	
+			}
+			
 		}
 	</script>
 	<%-- 	<script

@@ -19,6 +19,7 @@ ul {
 	font-weight: bold;
 	font-size: 20px;
 }
+
 </style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
@@ -47,7 +48,7 @@ ul {
 							<!-- Nav tabs -->
 							<div class="vtabs col-lg-12">
 								<ul class="nav nav-tabs tabs-vertical" role="tablist">
-									<li class="nav-item"><a class="nav-link active"
+									<li class="nav-item" onclick="reload();"><a class="nav-link active"
 										data-toggle="tab" href="#home4" role="tab"
 										aria-selected="true"><span class="hidden-sm-up"><i
 												class="ti-home"></i></span> <span class="hidden-xs-down">전체조회</span>
@@ -86,7 +87,7 @@ ul {
 																<input type="search" id="keyword" class="form-control"
 																	style="width: 70%">
 																<button class="btn btn-info" type="button"
-																	onclick="search();">검색</button>
+																	onclick="return search();">검색</button>
 															</div>
 														</div>
 													</div>
@@ -99,11 +100,11 @@ ul {
 															role="grid" aria-describedby="myTable_info">
 															<thead>
 																<tr role="row">
-																	<th style="width: 197px; font-weight: bold;">이름</th>
-																	<th style="width: 144px; font-weight: bold;">부서</th>
-																	<th style="width: 144px; font-weight: bold;">직급</th>
-																	<th style="width: 144px; font-weight: bold;">연락처</th>
-																	<th style="width: 215px; font-weight: bold;">이메일</th>
+																	<th style="width: 23%; font-weight: bold;">이름</th>
+																	<th style="width: 17%; font-weight: bold;">부서</th>
+																	<th style="width: 17%; font-weight: bold;">직급</th>
+																	<th style="width: 22%; font-weight: bold;">연락처</th>
+																	<th style="width: 23%; font-weight: bold;">이메일</th>
 
 																</tr>
 															</thead>
@@ -122,9 +123,9 @@ ul {
 														</table>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-sm-12 col-md-5"></div>
-													<div class="col-sm-12 col-md-7">
+												<div class="row" >
+													<div class="col-lg-12 col-md-5" ></div>
+													<div class="col-lg-12 col-md-7">
 
 
 														<c:out value="${pageBar}" escapeXml="false" />
@@ -168,12 +169,12 @@ ul {
 												</ul>
 											</div>
 											<!--  -->
-											<div class="col-sm-10 pt-4">
+											 <div class="col-sm-10 pt-4">
 												<table id="myTable"
 													class="table table-bordered table-striped dataTable no-footer"
 													role="grid" aria-describedby="myTable_info">
-													<thead>
-														<tr role="row">
+													<thead id="tabletitle">
+														<tr>
 															<th style="width: 197px; font-weight: bold;">이름</th>
 															<th style="width: 144px; font-weight: bold;">부서</th>
 															<th style="width: 144px; font-weight: bold;">직급</th>
@@ -183,19 +184,13 @@ ul {
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach items="${list}" var="e">
-															<tr role="row">
-																<td>${e.emp_name}</td>
-																<td>${e.dept_name}</td>
-																<td>${e.job_title}</td>
-																<td>${e.emp_phone}</td>
-																<td>${e.emp_email}</td>
-															</tr>
-														</c:forEach>
+														<tr>
+														
+														</tr>
 
 													</tbody>
 												</table>
-											</div>
+											</div> 
 
 											
 										<!-- 부서별 조회 끝 -->
@@ -239,9 +234,11 @@ ul {
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
-
+<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js" aria-hidden="true"></script>
 	<script>
-	/* 	$(".depts")
+	 	$(".depts")
 				.on(
 						"click",
 						function() {
@@ -251,7 +248,7 @@ ul {
 							console.log(dept_name);
 							$
 									.ajax({
-										url : "${pageContext.request.contextPath}/dm/ajxDept.do",
+										url : "${pageContext.request.contextPath}/employee/contactDeptSearch.do",
 										data : {
 											dept_code : dept_code
 										},
@@ -261,34 +258,48 @@ ul {
 												$("#" + dept_code).next()
 														.empty();
 											} else {
-												$("#" + dept_code).next()
+												$("#tabletitle").next()
 														.empty();
 												console.log("1");
+												
+												
 												for (var i = 0; i < data.length; i++) {
 
 													/* content.append("<li>"+data[i].emp_no+"</li>"); */
-													var tbody = $(
-															"#" + dept_code)
+													var tbody = $("#tabletitle")
 															.next();/* $("#append"); */
-													var content = $("<ul>");
+													var content = $("<tr>");
 													var emp_name = data[i].emp_name;
-													var emp_no = data[i].emp_no;
+													var dept_name = data[i].dept_name;
+													var job_title = data[i].job_title
+													var emp_email = data[i].emp_email;
+													var emp_phone = data[i].emp_phone;
 													var emp = data[i];
 													content
-															.append("<li class='insertTo' name='insertTo' id='"+data[i].emp_no+"' value="+data[i].emp_name+">"
+															.append("<td class='insertTo' name='insertTo' id='"+data[i].emp_name+"' value="+data[i].emp_name+">"
 																	+ data[i].emp_name
-																	+ " : "
+																	+ "</td>");
+													content		.append("<td class='insertTo' name='insertTo' id='"+data[i].dept_name+"' value="+data[i].dept_name+">"
+																	+ data[i].dept_name
+																	+ "</td>");
+													content		.append("<td class='insertTo' name='insertTo' id='"+data[i].job_title+"' value="+data[i].job_title+">"
 																	+ data[i].job_title
-																	+ "</li>");
+																	+ "</td>");
+													content		.append("<td class='insertTo' name='insertTo' id='"+data[i].emp_phone+"' value="+data[i].emp_phone+">"
+																	+ data[i].emp_phone
+																	+ "</td>");
+													content		.append("<td class='insertTo' name='insertTo' id='"+data[i].emp_email+"' value="+data[i].emp_email+">"
+																	+ data[i].emp_email
+																	+ "</td>");
 													tbody.append(content);
 												}
 												console.log(" 완료");
 											}
 										}
 									});
-						}); */
+						});
 
-		$(document).on("mouseover", function() {
+/* 		$(document).on("mouseover", function() {
 			$('.insertTo').addClass('out')
 			$('.insertTo').hover(function() {
 				$('ul').has('li').css('cursor', 'pointer');
@@ -296,7 +307,36 @@ ul {
 			}, function() {
 				$(this).removeClass('over');
 			});
-		});
+		}); */
+		
+		
+		function search(){
+			var searchKey = $("#keyword").val();
+			var searchCdt = $("#searchCondition").val();
+			
+			if(searchKey == ""){
+				Swal.fire({
+	                title: "༼ -᷅ɷ-᷄༽    검색어를 입력하세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			} else if(searchCdt == ""){
+				Swal.fire({
+	                title: "༼ -᷅ɷ-᷄༽    검색 분류를 선택하세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			} else {
+				location.href="${pageContext.request.contextPath}/employee/contactSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();	
+			}
+			
+		}
+		
+		function reload(){
+			location.href="${pageContext.request.contextPath}/employee/contactList.do"
+		}
 	</script>
 </body>
 </html>

@@ -28,7 +28,6 @@
 	
 	.text-al-left {
 		text-align : left;
-		text-indent : 7%;
 	}
 
 	.over {
@@ -96,7 +95,7 @@
 				<div class="row">
 				<div class="col-12">
 				<div class="card">
-					<div class="card-body col-10 align-self-center">
+					<div class="card-body col-11 align-self-center">
 
 						
 						
@@ -130,10 +129,11 @@
 								data-sorting="true" data-paging="true">
 								<thead>
 									<tr class="footable-header text-al-ct">
-										<th>번호</th>
-										<th>제목</th>
-										<th>날짜</th>
-										<th>첨부파일</th>
+										<th style="width: 14%; font-weight: bold;">번호</th>
+										<th style="width: 41%; font-weight: bold;">제목</th>
+										<th style="width: 12%; font-weight: bold;">글쓴이</th>
+										<th style="width: 13%; font-weight: bold;">날짜</th>
+										<th style="width: 10%; font-weight: bold;">첨부파일</th>
 									</tr>
 								</thead>
 								<tbody class="text-al-ct">
@@ -144,10 +144,10 @@
 										
 										<td class="text-al-left title">
 										
-										   <c:if test="${b.bo_title.length() gt 30}">
-                                                   ${b.bo_title.substring(0,30) } ...
+										   <c:if test="${b.bo_title.length() gt 27}">
+                                                   ${b.bo_title.substring(0,27) } ...
                                            </c:if>
-                                           <c:if test="${b.bo_title.length()le 30}">
+                                           <c:if test="${b.bo_title.length()le 27}">
                                                    ${b.bo_title}
                                            </c:if> 
 										
@@ -166,6 +166,7 @@
 										
 										
 										</td>
+										<td class="title">${b.writerName}[${b.dept_name }]</td>
 										<td class="title">
 										<fmt:formatDate value="${b.bo_date }" pattern="yyyy/MM/dd"/> <%--yyyy/MM/dd HH:mm --%>
 										</td>

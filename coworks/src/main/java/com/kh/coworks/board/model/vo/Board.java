@@ -31,7 +31,18 @@ public class Board implements Serializable {
 	private String writerName;
 	private int fileCount;
 	private List<Attach> files = new ArrayList<>();
+	private String dept_name;
 	
+	public String getDept_name() {
+		return dept_name;
+	}
+
+
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+
+
 	private int rnum;
 	
 	public Board() {
@@ -40,8 +51,14 @@ public class Board implements Serializable {
 	}
 
 
+
+	
+	
+
+	
 	public Board(int bo_no, String bo_code, String bo_title, String bo_content, int emp_no, Timestamp bo_date,
-			String bo_status, String writerName) {
+			String bo_status, int bo_type, int bg_no, String bg_code, String bg_title, String writerName, int fileCount,
+			List<Attach> files, String dept_name, int rnum) {
 		super();
 		this.bo_no = bo_no;
 		this.bo_code = bo_code;
@@ -50,12 +67,18 @@ public class Board implements Serializable {
 		this.emp_no = emp_no;
 		this.bo_date = bo_date;
 		this.bo_status = bo_status;
+		this.bo_type = bo_type;
+		this.bg_no = bg_no;
+		this.bg_code = bg_code;
+		this.bg_title = bg_title;
 		this.writerName = writerName;
+		this.fileCount = fileCount;
+		this.files = files;
+		this.dept_name = dept_name;
+		this.rnum = rnum;
 	}
-	
-	
 
-	
+
 	public Board(int bo_no, String bo_code, String bo_title, String bo_content, int emp_no, Timestamp bo_date,
 			String bo_status, int bo_type, String writerName, int fileCount, List<Attach> files) {
 		super();

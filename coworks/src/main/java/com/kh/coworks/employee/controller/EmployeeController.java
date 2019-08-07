@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
@@ -294,7 +295,7 @@ public class EmployeeController {
 	public String selectContactSearch(@RequestParam(value = "cPage", required = false, defaultValue = "1") 
 	int cPage, String con, String keyword, Model model) {
 
-		int limit = 5; // 한 페이지 당 게시글 수
+		int limit = 10; // 한 페이지 당 게시글 수
 
 		
 		HashMap<String, String> hmap = new HashMap<>();
@@ -315,8 +316,18 @@ public class EmployeeController {
 
 		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
 				.addAttribute("pageBar", pageBar);
-		
+		System.out.println("list : " + list);
 		return "contact/contactList";
 	}
+	
+	// 연락처 부서별 조회
+	@RequestMapping("/employee/contactDeptSearch.do")
+	@ResponseBody
+	public List<Employee> selectContactDeptSearch(@RequestParam("dept_code") String dept_code) {
+		System.out.println("!!dept_code : " + dept_code);
+		List<Employee> contactList = employeeService.getDeptEmp(dept_code);
+		return contactList;
+	}
+	
 	
 }
