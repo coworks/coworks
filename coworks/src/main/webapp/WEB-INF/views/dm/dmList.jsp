@@ -76,12 +76,14 @@
                                                                 </div>
                                                             </td>
                                                             <td style="width:20px" class="hidden-xs-down ">
+                                                            <c:if test="${type eq 'rece' }">
                                                             	<c:if test="${dm.dm_to_read eq 'N' }" >
                                                     			<i class="mdi mdi-checkbox-blank-circle-outline"></i>
                                                     			</c:if>
                                                     			<c:if test="${dm.dm_to_read eq 'Y' }" >
                                                     			 <i class="mdi mdi-check-circle-outline"></i>
                                                     			</c:if> 
+                                                    		</c:if>
                                                     		</td><%-- 
                                                     		<td style="width:20px" class="hidden-xs-down ">
                                                             	<c:if test="${m.getDm_star() eq 'Y' }" >

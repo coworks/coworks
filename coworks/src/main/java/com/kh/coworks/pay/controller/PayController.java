@@ -269,4 +269,26 @@ public class PayController {
 		int result = payService.insertPay(pay);
 		return "redirect:employeeList.do";
 	}
+	
+	@RequestMapping(value="/pay/writePayExcel")
+	public String writePayExcel(HttpServletRequest request) {
+      // 엑셀로 쓸 데이터 생성
+        
+
+//      부서 선택해서 값 입력 받기!! 모달창으로 입력 받자 
+		
+		
+        List<Employee> list = new ArrayList<Employee>();
+        list = employeeService.getDeptEmp("D02");
+        
+        ExcelWrite excelWriter = new ExcelWrite();
+        //xls 파일 쓰기
+//        excelWriter.xlsWiter(list,request);
+        
+        //xlsx 파일 쓰기
+        excelWriter.xlsxWiter(list,request);
+
+        
+        return "redirect:employeeList.do";
+	}
 }

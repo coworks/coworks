@@ -38,14 +38,14 @@
 		
 		select *
 		from dmview
-		where dm_no  =#{emp_no} and dm_to_del='Y' order by dm_date desc
+		where dm_to  =#{emp_no} and dm_to_del='Y' order by dm_date desc
 	</select>
 
 	<select id="delDmListCount" resultType="_int"
 		parameterType="_int">
 		select count(*)
 		from dmview
-		where dm_no=#{emp_no} and dm_to_del='Y'
+		where dm_to=#{emp_no} and dm_to_del='Y'
 	</select>
 	
 	<insert id="insertDM" parameterType="dm">
