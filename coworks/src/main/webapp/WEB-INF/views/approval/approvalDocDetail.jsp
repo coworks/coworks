@@ -51,6 +51,14 @@ div p {
 										</button>
 									</div>
 									</c:if>
+									<c:if test="${sessionScope.employee.emp_no eq doc.adoc_writerno }">
+										<div align="right" class="ml-auto" >
+										<button class=" btn  btn-info  mr-2" type="button" onclick="edit()">
+											<span><i class="mdi mdi-lead-pencil"></i> 수정</span>
+										</button>
+										</div>
+									</c:if>
+									
 								</div>
 								<div class="printArea">
 									<h2 class="card-title mb-5 mt-3" align="center">
@@ -185,6 +193,10 @@ div p {
 		if(confirm("'${doc.adoc_subject}'을(를) 반려하시겠습니까?")){
 			location.href="${pageContext.request.contextPath}/approval/reject/"+${doc.adoc_no};
 		};
+	};
+	
+	function edit() {
+		location.href="${pageContext.request.contextPath/approval/approvalDoc/edit/"+${doc.adoc_no};
 	};
 	
 		$(function() {

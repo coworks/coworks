@@ -40,4 +40,10 @@ public interface ApprovalService {
 
 	int deleteApprovalDoc(int adoc_no);
 
+	void deleteApprovalStatus(int adoc_no);
+
+	void updateApprovalDoc(ApprovalDoc doc, List<ApprovalStatus> signList, List<ApprovalAttach> fileList);
+
+	void deleteApprovalAttach(int[] deleteAttach);
+
 }

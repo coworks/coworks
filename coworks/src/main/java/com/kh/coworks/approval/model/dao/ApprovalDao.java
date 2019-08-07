@@ -45,4 +45,10 @@ public interface ApprovalDao {
 
 	int deleteApprovalDoc(int adoc_no);
 
+	void deleteApprovalStatus(int adoc_no);
+
+	int updateApprovalDoc(ApprovalDoc doc);
+
+	void deleteApprovalAttach(int apAtt_no);
+
 }

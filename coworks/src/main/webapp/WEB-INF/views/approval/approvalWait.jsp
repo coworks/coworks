@@ -50,7 +50,9 @@
 													<td>${doc.aform_title }</td>
 													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" /></td>
 													<td onclick="event.cancelBubble=true"><c:if test="${doc.adoc_status == '0'}">
-													<form action=""></form>
+															<button class="btn btn-info btn-xs" onclick="editDoc('${doc.adoc_no}')">
+																<i class="mdi mdi-pen"></i>수정
+															</button>
 															<button class="btn btn-danger btn-xs" onclick="deleteDoc('${doc.adoc_no}')">
 																<i class="mdi mdi-close"></i>삭제
 															</button>
@@ -79,11 +81,17 @@
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	<script type="text/javascript">
-	function deleteDoc(adoc_no) {
-		if(confirm("이 결재서류를 삭제하시겠습니까?\n복구가 불가능합니다!")){
-			location.href="${pageContext.request.contextPath}/approval/approvalDoc/delete/"+adoc_no;
+		function deleteDoc(adoc_no) {
+			if (confirm("이 결재서류를 삭제하시겠습니까?\n복구가 불가능합니다!")) {
+				location.href = "${pageContext.request.contextPath}/approval/approvalDoc/delete/"
+						+ adoc_no;
+			}
 		}
-	}
+
+		function editDoc(adoc_no) {
+			location.href = "${pageContext.request.contextPath}/approval/approvalDoc/edit/"
+					+ adoc_no;
+		}
 	</script>
 </body>
 </html>

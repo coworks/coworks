@@ -308,7 +308,92 @@ public class ApprovalController {
 	@RequestMapping("/approval/approvalDoc/delete/{docNo}")
 	public String approvalDelete(@PathVariable("docNo") int adoc_no) {
 		int result = approvalService.deleteApprovalDoc(adoc_no);
-		
+
 		return "redirect:/approval/approvalWait.do";
+	}
+
+	@RequestMapping("/approval/approvalDoc/edit/{docNo}")
+	public String approvalEdit(@PathVariable("docNo") int adoc_no, Model model) {
+
+		ApprovalDoc doc = approvalService.selectOneApprovalDoc(adoc_no);
+		ApprovalForm form = approvalService.selectApprovalDocForm(doc.getAform_no());
+
+		model.addAttribute("doc", doc).addAttribute("signList", approvalService.selectApprovalStatus(adoc_no))
+				.addAttribute("attachList", approvalService.selectApprovalAttach(adoc_no)).addAttribute("form", form)
+				.addAttribute("writer", employeeService.selectOneEmployee(doc.getAdoc_writerno()));
+		model.addAttribute("empList", employeeService.selectEmployeeList());
+		model.addAttribute("deptList", employeeService.selectDeptEmpCount());
+
+		return "approval/approvalDoc/approvalEditForm/" + form.getAform_formPage();
+	}
+
+	@RequestMapping(value = "/approval/editApprovalDone", method = RequestMethod.POST)
+	public String approveEdit(@RequestParam Map<String, Object> body, @RequestParam(value = "signList") int[] sign,
+			@RequestParam(value = "deleteAttach", required = false) int[] deleteAttach,
+			@RequestParam(value = "upFiles", required = false) MultipartFile[] upFiles, HttpSession session) {
+
+		ApprovalDoc doc = approvalService.selectOneApprovalDoc(Integer.valueOf((String) body.get("adoc_no")));
+		doc.setAdoc_security(Integer.valueOf((String) body.get("adoc_security")));
+		doc.setAdoc_subject((String) body.get("adoc_subject"));
+
+		approvalService.deleteApprovalStatus(doc.getAdoc_no());
+		List<ApprovalStatus> signList = new ArrayList<ApprovalStatus>();
+
+		for (int i : sign) {
+			ApprovalStatus as = new ApprovalStatus();
+			as.setAdoc_no(doc.getAdoc_no());
+			as.setEmp_no(i);
+
+			signList.add(as);
+		}
+
+		if (deleteAttach != null)
+			approvalService.deleteApprovalAttach(deleteAttach);
+		List<ApprovalAttach> fileList = new ArrayList<ApprovalAttach>();
+
+		String savePath = "/resources/approval/attach";
+		String saveDir = session.getServletContext().getRealPath(savePath);
+		if (new File(saveDir).exists()) {
+
+			for (MultipartFile f : upFiles) {
+				if (!f.isEmpty()) {
+					String originalName = f.getOriginalFilename();
+					String ext = originalName.substring(originalName.lastIndexOf(".") + 1);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+
+					int rndNum = (int) (Math.random() * 1000);
+
+					String renamedName = sdf.format(new java.util.Date()) + "_" + rndNum + "." + ext;
+
+					try {
+						f.transferTo(new File(saveDir + "/" + renamedName));
+					} catch (IllegalStateException | IOException e) {
+						e.printStackTrace();
+					}
+
+					ApprovalAttach attach = new ApprovalAttach();
+					attach.setAdoc_no(doc.getAdoc_no());
+					attach.setApAtt_oriname(originalName);
+					attach.setApAtt_rename(renamedName);
+					attach.setApAtt_path(savePath);
+
+					fileList.add(attach);
+				}
+			}
+		}
+
+		body.remove("adoc_no");
+		body.remove("adoc_security");
+		body.remove("adoc_subject");
+		body.remove("upFiles");
+		body.remove("signList");
+		body.remove("adoc_writerno");
+		body.remove("deleteAttach");
+
+		doc.setAdoc_content(new JSONObject(body).toJSONString());
+
+		approvalService.updateApprovalDoc(doc, signList, fileList);
+
+		return "redirect:/approval/approvalDoc/v/" + doc.getAdoc_no();
 	}
 }

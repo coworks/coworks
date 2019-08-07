@@ -49,7 +49,8 @@
 		select doc.*, nvl(curappno,0) curappno
 		from approvalDoc doc,
 		curappview
-		where doc.adoc_no=curappview.adoc_no(+) and doc.adoc_no=#{adoc_no}
+		where doc.adoc_no=curappview.adoc_no(+) and
+		doc.adoc_no=#{adoc_no}
 	</select>
 
 	<select id="selectApprovalAttach" parameterType="_int"
@@ -59,12 +60,12 @@
 
 	<select id="selectApprovalStatus" parameterType="_int"
 		resultType="approvalStatus">
-		select st.*,emp_name,emp_signature,job_title from
+		select st.*,e.* from
 		approvalStatus st,
-		employee e, job j where st.adoc_no=#{adoc_no} and
+		empview e where
+		st.adoc_no=#{adoc_no} and
 		st.emp_no=e.emp_no
-		and e.job_code=j.job_code
-		order by j.job_code desc,
+		order by e.job_code desc,
 		e.EMP_HIREDATE
 	</select>
 
@@ -153,13 +154,29 @@
 		approvalDoc set adoc_status=#{adoc_status} where adoc_no=#{adoc_no}
 	</update>
 
+	<update id="updateApprovalDoc" parameterType="approvalDoc">
+		update approvalDoc set ADOC_SECURITY=#{adoc_security},
+		ADOC_SUBJECT=#{adoc_subject},ADOC_CONTENT=#{adoc_content} where
+		adoc_no=#{adoc_no}
+	</update>
+
 	<select id="selectCountApprovalStatus" resultType="_int">
 		select
 		count(*) from approvalStatus where adoc_no=#{adoc_no} and as_status=1
 	</select>
 
 	<delete id="deleteApprovalDoc" parameterType="_int">
-		delete from approvaldoc where adoc_no=#{adoc_no}
+		delete from
+		approvalDoc where adoc_no=#{adoc_no}
+	</delete>
+
+	<delete id="deleteApprovalStatus" parameterType="_int">
+		delete from
+		approvalStatus where adoc_no=#{adoc_no}
+	</delete>
+	
+	<delete id="deleteApprovalAttach" parameterType="_int">
+	delete from approvalAttach where apAtt_no=#{apAtt_no}
 	</delete>
 
 </mapper>

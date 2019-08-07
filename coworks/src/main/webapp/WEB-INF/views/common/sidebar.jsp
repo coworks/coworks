@@ -61,8 +61,7 @@
 						<!-- 내가 결재서류 올리고 모든 결재가 끝난 문서 -->
 					</ul></li>
 				
-				<c:set var="audata" value="${sessionScope.authority.auth_data}" />
-				<c:if test="${audata eq 'Y'}">
+				
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-package-variant-closed"></i><span class="hide-menu">자료실</span></a>
 					<ul aria-expanded="false" class="collapse">
@@ -80,7 +79,7 @@
 							href="${pageContext.request.contextPath}/documentboard/deptdocSelect.do">부서별
 								자료실</a></li>
 					</ul></li>
-				</c:if>
+				
 				<c:set var="auboard" value="${sessionScope.authority.auth_board}" />
 				<c:if test="${auboard eq 'Y'}">
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i

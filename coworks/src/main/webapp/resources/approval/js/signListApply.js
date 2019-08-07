@@ -4,12 +4,12 @@ $(function() {
 	var empno = $('input[name=adoc_writerno]').val();
 	console.log(empno);
 	$('.modal input[value=' + empno + ']').attr('disabled', 'disabled');
+
 });
 
 function applySelect() {
 	var signList = $('input[name=signList]:checked');
-	console.log(signList);
-
+	
 	if (signList.length != 2) {
 		alert("결재자는 2명을 선택해야합니다.");
 	} else {
@@ -34,7 +34,8 @@ function applySelect() {
 };
 
 function check() {
-	if ($('input[name=signList]:checked').length != 2) {
+	if ($('input[name=signList]:checked').length != 2
+			&& $('input[type=hidden][name=signList]').length != 2) {
 		alert("결재자를 선택해주세요");
 		return false;
 	}

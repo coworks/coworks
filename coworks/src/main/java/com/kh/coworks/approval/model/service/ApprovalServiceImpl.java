@@ -135,4 +135,44 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalDao.deleteApprovalDoc(adoc_no);
 	}
 
+	@Override
+	public void deleteApprovalStatus(int adoc_no) {
+		approvalDao.deleteApprovalStatus(adoc_no);
+	}
+
+	@Override
+	public void updateApprovalDoc(ApprovalDoc doc, List<ApprovalStatus> signList, List<ApprovalAttach> fileList) {
+		int result = APPROVAL_SRV_ERROR;
+
+		result = approvalDao.updateApprovalDoc(doc);
+		if (result == APPROVAL_SRV_ERROR)
+			throw new ApprovalException();
+
+		if (signList.size() > 0) {
+			for (ApprovalStatus sign : signList) {
+				result = approvalDao.insertApprovalSign(sign);
+
+				if (result == APPROVAL_SRV_ERROR)
+					throw new ApprovalException();
+			}
+		}
+
+		if (fileList.size() > 0) {
+			for (ApprovalAttach attach : fileList) {
+
+				result = approvalDao.insertApprovalAttach(attach);
+
+				if (result == APPROVAL_SRV_ERROR)
+					throw new ApprovalException();
+			}
+		}
+
+	}
+
+	@Override
+	public void deleteApprovalAttach(int[] deleteAttach) {
+		for (int apAtt_no : deleteAttach)
+			approvalDao.deleteApprovalAttach(apAtt_no);
+	}
+
 }

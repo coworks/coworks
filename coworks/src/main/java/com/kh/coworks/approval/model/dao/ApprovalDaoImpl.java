@@ -111,4 +111,19 @@ public class ApprovalDaoImpl implements ApprovalDao {
 		return sqlSession.delete("approval.deleteApprovalDoc", adoc_no);
 	}
 
+	@Override
+	public void deleteApprovalStatus(int adoc_no) {
+		sqlSession.delete("approval.deleteApprovalStatus", adoc_no);
+	}
+
+	@Override
+	public int updateApprovalDoc(ApprovalDoc doc) {
+		return sqlSession.update("approval.updateApprovalDoc", doc);
+	}
+
+	@Override
+	public void deleteApprovalAttach(int apAtt_no) {
+		sqlSession.delete("approval.deleteApprovalAttach", apAtt_no);
+	}
+
 }
