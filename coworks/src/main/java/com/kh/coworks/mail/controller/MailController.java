@@ -125,7 +125,7 @@ public class MailController {
 			mbp1.setDataHandler(new DataHandler(fds));
 			mbp1.setFileName(fds.getName());
 			Multipart mp = new MimeMultipart();
-			mp.addBodyPart(mbp);
+			mp.addBodyPart(mbp); 
 			mp.addBodyPart(mbp1);
 			//-----------------------------------------------
 

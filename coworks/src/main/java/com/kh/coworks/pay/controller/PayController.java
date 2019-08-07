@@ -47,7 +47,7 @@ public class PayController {
 	@Autowired
 	AuthorityService authorityService;
 
-	@Autowired
+	@Autowired 
 	PayService payService;
 
 	String filename = "";
