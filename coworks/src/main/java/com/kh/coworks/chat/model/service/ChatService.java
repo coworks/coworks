@@ -30,4 +30,6 @@ public interface ChatService {
 
 	List<Employee> selectChatEmp(int croom_no);
 
+	int inviteChatRoom(List<ChatRoom> crList);
+
 }

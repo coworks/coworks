@@ -99,14 +99,19 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public void updateApprovalStatus(ApprovalStatus st) {
 		approvalDao.updateApprovalStatus(st);
 
-		if (st.getAs_status() == 2) {
+		if (st.getAs_status() == -1) {
 			ApprovalDoc doc = new ApprovalDoc();
 			doc.setAdoc_no(st.getAdoc_no());
-			doc.setAdoc_status(2);
+			doc.setAdoc_status(-1);
 			approvalDao.updateApprovalDocStatus(doc);
 		} else {
 			int result = approvalDao.selectCountApprovalStatus(st.getAdoc_no());
 			if (result == 2) {
+				ApprovalDoc doc = new ApprovalDoc();
+				doc.setAdoc_no(st.getAdoc_no());
+				doc.setAdoc_status(2);
+				approvalDao.updateApprovalDocStatus(doc);
+			} else {
 				ApprovalDoc doc = new ApprovalDoc();
 				doc.setAdoc_no(st.getAdoc_no());
 				doc.setAdoc_status(1);
@@ -123,6 +128,11 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public List<ApprovalDoc> selectApprovalComplete(int emp_no) {
 		return approvalDao.selectApprovalComplete(emp_no);
+	}
+
+	@Override
+	public int deleteApprovalDoc(int adoc_no) {
+		return approvalDao.deleteApprovalDoc(adoc_no);
 	}
 
 }

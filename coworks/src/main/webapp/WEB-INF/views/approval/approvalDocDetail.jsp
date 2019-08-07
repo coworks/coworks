@@ -100,10 +100,10 @@ div p {
 													<td><c:if test="${signList[0].as_status == 1}">
 															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[0].emp_signature}" width="50em">
 														</c:if>
-														<c:if test="${signList[0].as_status == 2}">
+														<c:if test="${signList[0].as_status == -1}">
 															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em">
 														</c:if></td>
-													<td><c:if test="${signList[1].as_status == 2}">
+													<td><c:if test="${signList[1].as_status == -1}">
 															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em">
 														</c:if></td>
 												</tr>

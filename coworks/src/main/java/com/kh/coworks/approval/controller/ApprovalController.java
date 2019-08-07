@@ -113,7 +113,6 @@ public class ApprovalController {
 		return "approval/approvalComplete";
 	}
 
-
 	// approvDoc Mapping
 	@RequestMapping(value = "/approval/write/{docType}/{formNo}", method = RequestMethod.GET)
 	public String approvalExpense(@PathVariable("docType") String docType, @PathVariable("formNo") int formNo,
@@ -260,7 +259,7 @@ public class ApprovalController {
 		ModelAndView mv = new ModelAndView();
 
 		ApprovalDoc doc = approvalService.selectOneApprovalDoc(adoc_no);
-		
+
 		mv.addObject("doc", doc).addObject("signList", approvalService.selectApprovalStatus(adoc_no))
 				.addObject("attachList", approvalService.selectApprovalAttach(adoc_no))
 				.addObject("form", approvalService.selectApprovalDocForm(doc.getAform_no()))
@@ -277,7 +276,7 @@ public class ApprovalController {
 		HttpSession session = request.getSession();
 		Employee employee = (Employee) session.getAttribute("employee");
 
-		int status = (approvalAct.equals("approve") ? 1 : 2);
+		int status = (approvalAct.equals("approve") ? 1 : -1);
 
 		ApprovalStatus st = new ApprovalStatus();
 		st.setAdoc_no(adoc_no);
@@ -289,7 +288,7 @@ public class ApprovalController {
 		return "redirect:/approval/approvalReceive.do";
 	}
 
-	@RequestMapping(value="/approval/approveList",method = RequestMethod.POST)
+	@RequestMapping(value = "/approval/approveList", method = RequestMethod.POST)
 	public String approvalListApprove(@RequestParam("docNo") int[] docNoArr, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Employee employee = (Employee) session.getAttribute("employee");
@@ -302,7 +301,14 @@ public class ApprovalController {
 
 			approvalService.updateApprovalStatus(st);
 		}
-		
+
 		return "redirect:/approval/approvalReceive.do";
+	}
+
+	@RequestMapping("/approval/approvalDoc/delete/{docNo}")
+	public String approvalDelete(@PathVariable("docNo") int adoc_no) {
+		int result = approvalService.deleteApprovalDoc(adoc_no);
+		
+		return "redirect:/approval/approvalWait.do";
 	}
 }

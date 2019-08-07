@@ -78,15 +78,20 @@ public class ChatController {
 	}
 
 	@RequestMapping("/chat/inviteEmp")
-	public int inviteEmp(@RequestParam int croom_no, @RequestParam int emp_no, @RequestParam String croom_title) {
-		ChatRoom cr = new ChatRoom();
-		cr.setCroom_no(croom_no);
-		cr.setEmp_no(emp_no);
-		cr.setCroom_title(croom_title);
+	public String inviteEmp(@RequestParam int croom_no, @RequestParam int[] emp_no, @RequestParam String croom_title) {
+		List<ChatRoom> crList = new ArrayList<ChatRoom>();
+		
+		for (int eno : emp_no) {
+			ChatRoom cr = new ChatRoom();
+			cr.setCroom_no(croom_no);
+			cr.setEmp_no(eno);
+			cr.setCroom_title(croom_title);
+			crList.add(cr);
+		}
 
-		int result = chatService.insertChatRoom(cr);
+		int result = chatService.inviteChatRoom(crList);
 
-		return result;
+		return "redirect:/chat/croom/" + croom_no;
 	}
 
 	@RequestMapping("/chat/exitCroom/{croom_index}")

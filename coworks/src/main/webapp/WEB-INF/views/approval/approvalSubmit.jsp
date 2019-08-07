@@ -64,9 +64,12 @@
 														</td>
 														<td>
 															<c:if test="${doc.adoc_status == '1'}">
-																<span class="label label-success">승인</span>
+																<span class="label label-success">1차 승인</span>
 															</c:if>
-															<c:if test="${doc.adoc_status eq '2'}">
+															<c:if test="${doc.adoc_status == '2'}">
+																<span class="label label-info">승인</span>
+															</c:if>
+															<c:if test="${doc.adoc_status eq '-1'}">
 																<span class="label label-danger">반려</span>
 															</c:if>
 														</td>
@@ -147,7 +150,7 @@
 												<c:set var="rejectIndex" value="0" />
 												<c:forEach items="${docList}" var="doc" varStatus="vs">
 												
-													<c:if test="${doc.adoc_status eq '2'}">
+													<c:if test="${doc.adoc_status eq '-1'}">
 														<c:set var="rejectIndex" value="${rejectIndex + 1}" />
 
 														<tr onclick="location.href='${pageContext.request.contextPath}/approval/approvalDoc/v/${doc.adoc_no}'">

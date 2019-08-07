@@ -37,9 +37,7 @@
 										<c:if test="${croomList.size() ne 0 }">
 											<c:forEach var="chatroom" items="${croomList }">
 												<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" value="link${chatroom.croom_no }"> <span><b>${chatroom.croom_title } </b>
-															<p class="text-mute ml-2 text-overflow">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }"
-																	pattern="yyyy-MM-dd HH:mm"
-																/></small></span></a></li>
+															<p class="text-muted ml-2 text-overflow">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }" pattern="yyyy-MM-dd HH:mm" /></small></span></a></li>
 											</c:forEach>
 										</c:if>
 										<li class="p-3"></li>
@@ -53,9 +51,7 @@
 									<div class="chat-main-header">
 										<div class="p-3 border-bottom">
 											<h3 class="box-title">
-												${croom.croom_title} <a href="javascript:void(0)" id="exitChatRoom"><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href="javascript:void(0)"><i
-													class="mdi-plus-box-outline mdi float-right text-success ml-3"
-												></i></a><a href="javascript:void(0)" data-target="#renameCroomTitle" data-toggle="modal"><i class="mdi-lead-pencil mdi float-right"></i></a>
+												${croom.croom_title} <a href="javascript:void(0)" id="exitChatRoom"><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href="javascript:void(0)" data-target="#invite-chatroom" data-toggle="modal"><i class="mdi-account-plus mdi text-muted float-right ml-3"></i></a><a href="javascript:void(0)" data-target="#renameCroomTitle" data-toggle="modal"><i class="mdi-lead-pencil mdi float-right"></i></a>
 											</h3>
 											<input type="hidden" id="croom_no" value="${croom.croom_no }" />
 										</div>
@@ -95,18 +91,17 @@
 							</div>
 							<div class="modal-body">
 								<div class="m-2">
-									<label for="inputTitle" class="col-2">제목 : </label><input type="text" name="croom_title" id="inputTitle" class="form-control col-10" />
+									<label for="inputTitle" class="col-2">제목 : </label><input type="text" name="croom_title" id="inputTitle" class="form-control col-10" required="required" />
 								</div>
 								<div id="treeview_container" class="hummingbird-treeview p-3" style="overflow: auto; height: 300px;">
 									<label>채팅 멤버 선택하기</label>
 									<c:set var="index" value="0" />
-									<ul id="treeview" class="hummingbird-base list-group">
+									<ul class="hummingbird-base list-group treeview">
 										<c:forEach var="dept" items="${deptList }" varStatus="vs">
 											<li class="list-group-item"><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
 												<ul>
 													<c:forEach var="deptEmp" begin="1" end="${dept.COUNT }" step="1">
-														<li><label> <input class="hummingbirdNoParent" name="emp_no" value="${empList[index].emp_no}" type="checkbox"> ${empList[index].emp_name } (
-																${empList[index].job_title } )
+														<li><label> <input class="hummingbirdNoParent" name="emp_no" value="${empList[index].emp_no}" type="checkbox"> ${empList[index].emp_name } ( ${empList[index].job_title } )
 														</label></li>
 														<c:set var="index" value="${index+1 }"></c:set>
 													</c:forEach>
@@ -132,9 +127,7 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 							</div>
 							<div class="modal-body">
-								<input type="text" value="${croom.croom_title }" class="form-control" name="croom_title" /> <input type="hidden" value="${croom.croom_index }" name="croom_index" /><input type="hidden"
-									value="${croom.croom_no }" name="croom_no"
-								/>
+								<input type="text" value="${croom.croom_title }" class="form-control" name="croom_title" required="required" /> <input type="hidden" value="${croom.croom_index }" name="croom_index" /><input type="hidden" value="${croom.croom_no }" name="croom_no" />
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">닫기</button>
@@ -146,6 +139,59 @@
 				</div>
 				<!-- /.modal-dialog -->
 			</div>
+			<div id="invite-chatroom" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+				<div class="modal-dialog modal-dialog-centered modal-lg">
+					<div class="modal-content">
+
+						<form action="${pageContext.request.contextPath }/chat/inviteEmp">
+							<div class="modal-header">
+								<h4 class="modal-title">멤버 초대하기</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+							</div>
+							<div class="modal-body row">
+								<div class="col-8">
+									<div class="m-2">
+										<label for="inviteTitle" class="col-2">제목 : </label><input type="text" name="croom_title" id="inviteTitle" class="form-control col-10" value="${croom.croom_title}" />
+									</div>
+									<input type="hidden" name="croom_no" value="${croom.croom_no }" />
+									<div id="treeview_container" class="hummingbird-treeview p-3" style="overflow: auto; height: 300px;">
+										<label>초대할 멤버 선택하기</label>
+										<c:set var="index" value="0" />
+										<ul class="hummingbird-base list-group treeview">
+											<c:forEach var="dept" items="${deptList }" varStatus="vs">
+												<li class="list-group-item"><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
+													<ul>
+														<c:forEach var="deptEmp" begin="1" end="${dept.COUNT }" step="1">
+															<li><label> <input class="hummingbirdNoParent" name="emp_no" value="${empList[index].emp_no}" type="checkbox"> ${empList[index].emp_name } ( ${empList[index].job_title } )
+															</label></li>
+															<c:set var="index" value="${index+1 }"></c:set>
+														</c:forEach>
+													</ul></li>
+											</c:forEach>
+										</ul>
+									</div>
+								</div>
+								<div class="col-4">
+									<label><b>현재 채팅 멤버</b></label>
+									<div style="overflow: auto; height: 300px;">
+										<ul class="list-icons">
+											<c:forEach var="chatMem" items="${chatEmp }">
+												<li><i class="ti-angle-right"></i>${chatMem.emp_name }/${chatMem.dept_name }/${chatMem.job_title }</li>
+											</c:forEach>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">닫기</button>
+								<button type="submit" class="btn btn-success waves-effect waves-light">저장하기</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+
 			<c:import url="../common/footer.jsp" />
 		</div>
 	</div>
@@ -153,11 +199,12 @@
 	<script src="${pageContext.request.contextPath}/resources/templates/resources/js/chat.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
 	<script type="text/javascript">
 		var chattingSock = new SockJS("<c:url value='/chatting'/>");
 		var croom_no = ${croom.croom_no};
-		$('#treeview').hummingbird();
-				
+		$('.treeview').hummingbird();  
+		
 		$(function() {
 			var emp_no=${employee.emp_no};
 			$('#create-chatroom input[value='+emp_no+']').prop('checked','checked').attr('disabled', 'disabled');

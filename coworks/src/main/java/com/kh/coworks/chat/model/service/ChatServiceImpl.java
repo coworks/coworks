@@ -65,8 +65,16 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public int insertChatRoom(ChatRoom cr) {
-		return chatDao.insertChatRoom(cr);
+	public int inviteChatRoom(List<ChatRoom> crList) {
+		int result = 0;
+		for (ChatRoom cr : crList) {
+			result = chatDao.insertChatRoom(cr);
+
+			if (result == 0) {
+				throw new ChatException();
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -83,6 +91,12 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public List<Employee> selectChatEmp(int croom_no) {
 		return chatDao.selectChatEmp(croom_no);
+	}
+
+	@Override
+	public int insertChatRoom(ChatRoom cr) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

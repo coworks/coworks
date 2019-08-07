@@ -69,7 +69,6 @@
 
 	function onDMMessage(evt) {
 		var data = JSON.parse(evt.data);
-		console.log(data);
 		var DMMSG;
 		if (data.length != 0) {
 			$('#DMHeartbit').css('display', 'block');

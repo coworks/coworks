@@ -9,12 +9,14 @@
 		distinct aform_folderName from approvalForm order by 1
 	</select>
 
-	<select id="selectApprovalFormList" parameterType="string" resultType="approvalForm">
+	<select id="selectApprovalFormList" parameterType="string"
+		resultType="approvalForm">
 		select * from approvalForm where
 		aform_folderName=#{aform_folderName} order by AFORM_TITLE
 	</select>
 
-	<select id="searchApprovalForm" parameterType="string" resultType="approvalForm">
+	<select id="searchApprovalForm" parameterType="string"
+		resultType="approvalForm">
 		select * from approvalForm where aform_title like
 		'%'||#{search}||'%' order by AFORM_TITLE
 	</select>
@@ -25,7 +27,8 @@
 		ADOC_CONTENT, adoc_status) values (seq_apdoc.nextval, #{aform_no},
 		#{adoc_writerno}, DEFAULT, #{adoc_security}, #{adoc_expiration},
 		#{adoc_subject},#{adoc_content},DEFAULT)
-		<selectKey keyProperty="adoc_no" resultType="_int" order="AFTER">
+		<selectKey keyProperty="adoc_no" resultType="_int"
+			order="AFTER">
 			SELECT SEQ_apdoc.CURRVAL FROM DUAL
 		</selectKey>
 	</insert>
@@ -41,23 +44,28 @@
 		(seq_apatt.nextval,#{adoc_no},#{apAtt_oriname},#{apAtt_rename},#{apAtt_path})
 	</insert>
 
-	<select id="selectOneApprovalDoc" parameterType="_int" resultType="approvalDoc">
+	<select id="selectOneApprovalDoc" parameterType="_int"
+		resultType="approvalDoc">
 		select doc.*, nvl(curappno,0) curappno
-		from approvalDoc doc, curappview
-        where doc.adoc_no=curappview.adoc_no(+) and doc.adoc_no=#{adoc_no}
+		from approvalDoc doc,
+		curappview
+		where doc.adoc_no=curappview.adoc_no(+) and doc.adoc_no=#{adoc_no}
 	</select>
 
-	<select id="selectApprovalAttach" parameterType="_int" resultType="approvalAttach">
+	<select id="selectApprovalAttach" parameterType="_int"
+		resultType="approvalAttach">
 		select * from approvalAttach where adoc_no=#{adoc_no}
 	</select>
 
-	<select id="selectApprovalStatus" parameterType="_int" resultType="approvalStatus">
+	<select id="selectApprovalStatus" parameterType="_int"
+		resultType="approvalStatus">
 		select st.*,emp_name,emp_signature,job_title from
 		approvalStatus st,
 		employee e, job j where st.adoc_no=#{adoc_no} and
 		st.emp_no=e.emp_no
 		and e.job_code=j.job_code
-		order by j.job_code desc, e.EMP_HIREDATE
+		order by j.job_code desc,
+		e.EMP_HIREDATE
 	</select>
 
 	<select id="selectApprovalDocForm" resultType="approvalForm">
@@ -65,43 +73,52 @@
 		approvalForm where aform_no=#{aform_no}
 	</select>
 
-	<select id="selectApprovalWait" parameterType="_int" resultType="approvalDoc">
+	<select id="selectApprovalWait" parameterType="_int"
+		resultType="approvalDoc">
 		select doc.*,form.aform_title from approvalDoc doc,
 		approvalForm form where
-		doc.aform_no=form.aform_no and adoc_status=0
+		doc.aform_no=form.aform_no and adoc_status in
+		(0,1)
 		and
 		adoc_writerno=#{emp_no} order by adoc_no desc
 	</select>
 
-	<select id="selectApprovalSubmit" parameterType="_int" resultType="approvalDoc">
+	<select id="selectApprovalSubmit" parameterType="_int"
+		resultType="approvalDoc">
 		select doc.*,form.aform_title from approvalDoc doc,
 		approvalForm form where
-		doc.aform_no=form.aform_no and adoc_status^=0
+		doc.aform_no=form.aform_no and adoc_status not
+		in (0,1)
 		and
 		adoc_writerno=#{emp_no} order by adoc_no desc
 	</select>
 
-	<select id="selectApprovalReceive" parameterType="_int" resultType="approvalDoc">
+	<select id="selectApprovalReceive" parameterType="_int"
+		resultType="approvalDoc">
 		SELECT
 		DOC.*,
 		EMP_NAME WRITERNAME,
 		AF.AFORM_TITLE,
-        cur.curappno
+		cur.curappno
 		FROM
 		APPROVALDOC DOC,
 		APPROVALFORM AF,
-		EMPLOYEE EMP,curappview cur
+		EMPLOYEE
+		EMP,curappview cur
 		WHERE
 		DOC.AFORM_NO = AF.AFORM_NO
-		AND DOC.ADOC_NO = cur.ADOC_NO
+		AND DOC.ADOC_NO =
+		cur.ADOC_NO
 		AND cur.curappno =#{emp_no}
-		AND DOC.ADOC_STATUS = 0
+		AND (DOC.ADOC_STATUS = 0 or
+		doc.adoc_status=1)
 		AND DOC.ADOC_WRITERNO = EMP.EMP_NO
 		ORDER BY
 		DOC.ADOC_NO DESC
 	</select>
 
-	<select id="selectApprovalComplete" parameterType="_int" resultType="approvalDoc">
+	<select id="selectApprovalComplete" parameterType="_int"
+		resultType="approvalDoc">
 		SELECT
 		DOC.*,
 		EMP_NAME WRITERNAME,
@@ -125,16 +142,24 @@
 	</select>
 
 	<update id="updateApprovalStatus" parameterType="approvalStatus">
-		update approvalStatus set as_status=#{as_status},
-		as_date=SYSDATE where adoc_no=#{adoc_no} and emp_no=#{emp_no}
+		update
+		approvalStatus set as_status=#{as_status},
+		as_date=SYSDATE where
+		adoc_no=#{adoc_no} and emp_no=#{emp_no}
 	</update>
 
 	<update id="updateApprovalDocStatus" parameterType="approvalDoc">
-		update approvalDoc set adoc_status=#{adoc_status} where adoc_no=#{adoc_no}
+		update
+		approvalDoc set adoc_status=#{adoc_status} where adoc_no=#{adoc_no}
 	</update>
 
 	<select id="selectCountApprovalStatus" resultType="_int">
-		select count(*) from approvalStatus where adoc_no=#{adoc_no} and as_status=1
+		select
+		count(*) from approvalStatus where adoc_no=#{adoc_no} and as_status=1
 	</select>
+
+	<delete id="deleteApprovalDoc" parameterType="_int">
+		delete from approvaldoc where adoc_no=#{adoc_no}
+	</delete>
 
 </mapper>

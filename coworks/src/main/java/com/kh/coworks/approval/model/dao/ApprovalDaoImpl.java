@@ -106,4 +106,9 @@ public class ApprovalDaoImpl implements ApprovalDao {
 		return sqlSession.selectOne("approval.selectCountApprovalStatus", adoc_no);
 	}
 
+	@Override
+	public int deleteApprovalDoc(int adoc_no) {
+		return sqlSession.delete("approval.deleteApprovalDoc", adoc_no);
+	}
+
 }

@@ -49,7 +49,14 @@
 													<td>${doc.adoc_subject }</td>
 													<td>${doc.aform_title }</td>
 													<td><fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" /></td>
-													<td><span class="label label-warning">진행중</span></td>
+													<td onclick="event.cancelBubble=true"><c:if test="${doc.adoc_status == '0'}">
+													<form action=""></form>
+															<button class="btn btn-danger btn-xs" onclick="deleteDoc('${doc.adoc_no}')">
+																<i class="mdi mdi-close"></i>삭제
+															</button>
+														</c:if> <c:if test="${doc.adoc_status == '1'}">
+															<span class="label label-success">1차 승인</span>
+														</c:if></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -71,5 +78,12 @@
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<script type="text/javascript">
+	function deleteDoc(adoc_no) {
+		if(confirm("이 결재서류를 삭제하시겠습니까?\n복구가 불가능합니다!")){
+			location.href="${pageContext.request.contextPath}/approval/approvalDoc/delete/"+adoc_no;
+		}
+	}
+	</script>
 </body>
 </html>

@@ -43,4 +43,6 @@ public interface ApprovalDao {
 
 	int selectCountApprovalStatus(int adoc_no);
 
+	int deleteApprovalDoc(int adoc_no);
+
 }

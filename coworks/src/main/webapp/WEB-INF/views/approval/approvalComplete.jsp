@@ -59,10 +59,13 @@
 																<span class="label label-warning">진행중</span>
 															</c:if>
 															<c:if test="${doc.adoc_status == '1'}">
-																<span class="label label-success">승인</span>
+																<span class="label label-success">1차 승인</span>
+															</c:if>
+															<c:if test="${doc.adoc_status eq '-1'}">
+																<span class="label label-danger">반려</span>
 															</c:if>
 															<c:if test="${doc.adoc_status eq '2'}">
-																<span class="label label-danger">반려</span>
+																<span class="label label-info">승인</span>
 															</c:if>
 														</td>
 													</tr>

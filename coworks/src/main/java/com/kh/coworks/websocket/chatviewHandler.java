@@ -33,10 +33,6 @@ public class chatviewHandler extends TextWebSocketHandler {
 		sessionList.add(session);
 		idMap.put(session, ((Employee) session.getAttributes().get("employee")).getEmp_no());
 
-		System.out.println(idMap);
-
-		System.out.println(sessionList);
-		// super.afterConnectionEstablished(session);
 	}
 
 	@Override
