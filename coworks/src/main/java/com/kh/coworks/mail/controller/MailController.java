@@ -439,7 +439,7 @@ public class MailController {
 		}
 		int result = 0;
 		mail.setMail_from_email(emp.getEmp_email());
-
+		mail.setMail_name("COWORKS : " +emp.getEmp_name());
 		result = mailService.mailFormEnd(mail, list);
 
 		String loc = "/mail/innerMail.do";
@@ -597,6 +597,7 @@ public class MailController {
 	@RequestMapping(value = "/mail/storeMail.do")
 	public String storeMail(@RequestBody String[] chkMails) {
 		// 외부에서 내부로 메일 저장하기
+		// 마크별 메일 보기
 		System.out.println("Store Mail 실행중");
 		System.out.println(chkMails.getClass());
 		if (chkMails != null)
