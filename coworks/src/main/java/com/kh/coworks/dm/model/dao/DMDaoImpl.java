@@ -71,6 +71,11 @@ public class DMDaoImpl implements DMDao {
 		return sqlSession.update("dm.updateDm",dm);
 	}
 
+	@Override
+	public List<DM> selectUnreadDM(int emp_no) {
+		return sqlSession.selectList("dm.selectUnreadDM", emp_no);
+	}
+
 
 
 

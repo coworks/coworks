@@ -66,6 +66,10 @@
 		select * from dm_to where dm_to = #{dm_to} and dm_no=#{dm_no}
 	</select>
 	 -->
+	 
+	 <select id="selectUnreadDM" parameterType="_int" resultType="dm">
+	 	select * from dmview where dm_to_read='N' and dm_to=#{emp_no}
+	 </select>
 	
 	<update id="updateDm" parameterType="dm" >
 		update dm set dm_from_del = #{dm_from_del} ,dm_to_del = #{dm_to_del} , dm_to_read=#{dm_to_read} where  dm_no=#{dm_no}

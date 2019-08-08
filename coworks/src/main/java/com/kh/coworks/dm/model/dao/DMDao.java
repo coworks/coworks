@@ -30,6 +30,8 @@ public interface DMDao {
 
 	int updateDm(DM dm);
 
+	List<DM> selectUnreadDM(int emp_no);
+
 
 
 }

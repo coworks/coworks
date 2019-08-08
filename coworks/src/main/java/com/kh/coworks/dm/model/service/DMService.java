@@ -31,6 +31,8 @@ public interface DMService {
 
 	int updateDm(DM dm);
 
+	List<DM> selectUnreadDM(int emp_no);
+
 
 
 	

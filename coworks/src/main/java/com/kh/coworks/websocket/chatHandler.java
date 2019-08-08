@@ -41,7 +41,6 @@ public class chatHandler extends TextWebSocketHandler {
 
 		session.sendMessage(new TextMessage(chatJson));
 
-		super.afterConnectionEstablished(session);
 	}
 
 	@Override

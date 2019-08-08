@@ -79,9 +79,9 @@
 
 				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
 						class="mdi mdi-message-reply-text"
-					></i> <!-- <div class="notify">
+					></i><div class="notify" id="chatHeartbit" style="display: none;">
 							<span class="heartbit"></span> <span class="point"></span>
-						</div> -->
+						</div> 
 				</a>
 					<div class="dropdown-menu mailbox animated slideInDown" aria-labelledby="2">
 						<ul>

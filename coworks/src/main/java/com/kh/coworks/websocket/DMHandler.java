@@ -34,7 +34,7 @@ public class DMHandler extends TextWebSocketHandler {
 
 		Employee loginEmployee = (Employee) session.getAttributes().get("employee");
 
-		String DMJson = new Gson().toJson(dmSrv.receiveDMList(loginEmployee.getEmp_no()));
+		String DMJson = new Gson().toJson(dmSrv.selectUnreadDM(loginEmployee.getEmp_no()));
 
 		session.sendMessage(new TextMessage(DMJson));
 

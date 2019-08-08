@@ -45,7 +45,7 @@ public class ChatController {
 		model.addAttribute("croom", chatService.selectCroom(cr));
 		model.addAttribute("empList", employeeService.selectEmployeeList());
 		model.addAttribute("deptList", employeeService.selectDeptEmpCount());
-		model.addAttribute("chatEmp", chatService.selectChatEmp(croom_no));
+		model.addAttribute("chatEmp", new Gson().toJson(chatService.selectChatEmp(croom_no)));
 
 		return "chat/chatting";
 	}

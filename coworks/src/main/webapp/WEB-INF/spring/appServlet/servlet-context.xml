@@ -69,6 +69,11 @@
 			<mapping path="/mail/**/*" />
 			<mapping path="/mypage/**/*" />
 			<mapping path="/survey/**/*" />
+			<mapping path="/chat/**/*" />
+			<mapping path="/dm/**/*" />
+			<mapping path="/todo/**/*" />
+			<mapping path="/contact/**/*" />
+			<mapping path="/pay/**/*" />
 
 			<mapping path="/common/gomain.do" />
 			<!-- ★★★★★ 추가해주세요 여러분 ~ (세션없이 넘어갈수 없게)★★★★★★ -->

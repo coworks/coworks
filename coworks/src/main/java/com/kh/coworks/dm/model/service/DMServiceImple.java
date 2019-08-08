@@ -78,6 +78,11 @@ public class DMServiceImple implements DMService {
 	public int updateDm(DM dm) {
 		return dmDao.updateDm(dm);
 	}
+	
+	@Override
+	public List<DM> selectUnreadDM(int emp_no){
+		return dmDao.selectUnreadDM(emp_no);
+	}
 
 
 

@@ -49,8 +49,9 @@
 											</button></li>
 										<c:if test="${croomList.size() ne 0 }">
 											<c:forEach var="chatroom" items="${croomList }">
-												<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" value="link${chatroom.croom_no }"> <span><b>${chatroom.croom_title } </b>
-															<p class="text-muted ml-2 text-overflow">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }"
+												<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" id="room${chatroom.croom_no }"> <span><b >${chatroom.croom_title } </b>
+															<span class='label label-warning chat-Notify' style="display: none; color: white;">New</span>
+															<p class="text-muted ml-2 text-overflow chat-content">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }"
 																	pattern="yyyy-MM-dd HH:mm"
 																/></small></span></a></li>
 											</c:forEach>
@@ -197,10 +198,8 @@
 								<div class="col-4">
 									<label><b>현재 채팅 멤버</b></label>
 									<div style="overflow: auto; height: 300px;">
-										<ul class="list-icons">
-											<c:forEach var="chatMem" items="${chatEmp }">
-												<li><i class="ti-angle-right"></i>${chatMem.emp_name }/${chatMem.dept_name }/${chatMem.job_title }</li>
-											</c:forEach>
+										<ul class="list-icons" id="chatEmp">
+											
 										</ul>
 									</div>
 								</div>
@@ -234,7 +233,7 @@
 			var emp_no=${employee.emp_no};
 			$('#create-chatroom input[value='+emp_no+']').prop('checked','checked').attr('disabled', 'disabled');
 			
-			$('a[value=link' + croom_no + ']').addClass('active');
+			$('#room' + croom_no).addClass('active');
 
 			var chatListJson = ${chatList};
 			for (var i = 0; i < chatListJson.length; i++) {
@@ -243,6 +242,15 @@
 
 			/* $('#chatList').scrollTop($('#chatList').get(0).scrollHeight); */
 			pageDown();
+			
+			
+			var chatEmp=${chatEmp };
+			
+			for(var i=0;i<chatEmp.length;i++){
+			   $('#chatEmp').append("<li><i class='ti-angle-right'></i>"+chatEmp[i].emp_name+"/"+chatEmp[i].dept_name+"/"+chatEmp[i].job_title+"</li>");
+			   $('#invite-chatroom input[value='+chatEmp[i].emp_no+']').prop('checked','checked').attr('disabled', 'disabled');
+			}
+			
 
 			$('#sendChat').on('click', sendMSG);
 			$('#sendMSG').keypress(function(e) {
@@ -277,10 +285,14 @@
 
 		chattingSock.onmessage = function(evt) {
 			var data = JSON.parse(evt.data);
+			$('#room' + data.croom_no+' .chat-content').html(data.chat_content);
 			if(data.croom_no==croom_no){
-			appendMSG(data);
-			pageDown();}
-
+				appendMSG(data);
+				pageDown();
+			} else {
+				console.log($('#room'+data.croom_no));
+				$('#room'+data.croom_no+' .chat-Notify').show();
+			}
 		}
 
 		function pageDown() {
