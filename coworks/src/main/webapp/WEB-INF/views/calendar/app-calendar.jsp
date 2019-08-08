@@ -216,7 +216,7 @@
 											<input id="cal_beginDate" name="cal_beginDate" type="hidden" />
 											<input id="cal_endDate" name="cal_endDate" type="hidden" />
 
-											<button type="button" id="insertbutton"
+											<button type="submit" id="insertbutton"
 												class="btn btn-danger btn-block waves-effect waves-light">
 												<i class="ti-plus"></i> 추가
 											</button>
@@ -224,30 +224,9 @@
 									</div>
 								</form>
 							</div>
-							<!-- <script>
-								$('#insertbutton')
-										.on(
-												"click",
-												function() {
-													var auth_cal = '${sessionScope.authority.auth_cal}';
-													var type = $('#cal_type')
-															.val();
-
-													console.log(auth_cal);
-													console.log(type);
-													if (auth_cal == 'Y'
-															&& type == '회사') {
-														console.log('권한없음');
-														alert("권한이 없습니다.");
-														return;
-													} else {
-														console.log('성공');
-														$('#insertCalendar')
-																.submit();
-													}
-
-												});
-							</script> -->
+							  <script>
+								 
+							</script>  
 
 						</div>
 					</div>

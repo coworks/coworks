@@ -97,19 +97,9 @@ public class AttendanceController {
 		}
 		 
 		 
+		
 		 
-		 InetAddress local;
-		 String ip = null;
-		 
-		 try {
-		     local = InetAddress.getLocalHost();
-		    ip = local.getHostAddress();
-		     System.out.println("local ip : "+ip);
-		 } catch (UnknownHostException e1) {
-		     e1.printStackTrace();
-		 }
-		 
-		attend.setAtten_leaveIP(ip);	
+		attend.setAtten_leaveIP(request.getRemoteAddr());	
 		attend.setEmp_no(employee.getEmp_no());	//나중에 세션에서 받아오기
 		attend.setAtten_leaveTime(time); 	// 퇴근찍은 시간	 
 		int no=Integer.parseInt(atten_no);

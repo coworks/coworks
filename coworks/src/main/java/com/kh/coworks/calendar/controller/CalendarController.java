@@ -32,9 +32,10 @@ public class CalendarController {
 	@RequestMapping("/calendar/calendarview.do")
 	public ModelAndView selectListAllCalendar(ModelAndView mv,HttpServletRequest request) {
 		
-		
-		Employee employee=(Employee) request.getSession().getAttribute("employee");
-		 
+
+		HttpSession session = request.getSession(false);
+		Employee employee=(Employee) session.getAttribute("employee");
+	
 		Calendar cal=new Calendar();
 		HashMap<String,String> hmap=new HashMap<>();
 		hmap.put("emp_no",Integer.toString(employee.getEmp_no()));
