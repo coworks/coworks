@@ -51,13 +51,14 @@
 								<div class="dropdown float-right ">
 									<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">교육 유형</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<input type="button" class="dropdown-item" id="type0" name="type0" value='전체' onclick="location.href='${pageContext.request.contextPath}/education/eduApplyview.do'" /> <input type="button"
-											class="dropdown-item" id="type1" name="type1" value='마케팅' onclick="fnonclick('마케팅')"
-										/> <input type="button" class="dropdown-item" id="type2" name="type2" value='컴퓨터' onclick="fnonclick('컴퓨터')" /> <input type="button" class="dropdown-item" id="type3" name="type3"
-											value='회계' onclick="fnonclick('회계')"
-										/> <input type="button" class="dropdown-item" id="type4" name="type4" value='외국어' onclick="fnonclick('외국어')" /> <input type="button" class="dropdown-item" id="type5" name="type5"
-											value='기타' onclick="fnonclick('기타')"
-										/>
+										<input type="button" class="dropdown-item" id="type0" name="type0" value='전체' onclick="location.href='${pageContext.request.contextPath}/education/eduApplyview.do'" /> 
+										<input type="button" class="dropdown-item" id="type1" name="type1" value='마케팅' onclick="fnonclick('마케팅')"/>
+										<input type="button" class="dropdown-item" id="type2" name="type2" value='컴퓨터' onclick="fnonclick('컴퓨터')" /> 
+										<input type="button" class="dropdown-item" id="type3" name="type3" value='자기계발' onclick="fnonclick('자기계발')"/> 
+										<input type="button" class="dropdown-item" id="type4" name="type4" value='외국어' onclick="fnonclick('외국어')" /> 
+										<input type="button" class="dropdown-item" id="type5" name="type5" value='경영이해' onclick="fnonclick('경영이해')"/>
+										<input type="button" class="dropdown-item" id="type6" name="type6" value='조직적응' onclick="fnonclick('조직적응')"/> 
+										<input type="button" class="dropdown-item" id="type7" name="type7" value='기타' onclick="fnonclick('기타')"/>
 									</div>
 								</div>
 
