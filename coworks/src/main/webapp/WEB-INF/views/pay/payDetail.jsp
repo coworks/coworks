@@ -181,7 +181,7 @@ table{
 												<td class="jsgrid-cell jsgrid-align-center"
 													style="width: 70px;">급여 계</td>
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 70px;">${pay.pay_mtotal}</td>
+													style="width: 70px;">${pay.pay_ptotal}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
 													style="width: 70px;">차감 수령액</td>
 												<td class="jsgrid-cell jsgrid-align-center"

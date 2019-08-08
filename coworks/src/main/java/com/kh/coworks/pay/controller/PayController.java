@@ -150,8 +150,12 @@ public class PayController {
 		String d = "";
 		if (list.get(0).get("D").length() <= 1)
 			m = "0" + list.get(0).get("D");
+		else
+			m =  list.get(0).get("D");
 		if (list.get(0).get("F").length() <= 1)
 			d = "0" + list.get(0).get("F");
+		else 
+			d =  list.get(0).get("F");
 
 		tem = tem + m + d;
 		System.out.println(tem);

@@ -278,11 +278,11 @@ public class ExcelWrite {
             
             cell = row.createCell(1);
             cell.setCellValue(emp.getEmp_name());
+			/*
+			 * cell = row.createCell(2); cell.setCellValue(emp.getDept_name());
+			 */
             
             cell = row.createCell(2);
-            cell.setCellValue(emp.getDept_name());
-            
-            cell = row.createCell(3);
             cell.setCellValue(emp.getJob_title());
 
 			/*
@@ -300,7 +300,7 @@ public class ExcelWrite {
         
 		HttpSession session = request.getSession();
         String saveDir = session.getServletContext().getRealPath("/resources/pay/payroll");
-        File file = new File(saveDir+"/"+y+m+d+"_급여명세서.xls");
+        File file = new File(saveDir+"/"+y+m+d+"_급여명세서.xlsx");
 //        File file = new File("C:\\excel\\testWrite.xls");
         FileOutputStream fos = null;
         // 입력된 내용 파일로 쓰기
