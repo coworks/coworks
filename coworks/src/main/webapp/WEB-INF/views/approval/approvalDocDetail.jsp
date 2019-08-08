@@ -22,7 +22,7 @@
 div p {
 	white-space: normal;
 }
-</style>
+</style> 
 <link href="${pageContext.request.contextPath }/resources/approval/css/print.css" rel="stylesheet" media="print">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
