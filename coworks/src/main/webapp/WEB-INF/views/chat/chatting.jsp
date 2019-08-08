@@ -191,7 +191,7 @@
 										</ul>
 									</div>
 								</div>
-							</div>
+							</div> 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">닫기</button>
 								<button type="submit" class="btn btn-success waves-effect waves-light">저장하기</button>
