@@ -93,7 +93,9 @@ list-style-type: none;float: left;
                                         <h3 class="card-title">쪽지 작성하기</h3>
                                         <div class="form-group">
                                         <c:if test="${type eq 'reply'}">
-                                            <div class="form-group dm_to_list" name="dm_to_list" id="dm_to_list" value="${dm.dm_to }">
+                                            <div class="form-group dm_to_list" name="dm_to_list" id="dm_to_list" value="${dm.dm_to}">
+                                            	<input type='text' id="${dm.dm_to}"value="${emp.emp_name}" class='btn btn-outline-secondary col-2 to_do_emp form-control' 
+                                            onclick='deleteTo(${dm.dm_to });' name='to_do_emp'>
                                           </c:if> 
                                           <c:if test="${type ne 'reply' }">
                                             <div class="form-group dm_to_list" name="dm_to_list" id="dm_to_list" >
@@ -104,13 +106,16 @@ list-style-type: none;float: left;
                                         <c:if test="${type eq 'forward'}">
                                         	<input class="form-control" name="dm_subject" style='margin-top:2%;'  value="${dm.dm_subject }">
                                          </c:if>
-                                          <c:if test="${type ne 'forward'}">
+                                         <c:if test="${type ne 'forward'}">
                                             <input class="form-control" name="dm_subject"  style='margin-top:2%;' placeholder="제목 : ">
                                            </c:if>
                                         </div>
                                         <div class="form-group">
                                             <textarea class="textarea_editor form-control col-12" name="dm_content" rows="15" placeholder="">
- 	                                            </textarea>
+ 	                                        	<c:if test="${type eq 'forward'}">
+ 	                                        		${dm.dm_content }
+ 	                                        	</c:if>
+ 	                                        </textarea>
                                         </div>
                                        <!--  <div id="myDropzone" name="dropzone">
                                          <input name="upFile" type="file"class="dropzone"  multiple />

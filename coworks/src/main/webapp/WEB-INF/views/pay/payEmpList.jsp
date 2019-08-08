@@ -135,10 +135,18 @@
 		
 	
 	$(document).on("click", "#modalSubmit",function(){
-		if($("#paydate").val() == null){
+		/* return; */
+		
+		if($("#paydate").val()== ""){
 			alert("날짜 입력");
 			return;
+		
 		}
+		/* 
+		if($("#empList").attr('value') == false){
+			alert("사원 입력");
+			return;
+		}  */
 		
 		console.log($("#paydate").val());
 		

@@ -25,7 +25,7 @@
 							<li class="list-group-item"><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
 								<ul>
 									<c:forEach var="deptEmp" begin="1" end="${dept.COUNT }" step="1">
-										<li><label> <input class="hummingbirdNoParent" name="signList" value="${empList[index].emp_no}" type="checkbox" data-name="${empList[index].emp_name }" data-job="${empList[index].job_title }" data-dept="${empList[index].dept_name }"> ${empList[index].emp_name } ( ${empList[index].job_title } )
+										<li><label> <input class="hummingbirdNoParent" id="empList" name="empList" value="${empList[index].emp_no}" type="checkbox" data-name="${empList[index].emp_name }" data-job="${empList[index].job_title }" data-dept="${empList[index].dept_name }"> ${empList[index].emp_name } ( ${empList[index].job_title } )
 										</label></li>
 										<c:set var="index" value="${index+1 }"></c:set>
 									</c:forEach>
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</button>
+				<div type="button" class="btn btn-default waves-effect" data-dismiss="modal">닫기</div>
 				<div type="button" class="btn btn-success waves-effect waves-light" id="modalSubmit">저장하기</div>
 			</div>
 			</form>

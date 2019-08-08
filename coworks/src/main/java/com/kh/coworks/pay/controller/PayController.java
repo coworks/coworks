@@ -280,14 +280,14 @@ public class PayController {
 	@RequestMapping(value = "/pay/writePayExcel.do")
 	@ResponseBody
 	public void writePayExcel(HttpServletRequest request,HttpServletResponse response,
-			@RequestParam("signList") int[] signList,
+			@RequestParam("empList") int[] empList,
 			@RequestParam(value="paydate") String paydate) {
 		// 엑셀로 쓸 데이터 생성
 
 //      부서 선택해서 값 입력 받기!! 모달창으로 입력 받자 
 		System.out.println(paydate.toString());
 		List<Employee> list = new ArrayList<Employee>();
-		for (int emp : signList)
+		for (int emp : empList)
 			list.add(employeeService.selectOneEmployee(emp));
 
 		ExcelWrite excelWriter = new ExcelWrite();
