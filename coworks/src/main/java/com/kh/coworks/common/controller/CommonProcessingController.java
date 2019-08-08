@@ -102,7 +102,7 @@ public class CommonProcessingController {
 		}
 		// ************
 
-		// 2019-07-03 19:30:00.0
+		// ip받아오기
 		InetAddress local;
 		String ip = null;
 		try {
