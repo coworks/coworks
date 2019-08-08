@@ -72,7 +72,9 @@
 											<label class="control-label text-right col-3">주소 : </label>
 											<div class=" col-9">
 												<p class="form-control-static">
-												${sessionScope.employee.emp_address }</p>
+												<c:set var="address" value="${fn:split(sessionScope.employee.emp_address, '/')}"/>
+												${ address[0]} ${ address[1]}
+												</p>
 											</div>
 										</div>
 									</div>
@@ -82,7 +84,7 @@
 										<div class=" row">
 											<label class="control-label text-right col-3">개인서명 : </label>
 											<div class="col-9">
-												<img src="${pageContext.request.contextPath}/resources/images/empSign/${ sessionScope.employee.emp_signature }" alt="개인서명" height="50px" width="50px" />
+												<img src="${pageContext.request.contextPath}/resources/approval/empSign/${ sessionScope.employee.emp_signature }" alt="개인서명" height="50px" width="50px" />
 											</div>
 										</div>
 									</div>

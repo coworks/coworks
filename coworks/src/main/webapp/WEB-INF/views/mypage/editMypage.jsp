@@ -26,10 +26,10 @@
 						<div class="card">
 							<div class="card-body col-8 align-self-center">
 								<h3 class="box-title text-themecolor">회원정보 수정</h3>
-								<form class="form-control-line mt-5 form-group-danger" method="post" action="editMypageEnd.do" id="update" enctype="multipart/form-data">
+								<form class="form-control-line mt-5 form-group-danger" method="post" action="editMypageEnd.do" id="update" enctype="multipart/form-data" >
 									
 									<div class="form-group">
-										<label class="fontw"><i class=" ti-help-alt"></i>　현재 비밀번호</label> <input type="password" name="pre_password" id="pre_password" class="form-control" placeholder="password">
+										<label class="fontw"><i class=" ti-help-alt"></i>　현재 비밀번호</label> <input type="password" name="pre_password" id="pre_password" class="form-control" placeholder="password" required="required">
 									</div>
 									<input type="hidden" value="${sessionScope.employee.emp_password}" id="hiddenPw"/>
 									<br>
@@ -74,8 +74,9 @@
 												
 											</div>
 										</div>
-										<input type="text" name="address1" id="sample6_address" placeholder="주소" value="${ sessionScope.employee.emp_address }" class="form-control mb-2"> 
-										<input type="text" name="address2" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> 
+										<c:set var="address" value="${fn:split(sessionScope.employee.emp_address, '/')}"/>
+										<input type="text" name="address1" id="sample6_address" placeholder="주소" value="${ address[0]}" class="form-control mb-2"> 
+										<input type="text" name="address2" id="sample6_detailAddress" placeholder="상세주소" class="form-control" value="${ address[1]}"> 
 										<input type="hidden" id="sample6_extraAddress" class="form-control mb-2" placeholder="참고항목"
 										>
 									</div>
@@ -89,7 +90,7 @@
 											<span class="input-group-addon btn btn-secondary btn-file"> <span class="fileinput-new">선택하기</span> <span class="fileinput-exists">바꾸기</span> <input type="file" name="...">
 											</span> <a href="#" class="input-group-addon btn btn-danger fileinput-exists ml-1" data-dismiss="fileinput">삭제</a>
 										</div> -->
-										<input type="file" id="input-file-now-custom-1" class="dropify" name="emp_signature1" data-default-file="${pageContext.request.contextPath }/resources/images/empSign/stamp.png" />
+										<input type="file" id="input-file-now-custom-1" class="dropify" name="signature" data-default-file="${pageContext.request.contextPath }/resources/approval/empSign/${ sessionScope.employee.emp_signature }" required="required" />
 
 									</div>
 

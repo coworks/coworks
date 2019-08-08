@@ -833,12 +833,18 @@ CREATE SEQUENCE SEQ_CALENDAR
   
   --------------------------------------
   
-  CREATE OR REPLACE VIEW "EMPVIEW" ("EMP_NO", "EMP_NAME", "EMP_PASSWORD", "JOB_CODE", "DEPT_CODE", "EMP_PHONE", "EMP_EMAIL", "EMP_EMAILPASSWORD", "EMP_BIRTH", "EMP_GENDER", "EMP_HIREDATE", "EMP_RESIGNDATE", "EMP_ISWORK", "EMP_SIGNATURE", "EMP_AUTHORITY", "DEPT_NAME", "JOB_TITLE") AS 
+--------------------------------------------------------
+--  DDL for View EMPVIEW
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE VIEW "COWORKS"."EMPVIEW" ("EMP_NO", "EMP_NAME", "EMP_PASSWORD", "JOB_CODE", "DEPT_CODE", "EMP_PHONE", "EMP_EMAIL", "EMP_EMAILPASSWORD", "EMP_BIRTH", "EMP_GENDER", "EMP_HIREDATE", "EMP_RESIGNDATE", "EMP_ISWORK", "EMP_SIGNATURE", "EMP_AUTHORITY", "EMP_ADDRESS", "DEPT_NAME", "JOB_TITLE") AS 
   SELECT 
-    employee."EMP_NO",employee."EMP_NAME",employee."EMP_PASSWORD",employee."JOB_CODE",employee."DEPT_CODE",employee."EMP_PHONE",employee."EMP_EMAIL",employee."EMP_EMAILPASSWORD",employee."EMP_BIRTH",employee."EMP_GENDER",employee."EMP_HIREDATE",employee."EMP_RESIGNDATE",employee."EMP_ISWORK",employee."EMP_SIGNATURE",employee."EMP_AUTHORITY",department.dept_name, job_title
+    employee."EMP_NO",employee."EMP_NAME",employee."EMP_PASSWORD",employee."JOB_CODE",employee."DEPT_CODE",employee."EMP_PHONE",employee."EMP_EMAIL",employee."EMP_EMAILPASSWORD",employee."EMP_BIRTH",employee."EMP_GENDER",employee."EMP_HIREDATE",employee."EMP_RESIGNDATE",employee."EMP_ISWORK",employee."EMP_SIGNATURE",employee."EMP_AUTHORITY",employee."EMP_ADDRESS",department.dept_name, job_title
 FROM 
     employee, department, job
-where employee.dept_code=department.dept_code and employee.job_code=job.job_code;
+where employee.dept_code=department.dept_code and employee.job_code=job.job_code
+;
+
 
 --------------------------------------------------------
 --  DDL for View CURAPPVIEW

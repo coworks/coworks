@@ -160,7 +160,9 @@
 			EMP_PASSWORD = #{emp_password},
 			EMP_EMAIL = #{emp_email},
 			EMP_EMAILPASSWORD=#{emp_emailpassword},
-			EMP_ADDRESS=#{emp_address}
+			EMP_ADDRESS=#{emp_address},
+			emp_signature=#{emp_signature},
+			EMP_PHONE=#{emp_phone}
 		WHERE
 			EMP_NO = #{emp_no}
 			
