@@ -32,7 +32,7 @@
 				<div class="card">
 					<div class="card-body">
 						<h2 class="card-title">급여관리</h2>
-						<div class="row mb-3 col-5" style="margin-left: 30%; margin-top: 30px;">
+						<div class="row mb-3 col-5" style="margin-left: 30%; margin-top:6%; ">
 							<select class="form-control custom-select" style="width: 20%"
 							id="searchCondition" name="searchCondition">
 								<option value="">----</option>
@@ -40,13 +40,14 @@
 								<option value="jobtitle">직급</option>
 								<option value="deptname">부서</option>
 							</select>
-							<div class="input-group " style="width: 80%">
+							<div class="input-group " style="width: 80%;margin-bottom:8%;  ">
 								<input type="search" id="keyword" class="form-control" >
 								<button class="btn btn-info" type="button"   onclick="search();">검색</button>
 							</div>
 						</div>
-					
-						<input type="button" class="btn  btn-outline-info" id="payFile" name="payFile" value="급여명세서 입력하기(EXCEL)"
+						<input type="button" class="btn  btn-outline-info" id="payFileDown" name="payFileDown" value="EXCEL 파일 다운받기"
+						onclick="location.href='${pageContext.request.contextPath}/pay/writePayExcel'	">
+						<input type="button" class="btn  btn-outline-info" id="payFile" name="payFile" value="EXCEL 입력하기"
 						onclick="location.href='${pageContext.request.contextPath}/pay/payInputForm.do'	">
 						<input type="button" class="btn  btn-outline-info" id="payDirect" name="payDirect" value="급여명세서 입력하기"
 						onclick="location.href='${pageContext.request.contextPath}/pay/payDirect.do'	">

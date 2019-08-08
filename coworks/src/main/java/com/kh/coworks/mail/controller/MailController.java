@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.Authenticator;
@@ -92,7 +93,7 @@ public class MailController {
 //	}
 
 	@RequestMapping("/mail/sendingMail.do")
-	public void sendingMail(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request) {
+	public void sendingMail(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request, MultipartFile[] upFile) {
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
 
@@ -107,7 +108,26 @@ public class MailController {
 			msg.setRecipient(Message.RecipientType.TO, to);
 			msg.setSubject(mail.getMail_subject(), "UTF-8");
 
-			msg.setText(mail.getMail_content(), "UTF-8");
+//			msg.setText(mail.getMail_content(), "UTF-8");
+			
+			//-----------------------------------------------
+			MimeBodyPart mbp = new MimeBodyPart();
+			mbp.setText(mail.getMail_content());
+			File conFile = new File(upFile[0].getOriginalFilename());
+			try {
+				upFile[0].transferTo(conFile);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			FileDataSource fds = new FileDataSource(conFile.getAbsolutePath());
+			
+			MimeBodyPart mbp1 = new MimeBodyPart();
+			mbp1.setDataHandler(new DataHandler(fds));
+			mbp1.setFileName(fds.getName());
+			Multipart mp = new MimeMultipart();
+			mp.addBodyPart(mbp); 
+			mp.addBodyPart(mbp1);
+			//-----------------------------------------------
 
 			if (msg != null)
 				Transport.send(msg,emp.getEmp_email(),emp.getEmp_emailpassword());
@@ -407,6 +427,7 @@ public class MailController {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
 					int rndNum = (int) (Math.random() * 1000);
 					String renamedName = sdf.format(new Date()) + "_" + rndNum + "." + ext;
+					
 					try {
 						f.transferTo(new File(saveDir + "/" + renamedName));
 						System.out.println(f.getName());
@@ -415,6 +436,7 @@ public class MailController {
 						e.printStackTrace();
 					}
 //					savePath = "resources/mail/attach";
+					
 					MailAttach at = new MailAttach();
 					at.setAttach_path(saveDir);
 					at.setAttach_oriname(originalName);
@@ -425,20 +447,17 @@ public class MailController {
 			}
 		}
 		int result = 0;
-		System.out.println("mailFormEnd emp.getEmp_email " + emp.getEmp_email());
-		System.out.println("mailFormEnd wqe : ");
 		mail.setMail_from_email(emp.getEmp_email());
 
 		result = mailService.mailFormEnd(mail, list);
-		System.out.println("list size " + list.size());
 
 		String loc = "/mail/innerMail.do";
 		String msg = "";
 		if (result > 0) {
-			sendingMail(mail, model, list, request);
+			sendingMail(mail, model, list, request , upFile);
 			msg = "등록 성공!";
 		} else {
-			msg = "메일 전송 실패!";
+			msg = "메일 전송 실패!";	
 		}
 
 //		model.addAttribute("loc", loc).addAttribute("msg", msg);
