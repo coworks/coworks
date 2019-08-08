@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.net.InetAddress, com.kh.coworks.attendance.model.vo.Attendance"%>
+	pageEncoding="UTF-8"
+	import="java.net.InetAddress, com.kh.coworks.attendance.model.vo.Attendance"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
- 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,27 +13,38 @@
 
 <title>CO-WORKS</title>
 <!-- Calendar CSS -->
-<link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" />
-<link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/css/asColorPicker.css" rel="stylesheet">
-    <!-- Date picker plugins css -->
-    <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
-    <!-- Daterange picker plugins css -->
-    <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
-   
-   <c:import url="views/common/header.jsp" />
-   
-   <style>
-   	.detail-box{
-	    border-bottom: solid #E6E6E6 1px !important;
-	}
-	.detail-list{
-		border: solid #E6E6E6 1px !important;
-		padding : 85px 0;
-		text-align : center;
-		margin-top : 20px;
-	}
-   </style>
+<link
+	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.css"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/css/asColorPicker.css"
+	rel="stylesheet">
+<!-- Date picker plugins css -->
+<link
+	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css"
+	rel="stylesheet" type="text/css" />
+<!-- Daterange picker plugins css -->
+<link
+	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.css"
+	rel="stylesheet">
+
+<c:import url="views/common/header.jsp" />
+
+<style>
+.detail-box {
+	border-bottom: solid #E6E6E6 1px !important;
+}
+
+.detail-list {
+	border: solid #E6E6E6 1px !important;
+	padding: 85px 0;
+	text-align: center;
+	margin-top: 20px;
+}
+</style>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -61,45 +73,55 @@
 							<div class="card-body">
 								<div class="m-2">
 									<jsp:useBean id="now" class="java.util.Date" />
-									<fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일" var="today" />
+									<fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일"
+										var="today" />
 									<h4 class="card-title">
 										<c:out value="${today}" />
 									</h4>
 									<p class="card-text" id="time">
-									<c:if test="${atten.atten_date==null && atten.atten_date==null}" >
-									<p>출근가능시간 : 07:00 이후<br>
-									</c:if>    
-									<c:if test="${atten.atten_attTime!=null && atten.atten_date!=null}" >
-										 
-										<span id="span1"> 
-											출근 시간 : ${atten.atten_attTime} &nbsp; &nbsp; &nbsp; &nbsp;
-											출근 IP : ${atten.atten_attIP}
-										</span>
-									</c:if>	
-									<c:if test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}" >
-										<br><span id="span2">
-											퇴근 시간 : ${atten.atten_leaveTime} &nbsp; &nbsp; &nbsp; &nbsp;
-											퇴근 IP : ${atten.atten_leaveIP}
-										</span><br>
-									 </c:if>
-										
-									  
-									 </p> 
-									 <c:choose>
-									 	<c:when test="${atten.atten_attTime==null && atten.atten_date==null}" >
-											<button type="button" id="attendFail" class="btn waves-effect waves-light btn-block btn-outline-warning">출근하기</button>
-										 </c:when>
-										 <c:when test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}" >
-											<button type="button" id="leaveSucess" class="btn waves-effect waves-light btn-block btn-outline-info" disabled="true">퇴근완료</button>
-										 </c:when>
-										   <c:otherwise>
-											<button type="button" id="leavebutton" onclick="onclick1(${atten.atten_no});" class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
-										 </c:otherwise>
-									 </c:choose>
+										<c:if
+											test="${atten.atten_date==null && atten.atten_date==null}">
+											<p>
+												출근가능시간 : 07:00 이후<br>
+										</c:if>
+										<c:if
+											test="${atten.atten_attTime!=null && atten.atten_date!=null}">
+
+											<span id="span1"> 출근 시간 : ${atten.atten_attTime}
+												&nbsp; &nbsp; &nbsp; &nbsp; 출근 IP : ${atten.atten_attIP} </span>
+										</c:if>
+										<c:if
+											test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}">
+											<br>
+											<span id="span2"> 퇴근 시간 : ${atten.atten_leaveTime}
+												&nbsp; &nbsp; &nbsp; &nbsp; 퇴근 IP : ${atten.atten_leaveIP} </span>
+											<br>
+										</c:if>
+
+
+									</p>
+									<c:choose>
+										<c:when
+											test="${atten.atten_attTime==null && atten.atten_date==null}">
+											<button type="button" id="attendFail"
+												class="btn waves-effect waves-light btn-block btn-outline-warning">출근하기</button>
+										</c:when>
+										<c:when
+											test="${atten.atten_leaveTime!=null && atten.atten_leaveIP!=null}">
+											<button type="button" id="leaveSucess"
+												class="btn waves-effect waves-light btn-block btn-outline-info"
+												disabled="true">퇴근완료</button>
+										</c:when>
+										<c:otherwise>
+											<button type="button" id="leavebutton"
+												onclick="onclick1(${atten.atten_no});"
+												class="btn waves-effect waves-light btn-block btn-outline-danger">퇴근하기</button>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>
-						
+
 						<script>
 						 
 						$('#attendFail').on("click",function(){
@@ -133,84 +155,96 @@
 									data-toggle="modal" data-target="#addtodohome">
 									<i class="fas fa-plus"></i>
 								</button>
-								<h4 class="card-title">${ sessionScope.employee.emp_name }의 To Do list <c:if
-													test="${todoList.size() ne 0 }">
-													<span class="badge badge-danger">${todoList.size() }</span>
-												</c:if></h4>
+								<h4 class="card-title">${ sessionScope.employee.emp_name }의
+									To Do list
+									<c:if test="${todoList.size() ne 0 }">
+										<span class="badge badge-danger">${todoList.size() }</span>
+									</c:if>
+								</h4>
 								<!-- ============================================================== -->
 								<!-- To do list widgets -->
 								<!-- ============================================================== -->
 								<div class="to-do-widget mt-3">
 									<!-- .modal for add task -->
 									<div id="addtodohome" class="modal" tabindex="-1" role="dialog"
-										aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+										aria-labelledby="myModalLabel" aria-hidden="true"
+										style="display: none;">
 										<div class="modal-dialog">
-											<form method="post" action="addtodohome.do" name="addtodohome">
+											<form method="post" action="addtodohome.do"
+												name="addtodohome">
 												<div class="modal-content">
-						<div class="modal-header">
-							<h2 class="modal-title" id="myModalLabel">TODO 추가하기</h2>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">×</button>
-						</div>
-						<div class="col-md-12">
-							<div class="form-group has-success">
-								<br> <label class="control-label">상태</label> <select
-									id="todo_condition" name="todo_condition"
-									class="form-control custom-select">
-									<option value="1"></option>
-									<option value="0" style="color: red; font-weight: bold;">긴급</option>
-									<option value="1" style="color: orange; font-weight: bold;">보통</option>
-									<option value="2" style="color: green; font-weight: bold;">여유</option>
-								</select>
-							</div>
-						</div>
+													<div class="modal-header">
+														<h2 class="modal-title" id="myModalLabel">TODO 추가하기</h2>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">×</button>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group has-success">
+															<br> <label class="control-label">상태</label> <select
+																id="todo_condition" name="todo_condition"
+																class="form-control custom-select">
+																<option value="1"></option>
+																<option value="0" style="color: red; font-weight: bold;">긴급</option>
+																<option value="1"
+																	style="color: orange; font-weight: bold;">보통</option>
+																<option value="2"
+																	style="color: green; font-weight: bold;">여유</option>
+															</select>
+														</div>
+													</div>
 
-						<div class="modal-body">
-							<div class="col-md-13">
-								<div class="form-group has-success">
-									<label class="control-label">내용</label> <input type="text"
-										id="todo_content" name="todo_content" class="form-control writtencontent"
-										placeholder="내용을 입력하세요">
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<input type="text" value="${ sessionScope.employee.emp_no }"
-								name="emp_no" hidden />
+													<div class="modal-body">
+														<div class="col-md-13">
+															<div class="form-group has-success">
+																<label class="control-label">내용</label> <input
+																	type="text" id="todo_content" name="todo_content"
+																	class="form-control writtencontent"
+																	placeholder="내용을 입력하세요">
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<input type="text"
+															value="${ sessionScope.employee.emp_no }" name="emp_no"
+															hidden />
 
-							<button type="button" class="btn btn-light waves-effect"
-								data-dismiss="modal">취소하기</button>
-							<button type="submit" class="btn btn-success waves-effect" onclick="return convalidate();">등록하기</button>
-							
-						</div>
-					</div>
+														<button type="button" class="btn btn-light waves-effect"
+															data-dismiss="modal">취소하기</button>
+														<button type="submit" class="btn btn-success waves-effect"
+															onclick="return convalidate();">등록하기</button>
+
+													</div>
+												</div>
 											</form>
 										</div>
 									</div>
 									<!-- /.modal -->
 									<ul class="list-task todo-list list-group mb-0"
 										data-role="tasklist">
-										
+
 										<c:if test="${todoList.size() eq 0 }">
-												<div class="detail-box col-12">
-													<div class="detail-list">
-														<div>
-															<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png"
-																	style="width: 50px; vertical-align: middle; border: 0" />
-														</div>
-														<h4 class="text-themecolor" style="margin: 10px 0;">등록된 TODO가 없습니다.</h4>
+											<div class="detail-box col-12">
+												<div class="detail-list">
+													<div>
+														<img
+															src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png"
+															style="width: 50px; vertical-align: middle; border: 0" />
 													</div>
+													<h4 class="text-themecolor" style="margin: 10px 0;">등록된
+														TODO가 없습니다.</h4>
 												</div>
-											</c:if>
+											</div>
+										</c:if>
 
 										<c:if test="${todoList.size() ne 0 }">
 											<c:forEach items="${todoList}" var="todo">
-											
+
 												<li class="list-group-item" data-role="task">
 													<div class="checkbox checkbox-info">
-														<input type="checkbox" id="${todo.todo_no }" value="${todo.todo_no }" class="todoCk">
-														<label for="${todo.todo_no }" class="todoLabel">
-															<c:if test="${todo.todo_content.length() gt 30}">
+														<input type="checkbox" id="${todo.todo_no }"
+															value="${todo.todo_no }" class="todoCk"> <label
+															for="${todo.todo_no }" class="todoLabel"> <c:if
+																test="${todo.todo_content.length() gt 30}">
 																<c:choose>
 																	<c:when test="${todo.todo_condition eq 0}">
 																		<span class="label label-danger">긴급</span>
@@ -223,8 +257,7 @@
 																	</c:when>
 																</c:choose>
 																<span>${todo.todo_content.substring(0,29) } ...</span>
-															</c:if>
-															<c:if test="${todo.todo_content.length()le 30}">
+															</c:if> <c:if test="${todo.todo_content.length()le 30}">
 																<c:choose>
 																	<c:when test="${todo.todo_condition eq 0}">
 																		<span class="label label-light-danger">긴급</span>
@@ -255,26 +288,45 @@
 							<div class="card-body">
 								<div class="m-2 p-2">
 									<h4 class="card-title">설문조사</h4>
-									<p class="card-text">이 페이지가 마음에 드시나요?!</p>
 									<p class="card-text">
-										<small class="text-muted">2019-07-01 ~ 2019-07-31</small>
+										<c:out value="${survey.survey_quest}" />
 									</p>
-									<h5 class="mt-4">
-										YES!!<span class="float-right">85%</span>
-									</h5>
-									<div class="progress ">
-										<div class="progress-bar bg-success wow animated progress-animated" style="width: 85%; height: 6px;" role="progressbar">
-											<span class="sr-only">60% Complete</span>
-										</div>
+									<p class="card-text">
+										<small class="text-muted"><c:out
+												value="${survey.survey_start }" /> ~ <c:out
+												value="${survey.survey_end }" /></small>
+									</p>
+
+									<div >
+											<c:forEach items="${salist}" var="sa">
+												<input type="radio"  name="surveyAn_no" 
+													value="${sa.surveyAn_no}"  /> 
+													${sa.survey_content} 
+											</c:forEach>
 									</div>
-									<h5 class="mt-4">
-										No :(<span class="float-right">15%</span>
-									</h5>
-									<div class="progress ">
-										<div class="progress-bar bg-danger wow animated progress-animated" style="width: 15%; height: 6px;" role="progressbar">
-											<span class="sr-only">60% Complete</span>
+
+
+									<!-- <h5 class="mt-4">
+											YES!!<span class="float-right">85%</span>
+										</h5>
+										<div class="progress ">
+											<div
+												class="progress-bar bg-success wow animated progress-animated"
+												style="width: 85%; height: 6px;" role="progressbar">
+												<span class="sr-only">60% Complete</span>
+											</div>
 										</div>
-									</div>
+										<h5 class="mt-4">
+											No :(<span class="float-right">15%</span>
+										</h5>
+										<div class="progress ">
+											<div
+												class="progress-bar bg-danger wow animated progress-animated"
+												style="width: 15%; height: 6px;" role="progressbar">
+												<span class="sr-only">60% Complete</span>
+											</div>
+										</div>  -->
+
 								</div>
 							</div>
 						</div>
@@ -291,13 +343,20 @@
 												<h4 class="modal-title">
 													<strong>일정 상세보기</strong>
 												</h4>
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body"></div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-success save-event waves-effect waves-light"><i class='fa fa-check'></i>수정</button>
-												<button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">삭제</button>
+												<button type="button" class="btn btn-white waves-effect"
+													data-dismiss="modal">Close</button>
+												<button type="button"
+													class="btn btn-success save-event waves-effect waves-light">
+													<i class='fa fa-check'></i>수정
+												</button>
+												<button type="button"
+													class="btn btn-danger delete-event waves-effect waves-light"
+													data-dismiss="modal">삭제</button>
 											</div>
 										</div>
 									</div>
@@ -310,17 +369,22 @@
 												<h4 class="modal-title">
 													<strong>Add</strong> a category
 												</h4>
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body">
 												<form>
 													<div class="row">
 														<div class="col-md-6">
-															<label class="control-label">Category Name</label> <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
+															<label class="control-label">Category Name</label> <input
+																class="form-control form-white" placeholder="Enter name"
+																type="text" name="category-name" />
 														</div>
 														<div class="col-md-6">
-															<label class="control-label">Choose Category Color</label>
-															<select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
+															<label class="control-label">Choose Category
+																Color</label> <select class="form-control form-white"
+																data-placeholder="Choose a color..."
+																name="category-color">
 																<option value="success">Success</option>
 																<option value="danger">Danger</option>
 																<option value="info">Info</option>
@@ -333,8 +397,11 @@
 												</form>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-												<button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
+												<button type="button"
+													class="btn btn-danger waves-effect waves-light save-category"
+													data-dismiss="modal">Save</button>
+												<button type="button" class="btn btn-white waves-effect"
+													data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
@@ -369,21 +436,28 @@
 	<!-- ============================================================== -->
 	<!-- This page plugins -->
 	<!-- ============================================================== -->
-	
-	
+
+
 	<c:import url="views/common/bottomJquery.jsp" />
 	<!-- Calendar JavaScript -->
-	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
-	<script src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
-	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
-	 <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
-    
-     <!-- Date range Plugin JavaScript -->
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
-     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-       
- 	<script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
+	<script
+		src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+
+	<!-- Date range Plugin JavaScript -->
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+
+	<script>
  	
  	
 	!function($) {
@@ -690,8 +764,8 @@
 	
 	
  	</script>
- 
- 
- </body>
+
+
+</body>
 
 </html>

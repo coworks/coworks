@@ -26,6 +26,9 @@ import com.kh.coworks.attendance.model.service.AttendanceService;
 import com.kh.coworks.attendance.model.vo.Attendance;
 import com.kh.coworks.calendar.model.service.CalendarService;
 import com.kh.coworks.employee.model.vo.Employee;
+import com.kh.coworks.survey.model.service.SurveyServiceImpl;
+import com.kh.coworks.survey.model.vo.Survey;
+import com.kh.coworks.survey.model.vo.SurveyAnswer;
 import com.kh.coworks.todo.model.service.TodoService;
 import com.kh.coworks.todo.model.vo.Todo;
 
@@ -40,10 +43,13 @@ public class CommonProcessingController {
 
 	@Autowired
 	private CalendarService calendarService;
-
+	
 	@Autowired
 	TodoService todoService;
 
+	@Autowired 
+	private SurveyServiceImpl surveyService;
+	
 	@RequestMapping("/commonProcessing.do")
 	public ModelAndView indexProcessing(HttpServletRequest request, Model model) throws ParseException {
 
@@ -131,8 +137,16 @@ public class CommonProcessingController {
 
 		List<com.kh.coworks.calendar.model.vo.Calendar> calendar = calendarService.selectListAllCalendar(hmap);
 
+	    Survey survey = surveyService.selectOneSurvey();
+	    List<SurveyAnswer> surveyAnswerList = surveyService.selectOneSurveyAnswer(survey.getSurvey_no());
+		
+	    System.out.println("survey 체크" + survey);
+	    System.out.println("surveyAnswerList 체크" + surveyAnswerList);
+	    
 		mv.addObject("atten", list); // index에 출근시간, ip시간 보여주기!!!! 나중에~~~
 		mv.addObject("list", calendar);
+		mv.addObject("survey", survey);
+		mv.addObject("salist", surveyAnswerList);
 		mv.setViewName("../index");
 
 		return mv;
