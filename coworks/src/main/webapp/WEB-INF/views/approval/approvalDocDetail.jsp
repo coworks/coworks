@@ -196,7 +196,7 @@ div p {
 	};
 	
 	function edit() {
-		location.href="${pageContext.request.contextPath/approval/approvalDoc/edit/"+${doc.adoc_no};
+		location.href="${pageContext.request.contextPath}/approval/approvalDoc/edit/"+${doc.adoc_no};
 	};
 	
 		$(function() {
