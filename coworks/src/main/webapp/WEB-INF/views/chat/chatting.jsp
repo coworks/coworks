@@ -37,7 +37,9 @@
 										<c:if test="${croomList.size() ne 0 }">
 											<c:forEach var="chatroom" items="${croomList }">
 												<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" value="link${chatroom.croom_no }"> <span><b>${chatroom.croom_title } </b>
-															<p class="text-muted ml-2 text-overflow">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }" pattern="yyyy-MM-dd HH:mm" /></small></span></a></li>
+															<p class="text-muted ml-2 text-overflow">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }"
+																	pattern="yyyy-MM-dd HH:mm"
+																/></small></span></a></li>
 											</c:forEach>
 										</c:if>
 										<li class="p-3"></li>
@@ -51,7 +53,11 @@
 									<div class="chat-main-header">
 										<div class="p-3 border-bottom">
 											<h3 class="box-title">
-												${croom.croom_title} <a href="javascript:void(0)" id="exitChatRoom"><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href="javascript:void(0)" data-target="#invite-chatroom" data-toggle="modal"><i class="mdi-account-plus mdi text-muted float-right ml-3"></i></a><a href="javascript:void(0)" data-target="#renameCroomTitle" data-toggle="modal"><i class="mdi-lead-pencil mdi float-right"></i></a>
+												${croom.croom_title} <a href="javascript:void(0)" id="exitChatRoom"><i class="mdi-exit-to-app mdi float-right text-danger ml-3"></i></a><a href="javascript:void(0)"
+													data-target="#invite-chatroom" data-toggle="modal"
+												><i class="mdi-account-plus mdi text-muted float-right ml-3"></i></a><a href="javascript:void(0)" data-target="#renameCroomTitle" data-toggle="modal"><i
+													class="mdi-lead-pencil mdi float-right"
+												></i></a>
 											</h3>
 											<input type="hidden" id="croom_no" value="${croom.croom_no }" />
 										</div>
@@ -101,7 +107,8 @@
 											<li class="list-group-item"><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
 												<ul>
 													<c:forEach var="deptEmp" begin="1" end="${dept.COUNT }" step="1">
-														<li><label> <input class="hummingbirdNoParent" name="emp_no" value="${empList[index].emp_no}" type="checkbox"> ${empList[index].emp_name } ( ${empList[index].job_title } )
+														<li><label> <input class="hummingbirdNoParent" name="emp_no" value="${empList[index].emp_no}" type="checkbox"> ${empList[index].emp_name } (
+																${empList[index].job_title } )
 														</label></li>
 														<c:set var="index" value="${index+1 }"></c:set>
 													</c:forEach>
@@ -127,7 +134,9 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 							</div>
 							<div class="modal-body">
-								<input type="text" value="${croom.croom_title }" class="form-control" name="croom_title" required="required" /> <input type="hidden" value="${croom.croom_index }" name="croom_index" /><input type="hidden" value="${croom.croom_no }" name="croom_no" />
+								<input type="text" value="${croom.croom_title }" class="form-control" name="croom_title" required="required" /> <input type="hidden" value="${croom.croom_index }" name="croom_index" /><input
+									type="hidden" value="${croom.croom_no }" name="croom_no"
+								/>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">닫기</button>
@@ -162,7 +171,8 @@
 												<li class="list-group-item"><i class="fa fa-plus"></i> <label>${dept.DEPT_NAME }</label>
 													<ul>
 														<c:forEach var="deptEmp" begin="1" end="${dept.COUNT }" step="1">
-															<li><label> <input class="hummingbirdNoParent" name="emp_no" value="${empList[index].emp_no}" type="checkbox"> ${empList[index].emp_name } ( ${empList[index].job_title } )
+															<li><label> <input class="hummingbirdNoParent" name="emp_no" value="${empList[index].emp_no}" type="checkbox"> ${empList[index].emp_name } (
+																	${empList[index].job_title } )
 															</label></li>
 															<c:set var="index" value="${index+1 }"></c:set>
 														</c:forEach>
@@ -202,7 +212,9 @@
 	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
 	<script type="text/javascript">
 		var chattingSock = new SockJS("<c:url value='/chatting'/>");
-		var croom_no = ${croom.croom_no};
+		if(${!empty croom.croom_no}){
+			var croom_no = '${croom.croom_no}';
+		}
 		$('.treeview').hummingbird();  
 		
 		$(function() {
@@ -226,6 +238,28 @@
 					event.preventDefault();
 				}
 			});
+			
+	
+			  $("#exitChatRoom").click(function () {
+		            Swal.fire({
+		                title: '이 채팅방을 나가시겠습니까?',
+		                type: 'warning',
+		                showCancelButton: true,
+		                confirmButtonColor: '#3085d6',
+		                cancelButtonColor: '#d33',
+		                confirmButtonText: 'OK!'
+		            }).then((result) => {
+		                if (result.value) {
+		                    /* Swal.fire(
+		                        '성공!',
+		                        '채팅방을 나가셨습니다.',
+		                        'success'
+		                    ) */
+		                    location.href="${pageContext.request.contextPath}/chat/exitCroom/"+'${croom.croom_index}';
+		                }
+		            })
+		        });
+
 		});
 
 		chattingSock.onmessage = function(evt) {
@@ -279,26 +313,7 @@
 
 		}
 
-		  $("#exitChatRoom").click(function () {
-	            Swal.fire({
-	                title: '이 채팅방을 나가시겠습니까?',
-	                type: 'warning',
-	                showCancelButton: true,
-	                confirmButtonColor: '#3085d6',
-	                cancelButtonColor: '#d33',
-	                confirmButtonText: 'OK!'
-	            }).then((result) => {
-	                if (result.value) {
-	                    /* Swal.fire(
-	                        '성공!',
-	                        '채팅방을 나가셨습니다.',
-	                        'success'
-	                    ) */
-	                    location.href="${pageContext.request.contextPath}/chat/exitCroom/"+${croom.croom_index};
-	                }
-	            })
-	        });
-			 
+		
 	</script>
 </body>
 </html>
