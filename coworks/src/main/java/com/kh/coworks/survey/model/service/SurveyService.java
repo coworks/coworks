@@ -1,5 +1,6 @@
 package com.kh.coworks.survey.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,4 +14,8 @@ public interface SurveyService {
 	int selectSurveyTotalContents();
 
 	int insertSurvey(Survey survey, List<SurveyAnswer> list);
+	
+	Survey selectOneSurvey();
+	
+	List<SurveyAnswer> selectOneSurveyAnswer(int survey_no);
 }

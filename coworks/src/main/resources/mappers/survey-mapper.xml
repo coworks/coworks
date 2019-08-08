@@ -11,6 +11,14 @@
 	<select id="selectSurveyTotalContents" resultType="_int">
 		SELECT COUNT(*) FROM SURVEY
 	</select>
+	
+	<select id="selectOneSurvey" resultType="survey">
+	 	SELECT * FROM (SELECT * FROM SURVEY ORDER BY ROWNUM DESC) WHERE ROWNUM = 1
+	</select>
+	
+	<select id="selectOneSurveyAnswer" resultType="surveyAnswer">
+	 	SELECT * FROM SURVEYANSWER WHERE SURVEY_NO = #{survey_no}
+	</select>
 
 
 	<insert id="insertSurvey" parameterType="survey">

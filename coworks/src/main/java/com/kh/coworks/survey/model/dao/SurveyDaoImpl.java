@@ -1,6 +1,7 @@
 package com.kh.coworks.survey.model.dao;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,16 @@ public class SurveyDaoImpl implements SurveyDao {
 	public int insertSurveyAnswer(SurveyAnswer sa) {
 		return sqlSession.insert("survey.insertSurveyAnswer",sa);
 	}
-	
+
+	@Override
+	public Survey selectOneSurvey() {
+		return sqlSession.selectOne("survey.selectOneSurvey");
+	}
+
+	@Override
+	public List<SurveyAnswer> selectOneSurveyAnswer(int survey_no) {
+		return sqlSession.selectList("survey.selectOneSurveyAnswer",survey_no);
+	}
+
 
 }

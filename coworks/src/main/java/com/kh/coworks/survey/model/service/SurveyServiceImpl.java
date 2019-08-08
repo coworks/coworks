@@ -1,5 +1,6 @@
 package com.kh.coworks.survey.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,5 +41,17 @@ public class SurveyServiceImpl implements SurveyService {
 		}
 		return result;
 	}
+
+	@Override
+	public Survey selectOneSurvey() {
+		return surveyDao.selectOneSurvey();
+	}
+
+	@Override
+	public List<SurveyAnswer> selectOneSurveyAnswer(int survey_no) {
+		return surveyDao.selectOneSurveyAnswer(survey_no);
+	}
+	
+
 
 }

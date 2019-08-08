@@ -126,11 +126,8 @@
 							<ul class="nav nav-tabs tabs-vertical" role="tablist">
 								<li class="nav-item"><a class="nav-link active"
 									data-toggle="tab" href="#home9" role="tab" aria-selected="true">
-										<span>진행중</span>
-								</a></li>
-								<li class="nav-item"><a class="nav-link" data-toggle="tab"
-									href="#profile9" role="tab" aria-selected="false"><span>종료</span></a>
-								</li>
+										<span>설문조사</span>
+								</a>
 							</ul>
 							<!-- Tab panes -->
 							<div class="tab-content">

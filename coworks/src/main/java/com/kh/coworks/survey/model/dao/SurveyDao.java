@@ -1,5 +1,6 @@
 package com.kh.coworks.survey.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,5 +16,9 @@ public interface SurveyDao {
 	int insertSurvey(Survey survey);
 
 	int insertSurveyAnswer(SurveyAnswer sa);
+
+	Survey selectOneSurvey();
+
+	List<SurveyAnswer> selectOneSurveyAnswer(int survey_no);
 
 }
