@@ -107,11 +107,20 @@ td th {
 
 		<div class="page-wrapper">
 			<div class="container-fluid">
+							<div class="row page-titles">
+					<div class="col-md-6 col-8 align-self-center">
+						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><span>메인페이지</span> <i
+								class="fas fa-chevron-right"></i><span class="text-info"> 권한관리</span></li>
+						</ol>
+					</div>
+				</div>
+			
 				<div class="col-12">
 					<!-- Column -->
 					<div class="card">
 						<div class="card-body">
-							<h2 class="card-title">권한관리</h2>
 							<div class="row" style="margin-left: 250px; margin-top: 30px;">
 								<select class="form-control custom-select" style="width: 15%"
 									id="searchCondition" name="searchCondition">
@@ -123,7 +132,7 @@ td th {
 								<div class="input-group" style="width: 60%; margin-left: 20px;">
 									<input type="search" id="keyword" class="form-control"
 										style="width: 70%">
-									<button class="btn btn-info" type="button" onclick="search();">검색</button>
+									<button class="btn btn-info" type="button" onclick="return search();">검색하기</button>
 								</div>
 							</div>
 
@@ -133,40 +142,40 @@ td th {
 									<table class="jsgrid-table ">
 										<tr class="jsgrid-header-row">
 											<th
-												class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-												style="width: 70px;">이름</th>
+												class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable  bg-info text-white"
+												style="width: 8%;">이름</th>
 											<th
-												class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-												style="width: 70px;">직급</th>
+												class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable  bg-info text-white"
+												style="width: 8%;">직급</th>
 											<th
-												class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-												style="width: 70px;">부서</th>
+												class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+												style="width: 8%;">부서</th>
 											<th
-												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-												style="width: 100px;">인사</th>
+												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+												style="width: 10%;">인사</th>
 											<th
-												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-												style="width: 100px;">자료실</th>
+												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+												style="width: 10%;">자료실</th>
 											<th
-												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-												style="width: 100px;">회사일정</th>
+												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+												style="width: 10%;">회사일정</th>
 											<th
-												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-												style="width: 100px;">게시판</th>
+												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+												style="width: 10%;">게시판</th>
 											<th
-												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-												style="width: 100px;">결재서류</th>
+												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+												style="width: 10%;">결재서류</th>
 											<th
-												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-												style="width: 100px;">권한관리</th>
+												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+												style="width: 10%;">권한관리</th>
 											<th
-												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-												style="width: 100px;">급여</th>
+												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+												style="width: 10%;">급여</th>
 											<!-- <th class="jsgrid-header-cell jsgrid-align-center"
 												style="width: 100px;">관리</th> -->
 											<th
-												class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center"
-												style="width: 50px;">수정 <!-- <button
+												class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center bg-info text-white"
+												style="width: 5%;">수정 <!-- <button
 													class="jsgrid-button jsgrid-mode-button jsgrid-search-mode-button jsgrid-mode-on-button"
 													type="button" title=""></button> -->
 											</th>
@@ -179,28 +188,28 @@ td th {
 											<c:forEach items="${list}" var="au">
 												<tr class="jsgrid-row" id="${au.emp_no}">
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 62px;">${au.emp_name}</td>
+														style="width: 8%;">${au.emp_name}</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 63px;">${au.job_title}</td>
+														style="width: 8%;">${au.job_title}</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 63px;">${au.dept_name}</td>
+														style="width: 8%;">${au.dept_name}</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 89px;" >${au.auth_personnal=='Y'?'○':'' }</td>
+														style="width: 10%;" >${au.auth_personnal=='Y'?'○':'' }</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 89px;">${au.auth_data=='Y'?'○':'' }</td>
+														style="width: 10%;">${au.auth_data=='Y'?'○':'' }</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 89px;">${au.auth_cal=='Y'?'○':''}</td>
+														style="width: 10%;">${au.auth_cal=='Y'?'○':''}</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 89px;">${au.auth_board=='Y'?'○':''}</td>
+														style="width: 10%;">${au.auth_board=='Y'?'○':''}</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 89px;">${au.auth_approval=='Y'?'○':''}</td>
+														style="width: 10%;">${au.auth_approval=='Y'?'○':''}</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 89px;">${au.auth_authority=='Y'?'○':'' }</td>
+														style="width: 10%;">${au.auth_authority=='Y'?'○':'' }</td>
 													<td class="jsgrid-cell jsgrid-align-center"
-														style="width: 89px;">${au.auth_pay=='Y'?'○':''}</td>
+														style="width: 10%;">${au.auth_pay=='Y'?'○':''}</td>
 													<td
 														class="jsgrid-cell jsgrid-control-field jsgrid-align-center"
-														style="width: 43px;">
+														style="width: 5%;">
 														<button class="jsgrid-button jsgrid-edit-button" data-toggle="modal" 
 														data-target="#updatedepart"	type="button" onclick="transferName('${au.emp_no}','${au.emp_name}');" ></button>
 												</tr>
@@ -248,12 +257,42 @@ td th {
 		</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+		<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js" aria-hidden="true"></script>
 	<script>
-		function search() {
+		/* function search() {
 			location.href = "${pageContext.request.contextPath}/authority/authoritySearch.do?con="
 					+ $('#searchCondition').val()
 					+ "&keyword="
 					+ $('#keyword').val();
+		} */
+		
+		function search(){
+			var searchKey = $("#keyword").val();
+			var searchCdt = $("#searchCondition").val();
+			
+			if(searchCdt == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  검색 분류를 선택하세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			} else if(searchKey == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ 검색어를 입력하세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			} else {
+				location.href = "${pageContext.request.contextPath}/authority/authoritySearch.do?con="
+					+ $('#searchCondition').val()
+					+ "&keyword="
+					+ $('#keyword').val();	
+			}
+			
 		}
 
 		function transferName(emp_no,emp_name) {

@@ -58,8 +58,8 @@ td th {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-info waves-effect">등록하기</button>
-							<button type="button" class="btn btn-danger waves-effect"
+							<button type="submit" class="btn btn-outline-info waves-effect">등록하기</button>
+							<button type="button" class="btn btn-outline-danger waves-effect"
 								data-dismiss="modal">취소하기</button>
 						</div>
 					</div>
@@ -90,8 +90,8 @@ td th {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-info waves-effect">등록하기</button>
-							<button type="button" class="btn btn-danger waves-effect"
+							<button type="submit" class="btn btn-outline-info waves-effect">등록하기</button>
+							<button type="button" class="btn btn-outline-danger waves-effect"
 								data-dismiss="modal">취소하기</button>
 						</div>
 					</div>
@@ -250,9 +250,9 @@ td th {
 										</div>
 									</div>
 									<div style="margin-left: 350px; margin-top: 40px;">
-										<button class="btn btn-info" type="submit">등록하기</button>
+										<button class="btn btn-outline-info" type="submit">등록하기</button>
 										<button type="button"
-											class="btn btn-danger waves-effect text-left"
+											class="btn btn-outline-danger waves-effect text-left"
 											data-dismiss="modal">취소하기</button>
 									</div>
 								</div>
@@ -265,11 +265,20 @@ td th {
 	</div>
 	<div class="page-wrapper">
 		<div class="container-fluid">
+						<div class="row page-titles">
+					<div class="col-md-6 col-8 align-self-center">
+						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><span>메인페이지</span> <i
+								class="fas fa-chevron-right"></i><span class="text-info"> 인사관리</span></li>
+						</ol>
+					</div>
+				</div>
+		
 			<div class="col-12">
 				<!-- Column -->
 				<div class="card">
 					<div class="card-body">
-						<h2 class="card-title">인사관리</h2>
 						<div class="row" style="margin-left: 250px; margin-top: 30px;">
 							<select class="form-control custom-select" style="width: 15%"
 								id="searchCondition" name="searchCondition">
@@ -290,39 +299,39 @@ td th {
 						<div style="float: right;" class="mt-5 pt-5">
 							<div class="input-group">
 								<button data-toggle="modal" data-target="#updatedepart"
-									class="btn btn-info" type="button">부서수정</button>
+									class="btn btn-outline-info" type="button">부서수정</button>
 								&nbsp&nbsp&nbsp&nbsp
 								<button data-toggle="modal" data-target="#myModal"
-									class="btn btn-info" type="button">부서추가</button>
+									class="btn btn-outline-info" type="button">부서추가</button>
 								&nbsp&nbsp&nbsp&nbsp
 								<!-- <button class="btn btn-info" type="button">사원추가</button> -->
 								<button data-toggle="modal" data-target=".bs-example-modal-lg"
-									class="btn btn-info" type="button">사원추가</button>
+									class="btn btn-outline-info" type="button">사원추가</button>
 								</td>
 							</div>
 						</div>
-						<div id="basicgrid" class="jsgrid pt-5"
+						<div id="basicgrid" class="jsgrid pt-3"
 							style="position: relative; height: 500px; width: 100%;">
 							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
 								<table class="jsgrid-table ">
 									<tr class="jsgrid-header-row">
 										<th
-											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-											style="width: 70px;">이름</th>
+											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+											style="width: 20%;">이름</th>
 										<th
-											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-											style="width: 70px;">직급</th>
+											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+											style="width: 20%;">직급</th>
 										<th
-											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
-											style="width: 70px;">부서</th>
+											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+											style="width: 20%;">부서</th>
 										<th
-											class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
-											style="width: 100px;">연락처</th>
+											class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+											style="width: 24%;">연락처</th>
 										<!-- <th class="jsgrid-header-cell jsgrid-align-center"
 												style="width: 100px;">관리</th> -->
 										<th
-											class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center"
-											style="width: 50px;">관리 <!-- <button
+											class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center bg-info text-white"
+											style="width: 14%;">관리 <!-- <button
 													class="jsgrid-button jsgrid-mode-button jsgrid-search-mode-button jsgrid-mode-on-button"
 													type="button" title=""></button> -->
 										</th>
@@ -335,16 +344,16 @@ td th {
 										<c:forEach items="${list}" var="e">
 											<tr class="jsgrid-row" id="${e.emp_no}">
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 62px;">${e.emp_name}</td>
+													style="width: 20%;">${e.emp_name}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 63px;">${e.job_title}</td>
+													style="width: 20%;">${e.job_title}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 63px;">${e.dept_name}</td>
+													style="width: 20%;">${e.dept_name}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
-													style="width: 89px;">${e.emp_phone}</td>
+													style="width: 24%;">${e.emp_phone}</td>
 												<td
 													class="jsgrid-cell jsgrid-control-field jsgrid-align-center"
-													style="width: 43px;">
+													style="width: 14%;">
 													<button class="jsgrid-button jsgrid-edit-button"
 														type="button" onclick="employeemove('${e.emp_no}');"></button>
 											</tr>
@@ -407,14 +416,14 @@ td th {
 			
 			if(searchCdt == ""){
 				Swal.fire({
-	                title: "༼ -᷅ɷ-᷄༽    검색 분류를 선택하세요!",
+	                title: "ʕ•ᴥ•ʔ  검색 분류를 선택하세요!",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });
 				return false;
 			} else if(searchKey == ""){
 				Swal.fire({
-	                title: "༼ -᷅ɷ-᷄༽    검색어를 입력하세요!",
+	                title: "ʕ•ᴥ•ʔ 검색어를 입력하세요!",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });

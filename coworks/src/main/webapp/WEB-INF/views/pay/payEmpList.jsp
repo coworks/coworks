@@ -27,22 +27,31 @@
 		<c:import url="../common/sidebar.jsp" />
 	<div class="page-wrapper">
 		<div class="container-fluid">
+						<div class="row page-titles">
+					<div class="col-md-6 col-8 align-self-center">
+						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><span>메인페이지</span> <i
+								class="fas fa-chevron-right"></i><span class="text-info"> 급여관리</span></li>
+						</ol>
+					</div>
+				</div>
+		
 			<div class="col-12">
 				<!-- Column -->
 				<div class="card">
 					<div class="card-body">
-						<h2 class="card-title">급여관리</h2>
-						<div class="row mb-3 col-5" style="margin-left: 30%; margin-top:6%; ">
-							<select class="form-control custom-select" style="width: 20%"
+						<div class="row" style="margin-left: 250px; margin-top:30px; ">
+							<select class="form-control custom-select" style="width: 15%"
 							id="searchCondition" name="searchCondition">
 								<option value="">----</option>
 								<option value="empname">이름</option>
 								<option value="jobtitle">직급</option>
 								<option value="deptname">부서</option>
 							</select>
-							<div class="input-group " style="width: 80%;margin-bottom:8%;  ">
-								<input type="search" id="keyword" class="form-control" >
-								<button class="btn btn-info" type="button"   onclick="search();">검색</button>
+							<div class="input-group " style="width: 60%; margin-left: 20px; margin-bottom:8%;  ">
+								<input type="search" id="keyword" class="form-control" style="width: 70%" >
+								<button class="btn btn-info" type="button"   onclick="return search();">검색하기</button>
 							</div>
 						</div>
 						<input type="button" class="btn  btn-outline-info" id="payFileDown" name="payFileDown" value="EXCEL 파일 다운받기"
@@ -55,33 +64,30 @@
 
 						<div id="basicgrid" class="jsgrid"
 							style="position: relative; height: 500px; width: 100%; margin-top: 5px;">
-							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
 								<table class="jsgrid-table table table-striped table-hover">
 									<tr class="jsgrid-header-row">
 										<th
-											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
+											class="jsgrid-header-cell  jsgrid-align-center  bg-info text-white"
 											style="width: 70px;">사번</th>
 										<th
-											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
+											class="jsgrid-header-cell  jsgrid-align-center  bg-info text-white"
 											style="width: 70px;">이름</th>
 										<th
-											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable"
+											class="jsgrid-header-cell  jsgrid-align-center  bg-info text-white"
 											style="width: 70px;">직책</th>
 										<th
-											class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable"
+											class="jsgrid-header-cell jsgrid-align-center  bg-info text-white"
 											style="width: 100px;">부서</th>
 										<!-- <th class="jsgrid-header-cell jsgrid-align-center"
 												style="width: 100px;">관리</th> -->
 										<th
-											class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center"
+											class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center bg-info text-white"
 											style="width: 50px;">상세보기 
 											<!-- <button class="jsgrid-button jsgrid-mode-button jsgrid-search-mode-button jsgrid-mode-on-button"
 											type="button" title=""></button> -->
 										</th>
 									</tr>
 								</table>
-							</div>
-							<div class="jsgrid-grid-header jsgrid-header-scrollbar" >
 								<table class="jsgrid-table table table-striped table-hover">
 									<tbody>
 										<c:forEach items="${list}" var="e">
@@ -121,12 +127,38 @@
 	</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+		<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js" aria-hidden="true"></script>
 	<script>
 	  
 
-	function search(){
+	/* function search(){
 		location.href="${pageContext.request.contextPath}/pay/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
-	} 
+	} */
+	function search(){
+		var searchKey = $("#keyword").val();
+		var searchCdt = $("#searchCondition").val();
+		
+		if(searchCdt == ""){
+			Swal.fire({
+                title: "ʕ•ᴥ•ʔ  검색 분류를 선택하세요!",
+                timer: 1300,
+                showConfirmButton: false
+            });
+			return false;
+		} else if(searchKey == ""){
+			Swal.fire({
+                title: "ʕ•ᴥ•ʔ 검색어를 입력하세요!",
+                timer: 1300,
+                showConfirmButton: false
+            });
+			return false;
+		} else {
+			location.href="${pageContext.request.contextPath}/pay/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();	
+		}
+		
+	}
 		
 	</script>
 	<%-- 	<script

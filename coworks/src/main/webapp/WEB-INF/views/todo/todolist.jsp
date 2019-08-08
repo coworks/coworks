@@ -56,8 +56,8 @@
 							<div class="col-md-13">
 								<div class="form-group has-success">
 									<label class="control-label">내용</label> <input type="text"
-										id="todo_content" name="todo_content" class="form-control writtencontent"
-										placeholder="내용을 입력하세요">
+										id="todo_content" name="todo_content"
+										class="form-control writtencontent" placeholder="내용을 입력하세요">
 								</div>
 							</div>
 						</div>
@@ -67,8 +67,9 @@
 
 							<button type="button" class="btn btn-light waves-effect"
 								data-dismiss="modal">취소하기</button>
-							<button type="submit" class="btn btn-success waves-effect" onclick="return validate();">등록하기</button>
-							
+							<button type="submit" class="btn btn-success waves-effect"
+								onclick="return validate();">등록하기</button>
+
 						</div>
 					</div>
 				</form>
@@ -119,7 +120,9 @@
 
 							<button type="button" class="btn btn-light waves-effect"
 								data-dismiss="modal">취소하기</button>
-							<button type="submit" class="btn btn-success waves-effect" onclick="return corrvalidate();">수정하기</button> <!--   -->
+							<button type="submit" class="btn btn-success waves-effect"
+								onclick="return corrvalidate();">수정하기</button>
+							<!--   -->
 
 						</div>
 					</div>
@@ -235,10 +238,11 @@
 
 				<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
-						<h3 class="text-themecolor mb-0 mt-0">TODO</h3>
+						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="javascript:void(0)">메인페이지</a></li>
-							<li class="breadcrumb-item active">TODO</li>
+							<li class="breadcrumb-item"><span>메인페이지</span> <i
+								class="fas fa-chevron-right"></i><span class="text-info">
+									TODO</span></li>
 						</ol>
 					</div>
 				</div>
@@ -336,11 +340,10 @@
 																<div class="dropdown-menu animated flipInY"
 																	x-placement="bottom-start"
 																	style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-																	<a class="dropdown-item sa-position" id="${todo.todo_no }" value="${todo.todo_no }"
-																	><i class="mdi mdi-playlist-check" ></i> 완료!
-																	
-																	</a>
-																	<a class="dropdown-item" data-toggle="modal"
+																	<a class="dropdown-item sa-position"
+																		id="${todo.todo_no }" value="${todo.todo_no }"><i
+																		class="mdi mdi-playlist-check"></i> 완료! </a> <a
+																		class="dropdown-item" data-toggle="modal"
 																		data-target="#correcttodo"
 																		data-whatever="${todo.todo_content }"
 																		data-whatever1="${todo.todo_no }"> <i
@@ -415,8 +418,7 @@
 																		class="mdi mdi-playlist-remove"></i> 삭제하기
 																	</a>
 																</div>
-																<div class="ribbon ribbon-default">완료
-																</div>
+																<div class="ribbon ribbon-default">완료</div>
 																<c:if test="${fintodo.todo_content.length() gt 48}">
 																	<p class="ribbon-content">${fintodo.todo_content.substring(0,47) }
 																		...</p>
@@ -426,7 +428,7 @@
 																</c:if>
 															</div>
 														</div>
-												</c:forEach>
+													</c:forEach>
 												</c:if>
 											</div>
 
@@ -450,7 +452,9 @@
 
 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js" aria-hidden="true"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"
+		aria-hidden="true"></script>
 	<script>
 		$('#correcttodo').on('show.bs.modal', function(event) {
 			var button = $(event.relatedTarget)
@@ -469,54 +473,53 @@
 			modal.find('.dltcontent').text('[' + recipient + '] 을 삭제하시겠습니까?')
 			modal.find('.modal-footer input').val(recip1)
 		});
-		
-		
-		$(".sa-position").on("click", function(){
-			var todo_no = $(this).attr("id");
-			Swal.fire({
-				position : 'top-middle',
-				type : 'success',
-				title : '완료!',
-				showConfirmButton : false,
-				timer : 1000
-			});
-			
-			location.href="${pageContext.request.contextPath}/todo/finishtodo.do?todo_no="+todo_no;
-		});
-		
+
+		$(".sa-position")
+				.on(
+						"click",
+						function() {
+							var todo_no = $(this).attr("id");
+							Swal.fire({
+								position : 'top-middle',
+								type : 'success',
+								title : '완료!',
+								showConfirmButton : false,
+								timer : 1000
+							});
+
+							location.href = "${pageContext.request.contextPath}/todo/finishtodo.do?todo_no="
+									+ todo_no;
+						});
+
 		// (입력)todo 내용 입력해야 넘어감
 		function validate() {
 			var boardContent = $(".writtencontent").val();
 
 			if (boardContent == "") {
 				Swal.fire({
-	                title: "☆★☆내용을 입력하세요☆★☆",
-	                timer: 1300,
-	                showConfirmButton: false
-	            });
+					title : "☆★☆내용을 입력하세요☆★☆",
+					timer : 1300,
+					showConfirmButton : false
+				});
 				return false;
 			}
 			return true;
 		}
-		
-		
+
 		// (수정)todo 내용 입력해야 넘어감
-/*  		function corrvalidate() {
-			var boardContent = $(".writtencontent").val();
-			
-			if (boardContent == "") {
-				Swal.fire({
-	                title: "☆★☆내용을 입력하세요☆★☆",
-	                timer: 1300,
-	                showConfirmButton: false
-	            });
-				return false;
-			}
-			return true;
-		} */
+		/*  		function corrvalidate() {
+		 var boardContent = $(".writtencontent").val();
 		
-		
-				
+		 if (boardContent == "") {
+		 Swal.fire({
+		 title: "☆★☆내용을 입력하세요☆★☆",
+		 timer: 1300,
+		 showConfirmButton: false
+		 });
+		 return false;
+		 }
+		 return true;
+		 } */
 	</script>
 
 

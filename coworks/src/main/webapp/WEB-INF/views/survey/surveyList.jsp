@@ -97,15 +97,15 @@
 	<div class="page-wrapper">
 		<div class="container-fluid">
 
-			<div class="row page-titles">
-				<div class="col-md-6 col-8 align-self-center">
-					<h3 class="text-themecolor mb-0 mt-0">설문조사</h3>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="javascript:void(0)">메인페이지</a></li>
-						<li class="breadcrumb-item active">설문조사</li>
-					</ol>
+				<div class="row page-titles">
+					<div class="col-md-6 col-8 align-self-center">
+						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><span>메인페이지</span> <i
+								class="fas fa-chevron-right"></i><span class="text-info"> 설문조사</span></li>
+						</ol>
+					</div>
 				</div>
-			</div>
 			<!-- 시작 -->
 			<div class="col-lg-12 col-md-12">
 				<div class="card">

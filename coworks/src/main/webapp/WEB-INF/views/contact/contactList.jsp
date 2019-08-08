@@ -14,11 +14,6 @@ ul {
 	list-style: none;
 }
 
-.over {
-	color: #FF9900;
-	font-weight: bold;
-	font-size: 20px;
-}
 
 </style>
 </head>
@@ -96,21 +91,20 @@ ul {
 												<div class="row">
 													<div class="col-sm-12">
 														<table id="myTable"
-															class="table table-bordered table-striped dataTable no-footer"
+															class="table table-bordered dataTable no-footer"
 															role="grid" aria-describedby="myTable_info">
-															<thead>
+															<thead class="bg-info text-white border border-primary">
 																<tr role="row">
-																	<th style="width: 23%; font-weight: bold;">이름</th>
-																	<th style="width: 17%; font-weight: bold;">부서</th>
-																	<th style="width: 17%; font-weight: bold;">직급</th>
-																	<th style="width: 22%; font-weight: bold;">연락처</th>
-																	<th style="width: 23%; font-weight: bold;">이메일</th>
-
+																	<th style="width: 23%; font-weight: bold; font-size:18px;">이름</th>
+																	<th style="width: 17%; font-weight: bold; font-size:18px;">부서</th>
+																	<th style="width: 17%; font-weight: bold; font-size:18px;">직급</th>
+																	<th style="width: 22%; font-weight: bold; font-size:18px;">연락처</th>
+																	<th style="width: 23%; font-weight: bold; font-size:18px;">이메일</th>
 																</tr>
 															</thead>
-															<tbody>
+															<tbody class="border border-primary">
 																<c:forEach items="${list}" var="e">
-																	<tr role="row">
+																	<tr role="border border-primary">
 																		<td>${e.emp_name}</td>
 																		<td>${e.dept_name}</td>
 																		<td>${e.job_title}</td>
@@ -173,14 +167,13 @@ ul {
 												<table id="myTable"
 													class="table table-bordered table-striped dataTable no-footer"
 													role="grid" aria-describedby="myTable_info">
-													<thead id="tabletitle">
+													<thead class="bg-info text-white" id="tabletitle">
 														<tr>
-															<th style="width: 197px; font-weight: bold;">이름</th>
-															<th style="width: 144px; font-weight: bold;">부서</th>
-															<th style="width: 144px; font-weight: bold;">직급</th>
-															<th style="width: 144px; font-weight: bold;">연락처</th>
-															<th style="width: 215px; font-weight: bold;">이메일</th>
-
+															<th style="width: 197px; font-weight: bold; font-size:18px;">이름</th>
+															<th style="width: 144px; font-weight: bold; font-size:18px;">부서</th>
+															<th style="width: 144px; font-weight: bold; font-size:18px;">직급</th>
+															<th style="width: 144px; font-weight: bold; font-size:18px;">연락처</th>
+															<th style="width: 215px; font-weight: bold; font-size:18px;">이메일</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -299,7 +292,7 @@ ul {
 									});
 						});
 
-/* 		$(document).on("mouseover", function() {
+ 		$(".depts").on("mouseover", function() {
 			$('.insertTo').addClass('out')
 			$('.insertTo').hover(function() {
 				$('ul').has('li').css('cursor', 'pointer');
@@ -307,7 +300,7 @@ ul {
 			}, function() {
 				$(this).removeClass('over');
 			});
-		}); */
+		}); 
 		
 		
 		function search(){
@@ -316,14 +309,14 @@ ul {
 			
 			if(searchKey == ""){
 				Swal.fire({
-	                title: "༼ -᷅ɷ-᷄༽    검색어를 입력하세요!",
+	                title: "ʕ•ᴥ•ʔ 검색어를 입력하세요!",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });
 				return false;
 			} else if(searchCdt == ""){
 				Swal.fire({
-	                title: "༼ -᷅ɷ-᷄༽    검색 분류를 선택하세요!",
+	                title: "ʕ•ᴥ•ʔ  검색 분류를 선택하세요!",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });

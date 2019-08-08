@@ -55,11 +55,11 @@
 												</c:when>
 												<c:when test="${bo_code eq 'D51' }">
 													<input type="text" name="bo_code" value="${bo_code }" hidden>
-													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 업무자료 자료실</span>
+													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 업무문서</span>
 												</c:when>
 												<c:when test="${bo_code eq 'D52' }">
 													<input type="text" name="bo_code" value="${bo_code }" hidden>
-													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 교육자료 자료실</span>
+													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 교육문서</span>
 												</c:when>
 												<c:when test="${bo_code eq 'D53' }">
 													<input type="text" name="bo_code" value="${bo_code }" hidden>
