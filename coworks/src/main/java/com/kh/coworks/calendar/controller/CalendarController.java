@@ -38,7 +38,7 @@ public class CalendarController {
 		Calendar cal=new Calendar();
 		HashMap<String,String> hmap=new HashMap<>();
 		hmap.put("emp_no",Integer.toString(employee.getEmp_no()));
-		hmap.put("dept_no",employee.getDept_code());
+		hmap.put("dept_code",employee.getDept_code());
 		
 		 
 		List<Calendar> list = calService.selectListAllCalendar(hmap);	
