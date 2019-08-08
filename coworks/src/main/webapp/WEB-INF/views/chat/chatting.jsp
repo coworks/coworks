@@ -41,7 +41,7 @@
 								</div>
 								<div class="chat-left-inner">
 									<div class="form-material">
-										<input class="form-control p-3" type="text" placeholder="검색">
+										<input class="form-control p-3" type="text" placeholder="검색" id="chat-search">
 									</div>
 									<ul class="chatonline style-none ">
 										<li><button class="btn text-info btn-block" data-target="#create-chatroom" data-toggle="modal">
@@ -49,7 +49,7 @@
 											</button></li>
 										<c:if test="${croomList.size() ne 0 }">
 											<c:forEach var="chatroom" items="${croomList }">
-												<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" id="room${chatroom.croom_no }"> <span><b >${chatroom.croom_title } </b>
+												<li><a href="${pageContext.request.contextPath}/chat/croom/${chatroom.croom_no}" id="room${chatroom.croom_no }" class="croom" room_title="${chatroom.croom_title }"> <span><b>${chatroom.croom_title } </b>
 															<span class='label label-warning chat-Notify' style="display: none; color: white;">New</span>
 															<p class="text-muted ml-2 text-overflow chat-content">${chatroom.chat_content }</p> <small class="text-mute text-right"><fmt:formatDate value="${chatroom.chat_sendtime }"
 																	pattern="yyyy-MM-dd HH:mm"
@@ -280,6 +280,17 @@
 		                }
 		            })
 		        });
+			  
+			  
+			  $('#chat-search').on('change',function(){
+				  var search_val=$(this).val();
+				  $('.croom').each(function(i,e){
+					  if($(this).attr('room_title').indexOf(search_val) == -1)
+						  $(this).css('display','none');
+					  else $(this).css('display','block');
+				  });
+				  
+			  })
 
 		});
 

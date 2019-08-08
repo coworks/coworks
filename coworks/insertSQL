@@ -182,6 +182,32 @@ Insert into JOB (JOB_CODE,JOB_TITLE) values ('J1','부장');
 	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J4','주임');
 	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J5','대리');
 	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J6','사원');
+	
+	
+	
+--채팅방
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (36,103,96587423,'관리부 메신저');
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (37,103,32698532,'관리부 메신저');
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (38,103,37375241,'관리부 메신저');
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (39,103,63256698,'관리부 메신저');
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (40,103,78523652,'관리부 메신저');
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (41,103,12345678,'관리부 메신저');
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (42,104,12225698,'부장 메신저');
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (43,104,98523654,'부장 메신저');
+Insert into CHATROOM (CROOM_INDEX,CROOM_NO,EMP_NO,CROOM_TITLE) values (44,104,12345678,'부장 메신저');
+
+
+--결재 서류 
+Insert into APPROVALDOC (ADOC_NO,AFORM_NO,ADOC_WRITERNO,ADOC_UPLOADDATE,ADOC_SECURITY,ADOC_EXPIRATION,ADOC_SUBJECT,ADOC_CONTENT,ADOC_STATUS) values (16523546,1,15236541,to_timestamp('19/08/08 18:40:24.000000000','RR/MM/DD HH24:MI:SSXFF'),5,to_date('20/08/08','RR/MM/DD'),'김서준 휴가신청서','{"vacation_Etc":"","vacation_period":"1","vacation_reason":"월차를 사용하겠습니다","vacation_type":"월차","vacation_range":"2019년 08월 16일 ~ 2019년 08월 16일"}',0);
+Insert into APPROVALDOC (ADOC_NO,AFORM_NO,ADOC_WRITERNO,ADOC_UPLOADDATE,ADOC_SECURITY,ADOC_EXPIRATION,ADOC_SUBJECT,ADOC_CONTENT,ADOC_STATUS) values (16523547,16,15236541,to_timestamp('19/08/08 18:42:35.000000000','RR/MM/DD HH24:MI:SSXFF'),3,to_date('22/08/08','RR/MM/DD'),'190802 관리부 회의록','{"meeting_date":"2019-08-02","meeting_content":"190830 토요일 회사앞 OO공원","meeting_attendee":"관리부 전원","meeting_purpose":"단합 대회 개최 일자 확정"}',1);
+
+--결재상태
+Insert into APPROVALSTATUS (AS_NO,ADOC_NO,EMP_NO,AS_STATUS,AS_DATE) values (41,16523546,12345678,0,null);
+Insert into APPROVALSTATUS (AS_NO,ADOC_NO,EMP_NO,AS_STATUS,AS_DATE) values (42,16523546,32698532,0,null);
+Insert into APPROVALSTATUS (AS_NO,ADOC_NO,EMP_NO,AS_STATUS,AS_DATE) values (43,16523547,12345678,0,null);
+Insert into APPROVALSTATUS (AS_NO,ADOC_NO,EMP_NO,AS_STATUS,AS_DATE) values (44,16523547,32698532,1,to_date('19/08/08','RR/MM/DD'));
+
+
 
 
 
