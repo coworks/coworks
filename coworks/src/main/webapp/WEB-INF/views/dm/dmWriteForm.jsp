@@ -92,15 +92,14 @@ list-style-type: none;float: left;
                                     <div class="card-body">
                                         <h3 class="card-title">쪽지 작성하기</h3>
                                         <div class="form-group">
-                                        <c:if test="${type eq 'reply'}">
-                                            <div class="form-group dm_to_list" name="dm_to_list" id="dm_to_list" value="${dm.dm_to}">
+                                        <inpyt name="${type }" id="type" value="${type }"/>
+                                         <%--    <div class="form-group dm_to_list" name="dm_to_list" id="dm_to_list" value="${dm.dm_to}">
                                             	<input type='text' id="${dm.dm_to}"value="${emp.emp_name}" class='btn btn-outline-secondary col-2 to_do_emp form-control' 
-                                            onclick='deleteTo(${dm.dm_to });' name='to_do_emp'>
-                                          </c:if> 
-                                          <c:if test="${type ne 'reply' }">
-                                            <div class="form-group dm_to_list" name="dm_to_list" id="dm_to_list" >
+                                            onclick='deleteTo(${dm.dm_to });' name='to_do_emp'> --%>
+                                            <div class="form-group dm_to_list insertTo" name="dm_to_list" id="dm_to_list" >
+										
 											</div>
-                                           </c:if>
+											
                                         </div>
                                         <div class="form-group" style='margin-top:4px;'>
                                         <c:if test="${type eq 'forward'}">
@@ -202,6 +201,20 @@ list-style-type: none;float: left;
     
     var empList= new Array();
     var count = 0;
+    
+    $(document).ready(function(){
+    	console.log("ready");
+    	if($("#type").attr('name')== 'reply'){
+    		console.log("if 안");
+			empList[count++] = {to_no:${dm.dm_to}+"", to_name:'${emp.emp_name}'};
+			console.log(empList[0].to_no);
+			$("#dm_to_list").append("<input type='text' id='"+empList[0].to_no+"'value='"+empList[0].to_name
+					+"'class='btn btn-outline-secondary col-2 to_do_emp form-control' onclick='deleteTo("+empList[0].to_no+");' name='to_do_emp'>");//+empList[i].to_name+
+			$("#dm_to_list").append("<input type='text' id='"+empList[0].to_no+"'value='"+empList[0].to_no
+					+"' name='to_no_emp' hidden>");
+			}		
+		});
+    
 	$(document).on("click",".insertTo",function(){
 		var to_no= $(this).attr('id');
 		var to_name = $(this).attr('value');
