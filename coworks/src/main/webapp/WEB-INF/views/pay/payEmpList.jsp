@@ -14,6 +14,7 @@
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid-theme.min.css">
 	
+<link href="${pageContext.request.contextPath }/resources/templates/resources/css/hummingbird-treeview.css" rel="stylesheet" type="text/css">
 <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script> 
     <!-- Color Picker Plugin JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asColor/dist/jquery-asColor.js"></script>
@@ -40,19 +41,20 @@
 								<option value="jobtitle">직급</option>
 								<option value="deptname">부서</option>
 							</select>
-							<div class="input-group " style="width: 80%;margin-bottom:8%;  ">
+							<div class="input-group " style="width: 80%; margin-bottom:8%;  ">
 								<input type="search" id="keyword" class="form-control" >
 								<button class="btn btn-info" type="button"   onclick="search();">검색</button>
 							</div>
 						</div>
 						<input type="button" class="btn  btn-outline-info" id="payFileDown" name="payFileDown" value="EXCEL 파일 다운받기"
-						onclick="location.href='${pageContext.request.contextPath}/pay/writePayExcel'	">
+						data-target="#responsive-modal" data-toggle="modal"><!--  location.href='${pageContext.request.contextPath}/pay/writePayExcel-->
 						<input type="button" class="btn  btn-outline-info" id="payFile" name="payFile" value="EXCEL 입력하기"
 						onclick="location.href='${pageContext.request.contextPath}/pay/payInputForm.do'	">
 						<input type="button" class="btn  btn-outline-info" id="payDirect" name="payDirect" value="급여명세서 입력하기"
 						onclick="location.href='${pageContext.request.contextPath}/pay/payDirect.do'	">
 						<div style="height : 20px;"> </div>
 
+						</a>
 						<div id="basicgrid" class="jsgrid"
 							style="position: relative; height: 500px; width: 100%; margin-top: 5px;">
 							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
@@ -111,23 +113,38 @@
 									</tbody>
 								</table>
 							</div>
+          
 							<c:out value="${pageBar}" escapeXml="false" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<c:import url="payModal.jsp"/>
 		<c:import url="../common/footer.jsp" />
 	</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
+	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 	<script>
-	  
+	$("#treeview").hummingbird();
 
 	function search(){
 		location.href="${pageContext.request.contextPath}/pay/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
 	} 
 		
+	
+	$(document).on("click", "#modalSubmit",function(){
+		if($("#paydate").val() == null){
+			alert("날짜 입력");
+			return;
+		}
+		
+		console.log($("#paydate").val());
+		
+		$("#payForm").submit();
+		
+	});
 	</script>
 	<%-- 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/db.js"></script>

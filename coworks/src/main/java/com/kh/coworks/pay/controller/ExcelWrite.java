@@ -157,7 +157,7 @@ public class ExcelWrite {
         }
     }*/
     
-    public void xlsxWiter(List<Employee> list, HttpServletRequest request) {
+    public String xlsxWiter(List<Employee> list, HttpServletRequest request,String paydate) {
         // 워크북 생성
         XSSFWorkbook workbook = new XSSFWorkbook();
         // 워크시트 생성
@@ -166,22 +166,25 @@ public class ExcelWrite {
         XSSFRow row = sheet.createRow(0);
         // 쎌 생성
         XSSFCell cell;
-        
+
+        String y = paydate.substring(0,4);
+        String m = paydate.substring(5,7);
+        String d = paydate.substring(8,10);
         cell = row.createCell(0);
         cell.setCellValue("급여 년도");
 
         cell = row.createCell(1);
-        cell.setCellValue("2019");
+        cell.setCellValue(y);
         
         cell = row.createCell(2);
         cell.setCellValue("급여 월");
         cell = row.createCell(3);
-        cell.setCellValue("8");
+        cell.setCellValue(m);
         
         cell = row.createCell(4);
         cell.setCellValue("급여 일");
         cell = row.createCell(5);
-        cell.setCellValue("1");
+        cell.setCellValue(d);
 
         row = sheet.createRow(1);
         // 헤더 정보 구성
@@ -297,7 +300,7 @@ public class ExcelWrite {
         
 		HttpSession session = request.getSession();
         String saveDir = session.getServletContext().getRealPath("/resources/pay/payroll");
-        File file = new File(saveDir+"/testWrite2.xls");
+        File file = new File(saveDir+"/"+y+m+d+"_급여명세서.xls");
 //        File file = new File("C:\\excel\\testWrite.xls");
         FileOutputStream fos = null;
         // 입력된 내용 파일로 쓰기
@@ -319,6 +322,7 @@ public class ExcelWrite {
                 e.printStackTrace();
             }
         }
+        return file.getAbsolutePath();
     }
 }
 

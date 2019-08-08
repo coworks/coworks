@@ -1,7 +1,9 @@
 package com.kh.coworks.pay.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,7 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -47,7 +51,7 @@ public class PayController {
 	@Autowired
 	AuthorityService authorityService;
 
-	@Autowired 
+	@Autowired
 	PayService payService;
 
 	String filename = "";
@@ -69,7 +73,10 @@ public class PayController {
 				String pageBar = Utils.getPageBar(totalContents, cPage, limit, "employeeList.do");
 				model.addAttribute("list", list).addAttribute("totalContents", totalContents)
 						.addAttribute("numPerPage", limit).addAttribute("pageBar", pageBar)
-						.addAttribute("departmentList", departmentList).addAttribute("jobList", jobList);
+						.addAttribute("departmentList", departmentList).addAttribute("jobList", jobList)
+						.addAttribute("empList", employeeService.selectEmployeeList())
+						.addAttribute("deptList", employeeService.selectDeptEmpCount());
+
 				return "pay/payEmpList";
 			} else
 				return "redirect:empListPay.do/" + emp.getEmp_no();
@@ -269,26 +276,77 @@ public class PayController {
 		int result = payService.insertPay(pay);
 		return "redirect:employeeList.do";
 	}
-	
-	@RequestMapping(value="/pay/writePayExcel")
-	public String writePayExcel(HttpServletRequest request) {
-      // 엑셀로 쓸 데이터 생성
-        
+
+	@RequestMapping(value = "/pay/writePayExcel.do")
+	@ResponseBody
+	public void writePayExcel(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam("signList") int[] signList,
+			@RequestParam(value="paydate") String paydate) {
+		// 엑셀로 쓸 데이터 생성
 
 //      부서 선택해서 값 입력 받기!! 모달창으로 입력 받자 
-		
-		
-        List<Employee> list = new ArrayList<Employee>();
-        list = employeeService.getDeptEmp("D02");
-        
-        ExcelWrite excelWriter = new ExcelWrite();
-        //xls 파일 쓰기
-//        excelWriter.xlsWiter(list,request);
-        
-        //xlsx 파일 쓰기
-        excelWriter.xlsxWiter(list,request);
+		System.out.println(paydate.toString());
+		List<Employee> list = new ArrayList<Employee>();
+		for (int emp : signList)
+			list.add(employeeService.selectOneEmployee(emp));
 
-        
-        return "redirect:employeeList.do";
+		ExcelWrite excelWriter = new ExcelWrite();
+		// xls 파일 쓰기
+//        excelWriter.xlsWiter(list,request);
+
+		// xlsx 파일 쓰기
+		String path = excelWriter.xlsxWiter(list, request,paydate);
+		
+
+		File file = new File(path);
+		FileInputStream fileInputStream = null;
+		ServletOutputStream servletOutputStream = null;
+
+		try {
+			String downName = null;
+			String browser = request.getHeader("User-Agent");
+
+			if (browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")) {
+				downName = URLEncoder.encode(file.getName(), "UTF-8").replaceAll("\\+", "%20");
+
+			} else {
+				downName = new String(file.getName().getBytes("UTF-8"), "ISO-8859-1");
+			}
+
+			response.setHeader("Content-Disposition", "attachment;filename=\"" + downName + "\"");
+			response.setContentType("application/octer-stream");
+			response.setHeader("Content-Transfer-Encoding", "binary;");
+			fileInputStream = new FileInputStream(file);
+			servletOutputStream = response.getOutputStream();
+
+			byte b[] = new byte[1024];
+			int data = 0;
+
+			while ((data = (fileInputStream.read(b, 0, b.length))) != -1) {
+
+				servletOutputStream.write(b, 0, data);
+
+			}
+
+			servletOutputStream.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (servletOutputStream != null) {
+				try {
+					servletOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (fileInputStream != null) {
+				try {
+					fileInputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
