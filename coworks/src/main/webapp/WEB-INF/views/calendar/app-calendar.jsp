@@ -172,7 +172,9 @@
 														onchange="changeCategory2();">
 														<option value='개인'>개인</option>
 														<option value='부서'>부서</option>
+														<c:if test="${sessionScope.authority.auth_cal eq 'Y'}">
 														<option value='회사'>회사</option>
+														</c:if>
 													</select> <input type="hidden" id="cal_type" name="cal_type"
 														value="개인" />
 												</div>
@@ -222,7 +224,7 @@
 									</div>
 								</form>
 							</div>
-							<script>
+							<!-- <script>
 								$('#insertbutton')
 										.on(
 												"click",
@@ -245,7 +247,7 @@
 													}
 
 												});
-							</script>
+							</script> -->
 
 						</div>
 					</div>
