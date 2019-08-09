@@ -12,8 +12,8 @@
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
-		<c:import url="../common/topbar.jsp" />
-		<c:import url="../common/sidebar.jsp" />
+		<c:import url="views/common/topbar.jsp" />
+		<c:import url="views/common/sidebar.jsp" />
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				
@@ -23,9 +23,9 @@
 				
 				
 			</div>
-			<c:import url="../common/footer.jsp" />
+			<c:import url="views/common/bottomJquery.jsp" />
 		</div>
 	</div>
-	<c:import url="../common/bottomJquery.jsp" />
+	<c:import url="views/common/bottomJquery.jsp" />
 </body>
 </html>
