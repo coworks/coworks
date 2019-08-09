@@ -25,8 +25,8 @@ import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.employee.model.vo.Job;
 
 
-
-@SessionAttributes(value={"employee"})
+/*
+@SessionAttributes(value={"employee"})*/
 @Controller
 public class EmployeeController {
 	
@@ -49,6 +49,7 @@ public class EmployeeController {
 
 		emp.setEmp_address(address1+" "+address2);
 		HttpSession session = request.getSession();
+		System.out.println("사원추가시 edit 오나용");
 		Employee employee = (Employee) session.getAttribute("employee");
 		employee.setEmp_email(emp.getEmp_email());
 		employee.setEmp_emailpassword(emp.getEmp_emailpassword());
@@ -91,13 +92,15 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("/employee/employeeEnroll.do")
-	public String employeeEnroll(Employee employee, Model model) {
+	public String employeeEnroll(Employee emp, Model model) {
 
 		// 1. 비즈니스 로직 실행
-		int result = employeeService.insertEmployee(employee);
 
-		String[] splitAuthority = employee.getEmp_authority();
-
+		int result = employeeService.insertEmployee(emp);
+		System.out.println(emp);
+		String[] splitAuthority = emp.getEmp_authority();
+		
+		// authority 에 ㄱ아무것도 추가 안하면 null 에러 발생해요 이거만 고치면 될거같아요 
 		Authority ah = new Authority();
 		
 		ah.setAuth_personnal("N");
@@ -107,6 +110,8 @@ public class EmployeeController {
 		ah.setAuth_approval("N");
 		ah.setAuth_authority("N");
 		ah.setAuth_pay("N");
+		
+		
 		
 		for(int i=0; i<splitAuthority.length;i++) {
 			
@@ -133,26 +138,20 @@ public class EmployeeController {
 		}
 		
 		int auResult = employeeService.insertAuthority(ah);
-		
+
+
 		// 2. 실행 결과에 따른 화면 처리
-		String loc = "/";
-		String msg = "";
 
-		if (result > 0)
-			msg = "회원가입 성공!";
-		else
-			msg = "회원가입 실패!";
-
-		model.addAttribute("loc", loc);
-		model.addAttribute("msg", msg);
-
-		return "employee/employeeList";
+		return "redirect:employeeList.do";
 	}
 	
 	@RequestMapping("/employee/deptInsert.do")
 	public String deptInsert(Department dept) {
 		
 		int result = employeeService.insertDeptName(dept);
+		
+		int  result2 = employeeService.insertBoradDept(dept);
+		
 		
 		return "redirect:/employee/employeeList.do";
 	}

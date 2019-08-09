@@ -211,7 +211,7 @@ td th {
 														class="jsgrid-cell jsgrid-control-field jsgrid-align-center"
 														style="width: 5%;">
 														<button class="jsgrid-button jsgrid-edit-button" data-toggle="modal" 
-														data-target="#updatedepart"	type="button" onclick="transferName('${au.emp_no}','${au.emp_name}');" ></button>
+														data-target="#updatedepart"	type="button" onclick="return transferName('${au.emp_no}','${au.emp_name}');" ></button>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -268,6 +268,10 @@ td th {
 					+ $('#keyword').val();
 		} */
 		
+		
+		
+		
+		
 		function search(){
 			var searchKey = $("#keyword").val();
 			var searchCdt = $("#searchCondition").val();
@@ -296,8 +300,23 @@ td th {
 		}
 
 		function transferName(emp_no,emp_name) {
+			
+			var emp_au = $("input[name='emp_authority']:checked").length;
+			
+			if (emp_au == 0) {
+				Swal.fire({
+					title : "ʕ•ᴥ•ʔ  권한을 선택해주세요!",
+					timer : 1300,
+					showConfirmButton : false
+				});
+				return false;
+			}
+			
 			$('#emp_no').val(emp_no);
 			$('#emp_name').val(emp_name);
+			
+			return false;
+			
 		}
 	</script>
 	<%-- 	<script

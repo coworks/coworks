@@ -118,5 +118,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.getDeptEmp(dept_code);
 	}
 
+	@Override
+	public int insertBoradDept(Department dept) {
+		return employeeDao.insertBoradDept(dept);
+	}
+
 
 }
