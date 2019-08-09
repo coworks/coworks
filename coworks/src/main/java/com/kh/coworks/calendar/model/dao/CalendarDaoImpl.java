@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.coworks.calendar.model.vo.Calendar;
+import com.kh.coworks.calendar.model.vo.CalendarCategory;
 import com.kh.coworks.employee.model.vo.Employee;
 
 
@@ -70,5 +71,33 @@ public class CalendarDaoImpl implements CalendarDao {
 		// TODO Auto-generated method stub
 		return sqlSession.update("calendar.updateCalendar2",calendar);
 	}
+
+
+
+
+	@Override
+	public int insertCalendarCategory(HashMap hmap) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("calendar.insertCalendarCategory",hmap);
+	}
+
+ 
+
+	@Override
+	public List<CalendarCategory> selectListCategory(int emp_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("calendar.selectListCategory",emp_no);
+	}
+
+ 
+
+	@Override
+	public int deleteCalendarCategory(HashMap<String, Integer> hmap) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("calendar.deleteCalendarCategory",hmap);
+	}
+	
+	
+	
 
 }

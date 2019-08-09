@@ -9,6 +9,10 @@
 		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{emp_no} OR CAL_HOLDER=#{dept_code} OR CAL_HOLDER=#{company}
 	</select>
 	
+	<select id="selectListCategory" parameterType="_int" resultType="calendarcategory">
+		SELECT * FROM CALENDARCATEGORY WHERE EMP_NO=#{emp_no} ORDER BY CALCATE_NO ASC
+	</select>
+	
 	
 	<select id="selectListCalendar" parameterType="calendar" resultType="calendar">
 		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{cal_holder} AND CAL_TYPE=#{cal_type}
@@ -20,9 +24,17 @@
 	</insert>
 	
 	
+	<insert id="insertCalendarCategory" parameterType="hashmap" useGeneratedKeys="false">
+		INSERT INTO CALENDARCATEGORY VALUES(SEQ_CALCATE.NEXTVAL,#{emp_no},#{calcate_name},#{calcate_color})
+	</insert>
+	
 	
 	<delete id="deleteCalendar" parameterType="_int">
 		DELETE FROM CALENDAR WHERE CAL_NO=#{cal_no}
+	</delete>
+	
+	<delete id="deleteCalendarCategory" parameterType="hashmap">
+		DELETE FROM CALENDARCATEGORY WHERE EMP_NO=#{emp_no} AND CALCATE_NO=#{calcate_no}
 	</delete>
 	
 	<update id="updateCalendar" parameterType="calendar">

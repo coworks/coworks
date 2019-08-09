@@ -58,13 +58,13 @@
 
 				<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
-						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
+						<h3 class="text-themecolor mb-0 mt-0">일정 관리</h3>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><span>메인페이지</span> <i
 								class="fas fa-chevron-right"></i><span class="text-info">
 									일정관리</span></li>
-						</ol>
-
+							
+						</ol> 
 					</div>
 					<div class="col-md-6 col-4 align-self-center">
 						<input type="button" class="btn btn-success float-right" id="indi"
@@ -98,10 +98,17 @@
 								<div class="row">
 									<div class="col-md-12 col-sm-12 col-xs-12">
 										<div id="calendar-events" class="mt-3">
-											<div class="calendar-events" data-class="bg-info">
-												<span class="oncursor"><i class="fa fa-circle mb-3 text-info"></i>&nbsp;반차</span>
+											
+											
+										<c:forEach items="${cal_category_list}" var="cal_category">
+										<input type="hidden" id="calcate_no" name="calcate_no" value="${cal_category.calcate_no}"/>
+											<div class="calendar-events" data-class="bg-${cal_category.calcate_color}">
+												<span class="oncursor" value="${cal_category.calcate_no}"><i class="fa fa-circle mb-3 text-${cal_category.calcate_color}"></i>&nbsp;${cal_category.calcate_name}</span>
+											 	
 											</div>
-											<div class="calendar-events" data-class="bg-success">
+											
+											</c:forEach>
+										<!-- 	<div class="calendar-events" data-class="bg-success">
 												<span class="oncursor"><i class="fa fa-circle mb-3 text-success"></i>&nbsp;휴가</span>
 											</div>
 											<div class="calendar-events" data-class="bg-danger">
@@ -109,17 +116,17 @@
 											</div>
 											<div class="calendar-events" data-class="bg-warning">
 												<span class="oncursor"><i class="fa fa-circle mb-3 text-warning"></i>&nbsp;외근</span>
-											</div>
+											</div> -->
 										</div>
 										<!-- checkbox -->
                                         <div class="checkbox mb-3">
                                             <input id="drop-remove" type="checkbox">
                                             <label for="drop-remove">
-                                                Remove after drop
+                                                	클릭시 드래그 후 삭제
                                             </label>
                                         </div>
                                         <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
-                                            <i class="ti-plus"></i> Add New Event
+                                            <i class="ti-plus"></i>추가
                                         </a>
                                           
 										<!-- <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
@@ -273,7 +280,41 @@
 						</div>
 					</div>
 				</div>
-
+				<!-- Modal Add Category -->
+                <div class="modal fade none-border" id="add-new-event">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">간편 일정 추가(개인)</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label">일정 명</label>
+                                            <input class="form-control form-white" placeholder="일정명 입력" type="text" name="category-name" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">색상</label>
+                                            <select class="form-control form-white" data-placeholder="색깔선택하세요" name="category-color">
+                                                <option value="info" selected><i class="fa fa-circle mb-3 text-info">파랑</option>
+                                                <option value="success"><i class="fa fa-circle mb-3 text-success">초록</option>
+                                                <option value="purple"><i class="fa fa-circle mb-3 text-purple">보라</option>
+                                                <option value="warning"><i class="fa fa-circle mb-3 text-warning">노랑</option>
+                                                <option value="danger"><i class="fa fa-circle mb-3 text-danger">빨강</option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 				<!-- Modal Add Category -->
@@ -364,7 +405,7 @@
 						this.$body = $("body")
 								this.$calendar = $('#calendar'),
 								this.$event = ('#calendar-events div.calendar-events'),
-								this.$categoryForm = $('#add-new-event form'),
+								this.$categoryForm = $('#add-new-event form'), 
 								this.$extEvents = $('#calendar-events'),
 								this.$modal = $('#my-event'),
 								this.$saveCategoryBtn = $('.save-category'),
@@ -397,11 +438,27 @@
 								var end = $.fullCalendar.formatDate(
 										copiedEventObject.start,
 										"YYYY-MM-DD HH:30:ss.SSSSSSSSS");
-								//alert(end);
+								$('#view').val(eventObj);
+								if ($('#drop-remove').is(':checked')) {
+					                // if so, remove the element from the "Draggable Events" list
+					                $.ajax({
+											url : "${pageContext.request.contextPath}/calendar/deleteCalendarCategory.do",
+											dataType : "json",
+											data : {
+												calcate_no:originalEventObject.id
+											},
+											success : function() {
+
+								                eventObj.remove();
+											},
+											error : function() {
+												alert("error drag !!!!");
+											}
+										});
+					            }
 								
 							
-								$
-										.ajax({
+								$.ajax({
 											url : "${pageContext.request.contextPath}/calendar/insertCalendar2.do",
 											dataType : "json",
 											data : {
@@ -418,19 +475,19 @@
 											}
 										});
 								
+								
+								
 							}else{
 									alert("개인일정에만 추가 가능합니다.");
 								}
-								// is the "remove after drop" checkbox checked?
-								if ($('#drop-remove').is(':checked')) {
-									// if so, remove the element from the "Draggable Events" list
-									eventObj.remove();
-								}
+								
 							},
 							/* on click on event */
 							CalendarApp.prototype.onEventClick = function(
 									calEvent, jsEvent, view) {
-								var $this = this;
+
+								console.log($('input[name=calcate_no]').val());
+							 	var $this = this;
 								var today = new Date($.now());
 								if (calEvent.end == null) {
 									calEvent.end = today;
@@ -614,8 +671,11 @@
 									// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
 									// it doesn't need to have a start or end
 									// 간편일정등록
+									console.log($.trim($(this).text()));
+									console.log($(this).prev().val());
 									var eventObject = {
-										title : $.trim($(this).text())
+										title : $.trim($(this).text()),
+										id:$(this).prev().val()
 									// use the element's text as the event title
 									};
 									// store the Event Object in the DOM element so we can get to it later
@@ -719,6 +779,45 @@
 														});
 											}
 										});
+								this.$saveCategoryBtn.on('click', function(){
+						            var categoryName = $this.$categoryForm.find("input[name='category-name']").val();
+						            var categoryColor = $this.$categoryForm.find("select[name='category-color']").val();
+						            var length=$(".calendar-events").length+1;
+						            
+						           if(length<6){  
+						            if (categoryName !== null && categoryName.length != 0) {
+						             
+						            $.ajax({
+						            	url : "${pageContext.request.contextPath}/calendar/insertCalendarCategory.do",
+										dataType : "json",
+										data : {
+											calcate_name : categoryName,
+											calcate_color : categoryColor
+										},
+										success : function() {
+											location.href="${pageContext.request.contextPath}/calendar/calendarview.do";
+										},
+										error : function() {
+											alert("error!!!!");
+										}
+						            	
+						            
+						            });
+						            
+						            
+						                
+						            }else{
+						            	alert("일정 명을 입력하세요");
+						            }
+						           }else{
+						        	   alert("5개까지 등록 가능합니다");   	
+						           }
+					          
+						         /*    <div class="calendar-events" data-class="bg-info">
+									<span class="oncursor"><i class="fa fa-circle mb-3 text-info"></i>&nbsp;반차</span>
+								</div> */
+						        });	
+								
 							},
 							//init CalendarApp
 							$.CalendarApp = new CalendarApp,

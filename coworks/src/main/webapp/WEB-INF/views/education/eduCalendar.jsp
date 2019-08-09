@@ -45,7 +45,7 @@
 			<div class="container-fluid">
 				<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
-						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
+						<h3 class="text-themecolor mb-0 mt-0">교육 일정 & 신청</h3>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><span>메인페이지</span> <i
 								class="fas fa-chevron-right"></i><span> 교육</span> <i

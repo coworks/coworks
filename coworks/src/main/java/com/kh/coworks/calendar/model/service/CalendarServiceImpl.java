@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.coworks.calendar.model.dao.CalendarDao;
 import com.kh.coworks.calendar.model.vo.Calendar;
+import com.kh.coworks.calendar.model.vo.CalendarCategory;
 
 
 @Service
@@ -68,5 +69,32 @@ public class CalendarServiceImpl implements CalendarService {
 	public int updateCalendar2(Calendar calendar) {
 		return calDao.updateCalendar2(calendar);
 	}
+
+ 
+	@Override
+	public int insertCalendarCategory(HashMap hmap) {
+		// TODO Auto-generated method stub
+		return calDao.insertCalendarCategory(hmap);
+	}
+
+ 
+
+	@Override
+	public List<CalendarCategory> selectListCategory(int emp_no) {
+		// TODO Auto-generated method stub
+		return calDao.selectListCategory(emp_no);
+	}
+
+ 
+
+	@Override
+	public int deleteCalendarCategory(HashMap<String, Integer> hmap) {
+		// TODO Auto-generated method stub
+		return calDao.deleteCalendarCategory(hmap);
+	}
+	
+	
+	
+	
 
 }

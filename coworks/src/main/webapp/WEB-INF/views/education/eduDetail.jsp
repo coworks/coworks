@@ -21,8 +21,8 @@
                     <div class="col-md-6 col-8 align-self-center">
                         <h3 class="text-themecolor mb-0 mt-0">일정 상세보기</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Education</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">메인페이지</a></li>
+                            <li class="breadcrumb-item active">일정 상세보기</li>
                         </ol>
                     </div>
                 </div>
