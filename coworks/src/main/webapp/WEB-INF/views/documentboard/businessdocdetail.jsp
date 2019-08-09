@@ -146,7 +146,6 @@
 											<div class="row">
 												<div class="">
 													<%-- <a href="${pageContext.request.contextPath}/${at.getAttach_path()}/${at.getAttach_rename()}" download="${at.getAttach_oriname()}"> --%>
-
 													<%-- <c:forEach items="${attachmentList}" var="a" varStatus="vs">
 														<button type="button"
 															class="btn btn-outline-primary waves-effect waves-light"
