@@ -43,30 +43,39 @@
                                 <c:import url="mail-common.jsp"/>
                                 <!-- lg-8 md-7 -->
                                 <div class="col-xlg-10 col-lg-9 col-md-9">    
-                                <form action="${pageContext.request.contextPath}/mail/mailFormEnd.do" method="POST" id="mailform" enctype="multipart/form-data">
+                                <form action="${pageContext.request.contextPath}/mail/mailFormEnd.do" method="POST" enctype="multipart/form-data">
                                     
                                     <div class="card-body">
                                         <h3 class="card-title">메일 작성하기</h3>
                                         <div class="form-group">
                                           <c:if test="${type eq 'reply'}">
-                                          	<input class="form-control" name="mail_to_email" id="mail_to_email" type="email" value="${dm.dm_from() }">
+                                          	<input class="form-control" name="mail_to_email" value="${mail.mail_from_email }">
                                           </c:if>
                                           <c:if test="${type ne 'reply' }">
-                                            <input class="form-control" name="mail_to_email" id="mail_to_email" type="email" placeholder="받는 사람 :">
+                                            <input class="form-control" name="mail_to_email" placeholder="받는 사람 :">
                                            </c:if>
                                         </div>
                                         <div class="form-group">
                                         <c:if test="${type eq 'forward'}">
-                                        	<input class="form-control" name="mail_subject" id="mail_subject"  value="${dm.dm_subject() }">
+                                        	<input class="form-control" name="mail_subject" value="${mail.mail_subject }">
                                          </c:if>
                                           <c:if test="${type ne 'forward'}">
-                                            <input class="form-control" name="mail_subject" id="mail_subject" placeholder="제목 : ">
+                                            <input class="form-control" name="mail_subject" placeholder="제목 : ">
                                            </c:if>
                                         </div>
                                         <div class="form-group">
-                                            <textarea class="textarea_editor form-control" id="mail_content" name="mail_content" rows="15" placeholder="">
+                                            <textarea class="textarea_editor form-control" name="mail_content" rows="15" placeholder="">
                                             
-                                      
+                                            <c:if test="${mail !=null }">
+                                            <br/><br/><br/><br/><br/>
+-----Original Message-----<br/>
+From: ${mail.mail_from_email }<br/>
+To: ${mail.mail_to_email } <br/>
+
+Sent: ${mail.mail_sendDate}<br/>
+Subject: ${mail.mail_subject }<br/>
+content :${mail.mail_content }<br/>
+                                            </c:if>
                                             </textarea>
                                         </div>
                                         <h4><i class="ti-link"></i>첨부파일</h4>
@@ -77,12 +86,10 @@
                                             </div>
                                        	</div> -->
                                         <div id='file-list'>
-                                  		  <input type="button" id='button-add-file' value='파일 추가'style="margin-bottom:10px;" class="col-2 btn btn-outline-secondary" />
+                                  		  <input type="button" id='button-add-file' value='파일 추가' class="btn  btn-outline-secondary" />
                                 		</div>
-                                        <input type="button" onclick="mailsubmit();" class="col-2  btn btn-success mt-3" value="전송">
-                                        <!-- <i class="fa fa-envelope-o"></i> 전송 </button> -->
-                                        <input type="button" class="col-2   btn btn-inverse mt-3" value="취소">
-                                        <!-- <i class="fa fa-times"></i> 취소 </button> -->
+                                        <button type="submit" class="btn btn-success mt-3"><i class="fa fa-envelope-o"></i> 전송 </button>
+                                        <button class="btn btn-inverse mt-3"><i class="fa fa-times"></i> 취소 </button>
                                     </div>
                                    </form>
                                 </div>

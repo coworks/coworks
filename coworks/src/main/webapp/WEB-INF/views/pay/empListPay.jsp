@@ -21,11 +21,7 @@
     <!-- Date Picker Plugin JavaScript -->
     <!-- Date range Plugin JavaScript -->
     <style>
-     #page{
-     	padding-left:36%;
-     	margin-top:0;
-     	
-     }
+   
      #subtitle{
      	padding-bottom:5%;
      }

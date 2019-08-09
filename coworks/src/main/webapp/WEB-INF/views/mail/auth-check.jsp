@@ -18,8 +18,21 @@
    .notRead{ 
    	  color : red;
    }
+   img{
+		width : 80%;
+		height: 80%;
+		/* position:absolute; */
+		display:none;
+   } 
+ 
+ 	.dupWidth{
+ 		width:30px;
+ 		height:30px;
+ 		font-size:20pt;
+ 	}
 </style>
 <body class="fix-header fix-sidebar card-no-border">
+
 	<div id="main-wrapper">
 		<c:import url="../common/topbar.jsp" />
 		<c:import url="../common/sidebar.jsp" />
@@ -41,12 +54,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">이메일 인증</h4>
-                                <h6 class="card-subtitle">사내 메일을 이용하기 위해선 사용 중인 이메일을 입력해야 합니다. </h6>
+                                <h6 class="card-subtitle">사내 메일을 이용하기 위해선 실제 사용 중인 이메일을 입력해야 합니다. </h6>
                                 <form class="mt-4" id="saveEmail" action="${pageContext.request.contextPath}/mail/saveEmail.do ">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">이메일</label>
-                                        <input type="email" name="emp_email" class="form-control" id="emp_email" aria-describedby="emailHelp" placeholder="이메일">
-                                        <small id="emailHelp" class="form-text text-muted">헤당 메일 주소는 절대 다른 용도로 사용하지 않습니다.</small>
+                                        <label for="exampleInputEmail1">이메일</label>&nbsp;&nbsp;&nbsp;&nbsp; 	
+                                        <label id="naverhover" class="hover"> <i class="primary far fa-question-circle text-primary"></i> </label> &nbsp;&nbsp;
+                                        <label  class="hover" id="googlehover">  <i class=" primary far fa-question-circle text-primary"></i>  </label>
+                                      
+                                        <img id="naverimg" src="${pageContext.request.contextPath}/resources/mail/nsmtppop.png">	
+                                        <img id="googleimg" src="${pageContext.request.contextPath}/resources/mail/gsmtppop.png">	
+                                        
+                                         <input type="email" name="emp_email" class="form-control" id="emp_email" aria-describedby="emailHelp" placeholder="이메일">
+                                        <small id="emailHelp" class="form-text text-muted">헤당 메일 주소는 절대 다른 용도로 사용하지 않습니다. (현재는 NAVER, GMAIL만 지원하고 있습니다.)</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">비밀번호</label>
@@ -142,6 +161,29 @@
 	    		alert("인증에 실패하였습니다.");
 	    	}
 	    }
+	    
+	    
+	    $("#naverhover").on("mouseover",function(){
+	    	console.log("hover");
+	    	$('#naverhover').hover(function(){
+	    		$(this).addClass("dupWidth");
+	    		$("#naverimg").css("display","block");
+			}, function(){
+	    		$(this).removeClass("dupWidth");
+				$("#naverimg").css("display","none");
+			});
+	    });
+	    
+	    $("#googlehover").on("mouseover",function(){
+	    	console.log("hover");
+	    	$('#googlehover').hover(function(){
+	    		$(this).addClass("dupWidth");
+	    		$("#googleimg").css("display","block");
+			}, function(){
+	    		$(this).removeClass("dupWidth");
+				$("#googleimg").css("display","none");
+			});
+	    });
 	
 	</script>
 	<!-- <script>

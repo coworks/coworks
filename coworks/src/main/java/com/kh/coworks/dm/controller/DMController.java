@@ -145,15 +145,21 @@ public class DMController {
 
 	@RequestMapping("/dm/replyDm.do/{dm_no}")
 	public String replyDm( @PathVariable(value = "dm_no") int dm_no ,Model model) {
-		model.addAttribute("dm",dmService.selectOneDm(dm_no)).addAttribute("type","reply");
+		DM dm =dmService.selectOneDm(dm_no); 
+		
+		Employee emp = employeeService.selectOneEmployee(dm.getDm_to());
+				
+		model.addAttribute("dm",dm).addAttribute("emp",emp)
+		.addAttribute("type","reply").addAttribute("dept", employeeService.selectDepartmentList());
 		return "dm/dmWriteForm";
 	}
 	
-	@RequestMapping("/dm/fowardDm.do/{dm_no}")
-	public String fowardDm(@PathVariable(value = "dm_no") int dm_no, Model model) {
-		List<Department> dept = employeeService.selectDepartmentList();
-		System.out.println(dept);
-		model.addAttribute("dm", dmService.selectOneDm(dm_no)).addAttribute("dept", dept).addAttribute("type", "foward");
+	@RequestMapping("/dm/forwardDm.do/{dm_no}")
+	public String forwardDm(@PathVariable(value = "dm_no") int dm_no, Model model) {
+	DM dm =dmService.selectOneDm(dm_no); 
+		Employee emp = employeeService.selectOneEmployee(dm.getDm_to());
+		model.addAttribute("dm", dm).addAttribute("emp",emp)
+		.addAttribute("dept", employeeService.selectDepartmentList()).addAttribute("type", "forward");
 		return "dm/dmWriteForm";
 
 	}

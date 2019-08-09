@@ -34,6 +34,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,41 +94,31 @@ public class MailController {
 //	}
 
 	@RequestMapping("/mail/sendingMail.do")
-	public void sendingMail(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request, MultipartFile[] upFile) {
+	public void sendingMail(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request, List<MailAttach> maList) {
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
 
 		MimeMessage msg = mailSetting.sendingSetting(request);
+
+		// -------------------첨부---------------------
+		
+		
+		
+		// ---------------------첨부 끝-------------------
 		try {
 
-			// ----------------------------------------
-			// ----------------------------------------
 			msg.setSentDate(new Date());
 			msg.setFrom(new InternetAddress(emp.getEmp_email(), "COWORKS : " + emp.getEmp_name()));
 			InternetAddress to = new InternetAddress(mail.getMail_to_email());
 			msg.setRecipient(Message.RecipientType.TO, to);
 			msg.setSubject(mail.getMail_subject(), "UTF-8");
 
-//			msg.setText(mail.getMail_content(), "UTF-8");
+			/* msg.setText("<HTML>"+mail.getMail_content()+"</HTML>", "UTF-8"); */
+			msg.setContent(mail.getMail_content(), "text/html;charset=UTF-8");
+			//---------------------첨부--------------------------
+		
 			
-			//-----------------------------------------------
-			MimeBodyPart mbp = new MimeBodyPart();
-			mbp.setText(mail.getMail_content());
-			File conFile = new File(upFile[0].getOriginalFilename());
-			try {
-				upFile[0].transferTo(conFile);
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-			}
-			FileDataSource fds = new FileDataSource(conFile.getAbsolutePath());
-			
-			MimeBodyPart mbp1 = new MimeBodyPart();
-			mbp1.setDataHandler(new DataHandler(fds));
-			mbp1.setFileName(fds.getName());
-			Multipart mp = new MimeMultipart();
-			mp.addBodyPart(mbp); 
-			mp.addBodyPart(mbp1);
-			//-----------------------------------------------
+			//----------------------첨부 끝-------------------------
 
 			if (msg != null)
 				Transport.send(msg,emp.getEmp_email(),emp.getEmp_emailpassword());
@@ -448,13 +439,13 @@ public class MailController {
 		}
 		int result = 0;
 		mail.setMail_from_email(emp.getEmp_email());
-
+		mail.setMail_name("COWORKS : " +emp.getEmp_name());
 		result = mailService.mailFormEnd(mail, list);
 
 		String loc = "/mail/innerMail.do";
 		String msg = "";
 		if (result > 0) {
-			sendingMail(mail, model, list, request , upFile);
+			sendingMail(mail, model, list, request , list);
 			msg = "등록 성공!";
 		} else {
 			msg = "메일 전송 실패!";	
@@ -606,6 +597,7 @@ public class MailController {
 	@RequestMapping(value = "/mail/storeMail.do")
 	public String storeMail(@RequestBody String[] chkMails) {
 		// 외부에서 내부로 메일 저장하기
+		// 마크별 메일 보기
 		System.out.println("Store Mail 실행중");
 		System.out.println(chkMails.getClass());
 		if (chkMails != null)

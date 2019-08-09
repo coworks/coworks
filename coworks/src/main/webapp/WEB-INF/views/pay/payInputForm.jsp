@@ -38,7 +38,7 @@
                    		<h3 name="info" id="info"></h3>
                    		<small>(단위/원)</small>
                    		<div id="basicgrid" class="jsgrid"
-							style="position: relative; height: 500px; width: 100%; tmargin-top: 200px;">
+							style="position: relative; height: 100%; width: 100%; tmargin-top: 200px;">
 							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
 								<table class="jsgrid-table table table-striped table-hover">
 									<tr class="jsgrid-header-row">
