@@ -71,7 +71,7 @@
 					<div class="col-lg-4">
 						<div class="card">
 							<div class="card-body">
-								<div class="m-2">
+								<div class="m-2">	
 									<jsp:useBean id="now" class="java.util.Date" />
 									<fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일"
 										var="today" />
@@ -169,7 +169,7 @@
 									<div id="addtodohome" class="modal" tabindex="-1" role="dialog"
 										aria-labelledby="myModalLabel" aria-hidden="true"
 										style="display: none;">
-										<div class="modal-dialog">
+										<div class="modal-dialog  <modal-dialog-centered></modal-dialog-centered>">
 											<form method="post" action="addtodohome.do"
 												name="addtodohome">
 												<div class="modal-content">
@@ -337,7 +337,7 @@
 								<div id="calendar"></div>
 								<!-- BEGIN MODAL -->
 								<div class="modal fade none-border" id="my-event">
-									<div class="modal-dialog">
+									<div class="modal-dialog  modal-dialog-centered">
 										<div class="modal-content">
 											<div class="modal-header">
 												<h4 class="modal-title">
