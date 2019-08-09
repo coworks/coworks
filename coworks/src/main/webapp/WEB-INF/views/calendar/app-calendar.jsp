@@ -111,14 +111,17 @@
 												<span class="oncursor"><i class="fa fa-circle mb-3 text-warning"></i>&nbsp;외근</span>
 											</div>
 										</div>
-										<!-- 
-                                        	-- 나중에 생각해보기 -- 필요없을것같음
+										<!-- checkbox -->
                                         <div class="checkbox mb-3">
                                             <input id="drop-remove" type="checkbox">
                                             <label for="drop-remove">
                                                 Remove after drop
                                             </label>
-                                        </div> -->
+                                        </div>
+                                        <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
+                                            <i class="ti-plus"></i> Add New Event
+                                        </a>
+                                          
 										<!-- <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn btn-danger btn-block waves-effect waves-light">
                                             <i class="ti-plus"></i> 추가
                                         </a> -->
