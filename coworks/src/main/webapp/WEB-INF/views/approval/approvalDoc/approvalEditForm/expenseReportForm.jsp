@@ -22,11 +22,11 @@
 			<div class="container-fluid">
 			<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
-						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><span>메인페이지</span> <i
+								class="fas fa-chevron-right"></i><span>전자결재</span> <i
 								class="fas fa-chevron-right"></i><span class="text-info">
-									결재서류 수정하기</span></li>
+									지출품의서 수정하기</span></li>
 						</ol>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 						<div class="card">
 							<div class="card-body">
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
-									<h2 class="card-title mb-5">지출 품의서</h2>
+									<h2 class="card-title mb-5">지출 품의서 수정하기</h2>
 
 									<form id="tableForm" onsubmit="return check()">
 										<div class="table-responsive mt-2">
