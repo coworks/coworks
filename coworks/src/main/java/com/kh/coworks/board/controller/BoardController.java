@@ -3,7 +3,10 @@ package com.kh.coworks.board.controller;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -323,68 +326,119 @@ public class BoardController {
 	// ※첨부파일 다운로드!※ ★
 	// download 태그로 대체 가능하나
 	// 만약을 위해 구현하는 방법도 익히고 있어야 한다.
-	@RequestMapping("/documentboard/fileDownload.do")
-	public void fileDownload(@RequestParam String oName, @RequestParam String rName, HttpServletRequest request,
-			HttpServletResponse response) {
+//	@RequestMapping("/documentboard/fileDownload.do")
+//	public void fileDownload(@RequestParam String oName, @RequestParam String rName, HttpServletRequest request,
+//			HttpServletResponse response) {
+//
+//		// 파일저장디렉토리
+//		String saveDirectory = request.getSession().getServletContext().getRealPath("/resources/board/attach");
+//
+//		BufferedInputStream bis = null;
+//		ServletOutputStream sos = null;
+//
+//		try {
+//			sos = response.getOutputStream();
+//			File savedFile = new File(saveDirectory + "/" + rName);
+//			response.setContentType("application/octet-stream; charset=utf-8");
+//
+//			// 한글 파일 명 처리 : 브라우져에 따른 인코딩 처리 선택
+//			String resFilename = "";
+//			boolean isMSIE = request.getHeader("user-agent").indexOf("MSIE") != -1
+//					|| request.getHeader("user-agent").indexOf("Trident") != -1;
+//			System.out.println("isMSIE=" + isMSIE);
+//			if (isMSIE) {
+//				// ie는 utf-8 인코딩을 명시적으로 선언 해줘야 한다.
+//				// 또한 공백을 의미하는 ' '기호가 +로 변하기 때문에, 이를 %20로 치환해준다.
+//				// 그럼 '+'는...?? ==> '+'기호는 그에 맞는 유니코드로 치환되기 때문에 상관 X
+//				resFilename = URLEncoder.encode(oName, "UTF-8"); // java.net import~
+//				System.out.println("ie : " + resFilename);// ie :
+//															// %EC%97%AC%EB%9F%AC%EB%B6%84+%ED%99%94%EC%9D%B4%ED%8C%85.txt
+//
+//				resFilename = resFilename.replaceAll("\\+", "%20");
+//				System.out.println("ie : " + resFilename);// ie :
+//															// %EC%97%AC%EB%9F%AC%EB%B6%84+%ED%99%94%EC%9D%B4%ED%8C%85.txt
+//			} else {
+//				// 다른 웹 브라우저 중 ISO-8859-1(EUC-KR)로 되어 있는 경우 인코딩 진행
+//				resFilename = new String(oName.getBytes("UTF-8"), "ISO-8859-1");
+//				System.out.println("not ie : " + resFilename);
+//
+//			}
+//			response.addHeader("Content-Disposition", "attachment; filename=\"" + resFilename + "\"");
+//
+//			// 파일크기지정
+//			response.setContentLength((int) savedFile.length());
+//
+//			FileInputStream fis = new FileInputStream(savedFile);
+//			bis = new BufferedInputStream(fis);
+//			int read = 0;
+//
+//			while ((read = bis.read()) != -1) {
+//				sos.write(read);
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//
+//			try {
+//				sos.close();
+//				bis.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//
+//		}
+//
+//	}
+	
+	
+	@RequestMapping(value = "/documentboard/fileDownload.do")
+	   public void fileDownload(HttpServletResponse response, HttpServletRequest request,
+	         @RequestParam("path") String filepath, @RequestParam String name) {
 
-		// 파일저장디렉토리
-		String saveDirectory = request.getSession().getServletContext().getRealPath("/resources/board/attach");
+	      String path = request.getSession().getServletContext().getRealPath(filepath);
 
-		BufferedInputStream bis = null;
-		ServletOutputStream sos = null;
+	      try {
+	         String browser = request.getHeader("User-Agent");
+	         // 파일 인코딩
+	         if (browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")) {
+	            name = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
+	         } else {
+	            name = new String(name.getBytes("UTF-8"), "ISO-8859-1");
+	         }
+	      } catch (UnsupportedEncodingException ex) {
+	         System.out.println("UnsupportedEncodingException");
+	      }
 
-		try {
-			sos = response.getOutputStream();
-			File savedFile = new File(saveDirectory + "/" + rName);
-			response.setContentType("application/octet-stream; charset=utf-8");
+	      System.out.println(path);
+	      File file1 = new File(path);
+	      if (!file1.exists()) {
+	         return;
+	      }
 
-			// 한글 파일 명 처리 : 브라우져에 따른 인코딩 처리 선택
-			String resFilename = "";
-			boolean isMSIE = request.getHeader("user-agent").indexOf("MSIE") != -1
-					|| request.getHeader("user-agent").indexOf("Trident") != -1;
-			System.out.println("isMSIE=" + isMSIE);
-			if (isMSIE) {
-				// ie는 utf-8 인코딩을 명시적으로 선언 해줘야 한다.
-				// 또한 공백을 의미하는 ' '기호가 +로 변하기 때문에, 이를 %20로 치환해준다.
-				// 그럼 '+'는...?? ==> '+'기호는 그에 맞는 유니코드로 치환되기 때문에 상관 X
-				resFilename = URLEncoder.encode(oName, "UTF-8"); // java.net import~
-				System.out.println("ie : " + resFilename);// ie :
-															// %EC%97%AC%EB%9F%AC%EB%B6%84+%ED%99%94%EC%9D%B4%ED%8C%85.txt
+	      // 파일명 지정
+	      response.setContentType("application/octer-stream");
+	      response.setHeader("Content-Transfer-Encoding", "binary;");
+	      response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
+	      try {
+	         OutputStream os = response.getOutputStream();
+	         FileInputStream fis = new FileInputStream(path);
 
-				resFilename = resFilename.replaceAll("\\+", "%20");
-				System.out.println("ie : " + resFilename);// ie :
-															// %EC%97%AC%EB%9F%AC%EB%B6%84+%ED%99%94%EC%9D%B4%ED%8C%85.txt
-			} else {
-				// 다른 웹 브라우저 중 ISO-8859-1(EUC-KR)로 되어 있는 경우 인코딩 진행
-				resFilename = new String(oName.getBytes("UTF-8"), "ISO-8859-1");
-				System.out.println("not ie : " + resFilename);
+	         int ncount = 0;
+	         byte[] bytes = new byte[512];
 
-			}
-			response.addHeader("Content-Disposition", "attachment; filename=\"" + resFilename + "\"");
-
-			// 파일크기지정
-			response.setContentLength((int) savedFile.length());
-
-			FileInputStream fis = new FileInputStream(savedFile);
-			bis = new BufferedInputStream(fis);
-			int read = 0;
-
-			while ((read = bis.read()) != -1) {
-				sos.write(read);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-
-			try {
-				sos.close();
-				bis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
-
-	}
+	         while ((ncount = fis.read(bytes)) != -1) {
+	            os.write(bytes, 0, ncount);
+	         }
+	         fis.close();
+	         os.close();
+	      } catch (FileNotFoundException ex) {
+	         System.out.println("FileNotFoundException");
+	      } catch (IOException ex) {
+	         System.out.println("IOException");
+	      }
+	   }
+	
+	
+	
 }

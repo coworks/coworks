@@ -26,50 +26,76 @@
 		<div class="page-wrapper">
 			<div class="container-fluid">
 
-<div class="row page-titles">
+				<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
 						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item" ><input type="text" id="boardCode" value="${boardCode }" hidden>
-								<c:choose>
-												<c:when test="${boardCode eq 'D50' }">
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 사내규정 자료실</span>
-												</c:when>
-												<c:when test="${boardCode eq 'D51' }">
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 업무자료 자료실</span>
-												</c:when>
-												<c:when test="${boardCode eq 'D52' }">
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>자료실</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 교육자료 자료실</span>
-												</c:when>
-												<c:when test="${boardCode eq 'D53' }">
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 공지사항</span>
-												</c:when>
-												<c:when test="${boardCode eq 'D54' }">
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 경조사</span>
-												</c:when>
-												<c:when test="${boardCode eq 'D55' }">
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 조직개편 및 인사이동</span>
-												</c:when>
-												<c:when test="${boardCode eq 'D56' }">
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> News</span>
-												</c:when>
-												<c:when test="${bo_code eq 'D57' }">
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 자유게시판</span>
-												</c:when>
-												<c:otherwise>
-													<input type="text" name="boardCode" value="${boardCode }" hidden>
-													<span>게시판</span> <i class="fas fa-chevron-right"></i><span class="text-info"> 부서게시판</span>
-												</c:otherwise>
-											</c:choose>
-							</li>
+							<li class="breadcrumb-item"><input type="text"
+								id="boardCode" value="${boardCode }" hidden> <c:choose>
+									<c:when test="${boardCode eq 'D50' }">
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>자료실</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> 사내규정 자료실</span>
+									</c:when>
+									<c:when test="${boardCode eq 'D51' }">
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>자료실</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> 업무자료 자료실</span>
+									</c:when>
+									<c:when test="${boardCode eq 'D52' }">
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>자료실</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> 교육자료 자료실</span>
+									</c:when>
+									<c:when test="${boardCode eq 'D53' }">
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>게시판</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> 공지사항</span>
+									</c:when>
+									<c:when test="${boardCode eq 'D54' }">
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>게시판</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> 경조사</span>
+									</c:when>
+									<c:when test="${boardCode eq 'D55' }">
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>게시판</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> 조직개편 및 인사이동</span>
+									</c:when>
+									<c:when test="${boardCode eq 'D56' }">
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>게시판</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> News</span>
+									</c:when>
+									<c:when test="${bo_code eq 'D57' }">
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>게시판</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> 자유게시판</span>
+									</c:when>
+									<c:otherwise>
+										<input type="text" name="boardCode" value="${boardCode }"
+											hidden>
+										<span>게시판</span>
+										<i class="fas fa-chevron-right"></i>
+										<span class="text-info"> 부서게시판</span>
+									</c:otherwise>
+								</c:choose></li>
 						</ol>
 					</div>
 				</div>
@@ -101,8 +127,9 @@
 														${board.writerName }</h4>
 													<small class="text-muted" name="bo_date">작성 날짜 : <fmt:formatDate
 															value="${board.bo_date }" pattern="yyyy년MM월dd일 HH:mm" /></small>
-													<input type="text" value="${board.bo_no }" name="bo_no" hidden/>
-													<input type="text" value="${board.bo_code }" name="bo_code" hidden/>
+													<input type="text" value="${board.bo_no }" name="bo_no"
+														hidden /> <input type="text" value="${board.bo_code }"
+														name="bo_code" hidden />
 												</div>
 											</div>
 											<p>
@@ -120,14 +147,31 @@
 												<div class="">
 													<%-- <a href="${pageContext.request.contextPath}/${at.getAttach_path()}/${at.getAttach_rename()}" download="${at.getAttach_oriname()}"> --%>
 
-													<c:forEach items="${attachmentList}" var="a" varStatus="vs">
+													<%-- <c:forEach items="${attachmentList}" var="a" varStatus="vs">
 														<button type="button"
 															class="btn btn-outline-primary waves-effect waves-light"
 															onclick="fileDownload('${a.attach_oriname}','${a.attach_rename }');">
 															<i class="ti-download" style="color: black"></i>&nbsp;&nbsp;
-															<%-- ${vs.count} - --%>${a.attach_oriname }
-														</button>&nbsp; </c:forEach>
-													</a>
+															${vs.count} -${a.attach_oriname }
+														</button>&nbsp; </c:forEach> --%>
+
+
+													<c:forEach items="${attachmentList}" var="at">
+														<a
+															href="<c:url value='/board/fileDownload?name=${at.attach_oriname }&path=${at.attach_path}/${at.attach_rename }'/>">
+															<div
+																class="btn btn-outline-primary waves-effect waves-light">
+																<i class="ti-download" style="color: black"></i>&nbsp;&nbsp;
+																${at.attach_oriname }
+															</div>&nbsp;
+														</a>
+													</c:forEach>
+
+
+
+
+
+													
 												</div>
 												<br>
 
