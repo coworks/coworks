@@ -99,7 +99,7 @@
 									<div class="col-md-12 col-sm-12 col-xs-12">
 										<div id="calendar-events" class="mt-3">
 											<div class="calendar-events" data-class="bg-info">
-												<i class="fa fa-circle mb-3 text-info"></i>&nbsp;회의
+												<span class="oncursor"><i class="fa fa-circle mb-3 text-info"></i>&nbsp;반차</span>
 											</div>
 											<div class="calendar-events" data-class="bg-success">
 												<span class="oncursor"><i class="fa fa-circle mb-3 text-success"></i>&nbsp;휴가</span>
