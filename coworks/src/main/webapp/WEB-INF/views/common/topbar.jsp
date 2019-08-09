@@ -89,7 +89,7 @@
 								<div class="drop-title">메신저</div>
 							</li>
 							<li id="chatNotify"></li>
-							<li><a class="nav-link text-center" href="${pageContext.request.contextPath }/chat/chatview.do"> <strong>메신저 바로가기</strong> <i class="fa fa-angle-right"></i>
+							<li><a class="nav-link text-center" href="${pageContext.request.contextPath }/chat/croom/0"> <strong>메신저 바로가기</strong> <i class="fa fa-angle-right"></i>
 							</a></li>
 						</ul>
 					</div></li>

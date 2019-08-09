@@ -408,7 +408,7 @@
 												cal_endDate : end
 											},
 											success : function() {
-												location.href = "${pageContext.request.contextPath}/calendar/calendarview.do";
+												location.href = "${pageContext.request.contextPath}/calendar/selectListCalendar.do?cal_type=개인";
 											},
 											error : function() {
 												alert("error drag !!!!");

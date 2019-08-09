@@ -66,7 +66,7 @@
 										<c:import url="./common/approvalAttachAdd.jsp" />
 										<c:import url="./common/approvalSignModal.jsp" />
 										<div align="right">
-											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="reset" value="초기화" class="btn btn-danger" />
+											<input type="submit" value="제출하기" class="btn btn-info" /> <input type="button" value="취소" class="btn btn-danger" onclick="javascript:history.back()" />
 										</div>
 									</form>
 								</div>

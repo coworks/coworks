@@ -26,7 +26,7 @@
 						<div class="card">
 							<div class="card-body col-8 align-self-center">
 								<h3 class="box-title text-themecolor">회원정보 수정</h3>
-								<form class="form-control-line mt-5 form-group-danger" method="post" action="editMypageEnd.do" id="update" enctype="multipart/form-data" >
+								<form class="form-control-line mt-5 form-group-danger" method="post" action="editMypageEnd.do" id="update" enctype="multipart/form-data" onsubmit="return check()">
 									
 									<div class="form-group">
 										<label class="fontw"><i class=" ti-help-alt"></i>　현재 비밀번호</label> <input type="password" name="pre_password" id="pre_password" class="form-control" placeholder="password" required="required">
@@ -95,7 +95,7 @@
 									</div>
 
 									<div align="center">
-										<input type="button" id="sub" value="수정하기" class="btn btn-outline-info" /> &nbsp;&nbsp;&nbsp;
+										<input type="submit" value="수정하기" class="btn btn-outline-info" /> &nbsp;&nbsp;&nbsp;
 										<input type="reset" value="초기화" class="btn btn-outline-success" /> &nbsp;&nbsp;&nbsp;
 										<input type="button" value="취소" class="btn btn-outline-dark"
 											onclick="javascript:history.back();"
@@ -117,30 +117,56 @@
 	<script src="${pageContext.request.contextPath }/resources/templates/assets/plugins/dropify/dist/js/dropify.min.js"></script>
 	<script>
 	
-	$("#sub").on("click",function(){
-		if( $("#pre_password") != null){
-			if($("#pre_password").val() == $("#hiddenPw").val()){
-				if($("#new_password").val() == $("#emp_password").val()){	
-					alert("수정이 완료되었습니다.");
-					$("#update").submit();
-				}else alert("변경할 비밀번호가 일치하지 않습니다.");
-			}else alert("현재 비밀번호가 일치하지 않습니다.");
-		} else alert("현재 비밀번호를 입력해주세요");
-		
-	});
-		function agg() {
-			console.log($('input:file'));
-		}
-		
-		$("#pre_password").on("change",function(){
-			if($("#pre_password").val() == $("#hiddenPw").val()){
+
+
+		function check() {
+			if ($("#pre_password") != null) {
+				if ($("#pre_password").val() == $("#hiddenPw").val()) {
+					if ($("#new_password").val() == $("#emp_password").val()) {
+
+					} else {
+						alert("변경할 비밀번호가 일치하지 않습니다.");
+						return false;
+					}
+				} else {
+					alert("현재 비밀번호가 일치하지 않습니다.");
+					return false;
+				}
+			} else {
+				alert("현재 비밀번호를 입력해주세요");
+				return false;
+			}
+			
+
+			var file = $('input[name=signature]').val();
+
+			console.log(file);
+
+			if (file == null || file == undefined || file == "")
+				return false;
+
+			var extFile = file.substr(file.lastIndexOf(".") + 1, file.length)
+					.toLowerCase();
+
+			if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+				return true;
+			} else {
+				alert(".png/.jpeg/.jpg의 이미지 파일을 넣어주세요");
+				$('input[name=signature]').val("").focus();
+
+				return false;
+			}
+
+		};
+
+		$("#pre_password").on("change", function() {
+			if ($("#pre_password").val() == $("#hiddenPw").val()) {
 				$("#pre_password").removeClass("form-control-danger");
 				$("#pre_password").parent().eq(0).removeClass("has-danger");
 
 				$("#pre_password").addClass("form-control-success");
 				$("#pre_password").parent().eq(0).addClass("has-success");
-			}
-			else{
+			} else {
 				console.log("일치 x");
 
 				$("#pre_password").removeClass("form-control-success");
@@ -149,24 +175,22 @@
 				$("#pre_password").parent().eq(0).addClass("has-danger");
 			}
 		});
-		
-		
-		$(".pw").on("change",function(){
-			if($("#new_password").val() == $("#emp_password").val()){
+
+		$(".pw").on("change", function() {
+			if ($("#new_password").val() == $("#emp_password").val()) {
 				$("#emp_password").removeClass("form-control-danger");
 				$("#emp_password").parent().removeClass("has-danger");
 
 				$("#emp_password").addClass("form-control-success");
 				$("#emp_password").parent().addClass("has-success");
-			}
-			else{
+			} else {
 				$("#emp_password").removeClass("form-control-success");
 				$("#emp_password").parent().removeClass("has-success");
 				$("#emp_password").addClass("form-control-danger");
 				$("#emp_password").parent().addClass("has-danger");
 			}
-		});	
-	
+		});
+
 		$(document).ready(
 				function() {
 					// Basic

@@ -108,9 +108,9 @@
 								신청 현황</a></li>
 
 					</ul></li>
-				<li><a href="${pageContext.request.contextPath}/survey/surveyList.do" aria-expanded="false"><i
+				<%-- <li><a href="${pageContext.request.contextPath}/survey/surveyList.do" aria-expanded="false"><i
 						class="mdi mdi-file-chart"></i><span class="hide-menu">설문조사</span></a>
-				</li>
+				</li> --%>
 				<c:set var="auper" value="${sessionScope.authority.auth_personnal}" />
 				<c:if test="${auper eq 'Y'}">
 					<li><a

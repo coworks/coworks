@@ -113,12 +113,25 @@ div p {
 												<tr align="center">
 													<td><img alt="담당자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${writer.emp_signature}" width="50em"></td>
 													<td><c:if test="${signList[0].as_status == 1}">
-															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[0].emp_signature}" width="50em">
+															<c:if test="${signList[0].emp_signature ne null}">
+																<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[0].emp_signature}" width="50em">
+															</c:if>
+															<c:if test="${signList[0].emp_signature eq null}">
+																${signList[0].emp_name }(인)
+															</c:if>
 														</c:if>
 														<c:if test="${signList[0].as_status == -1}">
 															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em">
 														</c:if></td>
-													<td><c:if test="${signList[1].as_status == -1}">
+													<td><c:if test="${signList[1].as_status == 1}">
+															<c:if test="${signList[1].emp_signature ne null}">
+																<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/empSign/${signList[1].emp_signature}" width="50em">
+															</c:if>
+															<c:if test="${signList[1].emp_signature eq null}">
+																${signList[1].emp_name }(인)
+															</c:if>
+														</c:if>
+														<c:if test="${signList[1].as_status == -1}">
 															<img alt="결재자sign" src="${pageContext.request.contextPath}/resources/approval/images/cancle.png" width="50em">
 														</c:if></td>
 												</tr>

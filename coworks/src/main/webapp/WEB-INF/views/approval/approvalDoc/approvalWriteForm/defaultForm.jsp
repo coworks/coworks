@@ -54,7 +54,7 @@
 										<c:import url="./common/approvalSignModal.jsp" />
 
 										<div align="right">
-											<input type="button" value="제출하기" class="btn btn-info" onclick="javaScript:alert('등록되지 않은 서류입니다')"/> <input type="reset" value="초기화" class="btn btn-danger" />
+											<input type="button" value="제출하기" class="btn btn-info" onclick="javaScript:alert('등록되지 않은 서류입니다')"/> <input type="button" value="취소" class="btn btn-danger" onclick="javascript:history.back()" />
 										</div>
 									</form>
 								</div>

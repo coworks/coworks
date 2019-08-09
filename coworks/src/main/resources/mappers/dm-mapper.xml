@@ -68,7 +68,7 @@
 	 -->
 	 
 	 <select id="selectUnreadDM" parameterType="_int" resultType="dm">
-	 	select * from dmview where dm_to_read='N' and dm_to=#{emp_no}
+	 	select * from dmview where dm_to_read='N' and dm_to=#{emp_no} order by dm_date desc
 	 </select>
 	
 	<update id="updateDm" parameterType="dm" >
