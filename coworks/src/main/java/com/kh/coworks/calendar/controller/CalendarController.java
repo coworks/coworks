@@ -75,6 +75,7 @@ public class CalendarController {
 		List<Calendar> list=calService.selectListCalendar(cal);
 		 
 		mv.addObject("list", list);
+		mv.addObject("cal_type",cal_type);
 		mv.setViewName("calendar/app-calendar");
 		return mv;
 	}
