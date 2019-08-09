@@ -170,13 +170,13 @@ td th {
 								</div>
 								<!--/row-->
 								<div class="row">
-									<div class="col-md-6" hidden>
+									<div class="col-md-6">
 										<div class="form-group">
 											<div class="form-group">
-												<label for="example-email">이메일 <span class="help">
-														</span></label> <input type="email"
-													id="emp_email" name="emp_email" class="form-control"
-													placeholder="Email">
+												<label for="example-tel-input" class="col-form-label">연락처</label>
+												<input class="form-control" id="emp_phone" name="emp_phone"
+													type="tel" placeholder="010-1234-5678"
+													id="example-tel-input">
 											</div>
 										</div>
 									</div>
@@ -236,18 +236,9 @@ td th {
 									<!--/span-->
 								</div>
 								<!--/row-->
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<div class="form-group">
-												<label for="example-tel-input" class="col-form-label">연락처</label>
-												<input class="form-control" id="emp_phone" name="emp_phone"
-													type="tel" placeholder="010-1234-5678"
-													id="example-tel-input">
-											</div>
-										</div>
-									</div>
-									<div style="margin-left: 350px; margin-top: 40px;">
+								<div class="pb-3">
+									
+									<div style="float:right; margin-bottom: 40px;">
 										<button class="btn btn-outline-info" type="submit" onclick="return check();">등록하기</button>
 										<button type="button"
 											class="btn btn-outline-danger waves-effect text-left"
