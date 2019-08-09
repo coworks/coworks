@@ -49,5 +49,7 @@ public interface EmployeeDao {
 	int updateEmployee(Employee emp);
 
 	List<Employee> getDeptEmp(String dept_code);
+
+	int insertBoradDept(Department dept);
 	
 }

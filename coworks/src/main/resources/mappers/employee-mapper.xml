@@ -7,23 +7,27 @@
 		<result property="emp_authority" column="emp_authority"
 			typeHandler="strArrTypeHandler" />
 	</resultMap>
-	
+
 	<select id="selectEmployee" resultType="employee"
 		parameterType="_int">
 		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
 	</select>
-	
+
 	<select id="selectOneEmployee" resultType="employee">
-		SELECT * FROM EMPVIEW WHERE EMP_NO=#{emp_no}
+		SELECT * FROM EMPVIEW
+		WHERE EMP_NO=#{emp_no}
 	</select>
-	
+
 
 	<select id="selectEmployeeList" resultType="employee">
-		SELECT EMP_NO , EMP_NAME,
+		SELECT EMP_NO ,
+		EMP_NAME,
 		JOB_TITLE, DEPT_NAME, EMP_PHONE, EMP_EMAIL
-		FROM EMPLOYEE E, DEPARTMENT D, JOB J
+		FROM EMPLOYEE E,
+		DEPARTMENT D, JOB J
 		WHERE E.JOB_CODE = J.Job_Code
-		AND E.Dept_Code = D.Dept_Code
+		AND E.Dept_Code =
+		D.Dept_Code
 		ORDER BY
 		E.EMP_NAME ASC
 	</select>
@@ -46,28 +50,40 @@
 	<insert id="insertEmployee" parameterType="employee">
 		INSERT INTO EMPLOYEE
 		VALUES(
-		SEQ_EMPLOYEE.NEXTVAL, #{emp_name}, #{job_code},
-		#{dept_code},
-		#{emp_phone}, #{emp_email}, #{emp_birth},
+		SEQ_EMPLOYEE.NEXTVAL, #{emp_name}, REPLACE(#{emp_birth},'/',
+		''),
+		#{job_code}, #{dept_code},
+		#{emp_phone}, #{emp_email}, NULL,
+		#{emp_birth},
 		#{emp_gender}, DEFAULT,
-		DEFAULT, DEFAULT,
-		DEFAULT,REPLACE(#{emp_birth},'/', ''),DEFAULT
+		NULL, DEFAULT,
+		NULL,NULL
 		)
-		
+
 	</insert>
 
 
 	<insert id="insertDeptName" parameterType="department">
 		INSERT INTO DEPARTMENT
 		VALUES(
-		SEQ_DEPARTMENT.NEXTVAL, #{dept_name}, 1
+		CONCAT('D',SEQ_DEPARTMENT.NEXTVAL), #{dept_name}, 1
 		)
 	</insert>
+
+	<insert id="insertBoradDept" parameterType="department">
+		INSERT INTO BOARDGROUP
+		VALUES(
+		SEQ_BGNO.NEXTVAL, CONCAT('D',SEQ_DEPARTMENT.CURRVAL), #{dept_name}
+		)
+	</insert>
+
 	
+
 	<insert id="insertAuthority" parameterType="authority">
 		INSERT INTO AUTHORITY
 		VALUES(
-		SEQ_EMPLOYEE.CURRVAL, #{auth_personnal}, #{auth_data} , #{auth_cal} , #{auth_board} 
+		SEQ_EMPLOYEE.CURRVAL, #{auth_personnal}, #{auth_data} ,
+		#{auth_cal} , #{auth_board}
 		, #{auth_approval} , #{auth_authority} , #{auth_pay}
 		)
 	</insert>
@@ -82,7 +98,8 @@
 	<select id="selectSerachEmployee" parameterType="hashmap"
 		resultType="employee">
 		SELECT EMP_NO, EMP_NAME, JOB_TITLE, DEPT_NAME, EMP_PHONE
-		FROM EMPLOYEE E,
+		FROM EMPLOYEE
+		E,
 		DEPARTMENT D, JOB J
 		<bind name="mySQLPattern" value="'%' + keyword + '%'" />
 		<where>
@@ -99,58 +116,69 @@
 			AND E.Dept_Code = D.Dept_Code
 		</where>
 	</select>
-	
-	<select id="selectSearchEmployeeTotalContents" parameterType="hashmap" resultType="_int">
-		SELECT COUNT(*) FROM EMPLOYEE <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+
+	<select id="selectSearchEmployeeTotalContents"
+		parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEE
+		<bind name="mySQLPattern" value="'%' + keyword + '%'" />
 		WHERE EMP_NAME LIKE #{mySQLPattern}
 	</select>
-	
-	<select id="selectSearchJobTotalContents" parameterType="hashmap" resultType="_int">
-		SELECT COUNT(*) FROM JOB <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+
+	<select id="selectSearchJobTotalContents"
+		parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM JOB
+		<bind name="mySQLPattern" value="'%' + keyword + '%'" />
 		WHERE JOB_TITLE LIKE #{mySQLPattern}
 	</select>
-	
-	<select id="selectSearchDepartmentTotalContents" parameterType="hashmap" resultType="_int">
-		SELECT COUNT(*) FROM DEPARTMENT <bind name="mySQLPattern" value="'%' + keyword + '%'" />
+
+	<select id="selectSearchDepartmentTotalContents"
+		parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM DEPARTMENT
+		<bind name="mySQLPattern" value="'%' + keyword + '%'" />
 		WHERE DEPT_NAME LIKE #{mySQLPattern}
 	</select>
 
 	<select id="selectEmpList" resultType="employee">
-		select emp_no,emp_name,dept_code,job_code,dept_name,job_title from empview order by dept_name asc, job_code asc
+		select
+		emp_no,emp_name,dept_code,job_code,dept_name,job_title from empview
+		order by dept_name asc, job_code asc
 	</select>
-	
+
 	<select id="selectDeptEmpCount" resultType="hashmap">
-	select dept_name,count(*) count from empview group by dept_name order by dept_name
+		select dept_name,count(*) count from empview group by dept_name order by
+		dept_name
 	</select>
-	
+
 	<select id="selectOneAuthority" resultType="authority">
-	SELECT * FROM AUTHORITY WHERE EMP_NO = #{EMP_NO}
+		SELECT * FROM AUTHORITY WHERE EMP_NO = #{EMP_NO}
 	</select>
-	
-	<update id="employeeMoveUpdate" parameterType="employee" >
-		UPDATE EMPLOYEE
+
+	<update id="employeeMoveUpdate" parameterType="employee">
+		UPDATE
+		EMPLOYEE
 		SET
-			EMP_NAME = #{emp_name},
-			JOB_CODE = #{job_code},
-			DEPT_CODE = #{dept_code},
-			EMP_PHONE = #{emp_phone},
-			EMP_EMAIL = #{emp_email},
-			EMP_BIRTH = #{emp_birth},
-			EMP_GENDER = #{emp_gender}
-			
+		EMP_NAME = #{emp_name},
+		JOB_CODE = #{job_code},
+		DEPT_CODE = #{dept_code},
+		EMP_PHONE = #{emp_phone},
+		EMP_EMAIL = #{emp_email},
+		EMP_BIRTH = #{emp_birth},
+		EMP_GENDER = #{emp_gender}
+
 		WHERE EMP_NO = #{emp_no}
 	</update>
-	
-	<update id="updateAuthority" parameterType="authority" >
-		UPDATE AUTHORITY
+
+	<update id="updateAuthority" parameterType="authority">
+		UPDATE
+		AUTHORITY
 		SET
-			AUTH_PERSONNAL = #{auth_personnal},
-			AUTH_DATA = #{auth_data},
-			AUTH_CAL = #{auth_cal},
-			AUTH_BOARD = #{auth_board},
-			AUTH_APPROVAL = #{auth_approval},
-			AUTH_AUTHORITY = #{auth_authority},
-			AUTH_PAY = #{auth_pay}
+		AUTH_PERSONNAL = #{auth_personnal},
+		AUTH_DATA = #{auth_data},
+		AUTH_CAL = #{auth_cal},
+		AUTH_BOARD = #{auth_board},
+		AUTH_APPROVAL = #{auth_approval},
+		AUTH_AUTHORITY = #{auth_authority},
+		AUTH_PAY = #{auth_pay}
 		WHERE EMP_NO = #{emp_no}
 	</update>
 
@@ -164,13 +192,14 @@
 			emp_signature=#{emp_signature},
 			EMP_PHONE=#{emp_phone}
 		WHERE
-			EMP_NO = #{emp_no}
-			
+		EMP_NO = #{emp_no}
+
 	</update>
-	
+
 	<select id="getDeptEmp" resultType="employee">
-		select * from empview where dept_code = #{dept_code} order by job_code
+		select * from empview where
+		dept_code = #{dept_code} order by job_code
 	</select>
-	
-	
+
+
 </mapper>

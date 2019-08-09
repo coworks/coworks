@@ -58,7 +58,7 @@ td th {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-outline-info waves-effect">등록하기</button>
+							<button type="submit" class="btn btn-outline-info waves-effect" >등록하기</button>
 							<button type="button" class="btn btn-outline-danger waves-effect"
 								data-dismiss="modal">취소하기</button>
 						</div>
@@ -135,7 +135,6 @@ td th {
 											<label class="control-label">부서</label> <select
 												id="dept_code" name="dept_code"
 												class="form-control custom-select">
-												<option value="0"></option>
 												<c:forEach items="${departmentList}" var="de">
 													<option value="${de.dept_code}">${de.dept_name}</option>
 												</c:forEach>
@@ -161,7 +160,6 @@ td th {
 										<div class="form-group has-success">
 											<label class="control-label">직급</label> <select id="job_code"
 												name="job_code" class="form-control custom-select">
-												<option value="0"></option>
 												<c:forEach items="${jobList}" var="j">
 													<option value="${j.job_code}">${j.job_title}</option>
 												</c:forEach>
@@ -250,7 +248,7 @@ td th {
 										</div>
 									</div>
 									<div style="margin-left: 350px; margin-top: 40px;">
-										<button class="btn btn-outline-info" type="submit">등록하기</button>
+										<button class="btn btn-outline-info" type="submit" onclick="return check();">등록하기</button>
 										<button type="button"
 											class="btn btn-outline-danger waves-effect text-left"
 											data-dismiss="modal">취소하기</button>
@@ -300,10 +298,10 @@ td th {
 							<div class="input-group">
 								<button data-toggle="modal" data-target="#updatedepart"
 									class="btn btn-outline-info" type="button">부서수정</button>
-								&nbsp&nbsp&nbsp&nbsp
+								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button data-toggle="modal" data-target="#myModal"
 									class="btn btn-outline-info" type="button">부서추가</button>
-								&nbsp&nbsp&nbsp&nbsp
+								&nbsp;&nbsp;&nbsp;&nbsp;
 								<!-- <button class="btn btn-info" type="button">사원추가</button> -->
 								<button data-toggle="modal" data-target=".bs-example-modal-lg"
 									class="btn btn-outline-info" type="button">사원추가</button>
@@ -315,6 +313,9 @@ td th {
 							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
 								<table class="jsgrid-table ">
 									<tr class="jsgrid-header-row">
+										<th
+											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable bg-info text-white"
+											style="width: 20%;">사원코드</th>
 										<th
 											class="jsgrid-header-cell  jsgrid-align-center jsgrid-header-sortable bg-info text-white"
 											style="width: 20%;">이름</th>
@@ -331,7 +332,7 @@ td th {
 												style="width: 100px;">관리</th> -->
 										<th
 											class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center bg-info text-white"
-											style="width: 14%;">관리 <!-- <button
+											style="width: 14%;">인사관리 <!-- <button
 													class="jsgrid-button jsgrid-mode-button jsgrid-search-mode-button jsgrid-mode-on-button"
 													type="button" title=""></button> -->
 										</th>
@@ -343,6 +344,8 @@ td th {
 									<tbody>
 										<c:forEach items="${list}" var="e">
 											<tr class="jsgrid-row" id="${e.emp_no}">
+											<td class="jsgrid-cell jsgrid-align-center"
+													style="width: 20%;">${e.emp_no}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
 													style="width: 20%;">${e.emp_name}</td>
 												<td class="jsgrid-cell jsgrid-align-center"
@@ -364,24 +367,7 @@ td th {
 							<div class="jsgrid-pager-container" style="text-align: right;">
 								<div class="jsgrid-pager">
 									<c:out value="${pageBar}" escapeXml="false" />
-									Pages: <span
-										class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
-										<a href="javascript:void(0);">First</a>
-									</span> <span
-										class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
-										<a href="javascript:void(0);">Prev</a>
-									</span> <span class="jsgrid-pager-page jsgrid-pager-current-page">1</span>
-									<span class="jsgrid-pager-page"><a
-										href="javascript:void(0);">2</a></span><span
-										class="jsgrid-pager-page"><a href="javascript:void(0);">3</a></span><span
-										class="jsgrid-pager-page"><a href="javascript:void(0);">4</a></span><span
-										class="jsgrid-pager-page"><a href="javascript:void(0);">5</a></span><span
-										class="jsgrid-pager-nav-button"><a
-										href="javascript:void(0);">...</a></span> <span
-										class="jsgrid-pager-nav-button"><a
-										href="javascript:void(0);">Next</a></span> <span
-										class="jsgrid-pager-nav-button"><a
-										href="javascript:void(0);">Last</a></span> &nbsp;&nbsp; 1 of 7
+									
 								</div>
 							</div>
 							<div class="jsgrid-load-shader"
@@ -405,6 +391,61 @@ td th {
 		/* function search(){
 			location.href="${pageContext.request.contextPath}/employee/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
 		} */
+		
+		function check(){
+			
+			var emp_name = $("#emp_name").val();
+			var emp_birth = $("#emp_birth").val();
+			var emp_gender = $("#emp_gender option:selected").val();
+			var emp_email = $("#emp_email").val();
+			var emp_phone = $("#emp_phone").val();
+			var emp_au = $("input[name='emp_authority']:checked").length; 
+			
+			if(emp_name == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  이름을 입력해주세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}else if(emp_birth == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  생년월일을 입력해주세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}else if(emp_gender == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  성별을 선택하세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}else if(emp_email == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  이메일을 입력해주세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}else if(emp_phone == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  연락처를 입력해주세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}else if(emp_au == 0){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  권한을 선택해주세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}
+			return true;
+		}
 		
 		function employeemove(index){
 			location.href="${pageContext.request.contextPath}/employee/employeeMove.do?index="+index;

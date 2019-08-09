@@ -134,4 +134,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> getDeptEmp(String dept_code) {
 		return sqlSession.selectList("employee.getDeptEmp",dept_code);
 	}
+
+	@Override
+	public int insertBoradDept(Department dept) {
+		return sqlSession.insert("employee.insertBoradDept",dept);
+	}
 }
