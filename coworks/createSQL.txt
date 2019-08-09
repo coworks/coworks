@@ -871,12 +871,9 @@ CREATE TABLE "DM"
     FROM 
         employee,department,job, dm 
     where employee.dept_code=department.dept_code and employee.job_code=job.job_code
-    and employee.emp_no = dm_from
+    and employee.emp_no = dm_from;
  
-FROM 
-    employee,department,job, dm 
-where employee.dept_code=department.dept_code and employee.job_code=job.job_code
-and employee.emp_no = dm_from;
+
    
 CREATE SEQUENCE  "COWORKS"."SEQ_DM"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 110 NOCACHE  NOORDER  NOCYCLE ;
 CREATE SEQUENCE  "COWORKS"."SEQ_DM_TO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 110 NOCACHE  NOORDER  NOCYCLE ;
