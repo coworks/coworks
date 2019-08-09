@@ -40,6 +40,7 @@ public class CalendarController {
 		HashMap<String,String> hmap=new HashMap<>();
 		hmap.put("emp_no",Integer.toString(employee.getEmp_no()));
 		hmap.put("dept_code",employee.getDept_code());
+		hmap.put("company", "회사");
 		
 		 
 		List<Calendar> list = calService.selectListAllCalendar(hmap);	
@@ -61,7 +62,11 @@ public class CalendarController {
 		// 나중에 11에  emp_no 세션받아서 보내야함
 		if(cal_type.equals("부서")) {
 			cal.setCal_holder(employee.getDept_code());	// 부서코드 넣기 나중에수정
+		}else if(cal_type.equals("회사")){
+		
+			cal.setCal_holder("회사");
 		}else {
+		
 			cal.setCal_holder(emp_no);	 
 		}
 		cal.setCal_type(cal_type);
@@ -70,6 +75,7 @@ public class CalendarController {
 		List<Calendar> list=calService.selectListCalendar(cal);
 		 
 		mv.addObject("list", list);
+		mv.addObject("cal_type",cal_type);
 		mv.setViewName("calendar/app-calendar");
 		return mv;
 	}

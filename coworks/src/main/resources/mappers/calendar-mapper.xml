@@ -6,7 +6,7 @@
 
 	
  	<select id="selectListAllCalendar" parameterType="hashmap" resultType="calendar">
-		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{emp_no} OR CAL_HOLDER=#{dept_code}
+		SELECT * FROM CALENDAR WHERE CAL_HOLDER=#{emp_no} OR CAL_HOLDER=#{dept_code} OR CAL_HOLDER=#{company}
 	</select>
 	
 	

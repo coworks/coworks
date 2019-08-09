@@ -36,7 +36,11 @@
 <link
 	href="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.css"
 	rel="stylesheet">
-
+<style>
+	.oncursor{
+		cursor:pointer;
+	}
+</style>
 
 <c:import url="../common/header.jsp" />
 </head>
@@ -76,10 +80,8 @@
 					function onclick1(type) {
 						var cal_type = type;
 						console.log(cal_type);
-
 						location.href = "${pageContext.request.contextPath}/calendar/selectListCalendar.do?cal_type="
 								+ cal_type;
-
 					};
 				</script>
 				<!-- ============================================================== -->
@@ -92,7 +94,7 @@
 					<div class="col-md-12 col-lg-3">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="card-title">간편 일정 등록</h4>
+								<h4 class="card-title">간편 일정 등록(개인)</h4>
 								<div class="row">
 									<div class="col-md-12 col-sm-12 col-xs-12">
 										<div id="calendar-events" class="mt-3">
@@ -100,13 +102,13 @@
 												<i class="fa fa-circle mb-3 text-info"></i>&nbsp;회의
 											</div>
 											<div class="calendar-events" data-class="bg-success">
-												<i class="fa fa-circle mb-3 text-success"></i>&nbsp;휴가
+												<span class="oncursor"><i class="fa fa-circle mb-3 text-success"></i>&nbsp;휴가</span>
 											</div>
 											<div class="calendar-events" data-class="bg-danger">
-												<i class="fa fa-circle mb-3 text-danger"></i>&nbsp;출장
+												<span class="oncursor"><i class="fa fa-circle mb-3 text-danger"></i>&nbsp;출장</span>
 											</div>
 											<div class="calendar-events" data-class="bg-warning">
-												<i class="fa fa-circle mb-3 text-warning"></i>&nbsp;외근
+												<span class="oncursor"><i class="fa fa-circle mb-3 text-warning"></i>&nbsp;외근</span>
 											</div>
 										</div>
 										<!-- 
@@ -193,19 +195,16 @@
 													console.log($("#category")
 															.find(":selected")
 															.val());
-
 													var calcolor = $(
 															'#category option:selected')
 															.val();
 													$('#cal_color').val(
 															calcolor);
 												};
-
 												function changeCategory2() {
 													console.log($("#category2")
 															.find(":selected")
 															.val());
-
 													var caltype = $(
 															'#category2 option:selected')
 															.val();
@@ -357,7 +356,6 @@
 					$('#cal_endDate').val(
 							(moment().endOf('day'))
 									.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
-
 					"use strict";
 					var CalendarApp = function() {
 						this.$body = $("body")
@@ -369,12 +367,12 @@
 								this.$saveCategoryBtn = $('.save-category'),
 								this.$calendarObj = null
 					};
-
 							/* on drop */
 							CalendarApp.prototype.onDrop = function(eventObj,
 									date) {
 								var $this = this;
 								// retrieve the dropped element's stored Event Object
+								if(${cal_type eq '개인'}){
 								var originalEventObject = eventObj
 										.data('eventObject');
 								var $categoryClass = eventObj
@@ -397,7 +395,8 @@
 										copiedEventObject.start,
 										"YYYY-MM-DD HH:30:ss.SSSSSSSSS");
 								//alert(end);
-
+								
+							
 								$
 										.ajax({
 											url : "${pageContext.request.contextPath}/calendar/insertCalendar2.do",
@@ -408,16 +407,17 @@
 												cal_beginDate : start,
 												cal_endDate : end
 											},
-
 											success : function() {
 												location.href = "${pageContext.request.contextPath}/calendar/calendarview.do";
 											},
 											error : function() {
 												alert("error drag !!!!");
 											}
-
 										});
-
+								
+							}else{
+									alert("개인일정에만 추가 가능합니다.");
+								}
 								// is the "remove after drop" checkbox checked?
 								if ($('#drop-remove').is(':checked')) {
 									// if so, remove the element from the "Draggable Events" list
@@ -460,12 +460,10 @@
 																calEvent.end,
 																'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')
 												+ "'/>");
-
 								form
 										.find('input[name=datetime]')
 										.daterangepicker(
 												{
-
 													timePicker : true,
 													timePickerIncrement : 30,
 													startDate : calEvent.start, // default주기
@@ -491,13 +489,10 @@
 															+ end
 																	.format(end
 																			.format('YYYY-MM-DD HH:mm:ss'));
-
 												});
-
 								$this.$modal.modal({
 									backdrop : 'static'
 								});
-
 								$this.$modal
 										.find('.delete-event')
 										.show()
@@ -513,7 +508,6 @@
 										.unbind('click')
 										.click(
 												function() {
-
 													$this.$calendarObj
 															.fullCalendar(
 																	'removeEvents',
@@ -528,7 +522,6 @@
 																		var result = (ev.id == calEvent.id);
 																		$
 																				.ajax({
-
 																					url : "${pageContext.request.contextPath}/calendar/deleteCalendar.do",
 																					data : {
 																						cal_no : calEvent.id
@@ -537,19 +530,16 @@
 																					async : false,
 																					success : function(
 																							data) {
-
 																					},
 																					error : function(
 																							data) {
 																						result = false;
 																					}
-
 																				});
 																		return result;
 																	});
 													$this.$modal.modal('hide');
 												});
-
 								var result;
 								// 일정 칸 클릭시 해당 일정 내용 수정
 								$this.$modal
@@ -567,7 +557,6 @@
 																	"input[name=cal_beginDate2]")
 															.val();
 													console.log(calEvent.start);
-
 													calEvent.end = form
 															.find(
 																	"input[name=cal_endDate2]")
@@ -581,7 +570,6 @@
 																	'updateEvent',
 																	calEvent);
 													$this.$modal.modal('hide');
-
 													$
 															.ajax({
 																url : "${pageContext.request.contextPath}/calendar/updateCalendar2.do",
@@ -597,35 +585,26 @@
 																async : false,
 																success : function(
 																		data) {
-
 																	result = false;
 																	console
 																			.log(result);
-
 																},
 																error : function(
 																		data) {
-
 																	result = true;
 																	console
 																			.log(result);
 																}
-
 															});
-
 													return result;
 												});
 							},
-
 							/* on select */
-
 							CalendarApp.prototype.onSelect = function(start,
 									end, allDay) {
 								var $this = this;
-
 								$this.$calendarObj.fullCalendar('unselect');
 							},
-
 							CalendarApp.prototype.enableDrag = function() {
 								//init events
 								$(this.$event).each(function() {
@@ -635,21 +614,17 @@
 									var eventObject = {
 										title : $.trim($(this).text())
 									// use the element's text as the event title
-
 									};
 									// store the Event Object in the DOM element so we can get to it later
 									$(this).data('eventObject', eventObject);
-
 									$(this).draggable({
 										zIndex : 999,
 										revert : true, // will cause the event to go back to its
 										revertDuration : 0
 									//  original position after the drag
-
 									});
 								});
 							}
-
 					/* Initializing */
 							CalendarApp.prototype.init = function() {
 								this.enableDrag();
@@ -660,12 +635,9 @@
 								var y = date.getFullYear();
 								var form = '';
 								var today = new Date($.now());
-
 								var defaultEvents = [];
-
 								// 일정 받아오기
 								<c:forEach items="${list}" var="calendar">
-
 								// db넣은것 출력
 								defaultEvents.push({
 									content : '${calendar.cal_content}', // 일정 내용
@@ -674,36 +646,29 @@
 									end : '${calendar.cal_endDate}', // 종료일
 									className : '${calendar.cal_color}', // 색상변경(탬플릿적용 색)
 									id : '${calendar.cal_no}' // id값 넣어야 삭제가능...ㅠ
-
 								})
 								</c:forEach>
-
 								var $this = this;
-
 								$this.$calendarObj = $this.$calendar
 										.fullCalendar({
 											nextDayThreshold : '00:00:00', //0시이후로 하루로치기
-
 											daysOfWeek : [ "일", "월", "화", "수",
 													"목", "금", "토" ],
 											monthNames : [ "1월", "2월", "3월",
 													"4월", "5월", "6월", "7월",
 													"8월", "9월", "10월", "11월",
 													"12월" ],
-
 											titleFormat : 'YYYY년   M월',
 											slotDuration : '00:30:00', /* If we want to split day time each 15minutes */
 											minTime : '06:00:00',
 											maxTime : '24:30:00',
 											defaultView : 'month',
 											handleWindowResize : true,
-
 											header : {
 												left : 'prev,next today',
 												center : 'title',
 												right : 'month,agendaWeek,agendaDay'
 											},
-
 											events : defaultEvents, //이벤트 불러오기
 											editable : true, // 
 											droppable : true, // this allows things to be dropped onto the calendar !!!
@@ -724,7 +689,6 @@
 											},
 											eventDrop : function(event, delta,
 													revertFun) {
-
 												var id = event.id; //해당  일정의 cal_no 넘버값 찾기
 												var start = $.fullCalendar
 														.formatDate(
@@ -733,7 +697,6 @@
 												var end = $.fullCalendar
 														.formatDate(event.end,
 																"YYYY-MM-DD HH:mm:ss.SSSSSSSSS"); //옮겨진 마지막날
-
 												// 일정 드래그시 날짜수정
 												$
 														.ajax({
@@ -744,7 +707,6 @@
 																cal_begindate : start,
 																cal_enddate : end
 															},
-
 															success : function() {
 																// alert("succes drag");
 															},
@@ -752,23 +714,18 @@
 																// alert("error drag !!!!");
 															}
 														});
-
 											}
-
 										});
-
 							},
 							//init CalendarApp
 							$.CalendarApp = new CalendarApp,
 							$.CalendarApp.Constructor = CalendarApp
-
 				}(window.jQuery),
 				//initializing CalendarApp
 				function($) {
 					"use strict";
 					$.CalendarApp.init()
 				}(window.jQuery);
-
 		$('.datetime').daterangepicker(
 				{
 					timePicker : true,
@@ -779,7 +736,6 @@
 						daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
 						monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
 								"7월", "8월", "9월", "10월", "11월", "12월" ],
-
 						format : 'YY/MM/DD HH:mm'
 					}
 				},
