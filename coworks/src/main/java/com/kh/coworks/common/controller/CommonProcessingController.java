@@ -54,7 +54,7 @@ public class CommonProcessingController {
 		Calendar cal = new GregorianCalendar();
 		Time time = new Time(cal.getTimeInMillis());
 		Date date = new Date(cal.getTimeInMillis());
-
+ 
 		ModelAndView mv = new ModelAndView();
 		Attendance attend = new Attendance();
 
