@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.kh.coworks.calendar.model.vo.Calendar;
+import com.kh.coworks.calendar.model.vo.CalendarCategory;
 
 @Service
 public interface CalendarService {
@@ -27,5 +28,11 @@ public interface CalendarService {
 	int updateCalendar(Calendar calendar);
 	
 	int updateCalendar2(Calendar calendar);
+	
+	int insertCalendarCategory(HashMap hmap);
+	
+	List<CalendarCategory> selectListCategory(int emp_no);
+
+	int deleteCalendarCategory(HashMap<String, Integer> hmap);
 	 
 }

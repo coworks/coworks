@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.coworks.calendar.model.exception.CalendarException;
 import com.kh.coworks.calendar.model.service.CalendarService;
 import com.kh.coworks.calendar.model.vo.Calendar;
+import com.kh.coworks.calendar.model.vo.CalendarCategory;
 import com.kh.coworks.employee.model.vo.Employee; 
 
 @Controller
@@ -44,9 +45,11 @@ public class CalendarController {
 		
 		 
 		List<Calendar> list = calService.selectListAllCalendar(hmap);	
-		
+
+		List<CalendarCategory> cal_category_list=calService.selectListCategory(employee.getEmp_no());
 		 
 		mv.addObject("list", list);
+		mv.addObject("cal_category_list",cal_category_list);
 		mv.setViewName("calendar/app-calendar");
 		return mv;
 	}
@@ -73,7 +76,10 @@ public class CalendarController {
 		
 		
 		List<Calendar> list=calService.selectListCalendar(cal);
-		 
+
+		List<CalendarCategory> cal_category_list=calService.selectListCategory(employee.getEmp_no());
+
+		mv.addObject("cal_category_list",cal_category_list);
 		mv.addObject("list", list);
 		mv.addObject("cal_type",cal_type);
 		mv.setViewName("calendar/app-calendar");
@@ -191,6 +197,42 @@ public class CalendarController {
 		 
 	}
 	
+	@RequestMapping("/calendar/insertCalendarCategory.do")
+	public void insertCalendarCategory(@RequestParam(value="calcate_name",  required = true) String calcate_name,  
+			@RequestParam(value="calcate_color",  required = true) String calcate_color,HttpServletRequest request,HttpServletResponse resp) throws IOException {
+		
+		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸삘
+		
+		HashMap<String,String> hmap=new HashMap<>();
+		hmap.put("calcate_name", calcate_name);
+		hmap.put("calcate_color", calcate_color);
+		hmap.put("emp_no", Integer.toString(employee.getEmp_no()));
+		boolean result=calService.insertCalendarCategory(hmap)>0?true:false;
+			
+		 
+			
+			
+			resp.getWriter().print(result);
+		
+		 
+	}
 
-	
+	@RequestMapping("/calendar/deleteCalendarCategory.do")
+	public void deleteCalendarCategory(@RequestParam(value="calcate_no",  required = true) int calcate_no,
+								HttpServletRequest request,HttpServletResponse resp) throws IOException {
+		
+		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸삘
+		
+		HashMap<String,Integer> hmap=new HashMap<>();
+		hmap.put("calcate_no",calcate_no);
+		hmap.put("emp_no", employee.getEmp_no());
+		boolean result=calService.deleteCalendarCategory(hmap)>0?true:false;
+			
+		 
+			
+			
+			resp.getWriter().print(result);
+		
+		 
+	}
 }

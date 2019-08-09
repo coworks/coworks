@@ -16,7 +16,15 @@
 		<c:import url="../common/sidebar.jsp" />
 		<div class="page-wrapper">
 			<div class="container-fluid">
-
+				<div class="row page-titles">
+                    <div class="col-md-6 col-8 align-self-center">
+                        <h3 class="text-themecolor mb-0 mt-0">근태 현황</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">메인페이지</a></li>
+                            <li class="breadcrumb-item active">근태 현황</li>
+                        </ol>
+                    </div>
+                </div>
 
 
 
