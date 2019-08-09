@@ -41,7 +41,7 @@
 					<div class="col-lg-12">
 						<div class="card p-3 pb-5">
 							<div class="card-body">
-
+								<h4 class="card-title mb-5">미결함</h4>
 								<form action="${pageContext.request.contextPath }/approval/approveList" method="post">
 									<input type="submit" value="일괄 결재하기" class="btn btn-warning mb-3 float-right" />
 									<table class="table no-wrap table-hover mt-5" style="text-align: center;">

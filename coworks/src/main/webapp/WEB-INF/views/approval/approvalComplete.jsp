@@ -40,7 +40,7 @@
 						<div class="card p-3 pb-5">
 							<div class="card-body">
 
-
+								<h4 class="card-title mb-5">완료함</h4>
 								<div class="">
 									<table class="table no-wrap table-hover mt-5" style="text-align: center;">
 										<thead class="bg-info text-white">
