@@ -271,8 +271,7 @@ CREATE TABLE "EMPLOYEE" --사원
 	"CROOM_NO" NUMBER, 
 	"CHAT_SENDNO" NUMBER, 
 	"CHAT_CONTENT" VARCHAR2(4000), 
-	"CHAT_SENDTIME" TIMESTAMP (6), 
-	"CHAT_ISREAD" VARCHAR2(10)
+	"CHAT_SENDTIME" TIMESTAMP (6)
    );
    
    --------------------------------------------------------

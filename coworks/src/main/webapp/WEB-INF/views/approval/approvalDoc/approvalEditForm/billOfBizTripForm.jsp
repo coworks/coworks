@@ -26,7 +26,7 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><span>메인페이지</span> <i
 								class="fas fa-chevron-right"></i><span class="text-info">
-									메일함</span></li>
+									결재서류 수정하기</span></li>
 						</ol>
 					</div>
 				</div>

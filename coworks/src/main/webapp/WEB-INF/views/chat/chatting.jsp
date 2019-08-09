@@ -222,6 +222,7 @@
 	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
 	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
 	<script type="text/javascript">
 		var chattingSock = new SockJS("<c:url value='/chatting'/>");
 		if(${!empty croom.croom_no}){
