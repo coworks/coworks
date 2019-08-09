@@ -154,7 +154,7 @@ ul {
 															id="${d.dept_code }" name="${d.dept_name }"
 															style="font-size: 20px;"><i
 															class="fas fa-caret-right"></i>&nbsp; <span
-															class="text-info" id="append" style="font-weight: bold">${d.dept_name }부서
+															class="text-info" id="append" style="font-weight: bold">${d.dept_name }
 																<input name="dept_code" value="${d.dept_code }" hidden>
 														</span>
 															<div></div></li>
