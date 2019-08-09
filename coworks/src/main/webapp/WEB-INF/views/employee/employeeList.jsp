@@ -374,7 +374,7 @@ td th {
 							<div class="jsgrid-load-panel"
 								style="display: none; position: absolute; top: 50%; left: 50%; z-index: 1000;">Please,
 								wait...</div>
-						</div>
+						</div> 
 					</div>
 				</div>
 			</div>
