@@ -2,10 +2,14 @@ package com.kh.coworks.mail.controller;
 
 import java.awt.FileDialog;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +33,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
@@ -402,14 +408,14 @@ public class MailController {
 		// 메일 전송
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
-		String saveDir = session.getServletContext().getRealPath("/resources/mail/attach");
+		String savePath = "/resources/mail/attach";
+		String saveDir = session.getServletContext().getRealPath(savePath);
 //		mail.setMail_name(emp.getEmp_name());
 		if (mail.getMail_sendDate() == null)
 			mail.setMail_sendDate(new Timestamp(new Date().getTime()));
 
 		System.out.println("파일 길이 " + upFile.length);
 		List<MailAttach> list = new ArrayList<>();
-		String savePath = "";
 		if (new File(saveDir).exists()) {
 			for (MultipartFile f : upFile) {
 				if (!f.isEmpty()) {
@@ -429,7 +435,7 @@ public class MailController {
 //					savePath = "resources/mail/attach";
 					
 					MailAttach at = new MailAttach();
-					at.setAttach_path(saveDir);
+					at.setAttach_path(savePath);
 					at.setAttach_oriname(originalName);
 					at.setAttach_rename(renamedName);
 
@@ -608,5 +614,51 @@ public class MailController {
 			}
 		return "redirect:innerMail.do";
 	}
+	
+	@RequestMapping(value = "/mail/fileDownload")
+	   public void fileDownload(HttpServletResponse response, HttpServletRequest request,
+	         @RequestParam("path") String filepath, @RequestParam String name) {
 
+	      String path = request.getSession().getServletContext().getRealPath(filepath);
+
+	      try {
+	         String browser = request.getHeader("User-Agent");
+	         // 파일 인코딩
+	         if (browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")) {
+	            name = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
+	         } else {
+	            name = new String(name.getBytes("UTF-8"), "ISO-8859-1");
+	         }
+	      } catch (UnsupportedEncodingException ex) {
+	         System.out.println("UnsupportedEncodingException");
+	      }
+
+	      System.out.println(path);
+	      File file1 = new File(path);
+	      if (!file1.exists()) {
+	         return;
+	      }
+
+	      // 파일명 지정
+	      response.setContentType("application/octer-stream");
+	      response.setHeader("Content-Transfer-Encoding", "binary;");
+	      response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
+	      try {
+	         OutputStream os = response.getOutputStream();
+	         FileInputStream fis = new FileInputStream(path);
+
+	         int ncount = 0;
+	         byte[] bytes = new byte[512];
+
+	         while ((ncount = fis.read(bytes)) != -1) {
+	            os.write(bytes, 0, ncount);
+	         }
+	         fis.close();
+	         os.close();
+	      } catch (FileNotFoundException ex) {
+	         System.out.println("FileNotFoundException");
+	      } catch (IOException ex) {
+	         System.out.println("IOException");
+	      }
+	   }
 }

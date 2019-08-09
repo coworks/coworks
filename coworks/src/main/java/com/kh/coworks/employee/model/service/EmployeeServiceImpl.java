@@ -118,5 +118,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.getDeptEmp(dept_code);
 	}
 
+	@Override
+	public Employee selectEmail(String email) {
+		return employeeDao.selectEmail(email);
+	}
+
 
 }

@@ -323,7 +323,7 @@ public class BoardController {
 	// ※첨부파일 다운로드!※ ★
 	// download 태그로 대체 가능하나
 	// 만약을 위해 구현하는 방법도 익히고 있어야 한다.
-	@RequestMapping("/documentboard/fileDownload.do")
+	@RequestMapping("/documentboard/mailAttachDownload.do")
 	public void fileDownload(@RequestParam String oName, @RequestParam String rName, HttpServletRequest request,
 			HttpServletResponse response) {
 

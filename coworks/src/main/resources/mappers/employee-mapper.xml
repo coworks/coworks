@@ -172,5 +172,8 @@
 		select * from empview where dept_code = #{dept_code} order by job_code
 	</select>
 	
+	<select id="selectEmail" resultType="employee">
+		select * from empview where emp_email = #{email}
+	</select>
 	
 </mapper>

@@ -77,7 +77,7 @@
 
 			<mapping path="/common/gomain.do" />
 			<!-- ★★★★★ 추가해주세요 여러분 ~ (세션없이 넘어갈수 없게)★★★★★★ -->
-
+			<exclude-mapping path="/employee/empEmail.do"/>
 
 			<!-- <mapping path="/board/**/*.do"/> -->
 

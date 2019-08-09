@@ -50,6 +50,8 @@ public interface EmployeeService {
 
 	List<Employee> getDeptEmp(String dept_code);
 
+	Employee selectEmail(String email);
+
 
 	
 }
