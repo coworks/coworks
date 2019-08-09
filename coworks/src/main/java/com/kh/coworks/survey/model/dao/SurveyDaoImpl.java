@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.coworks.survey.model.vo.Survey;
 import com.kh.coworks.survey.model.vo.SurveyAnswer;
+import com.kh.coworks.survey.model.vo.SurveyApply;
 
 @Repository
 public class SurveyDaoImpl implements SurveyDao {
@@ -48,6 +49,11 @@ public class SurveyDaoImpl implements SurveyDao {
 	@Override
 	public List<SurveyAnswer> selectOneSurveyAnswer(int survey_no) {
 		return sqlSession.selectList("survey.selectOneSurveyAnswer",survey_no);
+	}
+
+	@Override
+	public int surveyInsertApply(SurveyApply sa) {
+		return sqlSession.insert("survey.surveyInsertApply",sa);
 	}
 
 

@@ -54,7 +54,7 @@
 
 								<div class="col-md-13">
 									<div class="form-group">
-										<label class="control-label">시작일시 </label> <input type="date"
+										<label class="control-label">시작 </label> <input type="date"
 											id="survey_start" name="survey_start" class="form-control">
 										<!-- <small class="form-control-feedback"> This is inline help </small> -->
 									</div>
@@ -70,11 +70,15 @@
 
 								<div id="surveyadditem" class="col-md-13">
 									<div class="form-group">
-										<label class="control-label">항목 </label> 
-											<input type="text" id="survey_content" name="survey_content" class="form-control"> 
-											<input style="margin-top: 10px;" type="text" id=survey_content	name="survey_content" class="form-control">
-											<input style="margin-top: 10px;" type="text" id="survey_content"	name="survey_content" class="form-control">
-											<input style="margin-top: 10px;" type="text" id="survey_content"	name="survey_content" class="form-control">
+										<label class="control-label">항목 </label> <input type="text"
+											id="survey_content" name="survey_content"
+											class="form-control"> <input
+											style="margin-top: 10px;" type="text" id=survey_content
+											name="survey_content" class="form-control"> <input
+											style="margin-top: 10px;" type="text" id="survey_content"
+											name="survey_content" class="form-control"> <input
+											style="margin-top: 10px;" type="text" id="survey_content"
+											name="survey_content" class="form-control">
 										<!-- <small class="form-control-feedback"> This is inline help </small> -->
 									</div>
 								</div>
@@ -89,197 +93,209 @@
 						</form>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
-	</div>
 
-	<div class="page-wrapper">
-		<div class="container-fluid">
+
+		<div class="page-wrapper">
+			<div class="container-fluid">
 
 				<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
 						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><span>메인페이지</span> <i
-								class="fas fa-chevron-right"></i><span class="text-info"> 설문조사</span></li>
+								class="fas fa-chevron-right"></i><span class="text-info">
+									설문조사</span></li>
 						</ol>
 					</div>
 				</div>
-			<!-- 시작 -->
-			<div class="col-lg-12 col-md-12">
-				<div class="card">
-					<div class="card-body">
-						<h6 class="card-subtitle">
-							<i class="icon-heart"></i> 설문에 응답해주세요!
-							</code>
-						</h6>
-						<div style="float: right; display: inline-border;">
-							<button type="button" data-toggle="modal"
-								data-target="#insertSurvey"
-								class="btn btn-info">설문조사 등록
-							</button>
-						</div>
-						<br>
-						<!-- Nav tabs -->
-						<div class="vtabs col-12">
-							<ul class="nav nav-tabs tabs-vertical" role="tablist">
-								<li class="nav-item"><a class="nav-link active"
-									data-toggle="tab" href="#home9" role="tab" aria-selected="true">
-										<span>설문조사</span>
-								</a>
-							</ul>
-							<!-- Tab panes -->
-							<div class="tab-content">
-								<div class="tab-pane active" id="home9" role="tabpanel">
-									<div class="p-3">
+				<!-- 시작 -->
+				<div class="col-lg-12 col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h6 class="card-subtitle">
+								<i class="icon-heart"></i> 설문에 응답해주세요!
+								</code>
+							</h6>
+							<div style="float: right; display: inline-border;">
+								<button type="button" data-toggle="modal"
+									data-target="#insertSurvey" class="btn btn-info">설문조사
+									등록</button>
+							</div>
+							<br>
+							<!-- Nav tabs -->
+							<div class="vtabs col-12">
+								<ul class="nav nav-tabs tabs-vertical" role="tablist">
+									<li class="nav-item"><a class="nav-link active"
+										data-toggle="tab" href="#home9" role="tab"
+										aria-selected="true"> <span>설문조사</span>
+									</a>
+								</ul>
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div class="tab-pane active" id="home9" role="tabpanel">
+										<div class="p-3">
 
-										<!-- 반복문으로 할 일 내역 나올 곳 -->
-										<div class="row">
+											<!-- 반복문으로 할 일 내역 나올 곳 -->
+											<div class="row">
 
-											<!-- 등록된 todoList가 없을 때 -->
-											<c:if test="${todoList.size() eq 0 }">
-												<div class="detail-box col-12">
-													<div class="detail-list">
-														<div>
-															<img
-																src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png"
-																style="width: 70px; vertical-align: middle; border: 0" />
-														</div>
-														<h4 class="text-themecolor" style="margin: 10px 0;">등록된
-															TODO가 없습니다.</h4>
-
-													</div>
-												</div>
-											</c:if>
-											<c:if test="${todoList.size() ne 0 }">
-												<c:forEach items="${todoList}" var="todo">
-
-													<div class="col-lg-4 col-md-6 col-xs-12">
-														<div class="ribbon-wrapper card"
-															style="border: 1px solid lightgray;"></div>
-													</div>
-												</c:forEach>
-											</c:if>
-
-
-											<c:forEach items="${list}" var="survey">
-												<div class="col-lg-4 col-md-6 col-xs-12">
-													<div class="ribbon-wrapper card"
-														style="border: 1px solid lightgray;">
-														<div class="card" style="border-style: groove">
-															<h4 class="card-title">설문조사</h4>
-															<p class="card-text">${survey.survey_quest}</p>
-															<p class="card-text">
-																<small class="text-muted"><fmt:formatDate
-															value="${survey.survey_start }" pattern="yyyy년MM월dd일 " /> ~
-																	<fmt:formatDate
-															value="${survey.survey_end }" pattern="yyyy년MM월dd일 " /></small>
-															</p>
-															<h5 class="mt-4">
-																YES!!<span class="float-right">10%</span>
-															</h5>
-															<div class="progress ">
-																<div
-																	class="progress-bar bg-success wow animated progress-animated"
-																	style="width: 85%; height: 6px;" role="progressbar">
-																	<span class="sr-only">60% Complete</span>
-																</div>
+												<!-- 등록된 todoList가 없을 때 -->
+												<c:if test="${todoList.size() eq 0 }">
+													<div class="detail-box col-12">
+														<div class="detail-list">
+															<div>
+																<img
+																	src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png"
+																	style="width: 70px; vertical-align: middle; border: 0" />
 															</div>
-															<h5 class="mt-4">
-																No :(<span class="float-right">20%</span>
-															</h5>
-															<div class="progress ">
-																<div
-																	class="progress-bar bg-danger wow animated progress-animated"
-																	style="width: 15%; height: 6px;" role="progressbar">
-																	<span class="sr-only">60% Complete</span>
-																</div>
-															</div>
+															<h4 class="text-themecolor" style="margin: 10px 0;">등록된
+																TODO가 없습니다.</h4>
+
 														</div>
-
 													</div>
-												</div>
-											</c:forEach>
-										</div>
-										<!-- row -->
-									</div>
-								</div>
-								<!-- ←┘ 여기까지가 '할 일' 부분이유~ -->
-								<div class="tab-pane" id="profile9" role="tabpanel">
-									<div class="p-3">
+												</c:if>
+												<c:if test="${todoList.size() ne 0 }">
+													<c:forEach items="${todoList}" var="todo">
 
-										<!-- 반복문으로 완료 내역 나올 곳 -->
-										<div class="row">
-
-											<!-- 완료된 todoList가 없을 때 -->
-											<c:if test="${finList.size() eq 0 }">
-												<div class="detail-box col-12">
-													<div class="detail-list">
-														<div>
-															<img
-																src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png"
-																style="width: 70px; vertical-align: middle; border: 0" />
+														<div class="col-lg-4 col-md-6 col-xs-12">
+															<div class="ribbon-wrapper card"
+																style="border: 1px solid lightgray;"></div>
 														</div>
-														<h4 class="text-themecolor" style="margin: 10px 0;">완료된
-															TODO가 없습니다.</h4>
+													</c:forEach>
+												</c:if>
 
-													</div>
-												</div>
-											</c:if>
-											<c:if test="${finList.size() ne 0 }">
-												<c:forEach items="${finList}" var="fintodo">
 
-													<!-- 반복될 리본 -->
+												<c:forEach items="${list}" var="survey">
 													<div class="col-lg-4 col-md-6 col-xs-12">
 														<div class="ribbon-wrapper card"
 															style="border: 1px solid lightgray;">
-															<button type="button"
-																class="ribbon btn btn-sm btn-light dropdown-toggle flipInY"
-																data-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false"
-																style="margin-left: 70%; color: black;">
-																<i class="ti-settings"></i>
-															</button>
-															<div class="dropdown-menu animated flipInY"
-																x-placement="bottom-start"
-																style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-																<a class="dropdown-item" data-toggle="modal"
-																	data-target="#deletetodo"
-																	data-whatever="${fintodo.todo_content }"
-																	data-whatever1="${fintodo.todo_no }"> <i
-																	class="mdi mdi-playlist-remove"></i> 삭제하기
-																</a>
+															<div class="card" style="border-style: groove">
+																<h4 class="card-title">설문조사</h4>
+
+																<span class="card-text"> <i
+																	class="fas fa-quote-left text-info"></i>
+																	${survey.survey_quest} <i
+																	class="fas fa-quote-right text-info"></i>
+																</span>
+
+																<p class="card-text">
+																	<small class="text-muted"><fmt:formatDate
+																			value="${survey.survey_start }"
+																			pattern="yyyy년MM월dd일 " /> ~ <fmt:formatDate
+																			value="${survey.survey_end }" pattern="yyyy년MM월dd일 " /></small>
+																</p>
+																<h5 class="mt-4">
+																	YES!!<span class="float-right">10%</span>
+																</h5>
+																
+																<!-- 설문결과 시작 -->
+																<div class="progress ">
+																	<div
+																		class="progress-bar bg-success wow animated progress-animated"
+																		style="width: 85%; height: 6px;" role="progressbar">
+																		<span class="sr-only">60% Complete</span>
+																	</div>
+																</div>
+																<h5 class="mt-4">
+																	No :(<span class="float-right">20%</span>
+																</h5>
+																<div class="progress ">
+																	<div
+																		class="progress-bar bg-danger wow animated progress-animated"
+																		style="width: 15%; height: 6px;" role="progressbar">
+																		<span class="sr-only">60% Complete</span>
+																	</div>
+																</div>
+																<!-- 설문결과 끝 -->
+
+																
 															</div>
-															<div class="ribbon ribbon-default">완료</div>
-															<c:if test="${fintodo.todo_content.length() gt 48}">
-																<p class="ribbon-content">${fintodo.todo_content.substring(0,47) }
-																	...</p>
-															</c:if>
-															<c:if test="${fintodo.todo_content.length()le 48}">
-																<p class="ribbon-content">${fintodo.todo_content }</p>
-															</c:if>
+
 														</div>
 													</div>
 												</c:forEach>
-											</c:if>
+											</div>
+											<!-- row -->
 										</div>
-
 									</div>
+									<!-- ←┘ 여기까지가 '할 일' 부분이유~ -->
+									<div class="tab-pane" id="profile9" role="tabpanel">
+										<div class="p-3">
+
+											<!-- 반복문으로 완료 내역 나올 곳 -->
+											<div class="row">
+
+												<!-- 완료된 todoList가 없을 때 -->
+												<c:if test="${finList.size() eq 0 }">
+													<div class="detail-box col-12">
+														<div class="detail-list">
+															<div>
+																<img
+																	src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png"
+																	style="width: 70px; vertical-align: middle; border: 0" />
+															</div>
+															<h4 class="text-themecolor" style="margin: 10px 0;">완료된
+																TODO가 없습니다.</h4>
+
+														</div>
+													</div>
+												</c:if>
+												<c:if test="${finList.size() ne 0 }">
+													<c:forEach items="${finList}" var="fintodo">
+
+														<!-- 반복될 리본 -->
+														<div class="col-lg-4 col-md-6 col-xs-12">
+															<div class="ribbon-wrapper card"
+																style="border: 1px solid lightgray;">
+																<button type="button"
+																	class="ribbon btn btn-sm btn-light dropdown-toggle flipInY"
+																	data-toggle="dropdown" aria-haspopup="true"
+																	aria-expanded="false"
+																	style="margin-left: 70%; color: black;">
+																	<i class="ti-settings"></i>
+																</button>
+																<div class="dropdown-menu animated flipInY"
+																	x-placement="bottom-start"
+																	style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+																	<a class="dropdown-item" data-toggle="modal"
+																		data-target="#deletetodo"
+																		data-whatever="${fintodo.todo_content }"
+																		data-whatever1="${fintodo.todo_no }"> <i
+																		class="mdi mdi-playlist-remove"></i> 삭제하기
+																	</a>
+																</div>
+																<div class="ribbon ribbon-default">완료</div>
+																<c:if test="${fintodo.todo_content.length() gt 48}">
+																	<p class="ribbon-content">${fintodo.todo_content.substring(0,47) }
+																		...</p>
+																</c:if>
+																<c:if test="${fintodo.todo_content.length()le 48}">
+																	<p class="ribbon-content">${fintodo.todo_content }</p>
+																</c:if>
+															</div>
+														</div>
+													</c:forEach>
+												</c:if>
+											</div>
+
+										</div>
+									</div>
+									<!-- ←┘ 여기까지가 '완료' 부분이유~ -->
 								</div>
-								<!-- ←┘ 여기까지가 '완료' 부분이유~ -->
 							</div>
 						</div>
 					</div>
+					<c:out value="${pageBar}" escapeXml="false" />
 				</div>
-				<c:out value="${pageBar}" escapeXml="false" />
+
+
+				<!-- 끝 -->
+
 			</div>
-
-
-			<!-- 끝 -->
-
+			<c:import url="../common/footer.jsp" />
 		</div>
-		<c:import url="../common/footer.jsp" />
 	</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
@@ -325,8 +341,6 @@
 							location.href = "${pageContext.request.contextPath}/todo/finishtodo.do?todo_no="
 									+ todo_no;
 						});
-
-	
 	</script>
 
 

@@ -4,8 +4,13 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="survey">
 	
-	<select id="selectSurveyList" resultType="survey">
-		SELECT * FROM SURVEY
+	<select id="selectSurveyList" resultType="survey" parameterType="java.util.Map">
+		 SELECT * FROM SURVEY ORDER BY SURVEY_NO DESC 
+	<!-- 	SELECT SA.* 
+		FROM SURVEYANSWER SA
+		WHERE SA.SURVAYAN_NO in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">#{item.survey_no}</foreach>
+		ORDER BY SA.SURVEY_NO DESC -->
 	</select>
 
 	<select id="selectSurveyTotalContents" resultType="_int">
@@ -29,6 +34,11 @@
 	<insert id="insertSurveyAnswer" parameterType="surveyAnswer">
 		INSERT INTO SURVEYANSWER(SURVEYAN_NO, SURVEY_NO, SURVEY_CONTENT)
 		VALUES(SEQ_SURVEYANSWER.NEXTVAL, SEQ_SURVEY.CURRVAL, #{survey_content})
+	</insert>
+	
+	<insert id="surveyInsertApply" parameterType="surveyApply">
+		INSERT INTO SURVEYAPPLY(SURVEYAPP_NO, EMP_NO, SURVEY_NO, SURVEYAN_NO)
+		VALUES(SEQ_SURVEYAPPLY.NEXTVAL, #{emp_no}, #{survey_no}, #{surveyan_no})
 	</insert>
 	
 </mapper>

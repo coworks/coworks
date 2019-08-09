@@ -7,20 +7,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class SurveyApply implements Serializable {
 
-	private int surveyapp_no; // ÀÎµ¦½º
-	private int emp_no; // »ç¿ø¹øÈ£
-	private int survey_no; // ¼³¹®Á¶»çÀÎµ¦½º
+	private int surveyapp_no; // ï¿½Îµï¿½ï¿½ï¿½
+	private int emp_no; // ï¿½ï¿½ï¿½ï¿½ï¿½È£
+	private int survey_no; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½
+	private int surveyan_no;
 
 	public SurveyApply() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public SurveyApply(int surveyapp_no, int emp_no, int survey_no) {
+	
+	public SurveyApply(int surveyapp_no, int emp_no, int survey_no, int surveyan_no) {
 		super();
 		this.surveyapp_no = surveyapp_no;
 		this.emp_no = emp_no;
 		this.survey_no = survey_no;
+		this.surveyan_no = surveyan_no;
+	}
+
+
+	public int getSurveyan_no() {
+		return surveyan_no;
+	}
+
+	public void setSurveyan_no(int surveyan_no) {
+		this.surveyan_no = surveyan_no;
 	}
 
 	public int getSurveyapp_no() {
@@ -49,7 +60,10 @@ public class SurveyApply implements Serializable {
 
 	@Override
 	public String toString() {
-		return "SurveyApply [surveyapp_no=" + surveyapp_no + ", emp_no=" + emp_no + ", survey_no=" + survey_no + "]";
+		return "SurveyApply [surveyapp_no=" + surveyapp_no + ", emp_no=" + emp_no + ", survey_no=" + survey_no
+				+ ", surveyan_no=" + surveyan_no + "]";
 	}
+
+	
 
 }

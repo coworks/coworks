@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.kh.coworks.survey.model.vo.Survey;
 import com.kh.coworks.survey.model.vo.SurveyAnswer;
+import com.kh.coworks.survey.model.vo.SurveyApply;
 
 public interface SurveyService {
 
@@ -18,4 +19,6 @@ public interface SurveyService {
 	Survey selectOneSurvey();
 	
 	List<SurveyAnswer> selectOneSurveyAnswer(int survey_no);
+
+	int surveyInsertApply(SurveyApply sa);
 }

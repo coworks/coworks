@@ -71,7 +71,7 @@
 					<div class="col-lg-4">
 						<div class="card">
 							<div class="card-body">
-								<div class="m-2">	
+								<div class="m-2">
 									<jsp:useBean id="now" class="java.util.Date" />
 									<fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일"
 										var="today" />
@@ -169,7 +169,7 @@
 									<div id="addtodohome" class="modal" tabindex="-1" role="dialog"
 										aria-labelledby="myModalLabel" aria-hidden="true"
 										style="display: none;">
-										<div class="modal-dialog  <modal-dialog-centered></modal-dialog-centered>">
+										<div class="modal-dialog">
 											<form method="post" action="addtodohome.do"
 												name="addtodohome">
 												<div class="modal-content">
@@ -287,9 +287,15 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-2 p-2">
+									<button class="float-right btn btn-sm btn-rounded btn-info"
+                            		  id="sa-success"  onclick="return go();">투표하기</button>
+                            		  <input type="hidden" value="${sessionScope.employee.emp_no }" name="emp_no" id="emp_no" />
+                            		  <input type="hidden" name="survey_no" id="survey_no" value="${survey.survey_no }" />
 									<h4 class="card-title">설문조사</h4>
 									<p class="card-text">
+										<i class="fas fa-quote-left text-info"></i>
 										<c:out value="${survey.survey_quest}" />
+										<i class="fas fa-quote-right text-info"></i>
 									</p>
 									<p class="card-text">
 										<small class="text-muted"><c:out
@@ -297,12 +303,15 @@
 												value="${survey.survey_end }" /></small>
 									</p>
 
-									<div >
-											<c:forEach items="${salist}" var="sa">
-												<input type="radio"  name="surveyAn_no" 
-													value="${sa.surveyAn_no}"  /> 
-													${sa.survey_content} 
-											</c:forEach>
+									<div class="radio radio-info pl-1">
+										<c:forEach items="${salist }" var="sa">
+											<li style="list-style: none;"><input type="radio"
+												id="${sa.surveyAn_no }" name="radio"
+												value="${sa.surveyAn_no }"> <label
+												for="${sa.surveyAn_no }">&nbsp;<span>${sa.survey_content}
+												</span>
+											</label></li>
+										</c:forEach>
 									</div>
 
 
@@ -337,7 +346,7 @@
 								<div id="calendar"></div>
 								<!-- BEGIN MODAL -->
 								<div class="modal fade none-border" id="my-event">
-									<div class="modal-dialog  modal-dialog-centered">
+									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
 												<h4 class="modal-title">
@@ -456,6 +465,14 @@
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"
+		aria-hidden="true"></script>
+
+
 
 	<script>
  	
@@ -657,7 +674,7 @@
 	               
 	               
 	           })
-	          </c:forEach>
+	        	 </c:forEach>
 
 	        var $this = this;
 	        
@@ -702,12 +719,9 @@
 	                       // alert("error drag !!!!");
 	                    }
 	                });
-	                   
 	               }
-	           
 	        });
 
-	       
 	    },
 
 	   //init CalendarApp
@@ -759,12 +773,25 @@
 			}
 			return true;
 		}
-		
-
 	
+	function go(){
+		
+		var checkVal = $("input:radio[name=radio]:checked").val();
+		
+		if(checkVal == null){
+			Swal.fire({
+                title: "ʕ•ᴥ•ʔ  답변이 선택되지 않았습니다.",
+                timer: 1300,
+                showConfirmButton: false
+            });
+			return false;
+		}
+		
+		location.href="${pageContext.request.contextPath}/survey/surveyInsertApply.do?emp_no="+$('#emp_no').val()+"&survey_no="+$('#survey_no').val()+"&surveyyan_no="+checkVal
+
+	}
 	
  	</script>
-
 
 </body>
 
