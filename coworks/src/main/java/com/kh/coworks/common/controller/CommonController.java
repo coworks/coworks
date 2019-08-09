@@ -50,7 +50,6 @@ public class CommonController {
 
 	@RequestMapping(value="/common/goLogin.do", method=RequestMethod.POST)
    public ModelAndView goLogin(HttpServletRequest request,Model model,@RequestParam int emp_no, HttpSession session,@RequestParam String emp_password) throws EmployeeException{
-      System.out.println("아이디 패스워드 받아서 세션저장해야됩니다요~~");
       
       ModelAndView mv=new ModelAndView();
 
@@ -61,7 +60,7 @@ public class CommonController {
       
       
       String rawPassword=emp_password;   // 암호화x 나중에 암호화 할것임돠
-      System.out.println("암호화 전 : "+rawPassword);
+      
       
       //e.setEmp_password(bcryptPasswordEncoder.encode(rawPassword)); // 나중에~
       
@@ -130,8 +129,7 @@ public class CommonController {
 			msg = "로그인 후 이용 가능합니다";
 			mv.addObject("loc", loc);
 			mv.addObject("msg", msg);
-
-			System.out.println(mv);
+ 
 
 			// 화면 전달을 위한 viewName 등록하기
 			mv.setViewName("common/msg");

@@ -58,8 +58,7 @@ public class TodoController {
 	// (할 일)추가 _ index화면에서
 	@RequestMapping("/addtodohome.do")
 	public String inserttodohome(Model model, Todo todo) {
-		
-		System.out.println("todo왔냐? : " + todo);
+		 
 		
 		int result = todoService.insertTodo(todo);
 		

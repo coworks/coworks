@@ -105,8 +105,7 @@ public class CommonProcessingController {
 
 		// ip받아오기
 		    
-
-		System.out.println("ip :" + request.getRemoteAddr());
+ 
 		attend.setAtten_attIP(
 				request.getRemoteAddr()); // 나중에 세션 ip 받아오기
 		attend.setEmp_no(employee.getEmp_no()); // 나중에 세션에서 받아오기
