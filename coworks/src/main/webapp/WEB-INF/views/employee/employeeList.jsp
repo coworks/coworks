@@ -170,7 +170,7 @@ td th {
 								</div>
 								<!--/row-->
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6" hidden>
 										<div class="form-group">
 											<div class="form-group">
 												<label for="example-email">이메일 <span class="help">
@@ -418,13 +418,6 @@ td th {
 			}else if(emp_gender == ""){
 				Swal.fire({
 	                title: "ʕ•ᴥ•ʔ  성별을 선택하세요!",
-	                timer: 1300,
-	                showConfirmButton: false
-	            });
-				return false;
-			}else if(emp_email == ""){
-				Swal.fire({
-	                title: "ʕ•ᴥ•ʔ  이메일을 입력해주세요!",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });

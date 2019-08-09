@@ -232,12 +232,12 @@
 			location.href = "${pageContext.request.contextPath}/documentboard/${board.bo_code}";
 		}
 
-		function fileDownload(oName, rName) {
+/* 		function fileDownload(oName, rName) {
 			//한글파일명이 있을 수 있으므로, 명시적으로 encoding
 			oName = encodeURIComponent(oName);
 			location.href = "${pageContext.request.contextPath}/documentboard/fileDownload.do?oName="
 					+ oName + "&rName=" + rName;
-		}
+		} */
 		
 
 		$("#sa-passparameter").click(function () {
