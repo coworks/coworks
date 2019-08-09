@@ -392,7 +392,7 @@ public class BoardController {
 //	}
 	
 	
-	@RequestMapping(value = "/documentboard/fileDownload.do")
+	@RequestMapping(value = "/board/fileDownload")
 	   public void fileDownload(HttpServletResponse response, HttpServletRequest request,
 	         @RequestParam("path") String filepath, @RequestParam String name) {
 

@@ -80,8 +80,6 @@
 								자료실</a></li>
 					</ul></li>
 				
-				<c:set var="auboard" value="${sessionScope.authority.auth_board}" />
-				<c:if test="${auboard eq 'Y'}">
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-bulletin-board"></i><span class="hide-menu">게시판</span></a>
 					<ul aria-expanded="false" class="collapse">
@@ -99,7 +97,6 @@
 						<li><a
 							href="${pageContext.request.contextPath}/documentboard/${ sessionScope.employee.dept_code }">부서게시판</a></li>
 					</ul></li>
-				</c:if>
 				<li><a class="has-arrow " href="#" aria-expanded="false"><i
 						class="mdi mdi-book-open-variant"></i><span class="hide-menu">교육</span></a>
 					<ul aria-expanded="false" class="collapse">
