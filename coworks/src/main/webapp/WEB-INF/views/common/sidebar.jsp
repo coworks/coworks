@@ -109,7 +109,6 @@
 						<li><a
 							href="${pageContext.request.contextPath}/education/eduApplyview.do">교육
 								신청 현황</a></li>
-						<li><a href="#">보고서 작성하기</a></li>
 
 					</ul></li>
 				<li><a href="${pageContext.request.contextPath}/survey/surveyList.do" aria-expanded="false"><i

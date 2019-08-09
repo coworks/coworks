@@ -300,7 +300,7 @@ public class ExcelWrite {
         
 		HttpSession session = request.getSession();
         String saveDir = session.getServletContext().getRealPath("/resources/pay/payroll");
-        File file = new File(saveDir+"/"+y+m+d+"_급여명세서.xlsx");
+        File file = new File(saveDir+y+m+d+"_급여명세서.xlsx") ;
 //        File file = new File("C:\\excel\\testWrite.xls");
         FileOutputStream fos = null;
         // 입력된 내용 파일로 쓰기

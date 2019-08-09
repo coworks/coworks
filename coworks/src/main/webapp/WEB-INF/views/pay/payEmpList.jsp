@@ -131,9 +131,9 @@
 	</div>
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
-		<script
-		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js" aria-hidden="true"></script>
+	<script src="${pageContext.request.contextPath }/resources/templates/resources/js/hummingbird-treeview.js"></script>
 	<script>
 	$("#treeview").hummingbird();
 
