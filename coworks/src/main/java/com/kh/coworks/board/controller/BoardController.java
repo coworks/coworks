@@ -397,7 +397,7 @@ public class BoardController {
 	         @RequestParam("path") String filepath, @RequestParam String name) {
 
 	      String path = request.getSession().getServletContext().getRealPath(filepath);
-
+ 
 	      try {
 	         String browser = request.getHeader("User-Agent");
 	         // 파일 인코딩
