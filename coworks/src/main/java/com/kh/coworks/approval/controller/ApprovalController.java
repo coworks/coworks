@@ -2,7 +2,10 @@ package com.kh.coworks.approval.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -197,60 +200,49 @@ public class ApprovalController {
 	}
 
 	@RequestMapping(value = "/approval/approvalAttachDown")
-	public void fileDownload(HttpServletResponse response, HttpServletRequest request, @RequestParam String path,
-			@RequestParam String name) {
+	public void fileDownload(HttpServletResponse response, HttpServletRequest request,
+			@RequestParam("path") String filepath, @RequestParam String name) {
 
-		File file = new File(path);
-
-		FileInputStream fileInputStream = null;
-		ServletOutputStream servletOutputStream = null;
+		String path = request.getSession().getServletContext().getRealPath(filepath);
 
 		try {
-			String downName = null;
 			String browser = request.getHeader("User-Agent");
-
+			// 파일 인코딩
 			if (browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")) {
-				downName = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
-
+				name = URLEncoder.encode(name, "UTF-8").replaceAll("\\+", "%20");
 			} else {
-				downName = new String(name.getBytes("UTF-8"), "ISO-8859-1");
+				name = new String(name.getBytes("UTF-8"), "ISO-8859-1");
 			}
+		} catch (UnsupportedEncodingException ex) {
+			System.out.println("UnsupportedEncodingException");
+		}
 
-			response.setHeader("Content-Disposition", "attachment;filename=\"" + downName + "\"");
-			response.setContentType("application/octer-stream");
-			response.setHeader("Content-Transfer-Encoding", "binary;");
+		System.out.println(path);
+		File file1 = new File(path);
+		if (!file1.exists()) {
+			return;
+		}
 
-			fileInputStream = new FileInputStream(file);
-			servletOutputStream = response.getOutputStream();
+		// 파일명 지정
+		response.setContentType("application/octer-stream");
+		response.setHeader("Content-Transfer-Encoding", "binary;");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
+		try {
+			OutputStream os = response.getOutputStream();
+			FileInputStream fis = new FileInputStream(path);
 
-			byte b[] = new byte[1024];
-			int data = 0;
+			int ncount = 0;
+			byte[] bytes = new byte[512];
 
-			while ((data = (fileInputStream.read(b, 0, b.length))) != -1) {
-
-				servletOutputStream.write(b, 0, data);
-
+			while ((ncount = fis.read(bytes)) != -1) {
+				os.write(bytes, 0, ncount);
 			}
-
-			servletOutputStream.flush();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (servletOutputStream != null) {
-				try {
-					servletOutputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if (fileInputStream != null) {
-				try {
-					fileInputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+			fis.close();
+			os.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("FileNotFoundException");
+		} catch (IOException ex) {
+			System.out.println("IOException");
 		}
 	}
 

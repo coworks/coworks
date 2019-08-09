@@ -41,7 +41,7 @@
 						<div class="form-group">
 							<div class="col-md-12">
 								<div class="checkbox checkbox-primary float-left pt-0">
-									<input id="checkbox-signup" type="checkbox"> <label for="checkbox-signup"> Remember ID </label>
+								<!-- 	<input id="checkbox-signup" type="checkbox"> <label for="checkbox-signup"> Remember ID </label> -->
 								</div>
 								<a href="javascript:void(0)" id="to-recover" class="text-dark float-right"><i class="fa fa-lock mr-1"></i> 비밀번호 찾기</a>
 							</div>
