@@ -100,12 +100,14 @@
 						
 						
 						<div class="table-responsive ">
+						<c:if test="${sessionScope.authority.auth_board eq 'Y' }">
+						
 						<div style="text-align : right;">
 						
 							<a class="btn btn-success waves-effect waves-light" onclick="goboardForm();" style="color:white;">글쓰기<input type="text" id="bo_code" value="${bo_code }" hidden></a>
 						
 						</div>
-												
+						</c:if>				
 						<!-- (내역이 없을 때 →) -->
 						<c:if test="${list.size() eq 0 }">
 							<div class="detail-box">
