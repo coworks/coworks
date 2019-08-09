@@ -260,7 +260,7 @@ td th {
 				</div>
 			</div>
 		</div>
-	</div>
+
 	<div class="page-wrapper">
 		<div class="container-fluid">
 						<div class="row page-titles">
@@ -305,7 +305,6 @@ td th {
 								<!-- <button class="btn btn-info" type="button">사원추가</button> -->
 								<button data-toggle="modal" data-target=".bs-example-modal-lg"
 									class="btn btn-outline-info" type="button">사원추가</button>
-								</td>
 							</div>
 						</div>
 						<div id="basicgrid" class="jsgrid pt-3"
@@ -380,9 +379,10 @@ td th {
 				</div>
 			</div>
 		</div>
+		</div>
 		<c:import url="../common/footer.jsp" />
 	</div>
-	</div>
+	
 	<c:import url="../common/bottomJquery.jsp" />
 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>

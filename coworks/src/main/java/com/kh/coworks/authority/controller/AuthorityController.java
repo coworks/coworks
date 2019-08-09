@@ -18,7 +18,6 @@ import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Job;
 
-@SessionAttributes(value= {"authority"})
 @Controller
 public class AuthorityController {
 	
@@ -79,42 +78,48 @@ public class AuthorityController {
 	@RequestMapping("/authority/authorityUpdate.do")
 	public String authorityUpdate(Authority authority) {
 		
-		if(authority.getAuth_personnal().equals("인사")) {
+		System.out.println(authority);
+		
+		if(authority.getAuth_personnal()!=null) {
 			authority.setAuth_personnal("Y");
 		}else
 			authority.setAuth_personnal("N");
 		
-		if(authority.getAuth_data().equals("자료실")) {
+		if(authority.getAuth_data()!=null) {
 			authority.setAuth_data("Y");
 		}else
 			authority.setAuth_data("N");
 		
-		if(authority.getAuth_cal().equals("회사일정")) {
+		if(authority.getAuth_cal()!=null) {
 			authority.setAuth_cal("Y");
 		}else
 			authority.setAuth_cal("N");
 		
-		if(authority.getAuth_board().equals("게시판")) {
+		if(authority.getAuth_board()!=null) {
 			authority.setAuth_board("Y");
 		}else
 			authority.setAuth_board("N");
 		
-		if(authority.getAuth_approval().equals("결재서류")) {
+		if(authority.getAuth_approval()!=null) {
 			authority.setAuth_approval("Y");
 		}else
 			authority.setAuth_approval("N");
 		
-		if(authority.getAuth_authority().equals("권한관리")) {
+		if(authority.getAuth_authority()!=null) {
 			authority.setAuth_authority("Y");
 		}else
 			authority.setAuth_authority("N");
 		
-		if(authority.getAuth_pay().equals("급여")) {
+		if(authority.getAuth_pay()!=null) {
 			authority.setAuth_pay("Y");
 		}else
 			authority.setAuth_pay("N");
 		
 		int result = authorityService.authorityUpdate(authority);
+		
+
+		System.out.println(authority);
+		
 		
 		return "redirect:authorityList.do";
 	}

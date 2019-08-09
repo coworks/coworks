@@ -104,7 +104,7 @@
 			<div id="create-chatroom" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
-						<form action="${pageContext.request.contextPath }/chat/insertChatRoom">
+						<form action="${pageContext.request.contextPath }/chat/insertChatRoom" onsubmit="return createCk()">
 							<div class="modal-header">
 								<h4 class="modal-title">채팅방 개설하기</h4>
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -166,7 +166,7 @@
 				<div class="modal-dialog modal-dialog-centered modal-lg">
 					<div class="modal-content">
 
-						<form action="${pageContext.request.contextPath }/chat/inviteEmp">
+						<form action="${pageContext.request.contextPath }/chat/inviteEmp" onsubmit="return inviteCk()">
 							<div class="modal-header">
 								<h4 class="modal-title">멤버 초대하기</h4>
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -348,6 +348,26 @@
 							+ "</div>");
 			chatList.append(chatli);
 
+		}
+		
+		function createCk() {
+			if($("#create-chatroom input[name=emp_no]:checked").length < 2){
+				alert("초대할 멤버를 선택해주세요");
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		
+		function inviteCk() {
+			if($('#invite-chatroom input[name=emp_no]:checked').not('input[disabled=disabled]').length < 1){
+				alert('초대할 멤버를 선택해주세요');
+				return false;
+			}
+			else {
+				return true;
+			}
 		}
 
 		

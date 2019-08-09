@@ -301,7 +301,7 @@ td th {
 
 		function transferName(emp_no,emp_name) {
 			
-			var emp_au = $("input[name='emp_authority']:checked").length;
+		/* 	var emp_au = $("input[name='emp_authority']:checked").length;
 			
 			if (emp_au == 0) {
 				Swal.fire({
@@ -310,12 +310,12 @@ td th {
 					showConfirmButton : false
 				});
 				return false;
-			}
+			} */
 			
 			$('#emp_no').val(emp_no);
 			$('#emp_name').val(emp_name);
 			
-			return false;
+			return true;
 			
 		}
 	</script>
