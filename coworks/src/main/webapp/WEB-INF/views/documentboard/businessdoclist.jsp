@@ -185,9 +185,14 @@
 								</tbody>
 								
 							</table>
-							<div style="float:right; position: relative; left: -40%;">
-							<c:out value="${pageBar}" escapeXml="false"/> </div>
-							</c:if><!-- (내역이 있을 때 ←)-->
+										<div class="row col-12">
+											<div class=align-self-center style="margin: 0 auto">
+
+												<c:out value="${pageBar}" escapeXml="false" />
+
+											</div>
+										</div>
+									</c:if><!-- (내역이 있을 때 ←)-->
 							</div>
 						</div>
 					</div>

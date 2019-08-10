@@ -14,6 +14,10 @@ ul {
 	list-style: none;
 }
 
+.over {
+		color : #009999;
+	}
+
 
 </style>
 </head>
@@ -117,13 +121,10 @@ ul {
 														</table>
 													</div>
 												</div>
-												<div class="row" >
-													<div class="col-lg-12 col-md-5" ></div>
-													<div class="col-lg-12 col-md-7">
-
+												<div class="row">
+													<div class=align-self-center style="margin:0 auto">
 
 														<c:out value="${pageBar}" escapeXml="false" />
-
 
 													</div>
 												</div>
@@ -165,7 +166,7 @@ ul {
 											<!--  -->
 											 <div class="col-sm-10 pt-4">
 												<table id="myTable"
-													class="table table-bordered table-striped dataTable no-footer"
+													class="table table-bordered dataTable no-footer"
 													role="grid" aria-describedby="myTable_info">
 													<thead class="bg-info text-white" id="tabletitle">
 														<tr>
@@ -293,9 +294,9 @@ ul {
 						});
 
  		$(".depts").on("mouseover", function() {
+ 			$('ul').has('li').css('cursor', 'pointer');
 			$('.insertTo').addClass('out')
 			$('.insertTo').hover(function() {
-				$('ul').has('li').css('cursor', 'pointer');
 				$(this).addClass('over');
 			}, function() {
 				$(this).removeClass('over');

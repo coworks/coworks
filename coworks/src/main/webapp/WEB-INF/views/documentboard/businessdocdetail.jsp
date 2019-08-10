@@ -108,7 +108,7 @@
 
 								<div class="card-body">
 									<div class="card b-all shadow-none">
-										<div class="card-body">
+										<div class="card-body" style="text-align:center">
 											<h3 class="card-title mb-0"
 												style="color: #009999; font-weight: bold">${board.bo_title }</h3>
 										</div>
@@ -183,7 +183,7 @@
 										<c:if test="${board.bo_code ne null}">
 											<button class="btn btn-outline-info waves-effect waves-light"
 												onclick="listView();">
-												<i class="fas fa-list-ul"></i>목록
+												<i class="fas fa-list-ul"></i> 목록
 											</button>	
 											&nbsp;
                                         </c:if>

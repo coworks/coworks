@@ -143,7 +143,14 @@
 										</tbody>
 									</table>
 								</div>
-								<c:out value="${pageBar}" escapeXml="false" />
+								
+								<div class="row">
+													<div class=align-self-center style="margin:0 auto">
+
+														<c:out value="${pageBar}" escapeXml="false" />
+
+													</div>
+												</div>
 							</div>
 						</div>
 						
