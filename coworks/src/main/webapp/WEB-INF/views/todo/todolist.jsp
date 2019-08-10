@@ -497,7 +497,7 @@
 
 			if (boardContent == "") {
 				Swal.fire({
-					title : "☆★☆내용을 입력하세요☆★☆",
+					title : "ʕ•ᴥ•ʔ   등록할 내용을 입력하세요!",
 					timer : 1300,
 					showConfirmButton : false
 				});
@@ -507,19 +507,19 @@
 		}
 
 		// (수정)todo 내용 입력해야 넘어감
-		/*  		function corrvalidate() {
+		  		function corrvalidate() {
 		 var boardContent = $(".writtencontent").val();
 		
-		 if (boardContent == "") {
-		 Swal.fire({
-		 title: "☆★☆내용을 입력하세요☆★☆",
-		 timer: 1300,
-		 showConfirmButton: false
-		 });
-		 return false;
-		 }
-		 return true;
-		 } */
+		 if(boardContent == "") {
+				Swal.fire({
+					title : "ʕ•ᴥ•ʔ   수정할 내용을 입력하세요!",
+					timer : 1300,
+					showConfirmButton : false
+				});
+				return false;
+			}
+		 else return true;
+		}
 	</script>
 
 

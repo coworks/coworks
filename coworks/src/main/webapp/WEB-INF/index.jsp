@@ -456,7 +456,11 @@
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/daterangepicker/daterangepicker.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"
+		aria-hidden="true"></script>
 	<script>
  	
  	
@@ -751,7 +755,7 @@
 			
 			if (boardContent == "") {
 				Swal.fire({
-	                title: "☆★☆내용을 입력하세요☆★☆",
+	                title: "ʕ•ᴥ•ʔ   내용을 입력하세요!",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });
