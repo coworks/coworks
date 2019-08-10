@@ -625,6 +625,8 @@
 										.unbind('click')
 										.click(
 												function() {
+													
+															
 													//$this.$modal.on('submit', function () {
 													calEvent.title = form
 															.find(
@@ -648,6 +650,12 @@
 																	'updateEvent',
 																	calEvent);
 													$this.$modal.modal('hide');
+													
+													
+													if(calEvent.start==calEvent.end){ 
+														alert("시간은 30분이상 차이나야 합니다.(자동 30분추가)");
+													}
+													 console.log(new Date(calEvent.end));
 													$
 															.ajax({
 																url : "${pageContext.request.contextPath}/calendar/updateCalendar2.do",
@@ -674,7 +682,9 @@
 																			.log(result);
 																}
 															});
+													
 													return result;
+													 
 												});
 							},
 							/* on select */
