@@ -193,10 +193,10 @@
 											</div>
 
 											<div class='input-group mb-5' style="float: both;">
-												<input type='text' class='form-control datetime' />
+												<input type='text' class='form-control datetime' style="background:#F5F5F5;" readonly/>
 												<div class='input-group-append'>
-													<span class='input-group-text'> <span
-														class='ti-calendar'></span>
+													<span class='input-group-text'> 
+														<span class='ti-calendar'></span>
 													</span>
 												</div>
 											</div>
@@ -225,7 +225,7 @@
 											<input id="cal_beginDate" name="cal_beginDate" type="hidden" />
 											<input id="cal_endDate" name="cal_endDate" type="hidden" />
 
-											<button type="submit" id="insertbutton"
+											<button type="button" id="insertbutton"
 												class="btn btn-danger btn-block waves-effect waves-light">
 												<i class="ti-plus"></i> 추가
 											</button>
@@ -234,7 +234,7 @@
 								</form>
 							</div>
 							  <script>
-								 
+								
 							</script>  
 
 						</div>
@@ -393,6 +393,24 @@
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 
 	<script>
+	 $('#insertbutton').on("click",function(){
+		  	 
+			if($('#cal_beginDate').val()==$('#cal_endDate').val()){ 
+				alert("시간은 30분이상 차이나야 합니다");
+				return false;
+			} 
+			
+     
+	 
+	 var text=$('#cal_name').val();
+	 console.log(text);
+	if($.trim(text)==""){
+		alert("일정명을 입력하세요");
+		return;
+	}else{
+		$('#insertCalendar').submit();
+	}
+});
 		!function($) {
 					$('#cal_beginDate').val(
 							(moment().startOf('day'))
@@ -828,12 +846,15 @@
 					"use strict";
 					$.CalendarApp.init()
 				}(window.jQuery);
-		$('.datetime').daterangepicker(
+				
+			
+			
+			$('.datetime').daterangepicker(
 				{
+					autoApply: true,
+				 
 					timePicker : true,
-					timePickerIncrement : 30,
-					startDate : moment().startOf('day'),
-					endDate : moment().endOf('day'),
+					timePickerIncrement : 30, 
 					locale : {
 						daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
 						monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
@@ -842,6 +863,8 @@
 					}
 				},
 				function(start, end) {
+					
+					 
 					console.log("Callback has been called!");
 					$('#cal_beginDate')
 							.val(start.format('YYYY-MM-DD HH:mm:ss'));
@@ -850,7 +873,8 @@
 							+ end.format(end.format('YY-MM-DD HH:mm:ss.S'));
 					startDate = start;
 					endDate = end;
-				});
+				}); 
+			
 	</script>
 	</div>
 	<c:import url="../common/footer.jsp" />

@@ -1,11 +1,3 @@
-/**
-* @version: 3.0.1
-* @author: Dan Grossman http://www.dangrossman.info/
-* @copyright: Copyright (c) 2012-2018 Dan Grossman. All rights reserved.
-* @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
-* @website: http://www.daterangepicker.com/
-*/
-// Following the UMD template https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Make globaly available as well
@@ -423,7 +415,7 @@
         this.container.find('.drp-buttons')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
             .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this))
-
+        
         if (this.element.is('input') || this.element.is('button')) {
             this.element.on({
                 'click.daterangepicker': $.proxy(this.show, this),
@@ -510,11 +502,16 @@
             this.previousRightTime = this.endDate.clone();
 
             this.container.find('.drp-selected').html(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
-
+            
+            
+            
+            
             if (!this.isShowing)
                 this.updateElement();
 
             this.updateMonthsInView();
+            
+           
         },
 
         isInvalidDate: function() {
@@ -540,6 +537,8 @@
             this.updateMonthsInView();
             this.updateCalendars();
             this.updateFormInputs();
+             
+            
         },
 
         updateMonthsInView: function() {
@@ -633,7 +632,6 @@
             var lastYear = moment(firstDay).subtract(1, 'month').year();
             var daysInLastMonth = moment([lastYear, lastMonth]).daysInMonth();
             var dayOfWeek = firstDay.day();
-
             //initialize a 6 rows x 7 columns array for the calendar
             var calendar = [];
             calendar.firstDay = firstDay;
@@ -938,7 +936,7 @@
                 var time = selected.clone().minute(i);
 
                 var disabled = false;
-                if (minDate && time.second(-1).isBefore(minDate))
+                if (minDate && time.second(59).isBefore(minDate))
                     disabled = true;
                 if (maxDate && time.second(0).isAfter(maxDate))
                     disabled = true;
