@@ -45,8 +45,6 @@ public class CommonController {
 	@Autowired
 	private AttendanceService attendanceService;
 
-	@Autowired
-	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	@RequestMapping(value = "/common/goLogin.do", method = RequestMethod.POST)
 	public ModelAndView goLogin(HttpServletRequest request, Model model, @RequestParam int emp_no, HttpSession session,

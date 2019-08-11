@@ -31,11 +31,11 @@
 					<div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
 				</div>
 				<img class="swal2-image" style="display: none;">
-				<h2 class="swal2-title" id="swal2-title" style="display: flex;">로그인이 필요한 서비스 입니다.</h2>
+				<h2 class="swal2-title" id="swal2-title" style="display: flex;">로그인이 필요합니다!</h2>
 				<button type="button" class="swal2-close" aria-label="Close this dialog" style="display: none;">×</button>
 			</div>
 			<div class="swal2-content">
-				<div id="swal2-content" style="display: block;">로그인을 해주세요!</div>
+				<div id="swal2-content" style="display: block;">로그인 세션이 만료되었거나, 다른 사용자가 현재 아이디로 로그인되었습니다.</div>
 				<input class="swal2-input" style="display: none;"><input type="file" class="swal2-file" style="display: none;">
 				<div class="swal2-range" style="display: none;">
 					<input type="range">
