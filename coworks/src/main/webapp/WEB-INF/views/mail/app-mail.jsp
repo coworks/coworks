@@ -27,7 +27,25 @@
 		<div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
-                <c:import url ="mail-location.jsp"/>
+               <%--  <c:import url ="mail-location.jsp"/> --%>
+                <div class="row page-titles">
+	<div class="col-md-6 col-8 align-self-center">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><span>메인페이지</span> <i
+				class="fas fa-chevron-right"></i>
+				<c:if test="${type eq 'send' }">
+				<span class="text-info"> 보낸 메일함</span>
+				</c:if>
+				<c:if test="${type eq 'mail' }">
+				<span class="text-info"> 내부 메일함</span>
+				</c:if>
+				<c:if test="${type eq 'email' }">
+				<span class="text-info"> 외부 메일함</span>
+				</c:if>
+				</li>
+		</ol>
+	</div>
+</div>
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
@@ -61,6 +79,7 @@
                                                    
                                                         <%-- <a href="/mail/selectOneMail.do/${m.getMail_no()}">  --%>
                                                     	<input type="text" name="mail_no" value="${m.getMail_no()}" id="mail_no" hidden/>
+                                                    	<input type="text" name="type" value="${type}" id="type" hidden/>
                                                     	
                                                         <tr class="unread mailRow" >
                                                             <td style="width:40px">
@@ -134,7 +153,7 @@
                                                             </td>
                                                            
                                                             <td class="hidden-xs-down">
-                                                            	<fmt:formatDate value="${m.getMail_sendDate()}" pattern="yyyy-MM-dd : HH시" />
+                                                            	<fmt:formatDate value="${m.getMail_sendDate()}" pattern="yy-MM-dd HH:mm" />
                                                             </td>
                                                             <!-- <i class="fa fa-paperclip"></i> -->
                                                            <%--  <fmt:parseDate value='${m.getMail_sendDate()}' var='sendDate' pattern='yyyymmdd'/> --%>
@@ -204,6 +223,7 @@
 	    	if(chkMails.length < 1){
 	    		alert("저장할 메일을 선택해주세요");
 	    		return false;
+	    	
 	    	}
 	    	
 		    $.ajax({
@@ -224,9 +244,16 @@
 	    	chkMails=[];
 	    	chk();
 	    	console.log(chkMails);
+	     	if($("#type").val() == "email"){
+	    		alert("외부 메일에서는 사용이 불가능한 기능입니다.");
+	    		return false;
+	    	}
+	    		
 	    	if(chkMails.length < 1){
 	    		alert("삭제할 메일을 선택해주세요");
 	    		return false;
+	    		
+	   
 	    	}
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/mail/deleteMail.do/${type}",
@@ -234,7 +261,7 @@
 	    		contentType : 'application/json; charset=UTF-8',
 		        data: JSON.stringify(chkMails),
 		        success:function(data){
-		            alert("완료!");
+		            alert("완료!");	
 		            /* location.href="${pageContext.request.contextPath}/mail/innerMail.do"; */
 		        },
 		        error:function(){
@@ -246,10 +273,15 @@
 	    	chkMails=[];
 	    	chk();
 	    	console.log(chkMails);
+	     	if($("#type").val() == "email"){
+	    		alert("외부 메일에서는 사용이 불가능한 기능입니다.");
+	    		return false;
+	    	}
 	    	if(chkMails.length < 1){
 	    		alert("표시할 메일을 선택해주세요");
 	    		return false;
 	    	}
+	    	
 		    $.ajax({
 		        url:"${pageContext.request.contextPath}/mail/readMail.do",
 		        type:'POST',
@@ -267,6 +299,10 @@
 	    	chkMails=[];
 	    	chk();
 	    	console.log(chkMails);
+	     	if($("#type").val() == "email"){
+	    		alert("외부 메일에서는 사용이 불가능한 기능입니다.");
+	    		return false;
+	    	}
 	    	if(chkMails.length < 1){
 	    		alert("표시할 메일을 선택해주세요");
 	    		return false;
@@ -289,6 +325,10 @@
 	    	chk();
 	    	console.log(chkMails);
 	    	console.log(num);
+	     	if($("#type").val() == "email"){
+	    		alert("외부 메일에서는 사용이 불가능한 기능입니다.");
+	    		return false;
+	    	}
 	    	if(chkMails.length < 1){
 	    		alert("표시할 메일을 선택해주세요");
 	    		return false;

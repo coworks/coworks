@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.Authenticator;
@@ -26,6 +28,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
+import javax.mail.Part;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -38,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -119,10 +123,28 @@ public class MailController {
 			msg.setRecipient(Message.RecipientType.TO, to);
 			msg.setSubject(mail.getMail_subject(), "UTF-8");
 
-			/* msg.setText("<HTML>"+mail.getMail_content()+"</HTML>", "UTF-8"); */
-			msg.setContent(mail.getMail_content(), "text/html;charset=UTF-8");
+//			msg.setText(mail.getMail_content(), "text/html;charset=UTF-8");
+			  
+			 /* msg.setContent(mail.getMail_content(), "text/html;charset=UTF-8"); */
 			//---------------------첨부--------------------------
-		
+			MimeBodyPart messageBodyPart = new MimeBodyPart();
+			MimeBodyPart textBodyPart = new MimeBodyPart();
+			
+			Multipart multipart = new MimeMultipart();
+			
+			textBodyPart.setContent(mail.getMail_content(),"text/html;charset=UTF-8");
+			
+			String fileName = maList.get(0).getAttach_rename();
+			String file = session.getServletContext().getRealPath("/resources/mail/attach/"+fileName);
+			DataSource source = new FileDataSource(file);
+			messageBodyPart.setDataHandler(new DataHandler(source));
+			messageBodyPart.setFileName(fileName);
+
+			multipart.addBodyPart(messageBodyPart);
+			multipart.addBodyPart(textBodyPart);
+			
+			msg.setContent(multipart, "text/html;charset=UTF-8");
+			
 			
 			//----------------------첨부 끝-------------------------
 
@@ -272,21 +294,68 @@ public class MailController {
 		return "mail/mail-common";
 	}
 
+	
+	
+	//---------------------------------------
+	public List<InputStream> getAttachments(Message message) throws Exception {
+	    Object content = message.getContent();
+	    if (content instanceof String)
+	        return null;        
+
+	    if (content instanceof Multipart) {
+	        Multipart multipart = (Multipart) content;
+	        List<InputStream> result = new ArrayList<InputStream>();
+
+	        for (int i = 0; i < multipart.getCount(); i++) {
+	            result.addAll(getAttachments(multipart.getBodyPart(i)));
+	        }
+	        return result;
+
+	    }
+	    return null;
+	}
+
+	private List<InputStream> getAttachments(BodyPart part) throws Exception {
+	    List<InputStream> result = new ArrayList<InputStream>();
+	    Object content = part.getContent();
+	    if (content instanceof InputStream || content instanceof String) {
+	        if (Part.ATTACHMENT.equalsIgnoreCase(part.getDisposition()) || StringUtils.isNotBlank(part.getFileName())) {
+	            result.add(part.getInputStream());
+	            return result;
+	        } else {
+	            return new ArrayList<InputStream>();
+	        }
+	    }
+
+	    if (content instanceof Multipart) {
+	            Multipart multipart = (Multipart) content;
+	            for (int i = 0; i < multipart.getCount(); i++) {
+	                BodyPart bodyPart = multipart.getBodyPart(i);
+	                result.addAll(getAttachments(bodyPart));
+	            }
+	    }
+	    return result;
+	}
+	//--------------------------------------
 	@RequestMapping("/mail/outerMail.do") // 외부 메일 조회
 	public String selectOuterMail(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
 		Mail mail;
-
+		//-------------------첨부---------------------
+		List<File> attachments = new ArrayList<File>();
+		//-------------------첨부끝------------------
 		try {
 
 			Message[] messages = mailSetting.receiveSetting(request);
 			System.out.println("messages.length---" + messages.length);
 			remain = messages.length - 15;
 			int count = 0;
+			
 			System.out.println("remain : " + remain);
 			System.out.println("message size : " + messages.length);
 			System.out.println("mailList L " + mailList.size());
+			
 			if ((remain + mailList.size()) != messages.length) {
 				mailList = new ArrayList<>();
 				for (int i = messages.length - 1; i > remain; i--) {

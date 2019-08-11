@@ -40,7 +40,6 @@
 		<div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
-                <c:import url ="mail-location.jsp"/>
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
@@ -64,12 +63,12 @@
                                         <img id="naverimg" src="${pageContext.request.contextPath}/resources/mail/nsmtppop.png">	
                                         <img id="googleimg" src="${pageContext.request.contextPath}/resources/mail/gsmtppop.png">	
                                         
-                                         <input type="email" name="emp_email" class="form-control" id="emp_email" aria-describedby="emailHelp" placeholder="이메일">
+                                         <input type="email"  required="true" name="emp_email" class="form-control" id="emp_email" aria-describedby="emailHelp" placeholder="이메일">
                                         <small id="emailHelp" class="form-text text-muted">헤당 메일 주소는 절대 다른 용도로 사용하지 않습니다. (현재는 NAVER, GMAIL만 지원하고 있습니다.)</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">비밀번호</label>
-                                        <input type="password"name= "emp_emailpassword"  class="form-control" id="emp_emailpassword" placeholder="비밀번호">
+                                        <input type="password" required="true"  name="emp_emailpassword"  class="form-control" id="emp_emailpassword" placeholder="비밀번호">
                                     </div>
                                  <!--    <div class="custom-control custom-checkbox mr-sm-2 mb-3">
                                         <input type="checkbox" class="custom-control-input" id="checkbox0" value="check">
@@ -155,7 +154,7 @@
 		}
 	    function auth(){
 	    	if($("#key").val() == key){
-	    		alert("인증 완료 되었습니다.");
+	    		alert("인증 완료 되었습니다. \n각 계정의 SMTP/POP 설정 후에 외부메일함 이용이 가능합니다.");
 	    		document.getElementById("saveEmail").submit();
 	    	}else{
 	    		alert("인증에 실패하였습니다.");

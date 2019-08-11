@@ -24,7 +24,15 @@
 				 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <c:import url ="mail-location.jsp"/>
+                <%-- <c:import url ="mail-location.jsp"/> --%>
+                <div class="row page-titles">
+	<div class="col-md-6 col-8 align-self-center">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><span>메인페이지</span> <i
+				class="fas fa-chevron-right"></i><span class="text-info"> 메일 상세보기</span></li>
+		</ol>
+	</div>
+</div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -55,7 +63,8 @@
                                                     </div> -->
                                                     <div class="pl-2">
                                                         <h4 class="mb-0">From : ${mail.getMail_name() } <small class="text-muted"> &lt;${mail.getMail_from_email() } &gt;</small></h4>
-                                                        <small class="text-muted">Date: ${mail.getMail_sendDate()}</small>
+                                                        <small class="text-muted">
+                                                        <fmt:formatDate value="${mail.getMail_sendDate()}" pattern="yyyy-MM-dd / HH:mm" />
                                                     </div>
                                                 </div>
                                                 ${mail.getMail_content()}
@@ -83,12 +92,12 @@
 							
                                                 </div>
                                                 
-                                                
-                                                
-                                                <div class="b-all mt-3 p-3">
-                                                    <p class="pb-3">click here to <a href="${pageContext.request.contextPath}/mail/replyMail.do/${mail.getMail_no()}/${type}">Reply</a>
-                                                     or <a href="${pageContext.request.contextPath}/mail/forwardMail.do/${mail.getMail_no()}/${type}">Forward</a></p>
-                                                </div>
+                                                  <div style="margin-top:5%">
+                                                   <a href="${pageContext.request.contextPath}/mail/replyMail.do/${mail.getMail_no()}/${type}">
+                                                    	<div class="btn waves-effect waves-light btn-danger col-2"  >답장</div></a>
+                                                   <a href="${pageContext.request.contextPath}/mail/forwardMail.do/${mail.getMail_no()}/${type}">
+                                                   		<div class="btn waves-effect waves-light btn-warning col-2"  id="btnAction" >전달</div></a></a>
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>

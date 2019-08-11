@@ -54,12 +54,12 @@
 						<form action="${pageContext.request.contextPath }/pay/payDirectSetInfo.do" id="payInfo" method="post">
 						<div style="height:100px;" class="col-12">
 							<div class="col-12"  style="height:50%;"  >
-								사번 : <input type="number" id="emp_no" name="emp_no" class="col-3"/> &nbsp;&nbsp;&nbsp;&nbsp;
-								이름 &nbsp;&nbsp;&nbsp;: <input type="text" id="pay_emp_name" name="pay_emp_name" class="col-3"readOnly/> &nbsp;&nbsp;&nbsp;&nbsp;
+								사번 : <input type="number" required id="emp_no" name="emp_no" class="col-3"/> &nbsp;&nbsp;&nbsp;&nbsp;
+								이름 &nbsp;&nbsp;&nbsp;: <input type="text"  id="pay_emp_name" name="pay_emp_name" class="col-3"readOnly/> &nbsp;&nbsp;&nbsp;&nbsp;
 							</div>
 							<div class="col-12"style="height:50%;"  >
 								직책 : <input type="text" id="pay_emp_job"name="pay_emp_job" class="col-3"readOnly/> &nbsp;&nbsp;&nbsp;
-								지급일 : <input type="date" id="pay_date"name="pay_date" class="col-3"/> &nbsp;&nbsp;&nbsp;
+								지급일 : <input type="date" required id="pay_date"name="pay_date" class="col-3"/> &nbsp;&nbsp;&nbsp;
 							</div>
 						</div>
 						<div id="basicgrid" class="jsgrid"
