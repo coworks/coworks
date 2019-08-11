@@ -26,7 +26,7 @@
         this.parentEl = 'body';
         this.element = $(element);
         this.startDate = moment().startOf('day');
-        this.endDate = moment().endOf('day');
+        this.endDate = moment().startOf('day').hour(6);
         this.minDate = false;
         this.maxDate = false;
         this.maxSpan = false;
