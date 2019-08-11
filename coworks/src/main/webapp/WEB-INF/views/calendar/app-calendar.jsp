@@ -645,16 +645,19 @@
 															.find(
 																	"textarea[type=text]")
 															.val();
-													$this.$calendarObj
-															.fullCalendar(
-																	'updateEvent',
-																	calEvent);
-													$this.$modal.modal('hide');
 													
 													
 													if(calEvent.start==calEvent.end){ 
-														alert("시간은 30분이상 차이나야 합니다.(자동 30분추가)");
-													}
+														alert("시간은 30분이상 차이나야 합니다.");
+													}else{
+														
+														$this.$calendarObj
+														.fullCalendar(
+																'updateEvent',
+																calEvent);
+														$this.$modal.modal('hide');
+												
+													 
 													 console.log(new Date(calEvent.end));
 													$
 															.ajax({
@@ -684,7 +687,7 @@
 															});
 													
 													return result;
-													 
+													}
 												});
 							},
 							/* on select */
