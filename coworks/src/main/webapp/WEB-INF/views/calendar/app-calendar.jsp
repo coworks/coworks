@@ -637,8 +637,9 @@
 									//  original position after the drag
 									});
 								});
-							}
-					/* Initializing */
+							} 
+							
+							
 							CalendarApp.prototype.init = function() {
 								this.enableDrag();
 								var form = '';
@@ -661,7 +662,7 @@
 										.fullCalendar({
 											nextDayThreshold : '00:00:00', //0시이후로 하루로치기 
 											titleFormat : 'YYYY년   M월',
-											slotDuration : '00:30:00', /* If we want to split day time each 15minutes */
+											slotDuration : '00:30:00', 
 											minTime : '06:00:00',
 											maxTime : '24:30:00',
 											defaultView : 'month',
@@ -672,8 +673,8 @@
 												right : 'month,agendaWeek,agendaDay'
 											},
 											events : defaultEvents, //이벤트 불러오기
-											editable : true, // 
-											droppable : true, // this allows things to be dropped onto the calendar !!!
+											editable : true,  
+											droppable : true, 
 											eventLimit : true, // allow "more" link when too many events
 											selectable : true,
 											drop : function(date) {

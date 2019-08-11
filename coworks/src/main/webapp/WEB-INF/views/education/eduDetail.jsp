@@ -120,7 +120,7 @@
 	    		 $('#finished').show();
 	    	 }else{
 	    		 $('#applyExpected').hide();
-	    		 $('#delete').show();
+	    		 $('#delete').hide();
 	    		 $('#apply').show();
 	    		 $('#finished').hide();
 	    	 }
