@@ -297,6 +297,7 @@
 		chattingSock.onmessage = function(evt) {
 			var data = JSON.parse(evt.data);
 			$('#room' + data.croom_no+' .chat-content').html(data.chat_content);
+			$('#room' + data.croom_no+' small').html(moment(data.chat_sendtime).format("YYYY-MM-DD HH:mm"));
 			if(data.croom_no==croom_no){
 				appendMSG(data);
 				pageDown();
