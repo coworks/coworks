@@ -68,7 +68,7 @@
 								</script>
 							</div>
 							<br /> <br /> <br />
-							<div id="basicgrid" class="jsgrid" style="position: relative; height: 500px; width: 100%; margin-top: 5px;">
+							<div id="basicgrid" class="jsgrid" style="position: relative; height: auto; width: 100%; margin-top: 5px;">
 								<div class="jsgrid-grid-header jsgrid-header-scrollbar">
 									<table class="jsgrid-table table table-striped table-hover ">
 										<tr class="jsgrid-header-row">
@@ -142,16 +142,18 @@
 											</c:forEach>
 										</tbody>
 									</table>
+									
 								</div>
 								
 								<div class="row">
-													<div class=align-self-center style="margin:0 auto">
+									<div class=align-self-center style="margin:0 auto">
 
-														<c:out value="${pageBar}" escapeXml="false" />
+										<c:out value="${pageBar}" escapeXml="false" />
 
-													</div>
-												</div>
+									</div>
 							</div>
+							</div>
+							
 						</div>
 						
 					</div>
