@@ -99,12 +99,13 @@ public class BoardController {
 
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
-		String saveDir = session.getServletContext().getRealPath("/resources/board/attach");
+		String savePath = "/resources/board/attach";
+		String saveDir = session.getServletContext().getRealPath(savePath);
 
 		System.out.println("파일 길이 " + upFiles.length);
 
 		List<Attach> list = new ArrayList<>();
-		String savePath = "";
+		
 
 		if (new File(saveDir).exists()) {
 			for (MultipartFile f : upFiles) {
@@ -122,7 +123,7 @@ public class BoardController {
 						e.printStackTrace();
 					}
 					Attach at = new Attach();
-					at.setAttach_path(saveDir);
+					at.setAttach_path(savePath);
 					at.setAttach_oriname(originalName);
 					at.setAttach_rename(renamedName);
 
@@ -190,7 +191,8 @@ public class BoardController {
 			@RequestParam(value = "upFiles", required = false) MultipartFile[] upFiles) {
 		int bo_no = board.getBo_no();
 
-		String saveDir_bo = session.getServletContext().getRealPath("/resources/board/attach");
+		String savePath="/resources/board/attach";
+		String saveDir_bo = session.getServletContext().getRealPath(savePath);
 
 		List<Attach> list = boardService.selectBusinessdocAttachList(board);
 		if (list == null)
@@ -228,6 +230,7 @@ public class BoardController {
 				at.setBo_no(bo_no);
 				at.setAttach_oriname(originName);
 				at.setAttach_rename(renamedName);
+				at.setAttach_path(savePath);
 
 				list.add(at);
 			}
