@@ -30,7 +30,6 @@ public class MailSetting {
 		Employee emp = (Employee) session.getAttribute("employee");
 		String host = "";
 
-		System.out.println("receve " + host);
 		Message[] messages = null;
 		Authenticator auth = new MailAuth(request);
 		Properties prop = System.getProperties();
@@ -49,6 +48,7 @@ public class MailSetting {
 			store.connect(host, emp.getEmp_email(), emp.getEmp_emailpassword());
 			Folder emailFolder = store.getFolder("INBOX");
 			emailFolder.open(Folder.READ_ONLY);
+			
 			messages = emailFolder.getMessages();
 		} catch (MessagingException e) {
 			e.printStackTrace();

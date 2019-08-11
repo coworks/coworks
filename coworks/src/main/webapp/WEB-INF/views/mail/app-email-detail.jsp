@@ -86,7 +86,8 @@
 															class="btn btn-outline-primary waves-effect waves-light">
 															<i class="ti-download" style="color: black"></i>&nbsp;&nbsp;
 															${at.attach_oriname }
-														</div>&nbsp; 
+														</div>
+														&nbsp; 
 														</a>
 														</c:forEach>
 							
