@@ -845,10 +845,7 @@ where employee.dept_code=department.dept_code and employee.job_code=job.job_code
 ;
 
 
---------------------------------------------------------
---  DDL for View CURAPPVIEW
---------------------------------------------------------
--------------------------------------------------
+
 --쪽지  
 CREATE TABLE "DM" 
    (   "DM_NO" NUMBER, 
@@ -860,7 +857,7 @@ CREATE TABLE "DM"
    "DM_TO" NUMBER, 
    "DM_TO_DEL" VARCHAR2(10) DEFAULT 'N', 
    "DM_TO_READ" VARCHAR2(20) DEFAULT 'N'
-   )
+   );
        
       CREATE OR REPLACE VIEW "DMVIEW" ("DM_NO", "DM_FROM", "DM_SUBJECT", "DM_CONTENT", "DM_DATE", "DM_FROM_DEL", "DM_FROM_NAME", "DM_FROM_DEPT", "DM_FROM_JOB", "DM_TO", "DM_TO_DEL", "DM_TO_READ") AS 
       SELECT 
