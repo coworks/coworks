@@ -902,7 +902,7 @@ CREATE SEQUENCE  "COWORKS"."SEQ_DM_TO"  MINVALUE 1 MAXVALUE 99999999999999999999
 		) ST
 		WHERE DOC.ADOC_NO = ST.ADOC_NO
 		AND DOC.ADOC_STATUS = 0
-		AND ST.RNUM = 1 and emp.emp_no = st.emp_no
+		AND ST.RNUM = 1 and emp.emp_no = st.emp_no;
 		
 		
 		
