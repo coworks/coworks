@@ -50,6 +50,10 @@
 	<div onclick="location.reload();" class="btn btn-secondary mr-2 mb-2 text-dark">
 		<i class="mdi mdi-reload font-18"></i>
 	</div>
+	<c:if test="${type eq 'email'} ">
+    	<small style="paddin-top:10%">외부 메일은 15개 씩만 제공하고 있습니다.</small>
+   	</c:if>
+ 
 	
 </div>
 

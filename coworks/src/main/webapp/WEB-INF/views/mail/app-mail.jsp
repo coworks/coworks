@@ -59,6 +59,7 @@
                                 <!-- lg-8 md-8 -->
                                 <div class="col-xlg-10 col-lg-9 col-md-9">
                                    <c:import url="mail-topbar.jsp"/>
+                                 
                                     <!-- 
                                     <td class="max-texts"><a href="app-email-detail.html"><span class="label label-info mr-2">Work</span> Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
                                     <span class="label label-info mr-2">내용 jstl 로 추가</span> 
@@ -70,7 +71,7 @@
                                      <td style="width:40px" class="hidden-xs-down"><i class="fa fa-star-o"></i></td>
                                     <i class="fa fa-star text-warning"></i> 얘가 별
                                     -->
-                                    <div class="card-body pt-0">
+                                   
                                         <div class="card b-all shadow-none">
                                             <div class="inbox-center b-all table-responsive">
                                                 <table class="table table-hover no-wrap">
@@ -220,6 +221,11 @@
 	    	chkMails=[];
 	    	chk();
 	    	console.log(chkMails);
+	    	if($("#type").val() != "email"){
+	    		alert("외부 메일에서만 사용 가능한 기능입니다.");
+	    		return false;
+	    	}
+	    		
 	    	if(chkMails.length < 1){
 	    		alert("저장할 메일을 선택해주세요");
 	    		return false;

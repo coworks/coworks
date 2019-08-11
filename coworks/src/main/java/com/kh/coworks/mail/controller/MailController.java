@@ -1,18 +1,13 @@
 package com.kh.coworks.mail.controller;
 
-import java.awt.FileDialog;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -25,7 +20,6 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.Address;
-import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -38,16 +32,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.MimeUtility;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,34 +68,6 @@ public class MailController {
 	@Autowired
 	EmployeeService employeeService;
 
-//	@RequestMapping("/mail/sendingMailMulti.do")
-//	public void sendingMailMulti(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request,
-//			HttpSession session) {
-//		String saveDir = session.getServletContext().getRealPath("/resources/mail/attach");
-//
-//		try {
-//			EmailAttachment attachment = new EmailAttachment();
-//			attachment.setURL(new URL("https://www.bloter.net/wp-content/uploads/2016/08/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0-%EC%82%AC%EC%A7%84.jpg"));
-//			attachment.setDisposition(EmailAttachment.ATTACHMENT);
-//			attachment.setDescription("test");
-//			attachment.setName(list.get(0).getAttach_rename());
-//
-//			MultiPartEmail email = new MultiPartEmail();
-//			email.addTo("mail_0318@naver.com");
-//			email.setFrom("Testing <test@test.com>");
-//			email.setSubject("Testing email");
-//			email.attach(attachment);
-//			email.setMsg("test email");
-//			email.send();
-//		} catch (EmailException ex) {
-//			System.out.println(ex.getMessage());
-//		} catch (MalformedURLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//	}
-
 	@RequestMapping("/mail/sendingMail.do")
 	public void sendingMail(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request,
 			List<MailAttach> maList) {
@@ -114,9 +76,6 @@ public class MailController {
 
 		MimeMessage msg = mailSetting.sendingSetting(request);
 
-		// -------------------첨부---------------------
-
-		// ---------------------첨부 끝-------------------
 		try {
 
 			msg.setSentDate(new Date());
@@ -125,9 +84,6 @@ public class MailController {
 			msg.setRecipient(Message.RecipientType.TO, to);
 			msg.setSubject(mail.getMail_subject(), "UTF-8");
 
-//			msg.setText(mail.getMail_content(), "text/html;charset=UTF-8");
-
-			/* msg.setContent(mail.getMail_content(), "text/html;charset=UTF-8"); */
 			// ---------------------첨부--------------------------
 			MimeBodyPart messageBodyPart = null;
 			;
@@ -194,13 +150,11 @@ public class MailController {
 			@RequestParam("emp_emailpassword") String emp_emailpassword) {
 
 		MimeMessage msg = null;
-		msg = // mailSetting.sendingSetting(emp_email, emp_emailpassword);
-				new MailSetting().sendingSetting(emp_email, emp_emailpassword);
+		msg = new MailSetting().sendingSetting(emp_email, emp_emailpassword);
 		Message[] msgr = null;
 
 		try {
-			msgr = // mailSetting.receiveSetting(emp_email,emp_emailpassword);
-					new MailSetting().receiveSetting(emp_email, emp_emailpassword);
+			msgr = new MailSetting().receiveSetting(emp_email, emp_emailpassword);
 		} catch (MessagingException e1) {
 			e1.printStackTrace();
 			System.out.println("받은 메일");
@@ -354,9 +308,6 @@ public class MailController {
 			System.out.println("messages.length---" + messages.length);
 			remain = messages.length - 15;
 			int count = 0;
-//			System.out.println("remain : " + remain);
-//			System.out.println("message size : " + messages.length);
-//			System.out.println("mailList L " + mailList.size());
 
 			if ((remain + mailList.size()) != messages.length) {
 				mailList = new ArrayList<>();
@@ -368,8 +319,7 @@ public class MailController {
 					mail.setMail_no(count++/* messages[i].getMessageNumber() - 1 */);
 					mail.setMail_sendDate(new Timestamp(messages[i].getSentDate().getTime()));
 					System.out.println("메일 받은 시간 " + mail.getMail_sendDate());
-//					mail.setMail_content(getTextFromMessage(messages[i]));
-					
+
 					mail.setMail_content(new String(messages[i].getContent().toString().getBytes("UTF-8")));
 					mail.setMail_from_email(ar.getAddress());
 					mail.setMail_to_email(emp.getEmp_email());
@@ -382,13 +332,6 @@ public class MailController {
 					String messageContent = "";
 					String saveDir = "";
 					String fileName = "";
-					/*
-					 * FileOutputStream output = new FileOutputStream(saveDir); InputStream input =
-					 * part.getInputStream(); byte[] buffer = new byte[4096]; int byteRead; while
-					 * ((byteRead = input.read(buffer)) != -1) output.write(buffer, 0, byteRead);
-					 * output.close();
-					 */
-					// ----------------------------
 
 				}
 			}
@@ -402,29 +345,6 @@ public class MailController {
 		model.addAttribute("mails", mailList).addAttribute("type", "email");
 		return "mail/app-mail";
 	}
-	/*
-	 * public static String getTextFromMessage(Message message) throws
-	 * MessagingException, IOException { String result = ""; if
-	 * (message.isMimeType("text/plain")) { result =
-	 * message.getContent().toString(); } else if
-	 * (message.isMimeType("multipart/*")) { MimeMultipart mimeMultipart =
-	 * (MimeMultipart) message.getContent(); result =
-	 * getTextFromMimeMultipart(mimeMultipart); } return result; }
-	 * 
-	 * public static String getTextFromMimeMultipart(MimeMultipart mimeMultipart)
-	 * throws MessagingException, IOException {
-	 * 
-	 * String result = ""; int count = mimeMultipart.getCount(); for (int i = 0; i <
-	 * count; i++) { BodyPart bodyPart = mimeMultipart.getBodyPart(i); if
-	 * (bodyPart.isMimeType("text/plain")) { result = result + "\n" +
-	 * bodyPart.getContent(); break; // without break same text appears twice in my
-	 * tests } else if (bodyPart.isMimeType("text/html")) { String html = (String)
-	 * bodyPart.getContent(); // result = result + "\n" +
-	 * org.jsoup.Jsoup.parse(html).text(); } else if (bodyPart.getContent()
-	 * instanceof MimeMultipart) { result = result +
-	 * getTextFromMimeMultipart((MimeMultipart) bodyPart.getContent()); } } return
-	 * result; }
-	 */
 
 	@RequestMapping("/mail/sendMail.do") // 보낸 메일함
 	public String sendMail(Model model, @RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
@@ -456,13 +376,11 @@ public class MailController {
 		// 메일 상세보기
 
 		if (type.equals("email")) {
-			// ---------------
-//			Message[] message = mailSetting.receiveSetting(request);
 			List<MailAttach> attachments = null;
 			Message[] temp = mailSetting.receiveSetting(request);
 			int len = temp.length;
-			attachments = attachMailCheck(temp[len - mail_no - 1],mail_no , request);
-		
+			attachments = attachMailCheck(temp[len - mail_no - 1], mail_no, request);
+
 			model.addAttribute("mail", mailList.get(mail_no)).addAttribute("type", type).addAttribute("attachList",
 					attachments);
 
@@ -475,7 +393,7 @@ public class MailController {
 		return "mail/app-email-detail";
 	}
 
-	public List<MailAttach> attachMailCheck(Message message , int mail_no , HttpServletRequest request) {
+	public List<MailAttach> attachMailCheck(Message message, int mail_no, HttpServletRequest request) {
 		List<MailAttach> attachments = new ArrayList<MailAttach>();
 		try {
 			Object obj = (Object) message.getContent();
@@ -498,7 +416,6 @@ public class MailController {
 					String path = request.getSession().getServletContext()
 							.getRealPath("/resources/mail/receiveattach/" + bodyPart.getFileName());
 
-//				File f = new File(path + bodyPart.getFileName());
 					File file = new File(path);
 					FileOutputStream fos = new FileOutputStream(file);
 					byte[] buf = new byte[4096];
@@ -508,14 +425,13 @@ public class MailController {
 					}
 					fos.close();
 
-
 					MailAttach ma = new MailAttach();
 					ma.setAttach_oriname(file.getName());
 					ma.setAttach_oriname(file.getName());
 					ma.setAttach_path("/resources/mail/receiveattach");
 					attachments.add(ma);
 				}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
@@ -523,10 +439,6 @@ public class MailController {
 		}
 		return attachments;
 
-	}
-	private Object mailList(int mail_no) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@RequestMapping("/mail/mailFormEnd.do")
@@ -558,7 +470,6 @@ public class MailController {
 					} catch (IllegalStateException | IOException e) {
 						e.printStackTrace();
 					}
-//					savePath = "resources/mail/attach";
 
 					MailAttach at = new MailAttach();
 					at.setAttach_path(savePath);
@@ -582,8 +493,6 @@ public class MailController {
 		} else {
 			msg = "메일 전송 실패!";
 		}
-
-//		model.addAttribute("loc", loc).addAttribute("msg", msg);
 
 		return "redirect:innerMail.do";
 	}
@@ -727,7 +636,7 @@ public class MailController {
 	}
 
 	@RequestMapping(value = "/mail/storeMail.do")
-	public String storeMail(@RequestBody String[] chkMails,HttpServletRequest request) {
+	public String storeMail(@RequestBody String[] chkMails, HttpServletRequest request) {
 		// 외부에서 내부로 메일 저장하기
 		// 마크별 메일 보기
 		System.out.println("Store Mail 실행중");
@@ -736,9 +645,9 @@ public class MailController {
 			for (String no : chkMails) {
 				Message[] temp = mailSetting.receiveSetting(request);
 				int len = temp.length;
-				int mail_no =Integer.parseInt(no);
+				int mail_no = Integer.parseInt(no);
 				Message message = temp[len - mail_no - 1];
-				List list = attachMailCheck(message ,mail_no , request);
+				List list = attachMailCheck(message, mail_no, request);
 				mailService.mailFormEnd(mailList.get(mail_no), list);
 			}
 		return "redirect:innerMail.do";
