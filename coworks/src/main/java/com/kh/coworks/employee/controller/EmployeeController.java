@@ -60,7 +60,6 @@ public class EmployeeController {
 
 		emp.setEmp_address(address1 + "/" + address2);
 		HttpSession session = request.getSession();
-		System.out.println("사원추가시 edit 오나용");
 		Employee employee = (Employee) session.getAttribute("employee");
 		
 		employee.setEmp_email(emp.getEmp_email());
@@ -130,7 +129,7 @@ public class EmployeeController {
 	public String selectEmployeeList(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			Model model) {
 
-		int limit = 5; // 한 페이지 당 게시글 수
+		int limit = 10; // 한 페이지 당 게시글 수
 
 		// 1. 현재 페이지 게시글 목록 가져오기
 		ArrayList<Map<String, String>> list = new ArrayList<>(employeeService.selectEmployeeList(cPage, limit));
@@ -154,50 +153,50 @@ public class EmployeeController {
 	}
 
 	@RequestMapping("/employee/employeeEnroll.do")
-	public String employeeEnroll(Employee emp, Model model) {
+	public String employeeEnroll(Employee emp, Model model,Authority authority) {
 
 		// 1. 비즈니스 로직 실행
 
 		int result = employeeService.insertEmployee(emp);
-		System.out.println(emp);
-		String[] splitAuthority = emp.getEmp_authority();
 		
 		// authority 에 ㄱ아무것도 추가 안하면 null 에러 발생해요 이거만 고치면 될거같아요 
-		Authority ah = new Authority();
 
-		ah.setAuth_personnal("N");
-		ah.setAuth_data("N");
-		ah.setAuth_cal("N");
-		ah.setAuth_board("N");
-		ah.setAuth_approval("N");
-		ah.setAuth_authority("N");
-		ah.setAuth_pay("N");
+		if(authority.getAuth_personnal()!=null) {
+			authority.setAuth_personnal("Y");
+		}else
+			authority.setAuth_personnal("N");
+		
+		if(authority.getAuth_data()!=null) {
+			authority.setAuth_data("Y");
+		}else
+			authority.setAuth_data("N");
+		
+		if(authority.getAuth_cal()!=null) {
+			authority.setAuth_cal("Y");
+		}else
+			authority.setAuth_cal("N");
+		
+		if(authority.getAuth_board()!=null) {
+			authority.setAuth_board("Y");
+		}else
+			authority.setAuth_board("N");
+		
+		if(authority.getAuth_approval()!=null) {
+			authority.setAuth_approval("Y");
+		}else
+			authority.setAuth_approval("N");
+		
+		if(authority.getAuth_authority()!=null) {
+			authority.setAuth_authority("Y");
+		}else
+			authority.setAuth_authority("N");
+		
+		if(authority.getAuth_pay()!=null) {
+			authority.setAuth_pay("Y");
+		}else
+			authority.setAuth_pay("N");
 
-		for (int i = 0; i < splitAuthority.length; i++) {
-
-			if (splitAuthority[i].equals("인사"))
-				ah.setAuth_personnal("Y");
-
-			if (splitAuthority[i].equals("자료실"))
-				ah.setAuth_data("Y");
-
-			if (splitAuthority[i].equals("회사일정"))
-				ah.setAuth_cal("Y");
-
-			if (splitAuthority[i].equals("게시판"))
-				ah.setAuth_board("Y");
-
-			if (splitAuthority[i].equals("결재서류"))
-				ah.setAuth_approval("Y");
-
-			if (splitAuthority[i].equals("권한관리"))
-				ah.setAuth_authority("Y");
-
-			if (splitAuthority[i].equals("급여"))
-				ah.setAuth_pay("Y");
-		}
-
-		int auResult = employeeService.insertAuthority(ah);
+		int auResult = employeeService.insertAuthority(authority);
 
 		// 2. 실행 결과에 따른 화면 처리
 		String loc = "/";
@@ -232,7 +231,7 @@ public class EmployeeController {
 	public String selectEmployeeSearch(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			String con, String keyword, Model model) {
 
-		int limit = 5; // 한 페이지 당 게시글 수
+		int limit = 10; // 한 페이지 당 게시글 수
 
 		HashMap<String, String> hmap = new HashMap<>();
 
@@ -276,49 +275,52 @@ public class EmployeeController {
 	}
 
 	@RequestMapping("employee/employeeMoveUpdate.do")
-	public String employeeMoveUpdate(Employee employee) {
+	public String employeeMoveUpdate(Employee employee,Authority authority) {
 
 		int result = employeeService.employeeMoveUpdate(employee);
 
-		String[] splitAuthority = employee.getEmp_authority();
 
-		Authority ah = new Authority();
+		authority.setEmp_no(employee.getEmp_no());
+		
+		System.out.println(employee.getEmp_no());
+		System.out.println(authority.getAuth_personnal());
+		
+		if(authority.getAuth_personnal()!=null) {
+			authority.setAuth_personnal("Y");
+		}else
+			authority.setAuth_personnal("N");
+		
+		if(authority.getAuth_data()!=null) {
+			authority.setAuth_data("Y");
+		}else
+			authority.setAuth_data("N");
+		
+		if(authority.getAuth_cal()!=null) {
+			authority.setAuth_cal("Y");
+		}else
+			authority.setAuth_cal("N");
+		
+		if(authority.getAuth_board()!=null) {
+			authority.setAuth_board("Y");
+		}else
+			authority.setAuth_board("N");
+		
+		if(authority.getAuth_approval()!=null) {
+			authority.setAuth_approval("Y");
+		}else
+			authority.setAuth_approval("N");
+		
+		if(authority.getAuth_authority()!=null) {
+			authority.setAuth_authority("Y");
+		}else
+			authority.setAuth_authority("N");
+		
+		if(authority.getAuth_pay()!=null) {
+			authority.setAuth_pay("Y");
+		}else
+			authority.setAuth_pay("N");
 
-		ah.setEmp_no(employee.getEmp_no());
-
-		ah.setAuth_personnal("N");
-		ah.setAuth_data("N");
-		ah.setAuth_cal("N");
-		ah.setAuth_board("N");
-		ah.setAuth_approval("N");
-		ah.setAuth_authority("N");
-		ah.setAuth_pay("N");
-
-		for (int i = 0; i < splitAuthority.length; i++) {
-
-			if (splitAuthority[i].equals("인사"))
-				ah.setAuth_personnal("Y");
-
-			if (splitAuthority[i].equals("자료실"))
-				ah.setAuth_data("Y");
-
-			if (splitAuthority[i].equals("회사일정"))
-				ah.setAuth_cal("Y");
-
-			if (splitAuthority[i].equals("게시판"))
-				ah.setAuth_board("Y");
-
-			if (splitAuthority[i].equals("결재서류"))
-				ah.setAuth_approval("Y");
-
-			if (splitAuthority[i].equals("권한관리"))
-				ah.setAuth_authority("Y");
-
-			if (splitAuthority[i].equals("급여"))
-				ah.setAuth_pay("Y");
-		}
-
-		int auResult = employeeService.updateAuthority(ah);
+		int auResult = employeeService.updateAuthority(authority);
 
 		return "redirect:/employee/employeeList.do";
 	}

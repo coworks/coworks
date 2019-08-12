@@ -187,25 +187,25 @@ td th {
 										<div class="form-group row pt-4">
 											<div class="col-sm-6">
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" name="emp_authority"
+													<input type="checkbox" name="auth_personnal"
 														class="custom-control-input" id="emp_authority1"
 														value="인사"> <label class="custom-control-label"
 														for="emp_authority1">인사</label>
 												</div>
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" name="emp_authority"
+													<input type="checkbox" name="auth_data"
 														class="custom-control-input" id="emp_authority2"
 														value="자료실"> <label class="custom-control-label"
 														for="emp_authority2">자료실</label>
 												</div>
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" name="emp_authority"
+													<input type="checkbox" name="auth_cal"
 														class="custom-control-input" id="emp_authority3"
 														value="회사일정"> <label class="custom-control-label"
 														for="emp_authority3">회사일정</label>
 												</div>
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" name="emp_authority"
+													<input type="checkbox" name="auth_pay"
 														class="custom-control-input" id="emp_authority4"
 														value="급여"> <label class="custom-control-label"
 														for="emp_authority4">급여</label>
@@ -213,19 +213,19 @@ td th {
 											</div>
 											<div class="col-sm-6">
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" name="emp_authority"
+													<input type="checkbox" name="auth_board"
 														class="custom-control-input" id="emp_authority5"
 														value="게시판"> <label class="custom-control-label"
 														for="emp_authority5">게시판</label>
 												</div>
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" name="emp_authority"
+													<input type="checkbox" name="auth_approval"
 														class="custom-control-input" id="emp_authority6"
 														value="결재서류"> <label class="custom-control-label"
 														for="emp_authority6">결재서류</label>
 												</div>
 												<div class="custom-control custom-checkbox">
-													<input type="checkbox" name="emp_authority"
+													<input type="checkbox" name="auth_authority"
 														class="custom-control-input" id="emp_authority7"
 														value="권한관리"> <label class="custom-control-label"
 														for="emp_authority7">권한관리</label>
@@ -416,13 +416,6 @@ td th {
 			}else if(emp_phone == ""){
 				Swal.fire({
 	                title: "ʕ•ᴥ•ʔ  연락처를 입력해주세요!",
-	                timer: 1300,
-	                showConfirmButton: false
-	            });
-				return false;
-			}else if(emp_au == 0){
-				Swal.fire({
-	                title: "ʕ•ᴥ•ʔ  권한을 선택해주세요!",
 	                timer: 1300,
 	                showConfirmButton: false
 	            });

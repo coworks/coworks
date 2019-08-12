@@ -28,6 +28,10 @@ import com.kh.coworks.attendance.model.service.AttendanceService;
 import com.kh.coworks.attendance.model.vo.Attendance;
 import com.kh.coworks.calendar.model.service.CalendarService;
 import com.kh.coworks.employee.model.vo.Employee;
+import com.kh.coworks.survey.model.service.SurveyServiceImpl;
+import com.kh.coworks.survey.model.vo.Survey;
+import com.kh.coworks.survey.model.vo.SurveyAnswer;
+import com.kh.coworks.survey.model.vo.SurveyApply;
 import com.kh.coworks.todo.model.service.TodoService;
 import com.kh.coworks.todo.model.vo.Todo;
 
@@ -45,6 +49,9 @@ public class CommonProcessingController {
 
 	@Autowired
 	TodoService todoService;
+	
+	@Autowired 
+	private SurveyServiceImpl surveyService;
 
 	@RequestMapping("/commonProcessing.do")
 	public ModelAndView indexProcessing(HttpServletRequest request, Model model) throws ParseException, UnknownHostException {
@@ -124,8 +131,21 @@ public class CommonProcessingController {
 
 		List<com.kh.coworks.calendar.model.vo.Calendar> calendar = calendarService.selectListAllCalendar(hmap);
 
+		// index page 설문가져오기 
+		Survey survey = surveyService.selectOneSurvey();
+	    List<SurveyAnswer> surveyAnswerList = surveyService.selectOneSurveyAnswer(survey.getSurvey_no());
+	    
+	    Map<String, String> surhmap = new HashMap<>();
+	    surhmap.put("emp_no", Integer.toString(employee.getEmp_no()));
+	    surhmap.put("survey_no", Integer.toString(survey.getSurvey_no()));
+	    
+	    SurveyApply surveyApply = surveyService.selectOneSurveyApply(surhmap);
+		
 		mv.addObject("atten", list); // index에 출근시간, ip시간 보여주기!!!! 나중에~~~
 		mv.addObject("list", calendar);
+		mv.addObject("survey", survey);
+		mv.addObject("salist", surveyAnswerList);
+		mv.addObject("surveyApply", surveyApply);
 		mv.setViewName("../index");
 
 		return mv;

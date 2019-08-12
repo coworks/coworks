@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.kh.coworks.survey.model.vo.Survey;
 import com.kh.coworks.survey.model.vo.SurveyAnswer;
+import com.kh.coworks.survey.model.vo.SurveyApply;
 
 public interface SurveyDao {
 
@@ -20,5 +21,13 @@ public interface SurveyDao {
 	Survey selectOneSurvey();
 
 	List<SurveyAnswer> selectOneSurveyAnswer(int survey_no);
+
+	int surveyInsertApply(SurveyApply sa);
+
+	List<SurveyApply> selectOneSurveyApp(int survey_no);
+
+	SurveyApply selectOneSurveyApply(Map<String, String> hmap);
+
+	int surveyUpdateApply(SurveyApply sa);
 
 }

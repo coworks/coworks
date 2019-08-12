@@ -71,7 +71,7 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group has-success">
-												<label class="control-label">Gender</label> <select
+												<label class="control-label">성별</label> <select
 													id="emp_gender" name="emp_gender"
 													class="form-control custom-select">
 													<option value="M"
@@ -101,10 +101,10 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<div class="form-group">
-													<label for="example-email">Email <span class="help">
-															e.g. "example@gmail.com"</span></label> <input type="email"
+													<label for="example-email">이메일 <span class="help">
+															</span></label> <input type="email"
 														id="emp_email" name="emp_email" class="form-control"
-														value="${employee.emp_email }" placeholder="Email">
+														value="${employee.emp_email }" placeholder="Email" readonly>
 												</div>
 											</div>
 										</div>
@@ -122,28 +122,28 @@
 														//auList = Arrays.asList(authority);
 													%>
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" name="emp_authority"
+														<input type="checkbox" name="auth_personnal"
 															class="custom-control-input" id="emp_authority1"
 															value="인사"
 															<%=authority != null && authority.getAuth_personnal().equals("Y") ? "checked" : ""%>>
 														<label class="custom-control-label" for="emp_authority1">인사</label>
 													</div>
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" name="emp_authority"
+														<input type="checkbox" name="auth_data"
 															class="custom-control-input" id="emp_authority2"
 															value="자료실"
 															<%=authority != null && authority.getAuth_data().equals("Y") ? "checked" : ""%>>
 														<label class="custom-control-label" for="emp_authority2">자료실</label>
 													</div>
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" name="emp_authority"
+														<input type="checkbox" name="auth_cal"
 															class="custom-control-input" id="emp_authority3"
 															value="회사일정"
 															<%=authority != null && authority.getAuth_cal().equals("Y") ? "checked" : ""%>>
 														<label class="custom-control-label" for="emp_authority3">회사일정</label>
 													</div>
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" name="emp_authority"
+														<input type="checkbox" name="auth_pay"
 															class="custom-control-input" id="emp_authority4"
 															value="급여"
 															<%=authority != null && authority.getAuth_pay().equals("Y") ? "checked" : ""%>>
@@ -152,21 +152,21 @@
 												</div>
 												<div class="col-sm-6">
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" name="emp_authority"
+														<input type="checkbox" name="auth_board"
 															class="custom-control-input" id="emp_authority5"
 															value="게시판"
 															<%=authority != null && authority.getAuth_board().equals("Y") ? "checked" : ""%>>
 														<label class="custom-control-label" for="emp_authority5">게시판</label>
 													</div>
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" name="emp_authority"
+														<input type="checkbox" name="auth_approval"
 															class="custom-control-input" id="emp_authority6"
 															value="결재서류"
 															<%=authority != null && authority.getAuth_approval().equals("Y") ? "checked" : ""%>>
 														<label class="custom-control-label" for="emp_authority6">결재서류</label>
 													</div>
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" name="emp_authority"
+														<input type="checkbox" name="auth_authority"
 															class="custom-control-input" id="emp_authority7"
 															value="권한관리"
 															<%=authority != null && authority.getAuth_authority().equals("Y") ? "checked" : ""%>>
@@ -182,7 +182,7 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<div class="form-group">
-													<label for="example-tel-input" class="col-form-label">Telephone</label>
+													<label for="example-tel-input" class="col-form-label">연락처</label>
 													<input class="form-control" id="emp_phone" name="emp_phone"
 														type="tel" id="example-tel-input"
 														value="${employee.emp_phone }">
@@ -243,23 +243,9 @@
 					showConfirmButton : false
 				});
 				return false;
-			} else if (emp_email == "") {
-				Swal.fire({
-					title : "ʕ•ᴥ•ʔ  이메일을 입력해주세요!",
-					timer : 1300,
-					showConfirmButton : false
-				});
-				return false;
-			} else if (emp_phone == "") {
+			}  else if (emp_phone == "") {
 				Swal.fire({
 					title : "ʕ•ᴥ•ʔ  연락처를 입력해주세요!",
-					timer : 1300,
-					showConfirmButton : false
-				});
-				return false;
-			} else if (emp_au == 0) {
-				Swal.fire({
-					title : "ʕ•ᴥ•ʔ  권한을 선택해주세요!",
 					timer : 1300,
 					showConfirmButton : false
 				});

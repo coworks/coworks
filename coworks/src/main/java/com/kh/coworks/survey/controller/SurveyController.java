@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
@@ -16,14 +18,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.coworks.board.model.vo.Attach;
 import com.kh.coworks.common.util.Utils;
 import com.kh.coworks.survey.model.service.SurveyService;
 import com.kh.coworks.survey.model.vo.Survey;
 import com.kh.coworks.survey.model.vo.SurveyAnswer;
+import com.kh.coworks.survey.model.vo.SurveyApply;
 
 @Controller
 public class SurveyController {
@@ -35,7 +40,7 @@ public class SurveyController {
 	public String surveyChart(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
 			Model model) {
 
-		int limit = 6; // 한 페이지 당 게시글 수
+		int limit = 3; // 한 페이지 당 게시글 수
 
 		// 1. 현재 페이지 게시글 목록 가져오기
 		ArrayList<Map<String, String>> list = new ArrayList<>(surveyService.selectsurveyList(cPage, limit));
@@ -70,4 +75,45 @@ public class SurveyController {
 
 		return "redirect:surveyList.do";
 	}
+	
+	@RequestMapping("/survey/surveyInsertApply.do")
+	public String surveyInsertApply(int emp_no ,int survey_no, int surveyyan_no) {
+
+		SurveyApply sa = new SurveyApply();
+
+		sa.setEmp_no(emp_no);
+		sa.setSurvey_no(survey_no);
+		sa.setSurveyan_no(surveyyan_no);
+
+		int result = surveyService.surveyInsertApply(sa);
+
+
+		return "redirect:surveyList.do";
+	}
+	
+	@RequestMapping("/survey/surveyUpdateApply.do")
+	public String surveyUpdateApply(int emp_no ,int survey_no, int surveyyan_no) {
+
+		SurveyApply sa = new SurveyApply();
+
+		sa.setEmp_no(emp_no);
+		sa.setSurvey_no(survey_no);
+		sa.setSurveyan_no(surveyyan_no);
+
+		int result = surveyService.surveyUpdateApply(sa);
+
+
+		return "redirect:surveyList.do";
+	}
+	
+	@RequestMapping("/survey/selectOneSurveyApp.do")
+	@ResponseBody
+	public List<SurveyApply> selectOneSurveyApp(@RequestParam("surno") int surno, HttpServletResponse resp,HttpServletRequest request) throws IOException {
+		
+		List<SurveyApply> saplist = surveyService.selectOneSurveyApp(surno);
+		
+		return saplist;
+	}
+	
+	
 }
