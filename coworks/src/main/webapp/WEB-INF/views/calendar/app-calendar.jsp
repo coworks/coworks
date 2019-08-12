@@ -58,7 +58,6 @@
 
 				<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
-						<h3 class="text-themecolor mb-0 mt-0">일정 관리</h3>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><span>메인페이지</span> <i
 								class="fas fa-chevron-right"></i><span class="text-info">
@@ -654,7 +653,7 @@
 									start : '${calendar.cal_beginDate}', // 시작일
 									end : '${calendar.cal_endDate}', // 종료일
 									className : '${calendar.cal_color}', // 색상변경(탬플릿적용 색)
-									id : '${calendar.cal_no}' // 
+									id : '${calendar.cal_no}' // 구분값
 								})
 								</c:forEach>
 								var $this = this;
