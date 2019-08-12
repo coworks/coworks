@@ -5,7 +5,12 @@
 <mapper namespace="survey">
 	
 	<select id="selectSurveyList" resultType="survey">
-		SELECT * FROM SURVEY
+		select s.survey_no, s.survey_quest, s.survey_start, s.survey_end, count(sa.survey_no) cnt
+		from survey s
+		LEFT OUTER JOIN surveyapply sa
+		on s.survey_no = sa.survey_no
+		group by s.survey_no, s.survey_quest, s.survey_start, s.survey_end
+		order by s.survey_no desc
 	</select>
 
 	<select id="selectSurveyTotalContents" resultType="_int">
@@ -13,13 +18,28 @@
 	</select>
 	
 	<select id="selectOneSurvey" resultType="survey">
-	 	SELECT * FROM (SELECT * FROM SURVEY ORDER BY ROWNUM DESC) WHERE ROWNUM = 1
+	 	SELECT * FROM (SELECT * FROM SURVEY ORDER BY survey_no desc) WHERE ROWNUM = 1
 	</select>
 	
 	<select id="selectOneSurveyAnswer" resultType="surveyAnswer">
 	 	SELECT * FROM SURVEYANSWER WHERE SURVEY_NO = #{survey_no}
 	</select>
-
+	
+	<select id="selectOneSurveyApply" resultType="surveyApply"  parameterType="hashmap">
+	 	SELECT * FROM SURVEYAPPLY WHERE EMP_NO = #{emp_no} AND SURVEY_NO = #{survey_no}
+	</select>
+	
+	<select id="selectOneSurveyApp" resultType="surveyApply">
+	select s.survey_quest, suran.survey_content, suran.cnt
+	from (select a.survey_no,A.Surveyan_No,a.survey_content, count(sa.survey_no) cnt
+	from surveyanswer a
+	LEFT OUTER JOIN surveyapply sa
+	on a.surveyan_no = sa.surveyan_no
+	group by a.survey_no,A.Surveyan_No,a.survey_content) suran,survey s
+	where S.Survey_No=Suran.Survey_No
+	and S.Survey_No=#{survey_no}
+	</select>
+	
 
 	<insert id="insertSurvey" parameterType="survey">
 		INSERT INTO SURVEY(SURVEY_NO, SURVEY_QUEST, SURVEY_START, SURVEY_END)
@@ -30,5 +50,19 @@
 		INSERT INTO SURVEYANSWER(SURVEYAN_NO, SURVEY_NO, SURVEY_CONTENT)
 		VALUES(SEQ_SURVEYANSWER.NEXTVAL, SEQ_SURVEY.CURRVAL, #{survey_content})
 	</insert>
+	
+	<insert id="surveyInsertApply" parameterType="surveyApply">
+		INSERT INTO SURVEYAPPLY(SURVEYAPP_NO, EMP_NO, SURVEY_NO, SURVEYAN_NO)
+		VALUES(SEQ_SURVEYAPPLY.NEXTVAL, #{emp_no}, #{survey_no}, #{surveyan_no})
+	</insert>
+	
+	<update id="surveyUpdateApply" parameterType="surveyApply">
+		UPDATE SURVEYAPPLY 
+		SET
+		SURVEYAN_NO = #{surveyan_no}
+		WHERE EMP_NO = #{emp_no}
+		AND SURVEY_NO = #{survey_no}
+
+	</update>
 	
 </mapper>

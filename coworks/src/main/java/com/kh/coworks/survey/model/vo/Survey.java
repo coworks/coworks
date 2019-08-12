@@ -19,6 +19,7 @@ public class Survey implements Serializable {
 	private String survey_quest; // ����
 	private Date survey_start; // ���۽ð�
 	private Date survey_end; // ����ð�
+	private int cnt;
 	
 	private List<SurveyAnswer> answer; //�亯����Ʈ
 
@@ -65,22 +66,33 @@ public class Survey implements Serializable {
 	public void setAnswer(List<SurveyAnswer> answer) {
 		this.answer = answer;
 	}
+	
 
-	public Survey(int survey_no, String survey_quest, Date survey_start, Date survey_end,
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public Survey(int survey_no, String survey_quest, Date survey_start, Date survey_end, int cnt,
 			List<SurveyAnswer> answer) {
 		super();
 		this.survey_no = survey_no;
 		this.survey_quest = survey_quest;
 		this.survey_start = survey_start;
 		this.survey_end = survey_end;
+		this.cnt = cnt;
 		this.answer = answer;
 	}
 
 	@Override
 	public String toString() {
 		return "Survey [survey_no=" + survey_no + ", survey_quest=" + survey_quest + ", survey_start=" + survey_start
-				+ ", survey_end=" + survey_end + ", answer=" + answer + "]";
+				+ ", survey_end=" + survey_end + ", cnt=" + cnt + ", answer=" + answer + "]";
 	}
-	
+
+
 
 }

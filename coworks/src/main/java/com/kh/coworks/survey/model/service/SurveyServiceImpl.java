@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.coworks.survey.model.dao.SurveyDao;
 import com.kh.coworks.survey.model.vo.Survey;
 import com.kh.coworks.survey.model.vo.SurveyAnswer;
+import com.kh.coworks.survey.model.vo.SurveyApply;
 
 
 @Service
@@ -51,7 +52,27 @@ public class SurveyServiceImpl implements SurveyService {
 	public List<SurveyAnswer> selectOneSurveyAnswer(int survey_no) {
 		return surveyDao.selectOneSurveyAnswer(survey_no);
 	}
-	
+
+	@Override
+	public int surveyInsertApply(SurveyApply sa) {
+		return surveyDao.surveyInsertApply(sa);
+	}
+
+	@Override
+	public List<SurveyApply> selectOneSurveyApp(int survey_no) {
+		return surveyDao.selectOneSurveyApp(survey_no);
+		
+	}
+
+	public SurveyApply selectOneSurveyApply(Map<String, String> hmap) {
+		return surveyDao.selectOneSurveyApply(hmap);
+	}
+
+	@Override
+	public int surveyUpdateApply(SurveyApply sa) {
+		// TODO Auto-generated method stub
+		return surveyDao.surveyUpdateApply(sa);
+	}
 
 
 }
