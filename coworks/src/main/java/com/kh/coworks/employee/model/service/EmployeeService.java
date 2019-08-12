@@ -52,6 +52,8 @@ public interface EmployeeService {
 
 	int insertBoradDept(Department dept);
 
+	Employee selectEmail(String email);
+
 
 	
 }

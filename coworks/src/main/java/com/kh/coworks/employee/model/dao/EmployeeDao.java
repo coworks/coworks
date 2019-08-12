@@ -51,5 +51,7 @@ public interface EmployeeDao {
 	List<Employee> getDeptEmp(String dept_code);
 
 	int insertBoradDept(Department dept);
+
+	Employee selectEmail(String email);
 	
 }

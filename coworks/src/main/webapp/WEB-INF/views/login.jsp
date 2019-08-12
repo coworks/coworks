@@ -61,12 +61,12 @@
 						</div>
 						<div class="form-group ">
 							<div class="col-xs-12">
-								<input class="form-control" type="text" required="" placeholder="Email">
+								<input class="form-control" type="text" id="email" required="" placeholder="Email">
 							</div>
 						</div>
 						<div class="form-group text-center mt-3">
 							<div class="col-xs-12">
-								<button class="btn btn-warning btn-block text-uppercase waves-effect waves-light" type="submit">확인</button>
+								<button class="btn btn-warning btn-block text-uppercase waves-effect waves-light" type="button" id="emailbtn">확인</button>
 								<button type="button" class="btn btn-block btn-outline-secondary waves-effect waves-light text-uppercase" id="back-login">취소</button>
 							</div>
 						</div>
@@ -83,6 +83,25 @@
 	<!-- All Jquery -->
 	<!-- ============================================================== -->
 	<c:import url="./common/bottomJquery.jsp" />
-</body>
+<script>
+	$("#emailbtn").on("click",function(){
+		var email = $("#email").val();
+		$.ajax({
+			url:"${pageContext.request.contextPath}/employee/empEmail.do",
+			data:{email:email},
+			async : false,
+			success:function(data){
+				console.log(data);
+				if(data != ""){
+					alert(data.emp_email+" 계정으로 메일이 발송되었습니다.")
+				}else
+					alert("해당 이메일이 존재하지 않습니다.");
+			},error:function(){
+				console.log("12345");
+			}
+		});
+	});
 
+</script>
+</body>
 </html>

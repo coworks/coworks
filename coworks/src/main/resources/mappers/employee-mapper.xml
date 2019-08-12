@@ -202,4 +202,9 @@
 	</select>
 
 
+	
+	<select id="selectEmail" resultType="employee">
+		select * from empview where emp_email = #{email}
+	</select>
+	
 </mapper>

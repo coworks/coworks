@@ -139,4 +139,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public int insertBoradDept(Department dept) {
 		return sqlSession.insert("employee.insertBoradDept",dept);
 	}
+
+	@Override
+	public Employee selectEmail(String email) {
+		return sqlSession.selectOne("employee.selectEmail",email);
+	}
 }

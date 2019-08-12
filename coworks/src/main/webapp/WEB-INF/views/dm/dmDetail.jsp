@@ -24,7 +24,15 @@
 				 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <c:import url ="dmLocation.jsp"/>
+               <%--  <c:import url ="dmLocation.jsp"/> --%>
+                           <div class="row page-titles">
+	<div class="col-md-6 col-8 align-self-center">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><span>메인페이지</span> <i
+				class="fas fa-chevron-right"></i><span class="text-primary"> 쪽지 상세보기</span></li>
+		</ol>
+	</div>
+</div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -54,12 +62,14 @@
                                                         <a href="javascript:void(0)"><img src="#" alt="user" width="40" class="img-circle" /></a>
                                                     </div> -->
                                                     <div class="pl-2">
-                                                        <h4 class="mb-0">From : ${dm.dm_from_name } <small class="text-muted"> &lt;${dm.dm_from_dept }부 : ${dm.dm_from_job } &gt;</small>
-                                                        To : ${emp.emp_name } <small class="text-muted"> &lt;${emp.dept_name }부 : ${emp.job_title } &gt;
+                                                        <h4 class="mb-0">From : ${dm.dm_from_name } <small class="text-muted"> &lt;${dm.dm_from_dept } : ${dm.dm_from_job } &gt;</small>
+                                                        To : ${emp.emp_name } <small class="text-muted"> &lt;${emp.dept_name } : ${emp.job_title } &gt;
                                                         </h4>
-                                                        <small class="text-muted">Date: ${dm.dm_date}</small>
+                                                        <small class="text-muted">Date: <fmt:formatDate value="${dm.dm_date}" pattern="yyyy-MM-dd / HH:mm" /></small>
+                                                       
                                                     </div>
                                                 </div>
+                                               
                                                 <p>${dm.dm_content}</p>
                                           		</div>
                                             <div>
@@ -69,11 +79,14 @@
                                                 <div class="row">
                                                    
                                                 </div>
-                                                
-                                                <div class="b-all mt-3 p-3">
-                                                    <p class="pb-3">click here to <a href="${pageContext.request.contextPath}/dm/replyDm.do/${dm.dm_no}">Reply</a>
-                                                     or <a href="${pageContext.request.contextPath}/dm/forwardDm.do/${dm.dm_no}">Forward</a></p>
-                                                </div>
+                                                    <!-- <p class="pb-3"> -->
+                                                    <div >
+                                                    <a href="${pageContext.request.contextPath}/dm/replyDm.do/${dm.dm_no}" id="btnAction" >
+                                                    	<div class="btn waves-effect waves-light btn-primary col-2"  >답장</div></a>
+                                                   <a href="${pageContext.request.contextPath}/dm/forwardDm.do/${dm.dm_no}">
+                                                   		<div class="btn waves-effect waves-light btn-warning col-2"  id="btnAction" >전달</div></a></a>
+                                                    </div>
+                                                     <!-- </p> -->
                                             </div>
                                         </div>
                                     </div>

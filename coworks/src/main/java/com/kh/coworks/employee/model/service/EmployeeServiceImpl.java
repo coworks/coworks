@@ -123,5 +123,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.insertBoradDept(dept);
 	}
 
+	@Override
+	public Employee selectEmail(String email) {
+		return employeeDao.selectEmail(email);
+	}
+
 
 }

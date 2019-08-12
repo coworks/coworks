@@ -32,7 +32,15 @@
 		<div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
-                <c:import url ="dmLocation.jsp"/>
+               <%--  <c:import url ="dmLocation.jsp"/> --%>
+                           <div class="row page-titles">
+	<div class="col-md-6 col-8 align-self-center">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><span>메인페이지</span> <i
+				class="fas fa-chevron-right"></i><span class="text-primary"> 쪽지함</span></li>
+		</ol>
+	</div>
+</div>
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
@@ -105,7 +113,7 @@
                                                             </td>
                                                            
                                                             <td class="hidden-xs-down">
-                                                            	<fmt:formatDate value="${dm.dm_date}" pattern="yyyy-MM-dd : HH시" />
+                                                            	<fmt:formatDate value="${dm.dm_date}" pattern="yy-MM-dd HH:mm" />
                                                             </td>
                                                             <!-- <i class="fa fa-paperclip"></i> -->
                                                            <%--  <fmt:parseDate value='${m.getDm_sendDate()}' var='sendDate' pattern='yyyymmdd'/> --%>

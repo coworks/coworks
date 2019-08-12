@@ -2,11 +2,18 @@ package com.kh.coworks.employee.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +34,7 @@ import com.kh.coworks.employee.model.service.EmployeeService;
 import com.kh.coworks.employee.model.vo.Department;
 import com.kh.coworks.employee.model.vo.Employee;
 import com.kh.coworks.employee.model.vo.Job;
+import com.kh.coworks.mail.controller.MailSetting;
 
 
 @Controller
@@ -82,6 +90,40 @@ public class EmployeeController {
 			session.setAttribute("employee", employee);
 
 		return "redirect:mypage.do";
+	}
+
+	@RequestMapping("/employee/empEmail.do")
+	@ResponseBody
+	public Employee empEmail(@RequestParam("email") String email) {
+		System.out.println("1");
+		Employee emp = employeeService.selectEmail(email);
+
+		String coemail = "kyurin123@gmail.com";
+		String copassword = "zizi1069";
+		if (emp != null) {
+			int rndNum = (int) (Math.random() * 10000) + 1;
+			emp.setEmp_password(rndNum + "");
+			int result = employeeService.updateEmployee(emp);
+			MimeMessage msg = null;
+			msg = new MailSetting().sendingSetting(coemail, copassword);
+			try {
+				msg.setSentDate(new Date());
+				msg.setFrom(new InternetAddress(coemail, "COWORKS"));
+				InternetAddress to = new InternetAddress(email);
+				msg.setRecipient(Message.RecipientType.TO, to);
+				msg.setSubject("coworks 변경된 비밀번호 입니다.", "UTF-8");
+				msg.setText("변경된 비밀번호입니다. \n비밀번호 수정 후 이용해주세요: " + rndNum, "UTF-8");
+				if (msg != null) {
+					Transport.send(msg);
+				}
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return emp;
 	}
 
 	@RequestMapping("/employee/employeeList.do")

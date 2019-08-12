@@ -29,7 +29,15 @@
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <c:import url ="mail-location.jsp"/>
+              <%--   <c:import url ="mail-location.jsp"/> --%>
+              <div class="row page-titles">
+	<div class="col-md-6 col-8 align-self-center">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><span>메인페이지</span> <i
+				class="fas fa-chevron-right"></i><span class="text-info"> 메일 작성</span></li>
+		</ol>
+	</div>
+</div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -49,18 +57,18 @@
                                         <h3 class="card-title">메일 작성하기</h3>
                                         <div class="form-group">
                                           <c:if test="${type eq 'reply'}">
-                                          	<input class="form-control" name="mail_to_email" value="${mail.mail_from_email }">
+                                          	<input class="form-control" name="mail_to_email" required="true" value="${mail.mail_from_email }">
                                           </c:if>
                                           <c:if test="${type ne 'reply' }">
-                                            <input class="form-control" name="mail_to_email" placeholder="받는 사람 :">
+                                            <input class="form-control" name="mail_to_email"  required="true" placeholder="받는 사람 :">
                                            </c:if>
                                         </div>
                                         <div class="form-group">
                                         <c:if test="${type eq 'forward'}">
-                                        	<input class="form-control" name="mail_subject" value="${mail.mail_subject }">
+                                        	<input class="form-control" name="mail_subject"  required="true"  value="${mail.mail_subject }">
                                          </c:if>
                                           <c:if test="${type ne 'forward'}">
-                                            <input class="form-control" name="mail_subject" placeholder="제목 : ">
+                                            <input class="form-control" name="mail_subject"  required="true"  placeholder="제목 : ">
                                            </c:if>
                                         </div>
                                         <div class="form-group">

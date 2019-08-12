@@ -51,7 +51,15 @@ list-style-type: none;float: left;
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
-                <c:import url ="dmLocation.jsp"/>
+                <%-- <c:import url ="dmLocation.jsp"/> --%>
+                            <div class="row page-titles">
+	<div class="col-md-6 col-8 align-self-center">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><span>메인페이지</span> <i
+				class="fas fa-chevron-right"></i><span class="text-primary"> 쪽지 작성</span></li>
+		</ol>
+	</div>
+</div>
                 <!-- ============================================================== -->
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -88,7 +96,7 @@ list-style-type: none;float: left;
 <!--  -->
                                 <!-- lg-8 md-7 -->
                                 <div class="col-xlg-10 col-lg-9 col-md-9">    
-                                <form action="${pageContext.request.contextPath}/dm/dmWriteFormEnd.do" method="POST" enctype="multipart/form-data">
+                                <form action="${pageContext.request.contextPath}/dm/dmWriteFormEnd.do" method="POST" enctype="multipart/form-data" id="dmForm`">
                                     <div class="card-body">
                                         <h3 class="card-title">쪽지 작성하기</h3>
                                         <div class="form-group">
@@ -103,16 +111,31 @@ list-style-type: none;float: left;
                                         </div>
                                         <div class="form-group" style='margin-top:4px;'>
                                         <c:if test="${type eq 'forward'}">
-                                        	<input class="form-control" name="dm_subject" style='margin-top:2%;'  value="${dm.dm_subject }">
+                                        	<input class="form-control" name="dm_subject" required="true"  style='margin-top:2%;'  value="${dm.dm_subject }">
                                          </c:if>
                                          <c:if test="${type ne 'forward'}">
-                                            <input class="form-control" name="dm_subject"  style='margin-top:2%;' placeholder="제목 : ">
+                                            <input class="form-control" name="dm_subject"  required="true"  style='margin-top:2%;' placeholder="제목 : ">
                                            </c:if>
                                         </div>
                                         <div class="form-group">
                                             <textarea class="textarea_editor form-control col-12" name="dm_content" rows="15" placeholder="">
+                                            	<c:if test="${type eq 'reply'}">
+                                                <br><br><br><br>
+                                                ----------------origin----------------<br>
+ 	                                        	from  : ${dm.dm_from_name }&lt;${dm.dm_from_job }&gt;<br>
+ 	                                        	sent  :  <fmt:formatDate value="${dm.dm_date}" pattern="yyyy-MM-dd / HH:mm:ss" /><br>
+ 	                                        	subject : ${dm.dm_subject }<br>
+ 	                                        	content : ${dm.dm_content } <br>
+ 	                                        	</c:if>
+                                            
+                                            
  	                                        	<c:if test="${type eq 'forward'}">
- 	                                        		${dm.dm_content }
+                                                <br><br><br><br>
+                                                ----------------FW----------------<br>
+ 	                                        	from  : ${dm.dm_from_name }&lt;${dm.dm_from_job }&gt;<br>
+ 	                                        	sent  :  <fmt:formatDate value="${dm.dm_date}" pattern="yyyy-MM-dd / HH:mm:ss" /><br>
+ 	                                        	subject : ${dm.dm_subject }<br>
+ 	                                        	content : ${dm.dm_content } <br>
  	                                        	</c:if>
  	                                        </textarea>
                                         </div>
@@ -123,7 +146,7 @@ list-style-type: none;float: left;
                                             </div>
                                        	</div> -->
                                      
-                                        <button type="submit" class="btn btn-success mt-3"><i class="fa fa-envelope-o"></i> 전송 </button>
+                                        <button type="button" id="submitBtn" class="btn btn-success mt-3"><i class="fa fa-envelope-o"></i> 전송 </button>
                                         <button class="btn btn-inverse mt-3"><i class="fa fa-times"></i> 취소 </button>
                                     </div>
                                    </form>
@@ -159,7 +182,12 @@ list-style-type: none;float: left;
     $(document).ready(function() {
         $('.textarea_editor').wysihtml5();
     });
-    
+    $("#submitBtn").on("click",function(){
+    	if(empList.length <1)
+    		alert("수신자를 입력해주세요");
+    	else
+    		$("#dmForm").submit();
+    });
     function deleteBtn(obj) {
        $(obj).parent().remove();
     }
