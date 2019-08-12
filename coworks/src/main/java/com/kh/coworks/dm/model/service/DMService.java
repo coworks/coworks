@@ -10,9 +10,9 @@ import com.kh.coworks.mail.model.vo.MailAttach;
 
 public interface DMService {
 
-	int dmListCount(int i);
+	int dmListCount(int emp_no);
 
-	List<DM> dmList(int cPage, int limit, int i);
+	List<DM> dmList(int cPage, int limit,int emp_no);
 
 	List<DM> sendDmList(int cPage, int limit, int emp_no);
 
@@ -32,6 +32,7 @@ public interface DMService {
 	int updateDm(DM dm);
 
 	List<DM> selectUnreadDM(int emp_no);
+
 
 
 

@@ -96,7 +96,7 @@ list-style-type: none;float: left;
 <!--  -->
                                 <!-- lg-8 md-7 -->
                                 <div class="col-xlg-10 col-lg-9 col-md-9">    
-                                <form action="${pageContext.request.contextPath}/dm/dmWriteFormEnd.do" method="POST" enctype="multipart/form-data" id="dmForm`">
+                                <form action="${pageContext.request.contextPath}/dm/dmWriteFormEnd.do" method="POST" enctype="multipart/form-data" id="dmForm">
                                     <div class="card-body">
                                         <h3 class="card-title">쪽지 작성하기</h3>
                                         <div class="form-group">
@@ -183,7 +183,8 @@ list-style-type: none;float: left;
         $('.textarea_editor').wysihtml5();
     });
     $("#submitBtn").on("click",function(){
-    	if(empList.length <1)
+    	console.log("dmWriteFormEnd.do 클릭");
+    	if(empList.length < 1)
     		alert("수신자를 입력해주세요");
     	else
     		$("#dmForm").submit();
@@ -234,7 +235,7 @@ list-style-type: none;float: left;
     	console.log("ready");
     	if($("#type").attr('name')== 'reply'){
     		console.log("if 안");
-			empList[count++] = {to_no:${dm.dm_to}+"", to_name:'${emp.emp_name}'};
+			empList[count++] = {to_no:${dm.dm_from}+"", to_name:'${dm.dm_from_name}'};
 			console.log(empList[0].to_no);
 			$("#dm_to_list").append("<input type='text' id='"+empList[0].to_no+"'value='"+empList[0].to_name
 					+"'class='btn btn-outline-secondary col-2 to_do_emp form-control' onclick='deleteTo("+empList[0].to_no+");' name='to_do_emp'>");//+empList[i].to_name+

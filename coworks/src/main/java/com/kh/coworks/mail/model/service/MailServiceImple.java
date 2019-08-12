@@ -16,22 +16,22 @@ public class MailServiceImple implements MailService {
 
 	@Autowired
 	MailDao mailDao ;
-	public List<Map<String, String>> selectReceiveMailList(int cPage,int limit , String emp_email) {
+	public List<Mail> selectReceiveMailList(int cPage,int limit , String emp_email) {
 		return mailDao.selectReceiveMailList(cPage, limit, emp_email);
 	}
 
 	@Override
-	public int selectReceiveMailTotalContents() {
-		return mailDao.selectReceiveMailTotalContents();
+	public int selectReceiveMailTotalContents(String emp_email) {
+		return mailDao.selectReceiveMailTotalContents(emp_email);
 	}
 	@Override
-	public List<Map<String, String>> selectSendMailList(int cPage, int limit, String emp_email) {
+	public List<Mail> selectSendMailList(int cPage, int limit, String emp_email) {
 		return mailDao.selectSendMailList(cPage, limit, emp_email);
 	}
 
 	@Override
-	public int selectSendMailTotalContents() {
-		return mailDao.selectSendMailTotalContents();
+	public int selectSendMailTotalContents(String emp_email) {
+		return mailDao.selectSendMailTotalContents(emp_email);
 	}
 
 	@Override
@@ -93,13 +93,13 @@ public class MailServiceImple implements MailService {
 	}
 
 	@Override
-	public List<Map<String, String>> selectDeleteMailList(int cPage, int limit, String emp_email) {
+	public List<Mail> selectDeleteMailList(int cPage, int limit, String emp_email) {
 		return mailDao.selectDeleteMailList(cPage,limit,emp_email);
 	}
 
 	@Override
-	public int selectDeleteMailTotalContents() {
-		return mailDao.selectDeleteMailTotalContents();
+	public int selectDeleteMailTotalContents(String emp_email) {
+		return mailDao.selectDeleteMailTotalContents(emp_email);
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class MailServiceImple implements MailService {
 	}
 
 	@Override
-	public List<Map<String, String>> selectMarkMailList(int cPage, int limit, Mail mail) {
+	public List<Mail> selectMarkMailList(int cPage, int limit, Mail mail) {
 		return mailDao.selectMarkMailList(cPage,limit,mail);
 	}
 
@@ -128,7 +128,7 @@ public class MailServiceImple implements MailService {
 	}
 
 	@Override
-	public List<Map<String, String>> selectStarMailList(int cPage, int limit, Mail mail) {
+	public List<Mail> selectStarMailList(int cPage, int limit, Mail mail) {
 		return mailDao.selectStarMailList(cPage, limit, mail);
 	}
 

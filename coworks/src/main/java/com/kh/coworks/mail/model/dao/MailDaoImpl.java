@@ -20,7 +20,7 @@ public class MailDaoImpl implements MailDao {
 	SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Map<String, String>> selectStarMailList(int cPage, int limit, Mail mail) {
+	public List<Mail> selectStarMailList(int cPage, int limit, Mail mail) {
 		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
 		return sqlSession.selectList("mail.selectStarMailList",mail);
 	}
@@ -32,7 +32,7 @@ public class MailDaoImpl implements MailDao {
 
 
 	@Override
-	public List<Map<String, String>> selectMarkMailList(int cPage, int limit, Mail mail) {
+	public List<Mail> selectMarkMailList(int cPage, int limit, Mail mail) {
 		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
 		return sqlSession.selectList("mail.selectMarkMailList",mail);
 	}
@@ -43,29 +43,29 @@ public class MailDaoImpl implements MailDao {
 	}
 
 	@Override
-	public List<Map<String, String>> selectDeleteMailList(int cPage, int limit, String emp_email) {
+	public List<Mail> selectDeleteMailList(int cPage, int limit, String emp_email) {
 		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
 		return sqlSession.selectList("mail.selectDeleteMailList",emp_email,rows);
 	}
 
 	@Override
-	public int selectDeleteMailTotalContents() {
-		return sqlSession.selectOne("mail.selectDeleteMailTotalContents");
+	public int selectDeleteMailTotalContents(String emp_email) {
+		return sqlSession.selectOne("mail.selectDeleteMailTotalContents",emp_email);
 	}
 
 	@Override
-	public List<Map<String, String>> selectSendMailList(int cPage, int limit, String emp_email) {
+	public List<Mail> selectSendMailList(int cPage, int limit, String emp_email) {
 		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
 		return sqlSession.selectList("mail.selectSendMailList",emp_email,rows);
 	}
 
 	@Override
-	public int selectSendMailTotalContents() {
-		return sqlSession.selectOne("mail.selectSendMailTotalContents");
+	public int selectSendMailTotalContents(String emp_email) {
+		return sqlSession.selectOne("mail.selectSendMailTotalContents",emp_email);
 	}
 
 	@Override
-	public List<Map<String, String>> selectReceiveMailList(int cPage,int limit , String emp_email) {
+	public List<Mail> selectReceiveMailList(int cPage,int limit , String emp_email) {
 
 		RowBounds rows = new RowBounds((cPage-1) * limit, limit);
 		
@@ -73,8 +73,8 @@ public class MailDaoImpl implements MailDao {
 	}
 
 	@Override
-	public int selectReceiveMailTotalContents() {
-		return sqlSession.selectOne("mail.selectReceiveMailTotalContents");
+	public int selectReceiveMailTotalContents(String emp_email) {
+		return sqlSession.selectOne("mail.selectReceiveMailTotalContents",emp_email);
 	}
 
 	@Override

@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -208,8 +209,10 @@ public class MailController {
 		Employee emp = (Employee) session.getAttribute("employee");
 		int limit = 10;
 
-		List<Map<String, String>> mails = mailService.selectReceiveMailList(cPage, limit, emp.getEmp_email());
-		int totalContents = mailService.selectReceiveMailTotalContents();
+		List<Mail> mails = mailService.selectReceiveMailList(cPage, limit, emp.getEmp_email());
+		
+		int totalContents = mailService.selectReceiveMailTotalContents(emp.getEmp_email());
+		System.out.println("count : "+totalContents);
 		// 이너 메일 조회
 
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "innerMail.do");
@@ -231,8 +234,8 @@ public class MailController {
 		Employee emp = (Employee) session.getAttribute("employee");
 		int limit = 10;
 
-		List<Map<String, String>> mails = mailService.selectDeleteMailList(cPage, limit, emp.getEmp_email());
-		int totalContents = mailService.selectDeleteMailTotalContents();
+		List<Mail> mails = mailService.selectDeleteMailList(cPage, limit, emp.getEmp_email());
+		int totalContents = mailService.selectDeleteMailTotalContents(emp.getEmp_email());
 		// 이너 메일 조회
 
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "innerMail.do");
@@ -308,15 +311,17 @@ public class MailController {
 			System.out.println("messages.length---" + messages.length);
 			remain = messages.length - 15;
 			int count = 0;
-
+			System.out.println("ms size: "+messages.length);
 			if ((remain + mailList.size()) != messages.length) {
 				mailList = new ArrayList<>();
 				for (int i = messages.length - 1; i > remain; i--) {
-
+				
 					mail = new Mail();
 					Address[] address = messages[i].getFrom();
 					InternetAddress ar = (InternetAddress) address[0];
 					mail.setMail_no(count++/* messages[i].getMessageNumber() - 1 */);
+					System.out.println(messages[i].getSentDate().getTime());
+					System.out.println(new Timestamp(messages[i].getSentDate().getTime()));
 					mail.setMail_sendDate(new Timestamp(messages[i].getSentDate().getTime()));
 					System.out.println("메일 받은 시간 " + mail.getMail_sendDate());
 
@@ -354,8 +359,8 @@ public class MailController {
 		Employee emp = (Employee) session.getAttribute("employee");
 		int limit = 10;
 
-		List<Map<String, String>> mails = mailService.selectSendMailList(cPage, limit, emp.getEmp_email());
-		int totalContents = mailService.selectSendMailTotalContents();
+		List<Mail> mails = mailService.selectSendMailList(cPage, limit, emp.getEmp_email());
+		int totalContents = mailService.selectSendMailTotalContents(emp.getEmp_email());
 		// 이너 메일 조회
 
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "sendMail.do");
@@ -380,7 +385,7 @@ public class MailController {
 			Message[] temp = mailSetting.receiveSetting(request);
 			int len = temp.length;
 			attachments = attachMailCheck(temp[len - mail_no - 1], mail_no, request);
-
+			System.out.println("attachList : "+attachments.get(0));
 			model.addAttribute("mail", mailList.get(mail_no)).addAttribute("type", type).addAttribute("attachList",
 					attachments);
 
@@ -402,21 +407,44 @@ public class MailController {
 				multipart = (MimeMultipart) obj;
 			}
 
+			System.out.println("1 "+multipart.getContentType());
+			System.out.println("2 "+multipart.getContentType());
 			if (multipart != null)
 				for (int i = 0; i < multipart.getCount(); i++) {
 					BodyPart bodyPart = multipart.getBodyPart(i);
 					if (!Part.ATTACHMENT.equalsIgnoreCase(bodyPart.getDisposition())
 							&& StringUtils.isBlank(bodyPart.getFileName())) {
-						System.out.println(bodyPart.getClass());
-						mailList.get(mail_no).setMail_content(bodyPart.getContent().toString());
+						if(bodyPart.isMimeType("multipart/alternative")) {
+							// alternative 형 처리
+							Object bpObj = bodyPart.getContent().getClass();
+							System.out.println(" : "+bpObj);
+							
+							// 
+						}else {
+							// 그냥 text 형
+							System.out.println("bodypart.getContent() : "+bodyPart.getContent().toString());
+							System.out.println("type : "+bodyPart.getContentType());
+							mailList.get(mail_no).setMail_content(bodyPart.getContent().toString()); //bodyPart.getContent().toString()
+						}
 						continue;
 					}
-
+					String filename=bodyPart.getFileName();
+					String name ="";
+					System.out.println(bodyPart.getContentType());
+					System.out.println(filename.substring(0,10));
+					if(filename.substring(0,10).equals("=?utf-8?B?")) {
+						name = new String(Base64.decodeBase64(filename.substring(10)));
+						System.out.println("alter : "+name);
+					}else {
+						name = filename.toString();
+					}
+					System.out.println("contentType : " + bodyPart.getContentType());
 					InputStream is = bodyPart.getInputStream();
 					String path = request.getSession().getServletContext()
-							.getRealPath("/resources/mail/receiveattach/" + bodyPart.getFileName());
-
-					File file = new File(path);
+							.getRealPath("/resources/mail/receiveattach/");
+					System.out.println("path "  + path);
+					File file = new File(path + name);
+					System.out.println(file.getPath());
 					FileOutputStream fos = new FileOutputStream(file);
 					byte[] buf = new byte[4096];
 					int byteRead;
@@ -427,7 +455,7 @@ public class MailController {
 
 					MailAttach ma = new MailAttach();
 					ma.setAttach_oriname(file.getName());
-					ma.setAttach_oriname(file.getName());
+					ma.setAttach_rename(file.getName());
 					ma.setAttach_path("/resources/mail/receiveattach");
 					attachments.add(ma);
 				}
@@ -435,6 +463,9 @@ public class MailController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (MessagingException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return attachments;
@@ -550,7 +581,7 @@ public class MailController {
 		Mail mail = new Mail();
 		mail.setMail_to_email(emp.getEmp_email());
 		mail.setMail_star("Y");
-		List<Map<String, String>> mails = mailService.selectStarMailList(cPage, limit, mail);
+		List<Mail> mails = mailService.selectStarMailList(cPage, limit, mail);
 		int totalContents = mailService.selectStarMailTotalContents(mail);
 		// 이너 메일 조회
 
@@ -573,7 +604,7 @@ public class MailController {
 		Mail mail = new Mail();
 		mail.setMail_to_email(emp.getEmp_email());
 		mail.setMail_mark(num);
-		List<Map<String, String>> mails = mailService.selectMarkMailList(cPage, limit, mail);
+		List<Mail> mails = mailService.selectMarkMailList(cPage, limit, mail);
 		int totalContents = mailService.selectMarkMailTotalContents(mail);
 		// 이너 메일 조회
 
