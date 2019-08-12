@@ -45,7 +45,6 @@
 
 				<div class="row page-titles">
 					<div class="col-md-6 col-8 align-self-center">
-						<h3 class="text-themecolor mb-0 mt-0">COWORKS</h3>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item" ><input type="text" id="bo_code" value="${bo_code }" hidden>
 								<c:choose>
