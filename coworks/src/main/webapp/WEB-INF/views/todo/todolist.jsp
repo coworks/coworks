@@ -107,7 +107,7 @@
 								<div class="form-group has-success">
 									<label for="recipient-name" class="control-label">내용</label> <input
 										type="text" id="recipient-name" name="todo_content"
-										class="form-control writtencontent">
+										class="form-control rewrittencontent">
 								</div>
 							</div>
 						</div>
@@ -508,7 +508,7 @@
 
 		// (수정)todo 내용 입력해야 넘어감
 		  		function corrvalidate() {
-		 var boardContent = $(".writtencontent").val();
+		 var boardContent = $(".rewrittencontent").val();
 		
 		 if(boardContent == "") {
 				Swal.fire({
