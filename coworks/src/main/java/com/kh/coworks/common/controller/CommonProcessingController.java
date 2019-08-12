@@ -49,19 +49,20 @@ public class CommonProcessingController {
 
 	@Autowired
 	TodoService todoService;
-	
-	@Autowired 
+
+	@Autowired
 	private SurveyServiceImpl surveyService;
 
 	@RequestMapping("/commonProcessing.do")
-	public ModelAndView indexProcessing(HttpServletRequest request, Model model) throws ParseException, UnknownHostException {
- 
+	public ModelAndView indexProcessing(HttpServletRequest request, Model model)
+			throws ParseException, UnknownHostException {
+
 		Employee employee = (Employee) request.getSession().getAttribute("employee");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYYMMddHHmmss");
 		Calendar cal = new GregorianCalendar();
 		Time time = new Time(cal.getTimeInMillis());
 		Date date = new Date(cal.getTimeInMillis());
- 
+
 		ModelAndView mv = new ModelAndView();
 		Attendance attend = new Attendance();
 
@@ -111,14 +112,12 @@ public class CommonProcessingController {
 		// ************
 
 		// ip받아오기
-		    
- 
-		attend.setAtten_attIP(
-				request.getRemoteAddr()); // 나중에 세션 ip 받아오기
+
+		attend.setAtten_attIP(request.getRemoteAddr()); // 나중에 세션 ip 받아오기
 		attend.setEmp_no(employee.getEmp_no()); // 나중에 세션에서 받아오기
 		// attend.setAtten_attTime(time);
 		attend.setAtten_date(date);
-		int result = 0;	
+		int result = 0;
 		if (reqDateTime3 < curDateTime && reqDateTime2 > curDateTime) {
 			result = attendanceService.insertAttendanceCome(attend);
 		}
@@ -131,21 +130,24 @@ public class CommonProcessingController {
 
 		List<com.kh.coworks.calendar.model.vo.Calendar> calendar = calendarService.selectListAllCalendar(hmap);
 
-		// index page 설문가져오기 
+		// index page 설문가져오기
 		Survey survey = surveyService.selectOneSurvey();
-	    List<SurveyAnswer> surveyAnswerList = surveyService.selectOneSurveyAnswer(survey.getSurvey_no());
-	    
-	    Map<String, String> surhmap = new HashMap<>();
-	    surhmap.put("emp_no", Integer.toString(employee.getEmp_no()));
-	    surhmap.put("survey_no", Integer.toString(survey.getSurvey_no()));
-	    
-	    SurveyApply surveyApply = surveyService.selectOneSurveyApply(surhmap);
+		mv.addObject("survey", survey);
+		if (survey != null) {
+			List<SurveyAnswer> surveyAnswerList = surveyService.selectOneSurveyAnswer(survey.getSurvey_no());
+			Map<String, String> surhmap = new HashMap<>();
+			surhmap.put("emp_no", Integer.toString(employee.getEmp_no()));
+			surhmap.put("survey_no", Integer.toString(survey.getSurvey_no()));
+
+			SurveyApply surveyApply = surveyService.selectOneSurveyApply(surhmap);
+			mv.addObject("salist", surveyAnswerList);
+			mv.addObject("surveyApply", surveyApply);
+		}
 		
 		mv.addObject("atten", list); // index에 출근시간, ip시간 보여주기!!!! 나중에~~~
 		mv.addObject("list", calendar);
-		mv.addObject("survey", survey);
-		mv.addObject("salist", surveyAnswerList);
-		mv.addObject("surveyApply", surveyApply);
+
+		
 		mv.setViewName("../index");
 
 		return mv;

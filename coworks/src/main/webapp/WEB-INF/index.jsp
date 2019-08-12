@@ -287,7 +287,19 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-2 p-2">
-								<c:set var="surveyApp" value="${surveyApply}"/>
+								<h4 class="card-title">설문조사</h4>
+									<c:if test="${survey == null }">
+										<div class="detail-box col-12">
+											<div class="detail-list">
+												<div>
+													<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 50px; vertical-align: middle; border: 0" />
+												</div>
+												<h4 class="text-themecolor" style="margin: 10px 0;">현재 진행 중인 설문조사가 없습니다.</h4>
+											</div>
+										</div>
+									</c:if>
+									<c:if test="${survey != null }">
+									<c:set var="surveyApp" value="${surveyApply}"/>
 									<c:if test="${surveyApp == null}">
 									<button class="float-right btn btn-sm btn-rounded btn-info"
                             		  id="sa-success"  onclick="return go(1);">투표하기</button>
@@ -354,6 +366,7 @@
 											</c:if>
 										</c:forEach>
 									</div>
+								</c:if>
 								</c:if>
 								</div>
 							</div>

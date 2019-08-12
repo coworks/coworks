@@ -9,6 +9,15 @@
 
 <title>CO-WORKS : Login</title>
 <c:import url="./common/header.jsp" />
+<style type="text/css">
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}</style>
 </head>
 
 <body>
