@@ -111,7 +111,6 @@
 
 	function onChatMessage(evt) {
 		var data = JSON.parse(evt.data);
-		console.log(data);
 		var chatMSG;
 		if (data.length != 0) {
 

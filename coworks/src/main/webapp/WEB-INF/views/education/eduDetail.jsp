@@ -100,13 +100,18 @@
 			var count=$("#emp_no").val();
     		
 			console.log("count : "+count);
-			if(count!=0){
+			if(count!=0 &&now.getTime()<bg.getTime()){
 			//	alert("이미신청하셨습니다!");
 	    		 $('#applyExpected').hide();
 	    		 $('#delete').show();
 	    		 $('#apply').hide();
 	    		 $('#finished').hide();
-	 	}else if(now.getTime()<bg.getTime()){	// 교육 신청 시작일 전
+	 		}else if(count==0 &&( now.getTime()>=bg.getTime() && now.getTime<=end.getTime())){
+		   		 $('#applyExpected').hide();
+				 $('#delete').hide();
+				 $('#apply').show();
+				 $('#finished').hide();
+			 }else if(now.getTime()<bg.getTime()){	// 교육 신청 시작일 전
 	    		 $('#applyExpected').show();
 	    		 $('#delete').hide();
 	    		 $('#apply').hide();
@@ -117,11 +122,6 @@
 	    		 $('#delete').hide();
 	    		 $('#apply').hide();
 	    		 $('#finished').show();
-	    	 }else{
-	    		 $('#applyExpected').hide();
-	    		 $('#delete').hide();
-	    		 $('#apply').show();
-	    		 $('#finished').hide();
 	    	 }
 	    $('#applyExpected').on("click",function(){
 

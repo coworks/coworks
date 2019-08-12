@@ -58,6 +58,7 @@ div p {
 										</button>
 									</div>
 									</c:if>
+									<c:if test="${doc.adoc_status eq 0 }">
 									<c:if test="${sessionScope.employee.emp_no eq doc.adoc_writerno }">
 										<div align="right" class="ml-auto" >
 										<button class=" btn  btn-info  mr-2" type="button" onclick="edit()">
@@ -65,7 +66,7 @@ div p {
 										</button>
 										</div>
 									</c:if>
-									
+									</c:if>
 								</div>
 								<div class="printArea">
 									<h2 class="card-title mb-5 mt-3" align="center">
@@ -93,8 +94,8 @@ div p {
 												</tr>
 											</table>
 										</div>
-										<div class="col-3"></div>
-										<div class="col-5">
+										<!-- <div class="col-3"></div> -->
+										<div class="col-5 ml-auto">
 											<table class="no-wrap table-bordered table ">
 												<colgroup>
 													<col width="10%" />
@@ -175,8 +176,7 @@ div p {
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-9 "></div>
-										<div class="col-3 mt-2" style="text-align: left">
+										<div class="ml-auto m-3" style="text-align: right">
 											<span>일자 : &nbsp;&nbsp;<fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd" /></span><br /> <span> 서명 : &nbsp;&nbsp;${writer.emp_name}&nbsp;&nbsp;(인)</span>
 										</div>
 									</div>
