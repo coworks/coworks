@@ -30,7 +30,7 @@
 						<h3 class="box-title mb-3">Login</h3>
 						<div class="form-group ">
 							<div class="col-xs-12">
-								<input class="form-control" name="emp_no" type="text" required="" placeholder="사원번호">
+								<input class="form-control" name="emp_no" type="number" required="" placeholder="사원번호">
 							</div>
 						</div> 
 						<div class="form-group">
