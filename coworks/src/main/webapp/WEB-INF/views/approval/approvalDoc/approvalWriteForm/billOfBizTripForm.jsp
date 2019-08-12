@@ -85,13 +85,17 @@
 	<script src="${pageContext.request.contextPath }/resources/approval/js/signListApply.js"></script>
 
 	<script>
+	
 		$('#submit')
 				.on(
 						'click',
 						function() {
+							if(tableCheck() == false)
+								return false;
+							
 							var myForm = $('#tableForm')[0];
 							var formData = new FormData(myForm);
-
+							
 							var adoc_content = new Array;
 							var header = new Array;
 							$('#header').children().each(function() {

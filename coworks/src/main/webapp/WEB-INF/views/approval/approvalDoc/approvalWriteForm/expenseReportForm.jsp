@@ -100,6 +100,9 @@
 				.on(
 						'click',
 						function() {
+							if(tableCheck() == false)
+								return false;
+						
 							var myForm = $('#tableForm')[0];
 							var formData = new FormData(myForm);
 
