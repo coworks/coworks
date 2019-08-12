@@ -50,14 +50,13 @@
 	<insert id="insertEmployee" parameterType="employee">
 		INSERT INTO EMPLOYEE
 		VALUES(
-		SEQ_EMPLOYEE.NEXTVAL, #{emp_name}, REPLACE(#{emp_birth},'/',
-		''),
+		SEQ_EMPLOYEE.NEXTVAL, #{emp_name}, REPLACE(#{emp_birth},'/',''),
 		#{job_code}, #{dept_code},
 		#{emp_phone}, NULL, NULL,
 		#{emp_birth},
 		#{emp_gender}, DEFAULT,
 		NULL, DEFAULT,
-		NULL
+		NULL, NULL
 		)
 
 	</insert>
