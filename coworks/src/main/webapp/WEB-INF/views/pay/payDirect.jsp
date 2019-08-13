@@ -26,7 +26,7 @@
      	margin-top:0;
      	
      }
-	#btn{
+	#payBtn{
    	 	width: 20%;
     	margin-left: 39%;
     	margin-right: auto;
@@ -176,7 +176,7 @@
 											</tr>
 											<tr>
 											<td colspan="4" class="bg-white">
-												<div  id="btn" class="btn waves-effect waves-light btn-secondary" onclick="submit();">저장</div>
+												<div id="payBtn" class="btn waves-effect waves-light btn-secondary">저장</div>
 											</td>
 											</tr>
 									</tbody>
@@ -204,14 +204,27 @@
 				"width=700px,height=600px,left=100px,top=100px, location=no");
 	}
 	
-	function submit(){
+	$("#payBtn").on("click",function(){
+		console.log("12");
+		console.log($("#pay_date").val());
+		if($("#emp_no").val() ==""){
+			alert("사번을 입력하세요")
+			return;
+		}
+		if($("#pay_date").val() == ""){
+			alert("지급일을 입력하세요");
+			return;
+		}
+		
 		var payInfo= $('#payInfo')[0];
+		
 		var form =new FormData(payInfo);
 		for(var pair of form.entries()) {
 			   console.log(pair[0]+ ', '+ pair[1]); 
 			}
+		
 		$('#payInfo').submit();
-	}
+	});
 	$("[name=emp_no]").on("blur",function(){
 		var emp_no = $(this).val();
 		console.log(emp_no);
