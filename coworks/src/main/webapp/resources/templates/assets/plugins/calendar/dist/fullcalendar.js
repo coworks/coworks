@@ -14551,8 +14551,9 @@ var ListViewGrid = Grid.extend({
 		if (url) {
 			classes.push('fc-has-url');
 		}
-		console.log(url);
-		return '<tr class="" style="border:0px;">' +
+		console.log(classes);
+		console.log("1"+url);
+		return '<tr class="fc-list-item" style="border:0px; background:white;">' +
 			(this.displayEventTime ?
 				'<td class="fc-list-item-time ' + view.widgetContentClass + '" style="border:0px;">' +
 					(timeHtml || '') +
