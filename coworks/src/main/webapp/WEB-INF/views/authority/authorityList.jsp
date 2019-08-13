@@ -83,8 +83,8 @@ td th {
 												<div class="custom-control custom-checkbox">
 													<input type="checkbox" name="auth_approval"
 														class="custom-control-input" id="emp_authority6"
-														value="결재서류"> <label class="custom-control-label"
-														for="emp_authority6">결재서류</label>
+														value="설문조사"> <label class="custom-control-label"
+														for="emp_authority6">설문조사</label>
 												</div>
 												<div class="custom-control custom-checkbox">
 													<input type="checkbox" name="auth_authority"
@@ -163,7 +163,7 @@ td th {
 												style="width: 10%;">게시판</th>
 											<th
 												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
-												style="width: 10%;">결재서류</th>
+												style="width: 10%;">설문조사</th>
 											<th
 												class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable bg-info text-white"
 												style="width: 10%;">권한관리</th>

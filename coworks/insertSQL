@@ -403,4 +403,32 @@ Insert into MAIL (MAIL_NO,MAIL_SUBJECT,MAIL_CONTENT,MAIL_SENDDATE,MAIL_ISREAD,MA
 Insert into MAIL (MAIL_NO,MAIL_SUBJECT,MAIL_CONTENT,MAIL_SENDDATE,MAIL_ISREAD,MAIL_FROMDEL,MAIL_TODEL,MAIL_STAR,MAIL_MARK,MAIL_TO_EMAIL,MAIL_FROM_EMAIL,MAIL_NAME) values (125,'[중요] 08/14 1조 파이널 프로젝트  종료 일정 관련 문의 드립니다.','안녕하세요 홍보팀 라이언 입니다.<br>다음주 8월 14일에 파이널 프로젝트가 끝이나고<br>1월 23일 부터 시작 된 KH 정보 교육원 웹 프레임워크 개발자 양성과정이 끝이 난다고 합니다.<br>7개월 짧다면 짧고, 길다면 길다고 할 수 있는 시간동안 공부하느라 수고 많으셨습니다.<br><br><b><u>수료 축하드립니다.<br><a href="https://www.kheducenter.or.kr:452/main/main.kh" target="_blank" rel="nofollow" title="Link: https://www.kheducenter.or.kr:452/main/main.kh">https://www.kheducenter.or.kr:452/main/main.kh</a> <br></u></b>',to_timestamp('19/08/06 16:55:03.916000000','RR/MM/DD HH24:MI:SSXFF'),'Y','N','N','N',6,'mail_0318@naver.com','mail_0318@naver.com',null);
 Insert into MAIL (MAIL_NO,MAIL_SUBJECT,MAIL_CONTENT,MAIL_SENDDATE,MAIL_ISREAD,MAIL_FROMDEL,MAIL_TODEL,MAIL_STAR,MAIL_MARK,MAIL_TO_EMAIL,MAIL_FROM_EMAIL,MAIL_NAME) values (130,'이번달 급여 명세서 목록 입니다.','2019년 8월 8일 급여 명세서 목록 확인 부탁 드립니다.<br><br>',to_timestamp('19/08/08 23:41:10.147000000','RR/MM/DD HH24:MI:SSXFF'),'Y','N','N','N',6,'mail_0318@naver.com','kyurin123@gmail.com',null);
 
+-- survey
+REM INSERTING into SURVEY
+SET DEFINE OFF;
+Insert into SURVEY (SURVEY_NO,SURVEY_QUEST,SURVEY_START,SURVEY_END) values (26,'워크샵 장소 ',to_date('19/08/13','RR/MM/DD'),to_date('19/08/14','RR/MM/DD'));
+Insert into SURVEY (SURVEY_NO,SURVEY_QUEST,SURVEY_START,SURVEY_END) values (27,'회식 메뉴 ',to_date('19/08/13','RR/MM/DD'),to_date('19/08/13','RR/MM/DD'));
+Insert into SURVEY (SURVEY_NO,SURVEY_QUEST,SURVEY_START,SURVEY_END) values (28,'동료와 친해진 이유?',to_date('19/08/13','RR/MM/DD'),to_date('19/08/17','RR/MM/DD'));
+Insert into SURVEY (SURVEY_NO,SURVEY_QUEST,SURVEY_START,SURVEY_END) values (29,'직장 내 스트레스 주요 요인',to_date('19/08/13','RR/MM/DD'),to_date('19/08/30','RR/MM/DD'));
+
+-- survyAnswer
+REM INSERTING into SURVEYANSWER
+SET DEFINE OFF;
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (54,26,'가평');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (55,26,'강원도');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (56,26,'부산');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (57,27,'삼겹살');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (58,27,'닭갈비');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (59,27,'치킨');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (60,27,'곱창');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (61,28,'함께 업무를 진행하다보니 자연스럽게');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (62,28,'같은또래, 성별이기 때문에');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (63,28,'성격, 관심사가 비슷해서');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (64,28,'같은시기에 입사해서 ');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (65,29,'직장 내 인간관계');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (66,29,'과도한 업무 분담');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (67,29,'타 부서와 협업');
+Insert into SURVEYANSWER (SURVEYAN_NO,SURVEY_NO,SURVEY_CONTENT) values (68,29,'실적에 따른 압박감');
+
+
 commit;
