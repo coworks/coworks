@@ -81,7 +81,7 @@
 													<!-- <button class="jsgrid-button jsgrid-edit-button"
 														type="button" title="Edit"></button> -->
 												<button 
-													id="detailPay"
+													id="detailPay" value="${p.pay_no }"
 													onclick="detailPay(${p.pay_no});"
 													class="mdi mdi-note-outline btn waves-effect waves-light btn-block btn-outline-info" type="button">
 													<!-- <i class="mdi mdi-note-outline"></i>	 -->
@@ -106,12 +106,12 @@
 	</div>
 	<c:import url="../common/bottomJquery.jsp" />
 	<script>
+	
 	function detailPay(pay_no){
 		console.log("asdasd");
 		window.open("${pageContext.request.contextPath}/pay/detailPay.do/"+pay_no,"급여 명세서",
 				"width=700px,height=600px,left=100px,top=100px, location=no");
-			
 	}
-	
+	</script>
 </body>
 </html>
