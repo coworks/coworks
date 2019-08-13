@@ -9,7 +9,7 @@
 		<ul class="list-group list-group-full">
 		<!-- active -->
 			<li class="list-group-item"><a href="${pageContext.request.contextPath}/dm/dmList.do"><i
-					class="mdi mdi-gmail"></i>받은 쪽지</a><%-- <span
+					class="mdi mdi-cookie"></i>받은 쪽지</a><%-- <span
 				class="badge badge-success ml-auto"> ${readCount}</span> --%></li>
 	
 			<li class="list-group-item "><a href="${pageContext.request.contextPath}/dm/sendDmList.do"> <i

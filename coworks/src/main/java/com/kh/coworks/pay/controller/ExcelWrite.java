@@ -278,22 +278,12 @@ public class ExcelWrite {
             
             cell = row.createCell(1);
             cell.setCellValue(emp.getEmp_name());
-			/*
-			 * cell = row.createCell(2); cell.setCellValue(emp.getDept_name());
-			 */
             
             cell = row.createCell(2);
             cell.setCellValue(emp.getJob_title());
 
-			/*
-			  cell = row.createCell(11);
-			  cell.setCellFormula("=SUM(D"+rowNum+":K"+rowNum+")");
-			  cell = row.createCell(18);
-			  cell.setCellFormula("=SUM(M"+rowNum+":R"+rowNum+")");
-			  cell = row.createCell(19);
-			  cell.setCellFormula("=SUM(D"+rowNum+":K"+rowNum+")-S"+rowNum);
-			 */
         }
+        
         row = sheet.createRow(list.size()+2);
         cell = row.createCell(0);
         cell.setCellValue("합계");

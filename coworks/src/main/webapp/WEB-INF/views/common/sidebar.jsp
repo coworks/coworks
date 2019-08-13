@@ -25,7 +25,7 @@
 				
 					<li><a
 					href="${pageContext.request.contextPath}/dm/dmList.do"	
-					aria-expanded="false"><i class="mdi mdi-comment-alert"></i><span
+					aria-expanded="false"><i class="mdi mdi-cookie"></i><span
 						class="hide-menu">쪽지</span></a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/calendar/calendarview.do"

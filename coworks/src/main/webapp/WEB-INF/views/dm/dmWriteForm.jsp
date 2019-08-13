@@ -209,7 +209,8 @@ list-style-type: none;float: left;
 						if(i==0){
 							var tbody = $("#"+dept_code).next();/* $("#append"); */
 							var content = $("<ul>");
-							content.append("<li class='insertTo' name='insertTo' id='"+dept_code+"' value="+dept_name+">"+dept_name+"부 </li>");
+							content.append("<li class='insertTo' name='insertTo' id='"
+									+dept_code+"' value="+dept_name+">"+dept_name+"부 </li>");
 							tbody.append(content);
 						}
 							/* content.append("<li>"+data[i].emp_no+"</li>"); */
@@ -218,7 +219,9 @@ list-style-type: none;float: left;
 						var emp_name = data[i].emp_name;
 						var emp_no = data[i].emp_no;
 						var emp = data[i];
-						content.append("<li class='insertTo' name='insertTo' id='"+data[i].emp_no+"' value="+data[i].emp_name+">"+data[i].emp_name +" : "+ data[i].job_title+"</li>");
+						content.append("<li class='insertTo' name='insertTo' id='"
+								+data[i].emp_no+"' value="+data[i].emp_name+">"
+								+data[i].emp_name +" : "+ data[i].job_title+"</li>");
 						tbody.append(content);
 					}
 					console.log(" 완료");
@@ -236,9 +239,12 @@ list-style-type: none;float: left;
     		console.log("if 안");
 			empList[count++] = {to_no:${dm.dm_to}+"", to_name:'${emp.emp_name}'};
 			console.log(empList[0].to_no);
-			$("#dm_to_list").append("<input type='text' id='"+empList[0].to_no+"'value='"+empList[0].to_name
-					+"'class='btn btn-outline-secondary col-2 to_do_emp form-control' onclick='deleteTo("+empList[0].to_no+");' name='to_do_emp'>");//+empList[i].to_name+
-			$("#dm_to_list").append("<input type='text' id='"+empList[0].to_no+"'value='"+empList[0].to_no
+			$("#dm_to_list").append("<input type='text' id='"+empList[0].to_no
+					+"'value='"+empList[0].to_name
+					+"'class='btn btn-outline-secondary col-2 to_do_emp form-control' onclick='deleteTo("
+							+empList[0].to_no+");' name='to_do_emp'>");//+empList[i].to_name+
+			$("#dm_to_list").append("<input type='text' id='"
+					+empList[0].to_no+"'value='"+empList[0].to_no
 					+"' name='to_no_emp' hidden>");
 			}		
 		});

@@ -59,7 +59,7 @@
                                         <label for="exampleInputEmail1">이메일</label>&nbsp;&nbsp;&nbsp;&nbsp; 	
                                         <label id="naverhover" class="hover"> <i class="primary far fa-question-circle text-primary"></i> </label> &nbsp;&nbsp;
                                         <label  class="hover" id="googlehover">  <i class=" primary far fa-question-circle text-primary"></i>  </label>
-                                      
+                                      	<span>이메일을 사용하기 위해선 SMTP/POP3 설정을 해야 합니다. (&lt;- 도움말 참조하세요)</span>
                                         <img id="naverimg" src="${pageContext.request.contextPath}/resources/mail/nsmtppop.png">	
                                         <img id="googleimg" src="${pageContext.request.contextPath}/resources/mail/gsmtppop.png">	
                                         
