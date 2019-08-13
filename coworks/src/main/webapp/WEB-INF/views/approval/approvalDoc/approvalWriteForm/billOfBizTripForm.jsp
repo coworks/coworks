@@ -111,6 +111,8 @@
 										obj.push($(this).val());
 									});
 									formData.append('row' + i, obj);
+								} else{
+									break;
 								}
 							}
 
