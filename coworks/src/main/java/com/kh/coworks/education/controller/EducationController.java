@@ -74,7 +74,7 @@ public class EducationController {
 	public ModelAndView searchTypeEducation(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,@RequestParam("edu_type") String edu_type, ModelAndView mv, HttpServletRequest request) {
 		Employee employee = (Employee) request.getSession().getAttribute("employee");
 		 
-		int limit = 5; // 한 페이지 당 게시글 수
+		int limit = 10; // 한 페이지 당 게시글 수
 		HashMap<String, String> hmap = new HashMap<>();
 		hmap.put("edu_type", edu_type);
 		hmap.put("emp_no", Integer.toString(employee.getEmp_no()));
@@ -143,7 +143,7 @@ public class EducationController {
 			 ) {
 		Employee employee = (Employee) request.getSession().getAttribute("employee");
 
-		int limit = 5; // 한 페이지 당 게시글 수
+		int limit = 10; // 한 페이지 당 게시글 수
 		
 		int totalContents = educationService.selectApplyTotalContents(employee.getEmp_no());
 		

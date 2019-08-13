@@ -54,9 +54,10 @@
 	</beans:bean>
 
 	<interceptors>
-		<interceptor>   <!-- /** <- 모든 url 경로에 대해서 수행하도록 등록한다. -->
+		<interceptor> 
 			<mapping path="/**" />
-			<beans:bean id="loggerInterceptor" class="com.kh.coworks.common.interceptor.LoggerInterceptor" />
+			<beans:bean id="loggerInterceptor" 
+				class="com.kh.coworks.common.interceptor.LoggerInterceptor" />
 		</interceptor>
 		<interceptor>
 			<mapping path="/calendar/**/*" />
@@ -75,16 +76,12 @@
 			<mapping path="/contact/**/*" />
 			<mapping path="/pay/**/*" />
 			<mapping path="/commonProcessing.do" />
-
-			<mapping path="/common/gomain.do" />
-			<!-- ★★★★★ 추가해주세요 여러분 ~ (세션없이 넘어갈수 없게)★★★★★★ -->
-			<exclude-mapping path="/employee/empEmail.do"/>
-
-			<!-- <mapping path="/board/**/*.do"/> -->
-
-			<!-- 스프링 3.2버전부터 exclude라는 태그가 도입되었음 인터셉터로 url을 가져올때 특정 경로를 제외할 수 있다. -->
-			<!-- <exclude-mapping path="/board/boardList.do"/> -->
-			<beans:bean id="loginCheckInterceptor" class="com.kh.coworks.common.interceptor.LoginCheckInterceptor" />
+			<mapping path="/common/gomain.do" /> 
+			
+			<exclude-mapping path="/employee/empEmail.do"/> 
+			
+			<beans:bean id="loginCheckInterceptor" 
+				class="com.kh.coworks.common.interceptor.LoginCheckInterceptor" />
 		</interceptor>
 
 	</interceptors>

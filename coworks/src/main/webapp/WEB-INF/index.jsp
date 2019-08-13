@@ -844,7 +844,7 @@
 	            header: {
 	                left: 'prev,next today',
 	                center: 'title',
-	                right: 'month,agendaWeek,agendaDay'
+	                right: 'month,agendaWeek,agendaDay,listWeek'
 	            },
 	            titleFormat: 'YYYY년   M월',
 	            events: defaultEvents,	//이벤트 불러오기

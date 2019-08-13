@@ -417,7 +417,7 @@
    <script
       src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 
-   <script>
+	 <script>
     $('#insertbutton').on("click",function(){
             
          if($('#cal_beginDate').val()==$('#cal_endDate').val()){ 
@@ -781,6 +781,7 @@
                                  titleFormat : 'YYYY년   M월',
                                  slotDuration : '00:30:00', 
                                  allDaySlot: false,
+                                 locale: 'ko',
                                  defaultView : 'month',
                                  handleWindowResize : true,
                                  header : {
@@ -788,6 +789,9 @@
                                     center : 'title',
                                     right : 'month,agendaWeek,agendaDay,listWeek'
                                  },
+                                 listWeek: {
+                                	 columnFormat: ''
+                                	 },
                                  events : defaultEvents, //이벤트 불러오기
                                  editable : true,  
                                  droppable : true, 
