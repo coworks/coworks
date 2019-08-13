@@ -13,7 +13,7 @@
 
 <style>
 	.pagination{
-		margin-left:350	%;
+		margin-left:350%;
 	}
    .m-center{
       margin: 0 auto;

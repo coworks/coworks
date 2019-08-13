@@ -81,7 +81,7 @@ list-style-type: none;float: left;
 		<c:forEach items="${dept}" var="d">
 			<li class="list-group-item has-arrow depts"id="${d.dept_code }" name="${d.dept_name }" >	
 				<i class="fas fa-caret-right"></i>&nbsp;
-				<span class="text-primary" style="font-weight:bold"id="append">${d.dept_name } / ${d.dept_code }</span>
+				<span class="text-primary" style="font-weight:bold"id="append">${d.dept_name }</span>
 				<!-- <ul aria-expanded="true" class="collapse">  </ul> -->
 				<div>
 					

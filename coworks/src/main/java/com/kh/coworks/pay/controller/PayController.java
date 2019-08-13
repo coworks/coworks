@@ -118,6 +118,10 @@ public class PayController {
 				}
 			}
 		}
+
+//		JSONArray json = new JSONArray();
+//		json.addAll(list);
+//		System.out.println("json : " + json);
 		String savePath = saveDir.replace("\\", "/");
 		excel.setFilePath(savePath + "/" + renamedName);
 		filename = savePath + "/" + renamedName;
@@ -125,9 +129,6 @@ public class PayController {
 		excel.setStartRow(0);
 		List<Map<String, String>> list = null;
 		list = er.read(excel);
-//		JSONArray json = new JSONArray();
-//		json.addAll(list);
-//		System.out.println("json : " + json);
 		return list;
 	}
 
