@@ -628,7 +628,7 @@
                              if((auth=='N' && type2=='회사') ||(auth=='N' && calEvent.type=='회사')){
 
                        		  alert("권한이 없습니다.");
-                       	  }else{    
+                       	  }else{     
                                        //$this.$modal.on('submit', function () {
                                         
                         	 calEvent.end = form.find("input[name=cal_endDate2]").val();
