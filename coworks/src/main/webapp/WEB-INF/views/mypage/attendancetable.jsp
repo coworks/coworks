@@ -35,8 +35,7 @@
 							<div class="align-self-center">
 								<h4 class="card-title float-left">${sessionScope.employee.emp_name}
 									님의 근태 현황</h4>
-								<div class=" align-self-center">
-								<span id="monthshow"></span>
+								<div class=" align-self-center"> 
 									<div class="dropdown float-right ">
 										<button class="btn btn-secondary dropdown-toggle"
 											type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -103,7 +102,6 @@
 									location.href = "${pageContext.request.contextPath}/attendance/selectTypeAttendance.do?select_date="
 											+ date;
 
-									$('#monthshow').text(d);
 								};
 							</script>
 							</br>
@@ -129,7 +127,7 @@
 									</thead>
 									<tbody>
 										<c:forEach items="${list}" var="attend" varStatus="idx">
-
+										
 											<tr>
 												<td>${idx.count}
 												<td>${attend.atten_date}</td>
