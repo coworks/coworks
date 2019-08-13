@@ -14475,21 +14475,45 @@ var ListViewGrid = Grid.extend({
 		var view = this.view;
 		var mainFormat = view.opt('listDayFormat');
 		var altFormat = view.opt('listDayAltFormat');
-
-		return '<tr class="fc-list-heading" data-date="' + dayDate.format('YYYY-MM-DD') + '">' +
+		var day='월요일';
+		console.log(dayDate.format('E'));
+		switch(dayDate.format('E')){
+		case '1':
+			day='월요일';
+			break;
+		case '2':
+			day='화요일';
+			break;
+		case '3':
+			day='수요일';
+			break;
+		case '4':
+			day='목요일';
+			break;
+		case '5':
+			day='금요일';
+			break;
+		case '6':
+			day='토요일';
+			break;
+		case '7':
+			day='일요일';
+			break;
+		}
+		return '<tr class="fc-list-heading" data-date="' + dayDate.format('YYYY-MM-DD') + '" style="height:40px; background:#A5C9FF;">' +
 			'<td class="' + view.widgetHeaderClass + '" colspan="3">' +
 				(mainFormat ?
 					view.buildGotoAnchorHtml(
 						dayDate,
 						{ 'class': 'fc-list-heading-main' },
-						htmlEscape(dayDate.format(mainFormat)) // inner HTML
+						htmlEscape(dayDate.format('M월 DD일')) // inner HTML
 					) :
 					'') +
 				(altFormat ?
 					view.buildGotoAnchorHtml(
 						dayDate,
 						{ 'class': 'fc-list-heading-alt' },
-						htmlEscape(dayDate.format(altFormat)) // inner HTML
+						htmlEscape(" "+day) // inner HTML
 					) :
 					'') +
 			'</td>' +
@@ -14504,7 +14528,10 @@ var ListViewGrid = Grid.extend({
 		var event = seg.event;
 		var url = event.url;
 		var timeHtml;
-
+		console.log(event);
+		var color=seg.event.className;
+		var i_color=color[0].replace('bg','text');
+		
 		if (event.allDay) {
 			timeHtml = view.getAllDayHtml();
 		}
@@ -14524,21 +14551,17 @@ var ListViewGrid = Grid.extend({
 		if (url) {
 			classes.push('fc-has-url');
 		}
-
-		return '<tr class="' + classes.join(' ') + '">' +
+		console.log(url);
+		return '<tr class="" style="border:0px;">' +
 			(this.displayEventTime ?
-				'<td class="fc-list-item-time ' + view.widgetContentClass + '">' +
+				'<td class="fc-list-item-time ' + view.widgetContentClass + '" style="border:0px;">' +
 					(timeHtml || '') +
 				'</td>' :
 				'') +
-			'<td class="fc-list-item-marker ' + view.widgetContentClass + '">' +
-				'<span class="fc-event-dot"' +
-				(bgColor ?
-					' style="background-color:' + bgColor + '"' :
-					'') +
-				'></span>' +
+			'<td class="fc-list-item-marker ' + view.widgetContentClass + '" style="border:0px; float:right;">' +
+					'<i class="fa fa-circle mb-3 '+i_color+'">&nbsp; &nbsp;</i>' +
 			'</td>' +
-			'<td class="fc-list-item-title ' + view.widgetContentClass + '">' +
+			'<td class="fc-list-item-title ' + view.widgetContentClass + '" style="border:0px; ">' +
 				'<a' + (url ? ' href="' + htmlEscape(url) + '"' : '') + '>' +
 					htmlEscape(seg.event.title || '') +
 				'</a>' +
@@ -14556,7 +14579,7 @@ fcViews.list = {
 	defaults: {
 		buttonText: 'list', // text to display for English
 		listDayFormat: 'LL', // like "January 1, 2016"
-		noEventsMessage: 'No events to display'
+		noEventsMessage: '일정이 없습니다 ^^..'
 	}
 };
 

@@ -40,6 +40,9 @@
    .oncursor{
       cursor:pointer;
    }
+   .fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
+    .fc-day-number.fc-sun.fc-past { color:#FF0000; }  
+
 </style>
 
 <c:import url="../common/header.jsp" />
@@ -395,7 +398,7 @@
    <script
       src="${pageContext.request.contextPath}/resources/templates/assets/plugins/moment/moment.js"></script>
    <script
-      src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
+      src='${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/fullcalendar.js?ver=1'></script>
    <script
       src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/dist/jquery.fullcalendar.js"></script>
    <script
@@ -522,21 +525,16 @@
                      /* on click on event */
                      CalendarApp.prototype.onEventClick = function(
                            calEvent, jsEvent, view) {
-						console.log(calEvent);
+                  console.log(calEvent);
                         console.log($('input[name=calcate_no]').val());
                          var $this = this;
                         var today = new Date($.now());
                         if (calEvent.end == null) {
                            calEvent.end = today;
                         }
-                        var startdate = moment(calEvent.start,
-                              'YYYY-MM-DD  HH:mm');
-                        var enddate = moment(calEvent.end,
-                              'YYYY-MM-DD  HH:mm');
-                        //   (startdate+","+enddate+","+calEvent.content+","+calEvent.title); 확인용
-                        var form = $("<form></form>");
-                        /*  form.append("<div><label>기간 :&nbsp;&nbsp;</label><span>"+startdate.format('YYYY-MM-DD  HH:mm')+" - "+enddate.format('YYYY-MM-DD  HH:mm')+"</span></div>")
-                         */
+                        var startdate = moment(calEvent.start,'YYYY-MM-DD  HH:mm');
+                        var enddate = moment(calEvent.end, 'YYYY-MM-DD  HH:mm'); 
+                        var form = $("<form></form>"); 
                         form.append("<div><label>제목</label><div><div class='input-group'><input class='form-control' name='title' type='text' value='" + calEvent.title + "' /> </div></br>");
                         form.append("<div><label>내용</label><div><div><textarea class='form-control' name='content' row='3' type='text'>"
                                     + calEvent.content
@@ -567,8 +565,11 @@
                                        timePicker : true,
                                        timePickerIncrement : 30,
                                        startDate : calEvent.start, // default주기
-                                       endDate : calEvent.end,
+                                       endDate : calEvent.end, 
                                        locale : {
+                                           daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
+                                           monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
+                                                 "7월", "8월", "9월", "10월", "11월", "12월" ],
                                           format : 'YY/MM/DD HH:mm'
                                        }
                                     },
@@ -576,8 +577,7 @@
                                        (form.find("input[name=cal_beginDate2]"))
                                              .val(start.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
                                        (form.find("input[name=cal_endDate2]"))
-                                             .val(end.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
-                                       // $('#cal_endDate2').val(end.format('YYYY-MM-DD HH:mm:ss'));
+                                             .val(end.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS')); 
                                     
                                     });
                         $this.$modal.modal({
@@ -690,6 +690,9 @@
                                        timePicker : true,
                                        timePickerIncrement : 30, 
                                        locale : {
+                                           daysOfWeek : [ "일", "월", "화", "수", "목", "금", "토" ],
+                                           monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
+                                                 "7월", "8월", "9월", "10월", "11월", "12월" ],
                                           format : 'YY/MM/DD HH:mm'
                                        },
                                        startDate :start,
@@ -697,7 +700,8 @@
                                     },
                                     function(start, end) {
                                     
-                                    });
+                                    }
+                                    );
                         
 
                          (form2.find('input[id=date2]')).val(start.format('YYYY/MM/DD HH:mm') + " - "+end.format('YYYY/MM/DD HH:mm') );
@@ -772,17 +776,17 @@
                         var $this = this;
                         $this.$calendarObj = $this.$calendar
                               .fullCalendar({
+                              
                                  nextDayThreshold : '00:00:00', //0시이후로 하루로치기 
                                  titleFormat : 'YYYY년   M월',
                                  slotDuration : '00:30:00', 
-                                 minTime : '06:00:00',
-                                 maxTime : '24:30:00',
+                                 allDaySlot: false,
                                  defaultView : 'month',
                                  handleWindowResize : true,
                                  header : {
                                     left : 'prev,next today',
                                     center : 'title',
-                                    right : 'month,agendaWeek,agendaDay'
+                                    right : 'month,agendaWeek,agendaDay,listWeek'
                                  },
                                  events : defaultEvents, //이벤트 불러오기
                                  editable : true,  
@@ -834,7 +838,7 @@
                               var categoryColor = $this.$categoryForm.find("select[name='category-color']").val();
                               var length=$(".calendar-events").length+1;
                               
-                             if(length<6){  
+                             if(length<6){  //5개까지 입력가능
                               if (categoryName !== null && categoryName.length != 0) {
                                
                               $.ajax({
@@ -883,8 +887,7 @@
          
          $('.datetime').daterangepicker(
             {
-               autoApply: true,
-             
+                
                timePicker : true,
                timePickerIncrement : 30, 
                locale : {
