@@ -109,33 +109,33 @@
 
 					</ul></li>
 					<c:set var="auapproval" value="${sessionScope.authority.auth_approval}" />
-					<c:if test="${auapproval eq 'Y'}">
+					<%-- <c:if test="${auapproval eq 'Y'}"> --%>
 				<li><a href="${pageContext.request.contextPath}/survey/surveyList.do" aria-expanded="false"><i
 						class="mdi mdi-file-chart"></i><span class="hide-menu">설문조사</span></a>
 				</li> 
-				</c:if>
+				<%-- </c:if> --%>
 				<c:set var="auper" value="${sessionScope.authority.auth_personnal}" />
-				<c:if test="${auper eq 'Y'}">
+				<%-- <c:if test="${auper eq 'Y'}"> --%>
 					<li><a
 						href="${pageContext.request.contextPath}/employee/employeeList.do"
 						aria-expanded="false"><i
 							class="mdi mdi-account-settings-variant"></i> <span
 							class="hide-menu">인사 관리</span></a></li>
-				</c:if>
+				<%-- </c:if> --%>
 				<c:set var="auauthor" value="${sessionScope.authority.auth_authority}" />
-				<c:if test="${auauthor eq 'Y'}">		
+				<%-- <c:if test="${auauthor eq 'Y'}"> --%>		
 				<li><a
 					href="${pageContext.request.contextPath}/authority/authorityList.do"
 					aria-expanded="false"><i class="mdi mdi-account-key"></i> <span
 						class="hide-menu">권한관리</span></a></li>
-				</c:if>
+				<%-- </c:if> --%>
 				<c:set var="aupay" value="${sessionScope.authority.auth_pay}" />
-				<c:if test="${aupay eq 'Y'}">
+				<%-- <c:if test="${aupay eq 'Y'}"> --%>
 				<li><a
 					href="${pageContext.request.contextPath}/pay/employeeList.do"
 					aria-expanded="false"><i class="mdi mdi-account-star"></i> <span
 						class="hide-menu">급여관리</span></a></li>
-				</c:if>
+				<%-- </c:if> --%>
 
 			</ul>
 		</nav>

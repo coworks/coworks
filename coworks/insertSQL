@@ -56,6 +56,43 @@ Insert into BOARD (BO_NO,BO_CODE,BO_TITLE,BO_CONTENT,EMP_NO,BO_DATE,BO_STATUS) v
 Insert into BOARD (BO_NO,BO_CODE,BO_TITLE,BO_CONTENT,EMP_NO,BO_DATE,BO_STATUS) values (33,'D53','2019년 새해 신년사','<div>사랑하는 가족 여러분!</div><div>2019년 기해년(己亥年) 새해가 밝았습니다.</div><div>임직원 여러분은 물론, 협력사, 공급사, 고객사 등 코웍스와 함께하는 모든 분들의 일터와</div><div>가정에 ‘황금 돼지’의 넉넉한 기운과 행운이 함께 하기를 소망합니다.</div><div>지난 해, 우리 코웍스 그룹은 단합된 힘과 노력으로 견실한 성과를 일궈냈습니다. 글로벌</div><div>무역전쟁과 내수경기 침체, 노사환경의 변화 등 여러 어려움 속에서 일궈낸 성과이기 때문</div><div>에 더욱 의미가 크다고 하겠습니다.</div><div>제품 판매와 내수시장 마켓쉐어 확대, 설비강건화를 통한 생산성 향상과 지속적인 원가절감</div><div>에 힘입어 3년 연속 두 자리 수 영업이익률을 기록하였습니다.</div><div>이러한 경영성과 향상과 끊임없는 개선 노력으로 국내 주요 그룹사들도 지속적인 사업구조</div><div>재편으로 핵심사업 부문의 경쟁력을 강화하였으며, 투자 유치 등을 통해 재무구조를 개선할</div><div>수 있었습니다.</div><div>국내외 생산기반을 크게 확대하는 한편, 장기 성장을 위한 기반을 구축했습니다.</div><div>어려운 여건 속에서도 맡은 바 역할을 묵묵히 수행해 주신 그룹 임직원 여러분께 큰 격려와</div><div>감사의 박수를 보냅니다.<br><br>이하 생략(첨부 파일 확인)</div>',99999999,to_timestamp('19/01/01 09:42:34.000000000','RR/MM/DD HH24:MI:SSXFF'),'y');
     
     --게시판 첨부
+    REM INSERTING into BOARDATTACH
+SET DEFINE OFF;
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (300,2,'사내규정_감사 표준사규.pdf','20190813_145423_675.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (301,3,'사내규정_경영관리 표준사규.pdf','20190813_145433_509.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (302,4,'사내규정_구매 및 자재 표준사규.pdf','20190813_145442_829.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (303,5,'사내규정_기타 별도 표준사규.pdf','20190813_145451_651.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (304,6,'사내규정_노사복지 표준사규.pdf','20190813_145501_674.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (305,7,'사내규정_문서서식 표준사규.pdf','20190813_145510_555.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (306,8,'사내규정_생산, 제조, 유통 표준사규.pdf','20190813_145519_150.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (307,9,'사내규정_업무및근무표준사규.pdf','20190813_145530_815.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (308,11,'업무자료_공연기획안샘플.pdf','20190813_145600_21.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (309,11,'업무자료_이벤트기획안샘플.pdf','20190813_145600_643.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (310,11,'업무자료_행사기획안샘플.pdf','20190813_145600_792.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (311,12,'업무자료_명세서.pdf','20190813_145608_614.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (312,13,'업무자료_봉사계획서샘플.pdf','20190813_145615_933.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (313,14,'업무자료_산업진흥법.pdf','20190813_145623_580.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (314,15,'업무자료_설문서식.pdf','20190813_145632_122.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (315,16,'업무자료_업무계획서.pdf','20190813_145643_11.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (316,16,'업무자료_업무평가계획.pdf','20190813_145643_349.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (317,17,'업무자료_주간계획표.pdf','20190813_145655_95.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (318,17,'업무자료_주간작업공정계획서.pdf','20190813_145655_100.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (319,18,'업무자료_주간계획표.pdf','20190813_145709_182.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (320,19,'업무자료_휴무작업계획서.pdf','20190813_145724_74.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (321,20,'교육자료_직무교육연간계획표.pdf','20190813_145755_778.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (322,27,'공지사항_경영방침.pdf','20190813_145811_52.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (323,28,'공지사항_경영이념.pdf','20190813_145818_140.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (324,29,'공지사항_2017년신년사.pdf','20190813_145829_55.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (325,30,'공지사항_2017년귀속편리한연말정산사용자매뉴얼(근로자용)_20171220.pdf','20190813_145837_829.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (326,31,'공지사항_2018년신년사.pdf','20190813_145846_145.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (327,32,'공지사항_2018년귀속편리한연말정산사용자매뉴얼(근로자용).pdf','20190813_145857_676.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (328,33,'공지사항_2019년신년사.pdf','20190813_145906_357.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (329,24,'경조사게시판_관리부_김민준결혼.png','20190813_145951_795.png','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (330,25,'경조사게시판_마케팅부_김서준결혼.png','20190813_145959_870.png','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (331,26,'식단표.jpg','20190813_150012_446.jpg','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (332,21,'인사발령_2017년인사발령공고문.pdf','20190813_150027_725.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (333,22,'인사발령_2018년인사발령공고문.pdf','20190813_150035_934.pdf','/resources/board/attach');
+Insert into BOARDATTACH (ATTACH_NO,BO_NO,ATTACH_ORINAME,ATTACH_RENAME,ATTACH_PATH) values (334,23,'인사발령_2019년인사발령공고문.pdf','20190813_150044_944.pdf','/resources/board/attach');
     
     
     
