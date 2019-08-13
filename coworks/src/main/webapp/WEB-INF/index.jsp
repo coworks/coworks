@@ -305,7 +305,7 @@
                             		  id="sa-success"  onclick="return go(1);">투표하기</button>
                             		  <input type="hidden" value="${sessionScope.employee.emp_no }" name="emp_no" id="emp_no" />
                             		  <input type="hidden" name="survey_no" id="survey_no" value="${survey.survey_no }" />
-									<h4 class="card-title">설문조사</h4>
+									
 									<p class="card-text">
 										<i class="fas fa-quote-left text-info"></i>
 										<c:out value="${survey.survey_quest}" />
@@ -334,7 +334,6 @@
                             		  id="sa-success"  onclick="return go(2);">투표수정</button>
                             		  <input type="hidden" value="${sessionScope.employee.emp_no }" name="emp_no" id="emp_no" />
                             		  <input type="hidden" name="survey_no" id="survey_no" value="${survey.survey_no }" />
-									<h4 class="card-title">설문조사</h4>
 									<p class="card-text">
 										<i class="fas fa-quote-left text-info"></i>
 										<c:out value="${survey.survey_quest}" />

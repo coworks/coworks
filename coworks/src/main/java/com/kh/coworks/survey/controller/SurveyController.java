@@ -88,7 +88,7 @@ public class SurveyController {
 		int result = surveyService.surveyInsertApply(sa);
 
 
-		return "redirect:surveyList.do";
+		return "redirect:/common/gomain.do";
 	}
 	
 	@RequestMapping("/survey/surveyUpdateApply.do")
@@ -103,7 +103,7 @@ public class SurveyController {
 		int result = surveyService.surveyUpdateApply(sa);
 
 
-		return "redirect:surveyList.do";
+		return "redirect:/common/gomain.do";
 	}
 	
 	@RequestMapping("/survey/selectOneSurveyApp.do")

@@ -78,6 +78,14 @@
 											</div>
 										</div>
 									</div>
+									<div class="col-lg-6 col-12">
+										<div class="form-group row">
+											<label class="control-label text-right col-3">입사일 : </label>
+											<div class=" col-9">
+												<p class="form-control-static"><fmt:formatDate value="${ sessionScope.employee.emp_hireDate }" pattern="yyyy년 MM월 dd일" /></p>
+											</div>
+										</div>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-6  col-12">
