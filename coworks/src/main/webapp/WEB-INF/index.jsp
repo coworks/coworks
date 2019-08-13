@@ -604,9 +604,7 @@
                         var select2=$("<select class='form-control' id='cal_type' name='cal_type'>"); 
                         select2.append("<option value='개인'>개인</option>");
                         select2.append("<option value='부서'>부서</option>");
-                        select2.append("<c:if test='${sessionScope.authority.auth_cal eq "Y"}'>");
                         select2.append("<option value='회사'>회사</option>");
-                        select2.append("</c:if>");
                         form.append(select2);
                         form.find('#cal_color').val(calEvent.className);
                         form.find('#cal_type').val(calEvent.type);
@@ -637,41 +635,56 @@
                         $this.$modal.find('.delete-event').show().end().find('.save-event').show().end()
                               .find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click')
                               .click(function() {
-                                       $this.$calendarObj.fullCalendar('removeEvents',function(ev) {
-                                                      // cal_no받은것 input에넣기
-                                                      console.log(calEvent);
-                                                      console.log(calEvent.id); // 삭제할 id찾기
-                                                      console.log(calEvent);
-                                                      var result = (ev.id == calEvent.id);
-                                                      $.ajax({
-                                                               url : "${pageContext.request.contextPath}/calendar/deleteCalendar.do",
-                                                               data : {cal_no : calEvent.id},
-                                                               dataType : "json",
-                                                               async : false,
-                                                               success : function(data) {
-                                                               },
-                                                               error : function(data) {
-                                                                  result = false;
-                                                               }
-                                                            });
-                                                      return result;
-                                                   });
-                                       $this.$modal.modal('hide');
+                            	  var auth='${sessionScope.authority.auth_cal}';
+                                  
+                            	  if((auth=='N' && calEvent.type=='회사')){
+
+                            		  alert("권한이 없습니다.");
+                            	  }else{
+                            		  $this.$calendarObj.fullCalendar('removeEvents',function(ev) {
+                                          // cal_no받은것 input에넣기
+                                          console.log(calEvent);
+                                          console.log(calEvent.id); // 삭제할 id찾기
+                                          console.log(calEvent);
+                                          var result = (ev.id == calEvent.id);
+                                          $.ajax({
+                                                   url : "${pageContext.request.contextPath}/calendar/deleteCalendar.do",
+                                                   data : {cal_no : calEvent.id},
+                                                   dataType : "json",
+                                                   async : false,
+                                                   success : function(data) {
+                                                   },
+                                                   error : function(data) {
+                                                      result = false;
+                                                   }
+                                                });
+                                          return result;
+                                       });
+                           $this.$modal.modal('hide'); 
+                            	  }
                                     });
                         var result;
                         // 일정 칸 클릭시 해당 일정 내용 수정
                         $this.$modal.find('.save-event').unbind('click').click(function() {
+                        	var auth='${sessionScope.authority.auth_cal}';
+                       	 var type2=form.find("select[name=cal_type]").val();
+                            console.log(calEvent.cal_color);
+                            console.log(calEvent.cal_type);
+                            console.log(calEvent.start);
+                            console.log(calEvent.end);
+                            if((auth=='N' && type2=='회사') ||(auth=='N' && calEvent.type=='회사')){
+
+                      		  alert("권한이 없습니다.");
+                      	  }else{    
+                                      //$this.$modal.on('submit', function () {
                                        
-                                             
-                                       //$this.$modal.on('submit', function () {
-                                       calEvent.title = form.find("input[name=title]").val();
-                                       calEvent.start = form.find("input[name=cal_beginDate2]").val();
-                                       console.log(calEvent.start);
-                                       calEvent.end = form.find("input[name=cal_endDate2]").val();
-                                       calEvent.content = form.find("textarea[type=text]").val();
-                                       calEvent.cal_color=form.find("select[name=cal_color]").val();
-                                       calEvent.cal_type=form.find("select[name=cal_type]").val();
-                                       
+                       	 calEvent.end = form.find("input[name=cal_endDate2]").val();
+                            calEvent.content = form.find("textarea[type=text]").val();
+                            calEvent.cal_color=form.find("select[name=cal_color]").val();
+                            calEvent.cal_type=form.find("select[name=cal_type]").val(); 
+                            calEvent.title = form.find("input[name=title]").val();
+                            calEvent.start = form.find("input[name=cal_beginDate2]").val();
+                            
                                        if(calEvent.start==calEvent.end){ 
                                           alert("시간은 30분이상 차이나야 합니다.");
                                        }else{
@@ -702,6 +715,7 @@
                                              });
                                        
                                        return result;
+                                       }
                                        }
                                     });
                      },

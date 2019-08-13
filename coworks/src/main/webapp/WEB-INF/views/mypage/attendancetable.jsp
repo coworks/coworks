@@ -34,7 +34,7 @@
 
 							<div class="align-self-center">
 								<h4 class="card-title float-left">${sessionScope.employee.emp_name}
-									님의 근태 현황</h4>
+									님의 근태 현황</h4> 
 								<div class=" align-self-center"> 
 									<div class="dropdown float-right ">
 										<button class="btn btn-secondary dropdown-toggle"

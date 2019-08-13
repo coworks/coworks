@@ -127,6 +127,7 @@ public class CommonProcessingController {
 		hmap.put("emp_no", Integer.toString(employee.getEmp_no()));
 		hmap.put("dept_code", employee.getDept_code());
 		// 나중에 수정해야함 꼮!!! calendar list뽑기
+		hmap.put("company","회사");
 
 		List<com.kh.coworks.calendar.model.vo.Calendar> calendar = calendarService.selectListAllCalendar(hmap);
 
