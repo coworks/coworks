@@ -121,6 +121,7 @@
                                                           		${m.getMail_from_email() }
                                                           	</c:if>
                                                           	</c:if>
+                                                          	
                                                           	<c:if test="${m.getMail_name() ne null }">
                                                           		${m.getMail_name() }
                                                           	</c:if>
