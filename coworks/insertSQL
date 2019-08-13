@@ -18,6 +18,7 @@
     INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D05', '전산부');
     INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D06', '총무부');
     INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D07', '회계부');
+    INSERT INTO BOARDGROUP VALUES (SEQ_BGNO.NEXTVAL, 'D08', '코웍스');
     
     --게시판 샘플
     Insert into BOARD (BO_NO,BO_CODE,BO_TITLE,BO_CONTENT,EMP_NO,BO_DATE,BO_STATUS) values (1,'D50','업무 및 근무 표준 사내규정','<div>코웍스 회사표준&nbsp; 사규<br>IV. 업무 근무<br><br>[목차]<br>1.&nbsp; 업무분장규정<br>2.&nbsp; 업무인계인수규정<br>3.&nbsp; 사무인계규정<br>4.&nbsp; 근태관리규정<br>5.&nbsp; 개발&nbsp; 업무&nbsp; 규정<br>6.&nbsp; 증권투자신탁업무&nbsp; 취급규정<br>7.&nbsp; 계약규정<br>8.&nbsp; 계약사무취급규정<br>9.&nbsp; 고객불만정보처리규정<br>10.&nbsp; 공개시장조작적격증권의<br>매매업무취급규정<br>11.&nbsp; 공사현장관리규정<br>12.&nbsp; 국공채창구판매&nbsp; 업무방법서<br>13.&nbsp; 국제금융업무&nbsp; 취급규정<br>14.&nbsp; 국제팩토링업무&nbsp; 취급규정<br>15.&nbsp; 금융거래실명확인업무취급요령<br>16.&nbsp; 금융민원처리규정<br>17.&nbsp; 당직규정<br>18.&nbsp; 당직근무규정<br>19.&nbsp; 대여금고취급규정<br>20.&nbsp; 리스업무취급규정<br>21.&nbsp; 보고관리규정<br>22.&nbsp; 선적전&nbsp; 무역어음&nbsp; 업무운용지침<br>23.&nbsp; 선적전&nbsp; 무역어음&nbsp; 업무취급규정<br>24.&nbsp; 양도성예금증서&nbsp; 매매&nbsp; 및<br>매매의&nbsp; 중개업무<br>25.&nbsp; 어음&nbsp; 유가증권&nbsp; 보관업무&nbsp; 취급규정<br>26.&nbsp; 어음중개업무&nbsp; 취급&nbsp; 요령<br>27.&nbsp; 업무개선위원회규정<br>28.&nbsp; 업무방법서<br>29.&nbsp; 업무분장규정2 2<br>30.&nbsp; 업무이관규정<br>31.&nbsp; 외국인의&nbsp; 종합금융회사&nbsp; 단기금융<br>상품&nbsp; 매매거래등에&nbsp; 관한&nbsp; 규정<br>32.&nbsp; 외주관리규정<br>33.&nbsp; 외화표시유가증권&nbsp; 및&nbsp; 파생금융<br>상품업무<br>34.&nbsp; 위임전결규정<br>35.&nbsp; 유가증권업무취급규정<br>36.&nbsp; 융자담보&nbsp; 지급보증업무<br>취급규정<br>37.&nbsp; 전산규정<br>38.&nbsp; 전산업무취급규정<br>39.&nbsp; 제안규정2 2<br>40.&nbsp; 제안규정1 1<br>41.&nbsp; 제안제도규정<br>42.&nbsp; 종합금융회사&nbsp; 업무운용지침<br>43.&nbsp; 중장기원화대출업무&nbsp; 취급규정<br>44.&nbsp; 직무권한&nbsp; 위임규정<br>45.&nbsp; 직무권한규정<br>46.&nbsp; 콜거래중개&nbsp; 업무방법서<br>47.&nbsp; 콜거래중개회사&nbsp; 업무운용지침<br>48.&nbsp; 클레임처리규정<br>49.&nbsp; 통계업무취급요령<br>50.&nbsp; 팩토링업무취급규정<br>51.&nbsp; 품의규정<br>52.&nbsp; 해외출장규정<br>53.&nbsp; 환매조건부채권&nbsp;<br><br>이하 생략 (첨부파일 확인)<br></div>',99999999,to_timestamp('05/05/05 09:14:12.000000000','RR/MM/DD HH24:MI:SSXFF'),'n');
@@ -147,6 +148,7 @@ Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO) values ('D04','인사',0
 Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO) values ('D05','전산',0);
 Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO) values ('D06','총무',0);
 Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO) values ('D07','회계',0);
+Insert into DEPARTMENT (DEPT_CODE,DEPT_NAME,DEPT_MGRNO) values ('D08','코웍스',0);
 
 
 --사원 샘플
@@ -221,12 +223,17 @@ Insert into AUTHORITY (EMP_NO,AUTH_PERSONNAL,AUTH_DATA,AUTH_CAL,AUTH_BOARD,AUTH_
 
 
 --직급
-Insert into JOB (JOB_CODE,JOB_TITLE) values ('J1','부장');
-	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J2','차장');
-	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J3','과장');
-	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J4','주임');
-	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J5','대리');
-	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J6','사원');
+    Insert into JOB (JOB_CODE,JOB_TITLE) values ('J1','사장');
+    Insert into JOB (JOB_CODE,JOB_TITLE) values ('J2','부사장');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J3','전무');
+    Insert into JOB (JOB_CODE,JOB_TITLE) values ('J4','상무');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J5','이사');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J6','부장');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J7','차장');
+	Insert into JOB (JOB_CODE,JOB_TITLE) values ('J8','과장');
+    Insert into JOB (JOB_CODE,JOB_TITLE) values ('J9','대리');
+    Insert into JOB (JOB_CODE,JOB_TITLE) values ('J10','주임');
+    Insert into JOB (JOB_CODE,JOB_TITLE) values ('J11','사원');
 	
 	
 	
