@@ -29,7 +29,6 @@ public class DMDaoImpl implements DMDao {
 	@Override
 	public List<DM> sendDmList(int cPage, int limit, int emp_no) {
 		RowBounds rows = new RowBounds((cPage-1)*limit,limit);
-		System.out.println(rows);
 		return sqlSession.selectList("dm.sendDmList",emp_no,rows);
 	}
 

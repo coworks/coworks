@@ -21,6 +21,11 @@
     <script src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jquery-asGradient/dist/jquery-asGradient.js"></script>
     <!-- Date Picker Plugin JavaScript -->
     <!-- Date range Plugin JavaScript -->
+    <style>
+    .pagination{
+   	margin-left:32%;
+   	}
+    </style>
 </head>
 <body class="fix-header fix-sidebar card-no-border">
 	<div id="main-wrapper">
@@ -65,7 +70,7 @@
 
 						</a>
 						<div id="basicgrid" class="jsgrid"
-							style="position: relative; height: 500px; width: 100%; margin-top: 5px;">
+							style="position: relative; height: auto; width: 100%; margin-top: 5px;">
 								<table class="jsgrid-table table table-striped table-hover">
 									<tr class="jsgrid-header-row">
 										<th

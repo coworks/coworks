@@ -18,14 +18,14 @@ public interface MailService {
 	 * @param limit
 	 * @return
 	 */
-	List<Map<String, String>> selectDeleteMailList(int cPage,int limit , String emp_email);
+	List<Mail> selectDeleteMailList(int cPage,int limit , String emp_email);
 	/**
 	 * 받은 메일 목록 조회 메소드
 	 * @param cPage
 	 * @param limit
 	 * @return
 	 */
-	List<Map<String, String>> selectReceiveMailList(int cPage,int limit , String emp_email);
+	List<Mail> selectReceiveMailList(int cPage,int limit , String emp_email);
 	
 	/**
 	 * 보낸 메일 목록 조회 메소드
@@ -33,19 +33,19 @@ public interface MailService {
 	 * @param limit
 	 * @return
 	 */
-	List<Map<String, String>> selectSendMailList(int cPage,int limit , String emp_email);
+	List<Mail> selectSendMailList(int cPage,int limit , String emp_email);
 
 	/***
 	 * 페이지 처리
 	 * @return
 	 */
-	int selectReceiveMailTotalContents();
+	int selectReceiveMailTotalContents(String emp_email);
 	
 	/***
 	 * 페이지 처리
 	 * @return
 	 */
-	int selectSendMailTotalContents();
+	int selectSendMailTotalContents(String emp_email);
 	
 	/***
 	 * 메일 전송 메소드
@@ -94,13 +94,13 @@ public interface MailService {
 	int readMail(int mail_no);
 	
 	int readCount(String emp_email);
-	int selectDeleteMailTotalContents();
+	int selectDeleteMailTotalContents(String emp_email);
 	int updateMark(Mail mail);
-	List<Map<String, String>> selectMarkMailList(int cPage, int limit, Mail mail);
+	List<Mail> selectMarkMailList(int cPage, int limit, Mail mail);
 	int selectMarkMailTotalContents(Mail mail);
 	int updateEmail(Employee emp);
 	int updateStar(Mail mail);
-	List<Map<String, String>> selectStarMailList(int cPage, int limit, Mail mail);
+	List<Mail> selectStarMailList(int cPage, int limit, Mail mail);
 	int selectStarMailTotalContents(Mail mail);
 
 }

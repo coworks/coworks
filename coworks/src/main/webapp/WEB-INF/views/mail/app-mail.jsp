@@ -12,6 +12,9 @@
 </head>
 
 <style>
+	.pagination{
+		margin-left:180%;
+	}
    .m-center{
       margin: 0 auto;
    }
