@@ -21,7 +21,9 @@
     <!-- Date Picker Plugin JavaScript -->
     <!-- Date range Plugin JavaScript -->
     <style>
-   
+   	.pagination{
+   margin-left:38%;
+   	}
      #subtitle{
      	padding-bottom:5%;
      }
@@ -38,24 +40,6 @@
 				<div class="card">
 					<div class="card-body">
 						<h2 class="card-title" id="subtitle">급여 명세서 목록</h2>
-						<!-- <div class="row mb-3 col-5" style="margin-left: 30%; margin-top: 30px;">
-							<select class="form-control custom-select" style="width: 20%"
-							id="searchCondition" name="searchCondition">
-								<option value="">----</option>
-								<option value="empname">이름</option>
-								<option value="jobtitle">직급</option>
-								<option value="deptname">부서</option>
-							</select>
-							<div class="input-group " style="width: 80%">
-								<input type="search" id="keyword" class="form-control" >
-								<button class="btn btn-info" type="button"   onclick="search();">검색</button>
-							</div>
-						</div> -->
-					<%-- 
-						<input type="button" class="btn  btn-outline-info" id="payFile" name="payFile" value="급여명세서 입력하기(EXCEL)"
-						onclick="location.href='${pageContext.request.contextPath}/pay/payInputForm.do'	">
-						<div style="height : 20px;"> </div> --%>
-
 						<div id="basicgrid" class="jsgrid"
 							style="position: relative; height: 500px; width: 100%; tmargin-top: 200px;">
 							<div class="jsgrid-grid-header jsgrid-header-scrollbar">
@@ -128,32 +112,6 @@
 				"width=700px,height=600px,left=100px,top=100px, location=no");
 			
 	}
-		
-	  /* 
-		$("#detailPay").on("click",function(){
-			alert("asd");
-			var pay_no = $("#empListPay").parent().parent().attr("id");
-			console.log(typeof(pay_no))
-	  		$.ajax({
-	  			url:"${pageContext.request.contextPath}/pay/detailPay.do",
-	  			data:{pay_no:pay_no},
-	  			success:function(){
-	  				alert("성공")
-	  			}
-	  		});
-		});
-	   */
-
-	/* 	function search(){
-			location.href="${pageContext.request.contextPath}/employee/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
-		} */
-		
-	</script>
-	<%-- 	<script
-		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/db.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/jsgrid.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/templates/resources/js/jsgrid-init.js"></script> --%>
+	
 </body>
 </html>

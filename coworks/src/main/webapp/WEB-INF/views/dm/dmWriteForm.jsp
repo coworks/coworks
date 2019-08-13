@@ -96,7 +96,7 @@ list-style-type: none;float: left;
 <!--  -->
                                 <!-- lg-8 md-7 -->
                                 <div class="col-xlg-10 col-lg-9 col-md-9">    
-                                <form action="${pageContext.request.contextPath}/dm/dmWriteFormEnd.do" method="POST" enctype="multipart/form-data" id="dmForm`">
+                                <form action="${pageContext.request.contextPath}/dm/dmWriteFormEnd.do" method="POST" enctype="multipart/form-data" id="dmForm">
                                     <div class="card-body">
                                         <h3 class="card-title">쪽지 작성하기</h3>
                                         <div class="form-group">

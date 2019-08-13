@@ -12,9 +12,9 @@
 </head>
 
 <style>
-  #page{
+
+  .pagination{
      	padding-left:36%;
-     	margin-top:0;
      	
      }
    .m-center{

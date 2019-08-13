@@ -18,43 +18,43 @@
 		select * from mailattach where mail_no = #{mail_no}
 	</select>
 	
-	<select id="selectStarMailList" parameterType="mail" resultMap="mailMap" >
+	<select id="selectStarMailList" parameterType="mail" resultType="mail" >
 		select * from mail where mail_to_email = #{mail_to_email} 
 		and mail_todel = 'N' 
 		and mail_star='Y'
 		 order by mail_no desc
 	</select>
 	
-	<select id="selectStarMailTotalContents" resultType="_int">
+	<select id="selectStarMailTotalContents" resultType="_int" parameterType="mail">
 		select count(*) from mail  where mail_to_email = #{mail_to_email}
 		 and mail_todel = 'N' 
 		 and mail_star='Y'
 	</select>
 	
-	<select id="selectMarkMailList" parameterType="mail" resultMap="mailMap" >
-		select * from mail where mail_to_email = #{mail_to_email} and mail_todel = 'N' and mail_mark=#{mail_mark} order by mail_no desc
+	<select id="selectMarkMailList" parameterType="mail" resultType="mail" >
+		select * from mail where mail_to_email = #{emp_to_email} and mail_todel = 'N' and mail_mark=#{mail_mark} order by mail_no desc
 	</select>
 	
 	<select id="selectMarkMailTotalContents" resultType="_int">
-		select count(*) from mail  where mail_to_email = #{mail_to_email} and mail_todel = 'N' and mail_mark=#{mail_mark} order by mail_no desc
+		select count(*) from mail  where mail_to_email = #{emp_email} and mail_todel = 'N' and mail_mark=#{mail_mark} order by mail_no desc
 	</select>
 	
-	<select id="selectReceiveMailList" parameterType="Map" resultMap="mailMap">
-		select * from mail where mail_to_email = #{mail_to_email} and mail_todel = 'N' order by mail_no desc
+	<select id="selectReceiveMailList" parameterType="string" resultType="mail">
+		select * from mail where mail_to_email = #{emp_email} and mail_todel = 'N' order by mail_no desc
 	</select>
 	
 	<select id="selectReceiveMailTotalContents" resultType="_int">
-		select count(*) from mail  where mail_to_email = #{mail_to_email} and mail_todel = 'N' order by mail_no desc
+		select count(*) from mail  where mail_to_email = #{emp_email} and mail_todel = 'N' order by mail_no desc
 	</select>
 	
-	<select id="selectDeleteMailList" parameterType="Map" resultMap="mailMap">
-		select * from mail where mail_to_email = #{mail_to_email} and mail_todel = 'Y' order by mail_no desc
+	<select id="selectDeleteMailList" parameterType="string" resultType="mail">
+		select * from mail where mail_to_email = #{emp_email} and mail_todel = 'Y' order by mail_no desc
 	</select>
 	
 	<select id="selectDeleteMailTotalContents" resultType="_int">
-		select count(*) from mail  where mail_to_email = #{mail_to_email} and mail_todel = 'Y' order by mail_no desc
+		select count(*) from mail  where mail_to_email = #{emp_email} and mail_todel = 'Y' order by mail_no desc
 	</select>
-	<select id="selectSendMailList" parameterType="Map" resultMap="mailMap">
+	<select id="selectSendMailList" parameterType="Map" resultType="mail">
 		select * from mail where mail_from_email = #{mail_from_email} and mail_fromdel = 'N' order by mail_no desc
 	</select>
 	

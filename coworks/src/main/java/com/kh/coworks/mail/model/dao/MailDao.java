@@ -9,10 +9,10 @@ import com.kh.coworks.mail.model.vo.MailAttach;
 
 public interface MailDao {
 
-	List<Map<String,String>> selectReceiveMailList(int cPage,int limit , String emp_email);
-	int selectReceiveMailTotalContents();
-	List<Map<String,String>> selectSendMailList(int cPage,int limit , String emp_email);
-	int selectSendMailTotalContents();
+	List<Mail> selectReceiveMailList(int cPage,int limit , String emp_email);
+	int selectReceiveMailTotalContents(String emp_email);
+	List<Mail> selectSendMailList(int cPage,int limit , String emp_email);
+	int selectSendMailTotalContents(String emp_email);
 	int mailFormEnd(Mail mail);
 	int insertMailAttach(MailAttach att);
 	Mail selectOneMail(int mail_no);
@@ -22,15 +22,15 @@ public interface MailDao {
 	int deleteToMail(int mail_no);
 	int readMail(int mail_no);
 	int readCount(String emp_email);
-	List<Map<String, String>> selectDeleteMailList(int cPage, int limit, String emp_email);
-	int selectDeleteMailTotalContents();
+	List<Mail> selectDeleteMailList(int cPage, int limit, String emp_email);
+	int selectDeleteMailTotalContents(String emp_email);
 	int updateMark(Mail mail);
-	List<Map<String, String>> selectMarkMailList(int cPage, int limit, Mail mail);
+	List<Mail> selectMarkMailList(int cPage, int limit, Mail mail);
 	int selectMarkMailTotalContents(Mail mail);
 	int deleteMailAttach(int mail_no);
 	int updateEmail(Employee emp);
 	int updateStar(Mail mail);
-	List<Map<String, String>> selectStarMailList(int cPage, int limit, Mail mail);
+	List<Mail> selectStarMailList(int cPage, int limit, Mail mail);
 	int selectStarMailTotalContents(Mail mail);
 	
 }
