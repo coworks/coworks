@@ -48,10 +48,10 @@ table tbody tr {
 					</button>
 					<div class="printArea">
 						<div class="navbar-header">
-							<a class="navbar-brand"> <!-- Logo icon --> <b> <img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" class="dark-logo"
+							<a class="navbar-brand-a"> <!-- Logo icon --> <b> <img src="${pageContext.request.contextPath}/resources/images/coworks_logo.PNG" alt="homepage" 
 									style="width: 33px; height: 34px"
 								/> <!-- Light Logo icon -->
-							</b> <!--End Logo icon --> <!-- Logo text --> <span> <!-- dark Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" alt="homepage" class="dark-logo"
+							</b> <!--End Logo icon --> <!-- Logo text --> <span> <!-- dark Logo text --> <img src="${pageContext.request.contextPath}/resources/images/coworks_logoT.PNG" alt="homepage" 
 									style="width: 148px; height: 25px"
 								/> <!-- Light Logo text -->
 							</span>

@@ -125,7 +125,12 @@ public class PayController {
 		excel.setStartRow(0);
 		List<Map<String, String>> list = null;
 		list = er.read(excel);
-		System.out.println(list.get(0).get("A"));
+		System.out.println(list.get(0));
+		System.out.println(list.get(1));
+		System.out.println(list.get(2));
+		System.out.println(list.get(3));
+		System.out.println(list.get(4));
+		System.out.println(list.get(5).get("A"));
 //		JSONArray json = new JSONArray();
 //		json.addAll(list);
 //		System.out.println("json : " + json);
@@ -174,7 +179,7 @@ public class PayController {
 //		System.out.println(tempdate);
 //		java.sql.Date date = java.sql.Date.valueOf(tempdate);
 		System.out.println(date);
-		for (int i = 3; i < list.size() - 1; i++) {
+		for (int i = 2; i < list.size() - 1; i++) {
 
 			pay = new Pay();
 			pay.setEmp_no(Integer.parseInt(list.get(i).get("A")));
@@ -200,6 +205,7 @@ public class PayController {
 			pay.setPay_date(sqlDate);
 
 			payService.insertPay(pay);
+			System.out.println("PAYROLL 저장");
 		}
 		return "redirect:employeeList.do";
 	}

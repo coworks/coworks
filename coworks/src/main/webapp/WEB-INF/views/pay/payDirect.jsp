@@ -50,7 +50,7 @@
 				<!-- Column -->
 				<div class="card">
 					<div class="card-body">
-						<h2 class="card-title" id="subtitle">급여 명세서 목록</h2>
+						<h2 class="card-title" id="subtitle">급여 명세서 입력</h2>
 						<form action="${pageContext.request.contextPath }/pay/payDirectSetInfo.do" id="payInfo" method="post">
 						<div style="height:100px;" class="col-12">
 							<div class="col-12"  style="height:50%;"  >
@@ -202,7 +202,7 @@
 		for(var pair of form.entries()) {
 			   console.log(pair[0]+ ', '+ pair[1]); 
 			}
-		//$('#payInfo').submit();
+		$('#payInfo').submit();
 	}
 	$("[name=emp_no]").on("blur",function(){
 		var emp_no = $(this).val();

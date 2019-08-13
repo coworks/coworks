@@ -385,7 +385,6 @@ public class MailController {
 			Message[] temp = mailSetting.receiveSetting(request);
 			int len = temp.length;
 			attachments = attachMailCheck(temp[len - mail_no - 1], mail_no, request);
-			System.out.println("attachList : "+attachments.get(0));
 			model.addAttribute("mail", mailList.get(mail_no)).addAttribute("type", type).addAttribute("attachList",
 					attachments);
 
@@ -671,12 +670,17 @@ public class MailController {
 		// 외부에서 내부로 메일 저장하기
 		// 마크별 메일 보기
 		System.out.println("Store Mail 실행중");
+		int[] chkMailsNum = new int[chkMails.length];
 		System.out.println(chkMails.getClass());
 		if (chkMails != null)
-			for (String no : chkMails) {
+			
+			for (int i = 0  ; i < chkMails.length;i++) {
+				chkMailsNum[ chkMails.length-i-1] = Integer.parseInt(chkMails[i]);
+			}
+			
+			for (int mail_no : chkMailsNum) {
 				Message[] temp = mailSetting.receiveSetting(request);
 				int len = temp.length;
-				int mail_no = Integer.parseInt(no);
 				Message message = temp[len - mail_no - 1];
 				List list = attachMailCheck(message, mail_no, request);
 				mailService.mailFormEnd(mailList.get(mail_no), list);
