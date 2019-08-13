@@ -37,7 +37,7 @@
 								<div style="width: 80%; margin-left: auto; margin-right: auto;">
 									<h2 class="card-title mb-5">지출 품의서 수정하기</h2>
 
-									<form id="tableForm" onsubmit="return check()">
+									<form id="tableForm">
 										<div class="table-responsive mt-2">
 											<c:import url="./common/approvalHeader.jsp" />
 											<table class="table table-bordered no-wrap">
@@ -78,7 +78,7 @@
 										<c:import url="./common/approvalSignModal.jsp" />
 
 										<div align="right">
-											<input type="submit" value="수정하기" class="btn btn-info" /> <input type="button" value="취소" class="btn btn-danger" onclick="javascript:history.back()" />
+											<input type="button" id="submit" value="수정하기" class="btn btn-info" /> <input type="button" value="취소" class="btn btn-danger" onclick="javascript:history.back()" />
 										</div>
 									</form>
 								</div>
@@ -113,6 +113,8 @@
 				.on(
 						'click',
 						function() {
+							if(tableCheck() == false)
+								return false;
 							var myForm = $('#tableForm')[0];
 							var formData = new FormData(myForm);
 

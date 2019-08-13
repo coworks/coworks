@@ -67,7 +67,7 @@ function tableCheck() {
 		return;
 	}
 
-	$('#row1 td').each(function(i, e) {
+	$('#row1 input').each(function(i, e) {
 		if ($(this).val() == "") {
 			alert("내용을 입력하세요");
 			result = false;
