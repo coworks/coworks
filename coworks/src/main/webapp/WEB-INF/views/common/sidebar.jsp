@@ -108,9 +108,12 @@
 								신청 현황</a></li>
 
 					</ul></li>
+					<c:set var="auapproval" value="${sessionScope.authority.auth_approval}" />
+					<c:if test="${auapproval eq 'Y'}">
 				<li><a href="${pageContext.request.contextPath}/survey/surveyList.do" aria-expanded="false"><i
 						class="mdi mdi-file-chart"></i><span class="hide-menu">설문조사</span></a>
 				</li> 
+				</c:if>
 				<c:set var="auper" value="${sessionScope.authority.auth_personnal}" />
 				<c:if test="${auper eq 'Y'}">
 					<li><a

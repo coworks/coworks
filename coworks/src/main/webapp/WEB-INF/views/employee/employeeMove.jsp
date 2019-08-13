@@ -161,9 +161,9 @@
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="auth_approval"
 															class="custom-control-input" id="emp_authority6"
-															value="결재서류"
+															value="설문조사"
 															<%=authority != null && authority.getAuth_approval().equals("Y") ? "checked" : ""%>>
-														<label class="custom-control-label" for="emp_authority6">결재서류</label>
+														<label class="custom-control-label" for="emp_authority6">설문조사</label>
 													</div>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" name="auth_authority"
