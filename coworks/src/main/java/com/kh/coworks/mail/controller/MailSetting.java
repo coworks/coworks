@@ -66,8 +66,6 @@ public class MailSetting {
 		Authenticator auth = new MailAuth(request);
 		host = emp.getEmp_email().substring(emp.getEmp_email().lastIndexOf("@") + 1);
 		host = "smtp." + host;
-		System.out.println("host sending mail" + host);
-		System.out.println("sending mail 실행");
 		Properties prop = System.getProperties();
 		prop.put("mail.smtp.starttls.enabled", "true");
 		// 로그인시 TLS 사용 여부
@@ -92,15 +90,10 @@ public class MailSetting {
 
 	public MimeMessage sendingSetting(String emp_email, String emp_emailpassword) {
 		String host = "";
-		System.out.println("host L " + host);
-		System.out.println("sending setting : email : " + emp_email);
-		System.out.println("sending setting : emp_emailpassword : " + emp_emailpassword);
 
 		auth = new MailAuth(emp_email, emp_emailpassword);
 		host = emp_email.substring(emp_email.lastIndexOf("@") + 1);
 		host = "smtp." + host;
-		System.out.println("host sending mail" + host);
-		System.out.println("sending mail 실행");
 		Properties prop = System.getProperties();
 		prop.put("mail.smtp.starttls.enabled", "true");
 		// 로그인시 TLS 사용 여부
@@ -113,11 +106,6 @@ public class MailSetting {
 		// TLS 의 포트번호는 587 // SSL 은 465
 		prop.put("mail.smtp.starttls.required", "true");
 
-		System.out.println("h " + host);
-		System.out.println("a " + auth);
-		System.out.println("auth email : " + emp_email);
-		System.out.println("auth pass : " + emp_emailpassword);
-		
 		Session psession = Session.getDefaultInstance(prop, auth);
 		psession.setDebug(true);
 		
@@ -126,17 +114,16 @@ public class MailSetting {
 		return msg;
 	}
 
-	public Message[] receiveSetting(String emp_email, String emp_emailpassword) throws MessagingException {
+	public Message[] receiveSetting(String emp_email, String emp_emailpassword) 
+												throws MessagingException {
 		String host = "";
 
-		System.out.println("receve " + host);
 		Message[] messages = null;
 		auth = new MailAuth(emp_email, emp_emailpassword);
 		Properties prop = System.getProperties();
 
 		host = emp_email.substring(emp_email.lastIndexOf("@") + 1);
 		host = "pop." + host;
-		System.out.println("receve " + host);
 
 		prop.put("mail.pop3.host", host);
 		prop.put("mail.pop3.port", "995");
@@ -151,7 +138,6 @@ public class MailSetting {
 		Folder emailFolder = store.getFolder("INBOX");
 		emailFolder.open(Folder.READ_ONLY);
 		messages = emailFolder.getMessages();
-		// TODO Auto-generated catch block
 		return messages;
 	}
 }
