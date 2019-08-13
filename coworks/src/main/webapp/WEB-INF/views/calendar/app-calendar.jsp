@@ -580,6 +580,8 @@
                                              .val(end.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS')); 
                                     
                                     });
+                        
+                        console.log(form.find('#cal_color').val());
                         $this.$modal.modal({
                            backdrop : 'static'
                         });
@@ -615,18 +617,20 @@
                                        //$this.$modal.on('submit', function () {
                                        calEvent.title = form.find("input[name=title]").val();
                                        calEvent.start = form.find("input[name=cal_beginDate2]").val();
-                                       console.log(calEvent.start);
+                                        
                                        calEvent.end = form.find("input[name=cal_endDate2]").val();
                                        calEvent.content = form.find("textarea[type=text]").val();
                                        calEvent.cal_color=form.find("select[name=cal_color]").val();
                                        calEvent.cal_type=form.find("select[name=cal_type]").val();
-                                       
+                                       console.log(calEvent.cal_color);
+                                       console.log(calEvent.cal_type);
+                                       console.log(calEvent.start);
+                                       console.log(calEvent.end);
                                        if(calEvent.start==calEvent.end){ 
                                           alert("시간은 30분이상 차이나야 합니다.");
                                        }else{
                                           
-                                          $this.$calendarObj.fullCalendar('updateEvent',calEvent);
-                                          $this.$modal.modal('hide');
+                                          
                                        $.ajax({
                                                 url : "${pageContext.request.contextPath}/calendar/updateCalendar2.do",
                                                 data : {
@@ -651,6 +655,9 @@
                                              });
                                        
                                        return result;
+                                       
+                                       $this.$calendarObj.fullCalendar('updateEvent',calEvent);
+                                       $this.$modal.modal('hide');
                                        }
                                     });
                      },
