@@ -90,13 +90,12 @@
 											<span class="input-group-addon btn btn-secondary btn-file"> <span class="fileinput-new">선택하기</span> <span class="fileinput-exists">바꾸기</span> <input type="file" name="...">
 											</span> <a href="#" class="input-group-addon btn btn-danger fileinput-exists ml-1" data-dismiss="fileinput">삭제</a>
 										</div> -->
-										<input type="file" id="input-file-now-custom-1" class="dropify" name="signature" data-default-file="${pageContext.request.contextPath }/resources/approval/empSign/${ sessionScope.employee.emp_signature }" required="required" />
+										<input type="file" id="input-file-now-custom-1" class="dropify" name="signature" data-default-file="${pageContext.request.contextPath }/resources/approval/empSign/${ sessionScope.employee.emp_signature }"/>
 
 									</div>
 
 									<div align="center">
 										<input type="submit" value="수정하기" class="btn btn-outline-info" /> &nbsp;&nbsp;&nbsp;
-										<input type="reset" value="초기화" class="btn btn-outline-success" /> &nbsp;&nbsp;&nbsp;
 										<input type="button" value="취소" class="btn btn-outline-dark"
 											onclick="javascript:history.back();"
 										/>
@@ -121,6 +120,13 @@
 
 		function check() {
 			if ($("#pre_password") != null) {
+				if($("#new_password").val()!=""||$("#new_password").val()!=undefined){
+					if($("#new_password").val().length < 4){
+						alert('비밀번호는 최소 4자리 이상입니다');
+						return false;
+					}
+				}
+				
 				if ($("#pre_password").val() == $("#hiddenPw").val()) {
 					if ($("#new_password").val() == $("#emp_password").val()) {
 
@@ -142,8 +148,8 @@
 
 			console.log(file);
 
-			if (file == null || file == undefined || file == "")
-				return false;
+			if (file == null || file == undefined || file == ""){
+			}else{
 
 			var extFile = file.substr(file.lastIndexOf(".") + 1, file.length)
 					.toLowerCase();
@@ -155,7 +161,7 @@
 				$('input[name=signature]').val("").focus();
 
 				return false;
-			}
+			}}
 
 		};
 
