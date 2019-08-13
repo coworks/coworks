@@ -218,6 +218,29 @@
 											</form>
 										</div>
 									</div>
+									<!-- BEGIN MODAL -->
+						            <div class="modal none-border" id="my-event2">
+						               <div class="modal-dialog">
+						                  <div class="modal-content">
+						                     <div class="modal-header">
+						                        <h4 class="modal-title">
+						                           <strong>일정 추가</strong>
+						                        </h4>
+						                        <button type="button" class="close" data-dismiss="modal"
+						                           aria-hidden="true">&times;</button>
+						                     </div>
+						                     <div class="modal-body"></div>
+						                     <div class="modal-footer">
+						                        <button type="button" class="btn btn-white waves-effect"
+						                           data-dismiss="modal">닫기</button>
+						                        <button type="button"
+						                           class='btn btn-success save-event waves-effect waves-light'>
+						                           <i class='fa fa-check'></i> 추가
+						                        </button> 
+						                     </div>
+						                  </div>
+						               </div>
+						            </div>
 									<!-- /.modal -->
 									<ul class="list-task todo-list list-group mb-0"
 										data-role="tasklist">
@@ -520,6 +543,7 @@
 	        this.$categoryForm = $('#add-new-event form'),
 	        this.$extEvents = $('#calendar-events'),
 	        this.$modal = $('#my-event'),
+	        //this.$modal = $('#my-event2'),
 	        this.$saveCategoryBtn = $('.save-category'),
 	        this.$calendarObj = null
 	    };
@@ -546,116 +570,213 @@
 	            }
 	    },
 	    /* on click on event */
-	    CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-	    	 var $this = this; 
-	           var startdate=moment(calEvent.start,'YYYY-MM-DD  HH:mm');
-	           var enddate=moment(calEvent.end,'YYYY-MM-DD  HH:mm');
-	               var form = $("<form></form>");
-	              /*  form.append("<div><label>기간 :&nbsp;&nbsp;</label><span>"+startdate.format('YYYY-MM-DD  HH:mm')+" - "+enddate.format('YYYY-MM-DD  HH:mm')+"</span></div>")
-	               */ 
-	               form.append("<div><label>제목</label><div><div class='input-group'><input class='form-control' name='title' type='text' value='" + calEvent.title + "' /> </div></br>");
-	               form.append("<div><label>내용</label><div><div><textarea class='form-control' name='content' row='3' type='text'>"+ calEvent.content+"</textarea>");
-	               form.append("<div><label>날짜</label><div><div class='input-group mb-5' style='float:both;'><input type='text' name='datetime' class='form-control datetime/><div class='input-group-append'><span class='input-group-text'><span class='ti-calendar'></span></span></div>");
-	              form.append("<input type='hidden' id='cal_beginDate2' name='cal_beginDate2' value='"+$.fullCalendar.formatDate(calEvent.start, 'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+"'/><input type='hidden' id='cal_endDate2' name='cal_endDate2' value='"+$.fullCalendar.formatDate(calEvent.end, 'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+"'/>"); 
-	               $this.$modal.modal({
-	                   backdrop: 'static'
-	               });
-	               
-	               
-	           
-	               form.find('input[name=datetime]').daterangepicker({
-	                        
-	                        timePicker: true,
-	                        timePickerIncrement: 30,
-	                        startDate: calEvent.start,   // default주기
-	                        endDate :calEvent.end,
-	                        locale: {
-	                            format: 'YY/MM/DD HH:mm'
-	                        }
-	                    }, 
-	                    function(start, end) { 
-	                    (form.find("input[name=cal_beginDate2]")).val(start.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
-	                    (form.find("input[name=cal_endDate2]")).val(end.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
-	                    // $('#cal_endDate2').val(end.format('YYYY-MM-DD HH:mm:ss'));
-	                     console.log(start.format('YYYY-MM-DD HH:mm:ss')) + ' - ' + end.format(end.format('YYYY-MM-DD HH:mm:ss'));
-	                     
-	                    }
-	                   );
-	                  
-	               
-	            
-	               
-	               $this.$modal.find('.delete-event').show().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function () {
-	                  
-	                  $this.$calendarObj.fullCalendar('removeEvents', function (ev) {
-	                      // cal_no받은것 input에넣기
-	                         console.log(calEvent);
-	                            console.log(calEvent.id);   // 삭제할 id찾기
-	                      console.log(calEvent);   
-	                         var result=(ev.id == calEvent.id);
-	                       $.ajax({
-	                       
-	                       url : "${pageContext.request.contextPath}/calendar/deleteCalendar.do",
-	                       data : {cal_no : calEvent.id},
-	                       dataType : "json",
-	                       async:false,
-	                       success : function(data){
-	                           console.log("삭제??");
-	                       },error: function(data){
-	                          result=false;
-	                       }
-	                       
-	                       
-	                });  
-	                       return result;
-	                   });
-	                    $this.$modal.modal('hide');
-	               });
-	               
-	               var result;
-	               // 일정 칸 클릭시 해당 일정 내용 수정
-	               $this.$modal.find('.save-event').unbind('click').click(function () {
-	               //$this.$modal.on('submit', function () {
-	                   calEvent.title = form.find("input[name=title]").val();
-	                   calEvent.start = form.find("input[name=cal_beginDate2]").val();
-	                   console.log(calEvent.start); 
-	                   
-	                   calEvent.end = form.find("input[name=cal_endDate2]").val();
-	                   calEvent.content = form.find("textarea[type=text]").val();
-	                   $this.$calendarObj.fullCalendar('updateEvent', calEvent);
-	                   $this.$modal.modal('hide');
-	                   
-	                   $.ajax({
-	                    	url : "${pageContext.request.contextPath}/calendar/updateCalendar2.do",
-	                    	data : {cal_no:calEvent.id, cal_name:calEvent.title, cal_content:calEvent.content,
-	                          		cal_beginDate:calEvent.start, cal_endDate:calEvent.end},
-		                    type:"post",
-		                    dataType : "json",
-		                    async:false,
-		                    success : function(data){
-		                       
-		                         result=false;
-		                         console.log(result);
-		                         
-		                    },error: function(data){
-		                       
-		                    
-	                       result=true;
-	                        console.log(result);
-	                    }
-	                   
-	                   });
-	                   
-	                   return result;
-	               });
-	    },
-	    /* on select */
-	    CalendarApp.prototype.onSelect = function (start, end, allDay) {
-           var $this = this;
-           
-               $this.$calendarObj.fullCalendar('unselect');
-        
-	    },
+	   /* on click on event */
+                     CalendarApp.prototype.onEventClick = function(
+                           calEvent, jsEvent, view) {
+						console.log(calEvent);
+                        console.log($('input[name=calcate_no]').val());
+                         var $this = this;
+                        var today = new Date($.now());
+                        if (calEvent.end == null) {
+                           calEvent.end = today;
+                        }
+                        var startdate = moment(calEvent.start,
+                              'YYYY-MM-DD  HH:mm');
+                        var enddate = moment(calEvent.end,
+                              'YYYY-MM-DD  HH:mm');
+                        //   (startdate+","+enddate+","+calEvent.content+","+calEvent.title); 확인용
+                        var form = $("<form></form>");
+                        /*  form.append("<div><label>기간 :&nbsp;&nbsp;</label><span>"+startdate.format('YYYY-MM-DD  HH:mm')+" - "+enddate.format('YYYY-MM-DD  HH:mm')+"</span></div>")
+                         */
+                        form.append("<div><label>제목</label><div><div class='input-group'><input class='form-control' name='title' type='text' value='" + calEvent.title + "' /> </div></br>");
+                        form.append("<div><label>내용</label><div><div><textarea class='form-control' name='content' row='3' type='text'>"
+                                    + calEvent.content
+                                    + "</textarea>");
+                        form.append("<div><label>색상</label><div>");
+                        var select=$("<select class='form-control' id='cal_color' name='cal_color'>");
+                        select.append("<option value='bg-danger'>빨강</option>");
+                        select.append("<option value='bg-success'>초록</option>");
+                        select.append("<option value='bg-purple'>보라</option>");
+                        select.append("<option value='bg-info'>파랑</option>");
+                        select.append("<option value='bg-warning'>노랑</option>");
+                        form.append(select);
+                        form.append("<div><label>분류</label><div>");
+                        var select2=$("<select class='form-control' id='cal_type' name='cal_type'>"); 
+                        select2.append("<option value='개인'>개인</option>");
+                        select2.append("<option value='부서'>부서</option>");
+                        select2.append("<c:if test='${sessionScope.authority.auth_cal eq "Y"}'>");
+                        select2.append("<option value='회사'>회사</option>");
+                        select2.append("</c:if>");
+                        form.append(select2);
+                        form.find('#cal_color').val(calEvent.className);
+                        form.find('#cal_type').val(calEvent.type);
+                        form.append("<div><label>날짜</label><div><div class='input-group mb-5' style='float:both;'><input type='text' name='datetime' class='form-control datetime/><div class='input-group-append'><span class='input-group-text'><span class='ti-calendar'></span></span></div>");
+                        form.append("<input type='hidden' id='cal_beginDate2' name='cal_beginDate2' value='"+ $.fullCalendar
+                                 .formatDate(calEvent.start,'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+ "'/><input type='hidden' id='cal_endDate2' name='cal_endDate2' value='"
+                                 + $.fullCalendar.formatDate(calEvent.end,'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+ "'/>");
+                        form.find('input[name=datetime]').daterangepicker({
+                                       timePicker : true,
+                                       timePickerIncrement : 30,
+                                       startDate : calEvent.start, // default주기
+                                       endDate : calEvent.end,
+                                       locale : {
+                                          format : 'YY/MM/DD HH:mm'
+                                       }
+                                    },
+                                    function(start, end) {
+                                       (form.find("input[name=cal_beginDate2]"))
+                                             .val(start.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
+                                       (form.find("input[name=cal_endDate2]"))
+                                             .val(end.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
+                                       // $('#cal_endDate2').val(end.format('YYYY-MM-DD HH:mm:ss'));
+                                    
+                                    });
+                        $this.$modal.modal({
+                           backdrop : 'static'
+                        });
+                        $this.$modal.find('.delete-event').show().end().find('.save-event').show().end()
+                              .find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click')
+                              .click(function() {
+                                       $this.$calendarObj.fullCalendar('removeEvents',function(ev) {
+                                                      // cal_no받은것 input에넣기
+                                                      console.log(calEvent);
+                                                      console.log(calEvent.id); // 삭제할 id찾기
+                                                      console.log(calEvent);
+                                                      var result = (ev.id == calEvent.id);
+                                                      $.ajax({
+                                                               url : "${pageContext.request.contextPath}/calendar/deleteCalendar.do",
+                                                               data : {cal_no : calEvent.id},
+                                                               dataType : "json",
+                                                               async : false,
+                                                               success : function(data) {
+                                                               },
+                                                               error : function(data) {
+                                                                  result = false;
+                                                               }
+                                                            });
+                                                      return result;
+                                                   });
+                                       $this.$modal.modal('hide');
+                                    });
+                        var result;
+                        // 일정 칸 클릭시 해당 일정 내용 수정
+                        $this.$modal.find('.save-event').unbind('click').click(function() {
+                                       
+                                             
+                                       //$this.$modal.on('submit', function () {
+                                       calEvent.title = form.find("input[name=title]").val();
+                                       calEvent.start = form.find("input[name=cal_beginDate2]").val();
+                                       console.log(calEvent.start);
+                                       calEvent.end = form.find("input[name=cal_endDate2]").val();
+                                       calEvent.content = form.find("textarea[type=text]").val();
+                                       calEvent.cal_color=form.find("select[name=cal_color]").val();
+                                       calEvent.cal_type=form.find("select[name=cal_type]").val();
+                                       
+                                       if(calEvent.start==calEvent.end){ 
+                                          alert("시간은 30분이상 차이나야 합니다.");
+                                       }else{
+                                          
+                                          $this.$calendarObj.fullCalendar('updateEvent',calEvent);
+                                          $this.$modal.modal('hide');
+                                       $.ajax({
+                                                url : "${pageContext.request.contextPath}/calendar/updateCalendar2.do",
+                                                data : {
+                                                   cal_no : calEvent.id,
+                                                   cal_name : calEvent.title,
+                                                   cal_content : calEvent.content,
+                                                   cal_beginDate : calEvent.start,
+                                                   cal_endDate : calEvent.end,
+                                                   cal_color:calEvent.cal_color,
+                                                   cal_type:calEvent.cal_type
+                                                },
+                                                type : "post",
+                                                dataType : "json",
+                                                async : false,
+                                                success : function(data) {
+
+                                                    location.href="${pageContext.request.contextPath}/commonProcessing.do";
+                                                },
+                                                error : function(data) {
+                                                   result = true;
+                                                }
+                                             });
+                                       
+                                       return result;
+                                       }
+                                    });
+                     },
+                     /* on select */
+                     CalendarApp.prototype.onSelect = function(start,
+                           end, allDay) {
+                        var $this = this;
+                        console.log(start);
+                        console.log(end);
+                     /*      $this.$modal2.modal({
+                                  backdrop: 'static'
+                              });
+                              var form2 = $("<form action='${pageContext.request.contextPath}/calendar/insertCalendar.do' method='post'></form>"); 
+                            
+                        form2.append("<div><label>제목</label><div><div class='input-group'><input class='form-control' id= 'cal_name' name='cal_name' type='text'/> </div></br>");
+                        form2.append("<div><label>내용</label><div><div><textarea class='form-control' id='cal_content' name='cal_content' row='3' type='text'></textarea>");
+                        form2.append("<div><label>색상</label><div>");
+                        var select=$("<select class='form-control' id='cal_color' name='cal_color'>");
+                        select.append("<option value='bg-danger'>빨강</option>");
+                        select.append("<option value='bg-success'>초록</option>");
+                        select.append("<option value='bg-purple'>보라</option>");
+                        select.append("<option value='bg-info'>파랑</option>");
+                        select.append("<option value='bg-warning'>노랑</option>");
+                        form2.append(select);
+                        form2.append("<div><label>분류</label><div>");
+                        var select2=$("<select class='form-control' id='cal_type' name='cal_type'>"); 
+                        select2.append("<option value='개인'>개인</option>");
+                        select2.append("<option value='부서'>부서</option>");
+                        select2.append("<c:if test='${sessionScope.authority.auth_cal eq "Y"}'>");
+                        select2.append("<option value='회사'>회사</option>");
+                        select2.append("</c:if>");
+                        form2.append(select2);
+                        form2.append("<div><label>날짜</label><div><div class='input-group mb-5' style='float:both;'><input type='text' name='datetime' id='date2' class='form-control datetime/><div class='input-group-append'><span class='input-group-text'><span class='ti-calendar'></span></span></div>");
+                        form2.append("<input type='hidden' id='cal_beginDate' name='cal_beginDate'/><input type='hidden' id='cal_endDate' name='cal_endDate'/>");
+
+                        form2.find('input[name=datetime]').daterangepicker({
+                                       timePicker : true,
+                                       timePickerIncrement : 30, 
+                                       locale : {
+                                          format : 'YY/MM/DD HH:mm'
+                                       },
+                                       startDate :start,
+                                       endDate:end
+                                    },
+                                    function(start, end) {
+                                    
+                                    });
+                        
+
+                         (form2.find('input[id=date2]')).val(start.format('YYYY/MM/DD HH:mm') + " - "+end.format('YYYY/MM/DD HH:mm') );
+                        (form2.find("input[name=cal_beginDate]"))
+                              .val(start.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
+                        (form2.find("input[name=cal_endDate]"))
+                              .val(end.format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
+                        // $('#cal_endDate2').val(end.format('YYYY-MM-DD HH:mm:ss')); 
+                        console.log(form2.find("input[name=cal_beginDate]")
+                        .val());
+                        console.log(form2.find("select[name=cal_color]")
+                              .val());
+                        console.log(form2.find("select[name=cal_type]")
+                              .val());
+                         console.log((form2.find("input[name=cal_beginDate]")).val());
+                              $this.$modal2.find('.save-event').show().end().find('.modal-body').empty().prepend(form2).end().find('.save-event').unbind('click').click(function () {
+                             
+                                 form2.submit();
+                                  
+                              });
+                              $this.$modal2.find('form2').on('submit', function () {
+                                 
+                                  return false;
+                                  
+                              });
+                         */
+                        $this.$calendarObj.fullCalendar('unselect');
+                     },
 	    CalendarApp.prototype.enableDrag = function() {
 	        //init events
 	        $(this.$event).each(function () {
@@ -703,7 +824,8 @@
 	               start   :  '${calendar.cal_beginDate}',   // 시작일
 	               end      :  '${calendar.cal_endDate}',   // 종료일
 	               className : '${calendar.cal_color}',   // 색상변경(탬플릿적용 색)
-	               id:'${calendar.cal_no}'   // id값 넣어야 삭제가능...ㅠ
+	               id:'${calendar.cal_no}',  // id값 넣어야 삭제가능...ㅠ
+	               type:'${calendar.cal_type}'
 	               
 	               
 	           })

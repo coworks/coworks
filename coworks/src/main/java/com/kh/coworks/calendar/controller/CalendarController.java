@@ -94,7 +94,7 @@ public class CalendarController {
 	public ModelAndView insertCalendar(Calendar calendar,ModelAndView mv,HttpServletRequest request) throws CalendarException {
 		
 		Employee employee=(Employee) request.getSession().getAttribute("employee"); //안쓸듯..
-		 
+	 
 		// 나중에 11에  emp_no 세션받아서 보내야함
 		if((calendar.getCal_type()).equals("부서")) {
 			calendar.setCal_holder(employee.getDept_code());	// 부서코드 넣기 나중에수정
@@ -189,6 +189,17 @@ public class CalendarController {
 		 
 		 //업데이트할 자료 확인
 		System.out.println("업데이트할자료 2 : "+calendar);
+		 
+		// 나중에 11에  emp_no 세션받아서 보내야함
+		if(calendar.getCal_type().equals("부서")) {
+			calendar.setCal_holder(employee.getDept_code());	// 부서코드 넣기 나중에수정
+		}else if(calendar.getCal_type().equals("회사")){
+		
+			calendar.setCal_holder("회사");
+		}else {
+		
+			calendar.setCal_holder(Integer.toString(employee.getEmp_no()));	 
+		} 
 		int result=calService.updateCalendar2(calendar);
 		  
 	

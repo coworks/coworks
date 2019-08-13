@@ -255,7 +255,7 @@
 
             <!-- BEGIN MODAL -->
             <div class="modal none-border" id="my-event">
-               <div class="modal-dialog modal-dialog-centered">
+               <div class="modal-dialog">
                   <div class="modal-content">
                      <div class="modal-header">
                         <h4 class="modal-title">
@@ -281,7 +281,7 @@
             </div>
             <!-- BEGIN MODAL -->
             <div class="modal none-border" id="my-event2">
-               <div class="modal-dialog modal-dialog-centered">
+               <div class="modal-dialog">
                   <div class="modal-content">
                      <div class="modal-header">
                         <h4 class="modal-title">
@@ -522,7 +522,7 @@
                      /* on click on event */
                      CalendarApp.prototype.onEventClick = function(
                            calEvent, jsEvent, view) {
-
+						console.log(calEvent);
                         console.log($('input[name=calcate_no]').val());
                          var $this = this;
                         var today = new Date($.now());
@@ -541,6 +541,24 @@
                         form.append("<div><label>내용</label><div><div><textarea class='form-control' name='content' row='3' type='text'>"
                                     + calEvent.content
                                     + "</textarea>");
+                        form.append("<div><label>색상</label><div>");
+                        var select=$("<select class='form-control' id='cal_color' name='cal_color'>");
+                        select.append("<option value='bg-danger'>빨강</option>");
+                        select.append("<option value='bg-success'>초록</option>");
+                        select.append("<option value='bg-purple'>보라</option>");
+                        select.append("<option value='bg-info'>파랑</option>");
+                        select.append("<option value='bg-warning'>노랑</option>");
+                        form.append(select);
+                        form.append("<div><label>분류</label><div>");
+                        var select2=$("<select class='form-control' id='cal_type' name='cal_type'>"); 
+                        select2.append("<option value='개인'>개인</option>");
+                        select2.append("<option value='부서'>부서</option>");
+                        select2.append("<c:if test='${sessionScope.authority.auth_cal eq "Y"}'>");
+                        select2.append("<option value='회사'>회사</option>");
+                        select2.append("</c:if>");
+                        form.append(select2);
+                        form.find('#cal_color').val(calEvent.className);
+                        form.find('#cal_type').val(calEvent.type);
                         form.append("<div><label>날짜</label><div><div class='input-group mb-5' style='float:both;'><input type='text' name='datetime' class='form-control datetime/><div class='input-group-append'><span class='input-group-text'><span class='ti-calendar'></span></span></div>");
                         form.append("<input type='hidden' id='cal_beginDate2' name='cal_beginDate2' value='"+ $.fullCalendar
                                  .formatDate(calEvent.start,'YYYY-MM-DD HH:mm:ss.SSSSSSSSS')+ "'/><input type='hidden' id='cal_endDate2' name='cal_endDate2' value='"
@@ -600,7 +618,8 @@
                                        console.log(calEvent.start);
                                        calEvent.end = form.find("input[name=cal_endDate2]").val();
                                        calEvent.content = form.find("textarea[type=text]").val();
-                                       
+                                       calEvent.cal_color=form.find("select[name=cal_color]").val();
+                                       calEvent.cal_type=form.find("select[name=cal_type]").val();
                                        
                                        if(calEvent.start==calEvent.end){ 
                                           alert("시간은 30분이상 차이나야 합니다.");
@@ -615,13 +634,16 @@
                                                    cal_name : calEvent.title,
                                                    cal_content : calEvent.content,
                                                    cal_beginDate : calEvent.start,
-                                                   cal_endDate : calEvent.end
+                                                   cal_endDate : calEvent.end,
+                                                   cal_color:calEvent.cal_color,
+                                                   cal_type:calEvent.cal_type
                                                 },
                                                 type : "post",
                                                 dataType : "json",
                                                 async : false,
                                                 success : function(data) {
-                                                   result = false;
+
+                                                    location.href="${pageContext.request.contextPath}/calendar/calendarview.do";
                                                 },
                                                 error : function(data) {
                                                    result = true;
@@ -661,7 +683,6 @@
                         select2.append("<option value='회사'>회사</option>");
                         select2.append("</c:if>");
                         form2.append(select2);
-                        form2.append("<input type='hidden' id='cal_type' name='cal_type' value='개인'/>");
                         form2.append("<div><label>날짜</label><div><div class='input-group mb-5' style='float:both;'><input type='text' name='datetime' id='date2' class='form-control datetime/><div class='input-group-append'><span class='input-group-text'><span class='ti-calendar'></span></span></div>");
                         form2.append("<input type='hidden' id='cal_beginDate' name='cal_beginDate'/><input type='hidden' id='cal_endDate' name='cal_endDate'/>");
 
@@ -744,7 +765,8 @@
                            start : '${calendar.cal_beginDate}', // 시작일
                            end : '${calendar.cal_endDate}', // 종료일
                            className : '${calendar.cal_color}', // 색상변경(탬플릿적용 색)
-                           id : '${calendar.cal_no}' // 구분값
+                           id : '${calendar.cal_no}', // 구분값
+                           type:'${calendar.cal_type}'
                         })
                         </c:forEach>
                         var $this = this;
