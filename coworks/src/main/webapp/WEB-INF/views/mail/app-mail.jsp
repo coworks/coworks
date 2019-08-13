@@ -13,7 +13,7 @@
 
 <style>
 	.pagination{
-		margin-left:350	%;
+		margin-left:350%;
 	}
    .m-center{
       margin: 0 auto;
@@ -48,7 +48,7 @@
 				</li>
 		</ol>
 	</div>
-</div>
+</div> 
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
@@ -121,6 +121,7 @@
                                                           		${m.getMail_from_email() }
                                                           	</c:if>
                                                           	</c:if>
+                                                          	
                                                           	<c:if test="${m.getMail_name() ne null }">
                                                           		${m.getMail_name() }
                                                           	</c:if>

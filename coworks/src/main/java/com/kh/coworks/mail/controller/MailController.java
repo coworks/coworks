@@ -346,10 +346,9 @@ public class MailController {
 		List<Mail> mails = mailService.selectSendMailList(cPage, limit, emp.getEmp_email());
 		int totalContents = mailService.selectSendMailTotalContents(emp.getEmp_email());
 		// 이너 메일 조회
-
 		String pageBar = Utils.getPageBar(totalContents, cPage, limit, "sendMail.do");
 
-		model.addAttribute("mails", mails).addAttribute("totalContents", totalContents)
+		model.addAttribute("mails", mails).addAttribute("totalContents", totalContents).addAttribute("emp",emp)
 				.addAttribute("numPerPage", limit).addAttribute("pageBar", pageBar).addAttribute("type", "send");
 		return "mail/app-mail";
 	}
@@ -376,7 +375,6 @@ public class MailController {
 			mailService.readMail(mail_no);
 			model.addAttribute("mail", mailService.selectOneMail(mail_no))
 					.addAttribute("attachList", mailService.selectMailAttachList(mail_no)).addAttribute("type", type);
-			System.out.println(mailService.selectMailAttachList(mail_no));
 		}
 		return "mail/app-email-detail";
 	}

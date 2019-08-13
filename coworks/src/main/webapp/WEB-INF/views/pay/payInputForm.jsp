@@ -16,6 +16,14 @@
 		<c:import url="../common/sidebar.jsp" />
 		<div class="page-wrapper">
 			<div class="container-fluid">
+			<div class="row page-titles">
+					<div class="col-md-6 col-8 align-self-center">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><span>메인페이지</span> <i
+								class="fas fa-chevron-right"></i><span class="text-info"> 급여관리</span></li>
+						</ol>
+					</div>
+				</div>
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">

@@ -62,8 +62,11 @@
                                                         <a href="javascript:void(0)"><img src="#" alt="user" width="40" class="img-circle" /></a>
                                                     </div> -->
                                                     <div class="pl-2">
-                                                        <h4 class="mb-0">From : ${mail.getMail_name() } <small class="text-muted"> &lt;${mail.getMail_from_email() } &gt;</small></h4>
-                                                        <small class="text-muted">
+                                                   
+                                                        <h4 class="mb-0">From : ${mail.getMail_name() } <small class="text-muted"> &lt;${mail.getMail_from_email() } &gt;</small>
+                                                     	&nbsp;&nbsp;&nbsp;
+                                                       To : ${mail.mail_to_email } </h4>
+                                                      
                                                         <fmt:formatDate value="${mail.getMail_sendDate()}" pattern="yyyy-MM-dd / HH:mm" />
                                                     </div>
                                                 </div>
