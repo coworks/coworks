@@ -10,7 +10,7 @@
 <style>
 	.fontw {
 		font-weight : bold;
-	}
+	} 
 </style>
 <c:import url="../common/header.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/templates/assets/plugins/dropify/dist/css/dropify.min.css">
