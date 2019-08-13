@@ -80,8 +80,8 @@ public class CommonController {
 					session.setAttribute("employee", e);
 					session.setAttribute("authority", au);
 
-//					EgovHttpSessionBindingListener listener = new EgovHttpSessionBindingListener();
-//					request.getSession().setAttribute(Integer.toString(emp_no), listener);
+					EgovHttpSessionBindingListener listener = new EgovHttpSessionBindingListener();
+					request.getSession().setAttribute(Integer.toString(emp_no), listener);
 
 					loc = "/commonProcessing.do";
 				} else {
