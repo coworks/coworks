@@ -435,7 +435,7 @@
 });
       !function($) {
                $('#cal_beginDate').val((moment().startOf('day')).format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
-               $('#cal_endDate').val((moment().endOf('day')).format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
+               $('#cal_endDate').val((moment().startOf('day').hour(6)).format('YYYY-MM-DD HH:mm:ss.SSSSSSSSS'));
                "use strict";
                var CalendarApp = function() {
                   this.$body = $("body")
