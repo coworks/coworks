@@ -36,6 +36,7 @@
 								<h4 class="card-title float-left">${sessionScope.employee.emp_name}
 									님의 근태 현황</h4>
 								<div class=" align-self-center">
+								<span id="monthshow"></span>
 									<div class="dropdown float-right ">
 										<button class="btn btn-secondary dropdown-toggle"
 											type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -98,11 +99,11 @@
 								function fnonclick(date) {
 
 									var d = date;
-									console.log(date);
 
 									location.href = "${pageContext.request.contextPath}/attendance/selectTypeAttendance.do?select_date="
 											+ date;
 
+									$('#monthshow').text(d);
 								};
 							</script>
 							</br>

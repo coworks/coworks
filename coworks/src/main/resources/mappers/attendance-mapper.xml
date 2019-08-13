@@ -20,7 +20,7 @@
 	</select>
 	
 	<select id="selectTypeAttendance" parameterType="attendance" resultType="attendance">
-		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND to_char(ATTEN_DATE,'yy/mm')= to_char(#{atten_date},'yy/mm') order by atten_no desc
+		SELECT * FROM ATTENDANCE WHERE EMP_NO=#{emp_no} AND to_char(ATTEN_DATE,'yy/mm')= to_char(#{atten_date},'yy/mm') ORDER BY ATTEN_DATE DESC
 			
 	</select>
 	
