@@ -780,8 +780,7 @@
                                  nextDayThreshold : '00:00:00', //0시이후로 하루로치기 
                                  titleFormat : 'YYYY년   M월',
                                  slotDuration : '00:30:00', 
-                                 allDaySlot: false,
-                                 locale: 'ko',
+                                 allDaySlot: false, 
                                  defaultView : 'month',
                                  handleWindowResize : true,
                                  header : {
