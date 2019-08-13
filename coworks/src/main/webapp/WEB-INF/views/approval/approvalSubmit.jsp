@@ -117,7 +117,7 @@
 											<c:set var="approveIndex" value="0" />
 												<c:forEach items="${docList}" var="doc" varStatus="vs">
 													
-													<c:if test="${doc.adoc_status == '1'}">
+													<c:if test="${doc.adoc_status == '2'}">
 														<c:set var="approveIndex" value="${approveIndex +1}" />
 														<tr onclick="location.href='${pageContext.request.contextPath}/approval/approvalDoc/v/${doc.adoc_no}'">
 
