@@ -125,7 +125,7 @@
 															<td>${doc.aform_title }</td>
 															<td>
 																<fmt:formatDate value="${doc.adoc_uploadDate }" pattern="yyyy-MM-dd HH:mm" />
-															</td>
+															</td> 
 															<td>
 																<span class="label label-success">승인</span>
 															</td>
