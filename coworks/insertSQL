@@ -58,13 +58,6 @@ Insert into BOARD (BO_NO,BO_CODE,BO_TITLE,BO_CONTENT,EMP_NO,BO_DATE,BO_STATUS) v
     
     
     
-    
-
-
-    --TODO 생성
-    INSERT INTO TODO VALUES(SEQ_TODO_NO.NEXTVAL, 12345678, '주간 업무 보고서 올리기', 0, 0);
-    INSERT INTO TODO VALUES(SEQ_TODO_NO.NEXTVAL, 12345678, '부서회의 일정 안내하기', 1, 1);
-    INSERT INTO TODO VALUES(SEQ_TODO_NO.NEXTVAL, 12345678, '교육 일정 안내하기', 2, 0);
 
     
     --결재폼 
