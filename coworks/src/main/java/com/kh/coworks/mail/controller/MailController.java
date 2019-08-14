@@ -70,7 +70,7 @@ public class MailController {
 	EmployeeService employeeService;
 
 	@RequestMapping("/mail/sendingMail.do")
-	public void sendingMail(Mail mail, Model model, List<MailAttach> list, HttpServletRequest request,
+	public void sendingMail(Mail mail, Model model, HttpServletRequest request,
 			List<MailAttach> maList) {
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
@@ -86,7 +86,10 @@ public class MailController {
 			MimeBodyPart textBodyPart = new MimeBodyPart();
 			Multipart multipart = new MimeMultipart();
 			textBodyPart.setContent(mail.getMail_content(), "text/html;charset=UTF-8");
+
+			System.out.println("maList not load");
 			for (MailAttach ma : maList) {
+				System.out.println("maList not null");
 				messageBodyPart = new MimeBodyPart();
 				String fileName = ma.getAttach_rename();
 				String file = session.getServletContext().getRealPath("/resources/mail/attach/" + fileName);
@@ -485,7 +488,7 @@ public class MailController {
 		String loc = "/mail/innerMail.do";
 		String msg = "";
 		if (result > 0) {
-			sendingMail(mail, model, list, request, list);
+			sendingMail(mail, model, request, list);
 			msg = "등록 성공!";
 		} else {
 			msg = "메일 전송 실패!";
