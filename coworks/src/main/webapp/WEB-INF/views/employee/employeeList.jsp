@@ -488,9 +488,7 @@ td th {
 	            });
 				return false;
 			}
-			
 			return true;
-			
 		}
 		
 	</script>
