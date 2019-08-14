@@ -75,7 +75,7 @@
                                                         <%-- <a href="/dm/selectOnedm.do/${m.getDm_no()}">  --%>
                                                     	<input type="text" name="dm_no" value="${dm.dm_no}" id="dm_no" hidden/>
                                                     	
-                                                        <tr class="unread dmRow" >
+                                                        <tr class="unread dmRow">
                                                             <td style="width:40px">
                                                             
                                                                 <div class="checkbox">
@@ -107,7 +107,7 @@
                                                             <td class="hidden-xs-down " > 
                                                           		${dm.dm_from_name}
                                                           	</td><!-- <a href="app-edm-detail.do"/> -->
-                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/dm/selectOneDm.do/${dm.dm_no}'"> 
+                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/dm/selectOneDm.do/${dm.dm_no}'"  style="cursor: pointer;"> 
                                                           	
                                                           		${dm.dm_subject }
                                                             </td>

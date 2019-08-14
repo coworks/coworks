@@ -129,9 +129,7 @@
 		<script
 			src="${pageContext.request.contextPath}/resources/templates/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 		<!-- 한글화 -->
-		<script
-			src="${pageContext.request.contextPath}/resources/templates/assets/plugins/calendar/lang-all.js"></script>
-
+	
 		<script>
 			!function($) {
 						"use strict";
@@ -248,7 +246,7 @@
 															console
 																	.log(calEvent.limitCnt
 																			- calEvent.curCnt);
-															alert("이미 신청하셨습니다!");
+															alert("이미 신청하셨습니다! ");
 														} else if (now
 																.getTime() >= begin
 																.getTime()

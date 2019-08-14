@@ -126,7 +126,7 @@
                                                           		${m.getMail_name() }
                                                           	</c:if>
                                                           	</td><!-- <a href="app-email-detail.do"/> -->
-                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}/${type}'"> 
+                                                            <td class="max-texts"  onclick="location.href='${pageContext.request.contextPath}/mail/selectOneMail.do/${m.getMail_no()}/${type}'"  style="cursor: pointer;"> 
                                                           	<c:if test="${m.getMail_mark() != null }">
                                                             <c:choose>
                                                             	<c:when test="${m.getMail_mark()==1}">
