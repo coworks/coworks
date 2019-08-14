@@ -103,7 +103,7 @@
 						<ul class="dropdown-user">
 
 							<li><a href="${pageContext.request.contextPath}/mypage/mypage.do"><i class="far fa-user"></i> &nbsp;&nbsp;마이 페이지</a></li>
-							<li><a href="${pageContext.request.contextPath}/pay/empListPay.do/${sessionScope.employee.emp_no}"><i class=" far fa-money-bill-alt"></i>&nbsp; 급여 명세서</a></li>
+							<li><a href="${pageContext.request.contextPath}/pay/myPay"><i class=" far fa-money-bill-alt"></i>&nbsp; 급여 명세서</a></li>
 							<li><a href="${pageContext.request.contextPath}/mypage/attendanceview.do"><i class="mdi mdi-calendar-clock"></i> &nbsp;&nbsp;근태</a></li>
 							<li><a href="${pageContext.request.contextPath}/logout.do"><i class="fa fa-power-off"></i> &nbsp;&nbsp;Logout</a></li>
 						</ul>

@@ -88,74 +88,74 @@
 											<tr class="jsgrid-row" >
 												<td class="jsgrid-cell jsgrid-align-center" >기본급</td>
 												<td class="jsgrid-cell jsgrid-align-center" >
-												<input type="number" value="0" name="pay_basepay" id="pay_basepay" class="col-10 vl plus">
+												<input type="number" value="0" name="pay_basepay" id="pay_basepay" min='0' class="col-10 vl plus">
 												</td>
 												<td class="jsgrid-cell jsgrid-align-center" >소득세</td>
 												<td class="jsgrid-cell jsgrid-align-center" >
-												<input type="number" value="0" name="pay_income" id="pay_income" class="col-10 vl minus">
+												<input type="number" value="0" name="pay_income" id="pay_income" min='0' class="col-10 vl minus">
 												</td>
 											</tr>
 											
 											<tr class="jsgrid-row" >
 												<td class="jsgrid-cell jsgrid-align-center">직책 수당</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number"  value="0" name="pay_jobtitle" id="pay_jobtitle" class="col-10 vl plus"></td>
+													<input type="number"  value="0" name="pay_jobtitle" id="pay_jobtitle" min='0' class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center">주민세</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-												<input type="number"  value="0"name="pay_resident" id="pay_resident" class="col-10 vl minus"></td>
+												<input type="number"  value="0"name="pay_resident" id="pay_resident"min='0' class="col-10 vl minus"></td>
 											</tr>
 											
 											<tr class="jsgrid-row" >
 												<td class="jsgrid-cell jsgrid-align-center">연장 수당</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_overtime" name="pay_overtime" class="col-10 vl plus"></td>
+													<input type="number" value="0" id="pay_overtime" name="pay_overtime"min='0' class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center">고용보험</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_empins" name="pay_empins" class="col-10 vl minus"></td>
+													<input type="number" value="0" id="pay_empins" name="pay_empins"min='0' class="col-10 vl minus"></td>
 											</tr>
 											
 											<tr class="jsgrid-row" >
 												<td class="jsgrid-cell jsgrid-align-center">휴일 수당</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_hollyday" name="pay_hollyday" class="col-10 vl plus"></td>
+													<input type="number" value="0" id="pay_hollyday" name="pay_hollyday"min='0' class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center">국민연금</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_nation" name="pay_nation" class="col-10 vl minus"></td>
+													<input type="number" value="0" id="pay_nation" name="pay_nation"min='0' class="col-10 vl minus"></td>
 											</tr>
 											
 											<tr class="jsgrid-row">
 												<td class="jsgrid-cell jsgrid-align-center">상여금</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_bonus" name="pay_bonus" class="col-10 vl plus"></td>
+													<input type="number" value="0" id="pay_bonus" name="pay_bonus" min='0'class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center">건강보험</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_healins" name="pay_healins" class="col-10 vl minus"></td>
+													<input type="number" value="0" id="pay_healins" name="pay_healins"min='0' class="col-10 vl minus"></td>
 											</tr>
 											<tr class="jsgrid-row" >
 												<td class="jsgrid-cell jsgrid-align-center">교통비</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_transport" name="pay_transport" class="col-10 vl plus"></td>
+													<input type="number" value="0" id="pay_transport" name="pay_transport" min='0'class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 											</tr>
 											<tr class="jsgrid-row" >
 												<td class="jsgrid-cell jsgrid-align-center">복지후생</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_welfare" name="pay_welfare" class="col-10 vl plus"></td>
+													<input type="number" value="0" id="pay_welfare" name="pay_welfare" min='0'class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 											</tr>
 											<tr class="jsgrid-row">
 												<td class="jsgrid-cell jsgrid-align-center">식대</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_meal" name="pay_meal" class="col-10 vl plus"></td>
+													<input type="number" value="0" id="pay_meal" name="pay_meal" min='0'class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 											</tr>
 											<tr class="jsgrid-row" >
 												<td class="jsgrid-cell jsgrid-align-center">기타</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_others" name="pay_others" class="col-10 vl plus"></td>
+													<input type="number" value="0" id="pay_others" name="pay_others"min='0' class="col-10 vl plus"></td>
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 											</tr>
@@ -164,15 +164,15 @@
 												<td class="jsgrid-cell jsgrid-align-center"></td>
 												<td class="jsgrid-cell jsgrid-align-center">공제 합계</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_mtotal" name="pay_mtotal"class="col-10 vl " readOnly></td>
+													<input type="number" value="0" id="pay_mtotal" name="pay_mtotal"min='0'class="col-10 vl " readOnly></td>
 											</tr>
 											<tr class="jsgrid-row">
 												<td class="jsgrid-cell jsgrid-align-center">급여 합계</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_ptotal" name="pay_ptotal" class="col-10 vl "readOnly></td>
+													<input type="number" value="0" id="pay_ptotal" name="pay_ptotal"min='0' class="col-10 vl "readOnly></td>
 												<td class="jsgrid-cell jsgrid-align-center">차감 수령액</td>
 												<td class="jsgrid-cell jsgrid-align-center">
-													<input type="number" value="0" id="pay_total"name="pay_total"class="col-10 vl " readOnly></td>
+													<input type="number" value="0" id="pay_total"name="pay_total"class="col-10 vl "min='0' readOnly></td>
 											</tr>
 											<tr>
 											<td colspan="4" class="bg-white">

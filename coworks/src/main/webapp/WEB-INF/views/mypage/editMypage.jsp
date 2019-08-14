@@ -120,7 +120,8 @@
 
 		function check() {
 			if ($("#pre_password") != null) {
-				if($("#new_password").val()!=""||$("#new_password").val()!=undefined){
+				console.log($("#new_password").val());
+				if($("#new_password").val()!=""){
 					if($("#new_password").val().length < 4){
 						alert('비밀번호는 최소 4자리 이상입니다');
 						return false;

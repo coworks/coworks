@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CO-WORKS : 메일함</title>
+<title>CO-WORKS : 쪽지함</title>
 <c:import url="../common/header.jsp" />
 </head>
 
@@ -173,6 +173,7 @@
 	    	console.log("!23");
 	        chkdms.push($(this).attr('id'));
 	    });
+	    console.log(chkdms);
 	 }
 	    /* var allData = { "dm_no": dm_no, "chkdms": chkdm }; */
 	     /*  onclick="location.href='${pageContext.request.contextPath}/dm/selectOnedm.do/${m.getDm_no}/${type}' */

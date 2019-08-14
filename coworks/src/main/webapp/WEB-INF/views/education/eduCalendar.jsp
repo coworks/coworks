@@ -272,7 +272,7 @@
 																			else if (data = 0)
 																				alert("마감되었습니다.");
 																			else {
-																				alert()
+																				alert("이미 신청하셨거나 마감되었습니다:(");
 																			}
 
 																		},

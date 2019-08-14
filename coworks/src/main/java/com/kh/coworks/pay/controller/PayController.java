@@ -221,8 +221,27 @@ public class PayController {
 //		System.out.println("json : " + json);
 		return "pay/empListPay";
 	}
+	
+	@RequestMapping(value = "/pay/myPay")
+	public String myPay( Model model,
+			@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,HttpServletRequest req) {
 
-	@RequestMapping(value = "/pay/detailPay.do/{pay_no}", method = RequestMethod.GET)
+		int emp_no=((Employee)req.getSession().getAttribute("employee")).getEmp_no();
+		int limit = 5; // 한 페이지 당 게시글 수
+		List<Pay> list = payService.empListPay(cPage, limit, emp_no);
+		int totalContents = payService.empPayCount(emp_no);
+		String pageBar = Utils.getPageBar(totalContents, cPage, limit,emp_no+"");
+
+		model.addAttribute("list", list).addAttribute("totalContents", totalContents).addAttribute("numPerPage", limit)
+				.addAttribute("pageBar", pageBar);
+
+//		JSONArray json = new JSONArray();
+//		json.addAll(list);
+//		System.out.println("json : " + json);
+		return "pay/payMonth";
+	}
+
+	@RequestMapping(value = "/pay/detailPay.do/{pay_no}",method = RequestMethod.GET)
 //	@ResponseBody
 	public String detailPay(@PathVariable("pay_no") String pay_no, Model model) {
 		System.out.println("pay_no  " + pay_no);

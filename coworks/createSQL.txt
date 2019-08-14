@@ -895,29 +895,45 @@ where employee.dept_code=department.dept_code and employee.job_code=job.job_code
 
 
 --쪽지  
-CREATE TABLE "DM" 
-   (   "DM_NO" NUMBER, 
-   "DM_FROM" NUMBER, 
-   "DM_SUBJECT" VARCHAR2(200), 
-   "DM_CONTENT" VARCHAR2(2000), 
-   "DM_DATE" TIMESTAMP (6) DEFAULT SYSDATE, 
-   "DM_FROM_DEL" VARCHAR2(10) DEFAULT 'N', 
-   "DM_TO" NUMBER, 
-   "DM_TO_DEL" VARCHAR2(10) DEFAULT 'N', 
-   "DM_TO_READ" VARCHAR2(20) DEFAULT 'N'
-   );
-       
-      CREATE OR REPLACE VIEW "DMVIEW" ("DM_NO", "DM_FROM", "DM_SUBJECT", "DM_CONTENT", "DM_DATE", "DM_FROM_DEL", "DM_FROM_NAME", "DM_FROM_DEPT", "DM_FROM_JOB", "DM_TO", "DM_TO_DEL", "DM_TO_READ") AS 
-      SELECT 
-     dm.dm_no,
-     dm.dm_from,dm_subject, dm.dm_content, dm.dm_date,
-     dm.dm_from_del, employee.emp_name, department.dept_name, job.job_title  ,dm.dm_to, dm.dm_to_del, dm.dm_to_read
-     
-    FROM 
-        employee,department,job, dm 
-    where employee.dept_code=department.dept_code and employee.job_code=job.job_code
-    and employee.emp_no = dm_from;
- 
+--------------------------------------------------------
+--  DDL for Table DM
+--------------------------------------------------------
+
+  CREATE TABLE "COWORKS"."DM" 
+   (	"DM_NO" NUMBER, 
+	"DM_FROM" NUMBER, 
+	"DM_SUBJECT" VARCHAR2(200 BYTE), 
+	"DM_CONTENT" VARCHAR2(2000 BYTE), 
+	"DM_DATE" TIMESTAMP (6) DEFAULT SYSDATE, 
+	"DM_FROM_DEL" VARCHAR2(10 BYTE) DEFAULT 'N', 
+	"DM_TO" NUMBER, 
+	"DM_TO_DEL" VARCHAR2(10 BYTE) DEFAULT 'N', 
+	"DM_TO_READ" VARCHAR2(20 BYTE) DEFAULT 'N'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index DM_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "COWORKS"."DM_PK" ON "COWORKS"."DM" ("DM_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  Constraints for Table DM
+--------------------------------------------------------
+
+  ALTER TABLE "COWORKS"."DM" ADD CONSTRAINT "DM_PK" PRIMARY KEY ("DM_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "COWORKS"."DM" MODIFY ("DM_NO" NOT NULL ENABLE);
+
 
    
 CREATE SEQUENCE  "COWORKS"."SEQ_DM"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 300 NOCACHE  NOORDER  NOCYCLE ;

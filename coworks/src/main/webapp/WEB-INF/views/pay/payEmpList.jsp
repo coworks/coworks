@@ -144,6 +144,7 @@
 	/* function search(){
 		location.href="${pageContext.request.contextPath}/pay/employeeSearch.do?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
 	} */
+	
 	function search(){
 		var searchKey = $("#keyword").val();
 		var searchCdt = $("#searchCondition").val();
