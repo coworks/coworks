@@ -75,7 +75,7 @@ public class MailController {
 		HttpSession session = request.getSession();
 		Employee emp = (Employee) session.getAttribute("employee");
 		MimeMessage msg = mailSetting.sendingSetting(request);
-		try {
+		try { 
 			msg.setSentDate(new Date());
 			msg.setFrom(new InternetAddress(emp.getEmp_email(), "COWORKS : " + emp.getEmp_name()));
 			InternetAddress to = new InternetAddress(mail.getMail_to_email());
