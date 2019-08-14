@@ -453,7 +453,7 @@ td th {
 		
 		function godepart(){
 			
-			var dept_name = $("#dept_name").val();
+			var dept_name = $("#dept_name2").val();
 			
 			 if(dept_name == ""){
 					Swal.fire({
@@ -470,8 +470,8 @@ td th {
 		
 		function goupdate(){
 			
-			var dept_name = $("#dept_name").val();
-			var dept_code = $("#dept_code option:selected").val();
+			var dept_name = $("#dept_name3").val();
+			var dept_code = $("#dept_code3 option:selected").val();
 			
 			if(dept_code == ""){
 				Swal.fire({
