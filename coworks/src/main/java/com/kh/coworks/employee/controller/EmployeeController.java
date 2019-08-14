@@ -97,8 +97,8 @@ public class EmployeeController {
 		System.out.println("1");
 		Employee emp = employeeService.selectEmail(email);
 
-		String coemail = "kyurin123@gmail.com";
-		String copassword = "zizi1069";
+		String coemail = "email";//직접 넣으세요 ㅎㅎ
+		String copassword = "password";//너꺼 넣으세요 ㅎ
 		if (emp != null) {
 			int rndNum = (int) (Math.random() * 10000) + 1;
 			emp.setEmp_password(rndNum + "");
