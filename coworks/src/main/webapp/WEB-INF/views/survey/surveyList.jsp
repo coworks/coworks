@@ -274,7 +274,9 @@
 			$.ajax({
 						url : "${pageContext.request.contextPath}/survey/selectOneSurveyApp.do?surno="+ surno,
 						dataType : "json",
+						cache : false ,
 						success : function(data) {
+							
 							$("#surveytitle").text(data[0].survey_quest);
 							var temp = 0;
 							for(var i=0;i<data.length;i++){
@@ -285,7 +287,9 @@
 								temp = Math.round((100/cnt)*data[i].cnt);
 								
 							$('#surveyadd').append("<h5 class='mt-4'>"+data[i].survey_content+"  투표율["+temp+"%]<span class='float-right'>"+data[i].cnt+"명 투표</span></h5>");
-							$('#surveyadd').append("<div class='progress'><div class='progress-bar bg-megna wow animated progress-animated' style='width:"+(100/cnt)*data[i].cnt+"%;height:6px;' role='progressbar'><span class='sr-only'></span></div>");
+							$('#surveyadd').append("<div class='progress'><div class='progress-bar bg-megna wow animated progress-animated' style='width:"
+									+(100/cnt)*data[i].cnt+"%;height:6px;' role='progressbar'><span class='sr-only'></span></div>");
+							
 							}
 						},
 						error : function() {

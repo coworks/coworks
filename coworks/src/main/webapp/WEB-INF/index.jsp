@@ -71,7 +71,7 @@
 					<div class="col-lg-4">
 						<div class="card">
 							<div class="card-body">
-								<div class="m-2">	
+								<div class="m-2">
 									<jsp:useBean id="now" class="java.util.Date" />
 									<fmt:formatDate value="${now}" pattern="yyyy년 MM월 dd일"
 										var="today" />
@@ -169,7 +169,8 @@
 									<div id="addtodohome" class="modal" tabindex="-1" role="dialog"
 										aria-labelledby="myModalLabel" aria-hidden="true"
 										style="display: none;">
-										<div class="modal-dialog  <modal-dialog-centered></modal-dialog-centered>">
+										<div
+											class="modal-dialog  <modal-dialog-centered></modal-dialog-centered>">
 											<form method="post" action="addtodohome.do"
 												name="addtodohome">
 												<div class="modal-content">
@@ -287,86 +288,108 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-2 p-2">
-								<h4 class="card-title">설문조사</h4>
+									<c:set var="now" value="<%=new java.util.Date()%>" />
+									<h4 class="card-title">설문조사</h4>
 									<c:if test="${survey == null }">
 										<div class="detail-box col-12">
 											<div class="detail-list">
 												<div>
-													<img src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png" style="width: 50px; vertical-align: middle; border: 0" />
+													<img
+														src="${pageContext.request.contextPath}/resources/images/boardImg/none_exclamation.png"
+														style="width: 50px; vertical-align: middle; border: 0" />
 												</div>
-												<h4 class="text-themecolor" style="margin: 10px 0;">현재 진행 중인 설문조사가 없습니다.</h4>
+												<h4 class="text-themecolor" style="margin: 10px 0;">현재
+													진행 중인 설문조사가 없습니다.</h4>
 											</div>
 										</div>
 									</c:if>
 									<c:if test="${survey != null }">
-									<c:set var="surveyApp" value="${surveyApply}"/>
-									<c:if test="${surveyApp == null}">
-									<button class="float-right btn btn-sm btn-rounded btn-info"
-                            		  id="sa-success"  onclick="return go(1);">투표하기</button>
-                            		  <input type="hidden" value="${sessionScope.employee.emp_no }" name="emp_no" id="emp_no" />
-                            		  <input type="hidden" name="survey_no" id="survey_no" value="${survey.survey_no }" />
-									
-									<p class="card-text">
-										<i class="fas fa-quote-left text-info"></i>
-										<c:out value="${survey.survey_quest}" />
-										<i class="fas fa-quote-right text-info"></i>
-									</p>
-									<p class="card-text">
-										<small class="text-muted"><c:out
-												value="${survey.survey_start }" /> ~ <c:out
-												value="${survey.survey_end }" /></small>
-									</p>
-
-									<div class="radio radio-info pl-1">
-										<c:forEach items="${salist}" var="sa">
-											<li style="list-style:none;"><input type="radio"
-												id="${sa.surveyAn_no }" name="radio"
-												value="${sa.surveyAn_no }"> <label
-												for="${sa.surveyAn_no }">&nbsp;<span>${sa.survey_content}
-												</span>
-											</label></li>
-										</c:forEach>
-									</div>
-								</c:if>
-									<c:set var="surveyApp" value="${surveyApply}"/>
-									<c:if test="${surveyApp != null}">
-									<button class="float-right btn btn-sm btn-rounded btn-info"
-                            		  id="sa-success"  onclick="return go(2);">투표수정</button>
-                            		  <input type="hidden" value="${sessionScope.employee.emp_no }" name="emp_no" id="emp_no" />
-                            		  <input type="hidden" name="survey_no" id="survey_no" value="${survey.survey_no }" />
-									<p class="card-text">
-										<i class="fas fa-quote-left text-info"></i>
-										<c:out value="${survey.survey_quest}" />
-										<i class="fas fa-quote-right text-info"></i>
-									</p>
-									<p class="card-text">
-										<small class="text-muted"><c:out
-												value="${survey.survey_start }" /> ~ <c:out
-												value="${survey.survey_end }" /></small>
-									</p>
-
-									<div class="radio radio-info pl-1">
-										<c:forEach items="${salist}" var="sa">
-											<c:if test="${surveyApp.surveyan_no == sa.surveyAn_no}">
-											<li style="list-style:none;"><input type="radio"
-												id="${sa.surveyAn_no }" name="radio"
-												value="${sa.surveyAn_no }" checked> <label
-												for="${sa.surveyAn_no }">&nbsp;<span>${sa.survey_content}
-												</span>
-											</label></li>
+										<c:set var="surveyApp" value="${surveyApply}" />
+										<c:if test="${surveyApp == null}">
+											<c:if test="${now <survey.survey_end}">
+												<button class="float-right btn btn-sm btn-rounded btn-info"
+													id="sa-success" onclick="return go(1);">투표하기</button>
 											</c:if>
-											<c:if test="${surveyApp.surveyan_no != sa.surveyAn_no}">
-												<li style="list-style:none;"><input type="radio"
-												id="${sa.surveyAn_no }" name="radio"
-												value="${sa.surveyAn_no }" > <label
-												for="${sa.surveyAn_no }">&nbsp;<span>${sa.survey_content}
-												</span>
-											</label></li>
+											<input type="hidden" value="${sessionScope.employee.emp_no }"
+												name="emp_no" id="emp_no" />
+											<input type="hidden" name="survey_no" id="survey_no"
+												value="${survey.survey_no }" />
+
+											<p class="card-text">
+												<i class="fas fa-quote-left text-info"></i>
+												<c:out value="${survey.survey_quest}" />
+												<i class="fas fa-quote-right text-info"></i>
+											</p>
+											<p class="card-text">
+												<c:if test="${now >survey.survey_end}">
+													<small class="text-danger"
+														style="text-decoration: line-through"><fmt:formatDate
+															value="${survey.survey_start }" pattern="yyyy년MM월dd일 " />
+														~ <fmt:formatDate value="${survey.survey_end }"
+															pattern="yyyy년MM월dd일 " /></small>
+													<small class="text-danger"> 기한만료 </small>
+												</c:if>
+											</p>
+
+											<div class="radio radio-info pl-1">
+												<c:forEach items="${salist}" var="sa">
+													<li style="list-style: none;"><input type="radio"
+														id="${sa.surveyAn_no }" name="radio"
+														value="${sa.surveyAn_no }"> <label
+														for="${sa.surveyAn_no }">&nbsp;<span>${sa.survey_content}
+														</span>
+													</label></li>
+												</c:forEach>
+											</div>
+										</c:if>
+										<c:set var="surveyApp" value="${surveyApply}" />
+										<c:if test="${surveyApp != null}">
+											<c:if test="${now <survey.survey_end}">
+												<button class="float-right btn btn-sm btn-rounded btn-info"
+													id="sa-success" onclick="return go(2);">투표수정</button>
 											</c:if>
-										</c:forEach>
-									</div>
-								</c:if>
-								</c:if>
+											<input type="hidden" value="${sessionScope.employee.emp_no }"
+												name="emp_no" id="emp_no" />
+											<input type="hidden" name="survey_no" id="survey_no"
+												value="${survey.survey_no }" />
+											<p class="card-text">
+												<i class="fas fa-quote-left text-info"></i>
+												<c:out value="${survey.survey_quest}" />
+												<i class="fas fa-quote-right text-info"></i>
+											</p>
+											<p class="card-text">
+												<c:if test="${now >survey.survey_end}">
+													<small class="text-danger"
+														style="text-decoration: line-through"><fmt:formatDate
+															value="${survey.survey_start }" pattern="yyyy년MM월dd일 " />
+														~ <fmt:formatDate value="${survey.survey_end }"
+															pattern="yyyy년MM월dd일 " /></small>
+													<small class="text-danger"> 기한만료 </small>
+												</c:if>
+											</p>
+
+											<div class="radio radio-info pl-1">
+												<c:forEach items="${salist}" var="sa">
+													<c:if test="${surveyApp.surveyan_no == sa.surveyAn_no}">
+														<li style="list-style: none;"><input type="radio"
+															id="${sa.surveyAn_no }" name="radio"
+															value="${sa.surveyAn_no }" checked> <label
+															for="${sa.surveyAn_no }">&nbsp;<span>${sa.survey_content}
+															</span>
+														</label></li>
+													</c:if>
+													<c:if test="${surveyApp.surveyan_no != sa.surveyAn_no}">
+														<li style="list-style: none;"><input type="radio"
+															id="${sa.surveyAn_no }" name="radio"
+															value="${sa.surveyAn_no }"> <label
+															for="${sa.surveyAn_no }">&nbsp;<span>${sa.survey_content}
+															</span>
+														</label></li>
+													</c:if>
+												</c:forEach>
+											</div>
+										</c:if>
+									</c:if>
 								</div>
 							</div>
 						</div>

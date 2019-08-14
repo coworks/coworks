@@ -58,7 +58,7 @@ td th {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-outline-info waves-effect" >등록하기</button>
+							<button type="submit" class="btn btn-outline-info waves-effect" onclick="return goupdate();">변경하기</button>
 							<button type="button" class="btn btn-outline-danger waves-effect"
 								data-dismiss="modal">취소하기</button>
 						</div>
@@ -90,7 +90,7 @@ td th {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-outline-info waves-effect">등록하기</button>
+							<button type="submit" class="btn btn-outline-info waves-effect" onclick="return godepart();">등록하기</button>
 							<button type="button" class="btn btn-outline-danger waves-effect"
 								data-dismiss="modal">취소하기</button>
 						</div>
@@ -450,6 +450,49 @@ td th {
 			}
 			
 		}
+		
+		function godepart(){
+			
+			var dept_name = $("#dept_name").val();
+			
+			 if(dept_name == ""){
+					Swal.fire({
+		                title: "ʕ•ᴥ•ʔ  부서명을 입력해주세요!",
+		                timer: 1300,
+		                showConfirmButton: false
+		            });
+					return false;
+				}
+				
+				return true;
+		}
+		
+		
+		function goupdate(){
+			
+			var dept_name = $("#dept_name").val();
+			var dept_code = $("#dept_code option:selected").val();
+			
+			if(dept_code == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  부서를 선택해주세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}else if(dept_name == ""){
+				Swal.fire({
+	                title: "ʕ•ᴥ•ʔ  부서명을 입력해주세요!",
+	                timer: 1300,
+	                showConfirmButton: false
+	            });
+				return false;
+			}
+			
+			return true;
+			
+		}
+		
 	</script>
 	<%-- 	<script
 		src="${pageContext.request.contextPath}/resources/templates/assets/plugins/jsgrid/db.js"></script>
