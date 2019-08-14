@@ -38,7 +38,7 @@ td th {
 						</div>
 						<div class="col-md-12">
 							<div class="form-group has-success">
-								<label class="control-label">부서명</label> <select id="dept_code"
+								<label class="control-label">부서명</label> <select id="dept_code3"
 									name="dept_code" class="form-control custom-select">
 									<option value="0"></option>
 									<c:forEach items="${departmentList}" var="de">
@@ -52,7 +52,7 @@ td th {
 							<div class="col-md-13">
 								<div class="form-group">
 									<label class="control-label">변경할 부서명 </label> <input
-										type="text" id="dept_name" name="dept_name"
+										type="text" id="dept_name3" name="dept_name"
 										class="form-control" placeholder="부서명을 입력하세요">
 								</div>
 							</div>
@@ -84,7 +84,7 @@ td th {
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="control-label">부서명 </label> <input type="text"
-										id="dept_name" name="dept_name" class="form-control"
+										id="dept_name2" name="dept_name" class="form-control"
 										placeholder="부서명을 입력하세요">
 								</div>
 							</div>
@@ -453,7 +453,7 @@ td th {
 		
 		function godepart(){
 			
-			var dept_name = $("#dept_name").val();
+			var dept_name = $("#dept_name2").val();
 			
 			 if(dept_name == ""){
 					Swal.fire({
@@ -470,8 +470,8 @@ td th {
 		
 		function goupdate(){
 			
-			var dept_name = $("#dept_name").val();
-			var dept_code = $("#dept_code option:selected").val();
+			var dept_name = $("#dept_name3").val();
+			var dept_code = $("#dept_code3 option:selected").val();
 			
 			if(dept_code == ""){
 				Swal.fire({
